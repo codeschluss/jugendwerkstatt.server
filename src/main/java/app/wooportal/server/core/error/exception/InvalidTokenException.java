@@ -10,6 +10,8 @@ public class InvalidTokenException extends RuntimeException {
   public InvalidTokenException(String message, String... params) {
     super(String.format("Invalid token: %1$s, params: %2$s", 
         message,
-        Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))));
+        params != null 
+          ? Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))
+          : ""));
   }
 }

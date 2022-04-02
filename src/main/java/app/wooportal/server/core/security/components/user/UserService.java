@@ -13,8 +13,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
   public UserService(
       UserRepository repo,
+      UserPredicateBuilder predicate,
       BCryptPasswordEncoder encoder) {
-    super(repo, null);
+    super(repo, predicate);
     this.bcryptPasswordEncoder = encoder;
   }
   
@@ -35,7 +36,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       UserEntity newEntity, 
       JsonNode context) {
     if (newEntity.getPassword() != null) {
-      entity.setPassword(bcryptPasswordEncoder.encode(newEntity.getPassword()));
+      var password = bcryptPasswordEncoder.encode(newEntity.getPassword());
+      entity.setPassword(password);
+      newEntity.setPassword(password);
       removeContext("password", context);
     }
   }

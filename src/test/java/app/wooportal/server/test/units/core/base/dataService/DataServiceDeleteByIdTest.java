@@ -56,7 +56,7 @@ public class DataServiceDeleteByIdTest {
   
   @Test
   public void deleteByIdNull() throws Exception {
-    service.deleteById(null);
+    service.deleteById();
     
     assertThat(testRepo.findAll()).containsAll(data);
   }

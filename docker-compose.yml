@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  server:
+    build: https://github.com/wooportal/server-next.git#main
+    command: java -jar server.jar
+    container_name: wooportal.server-next.dev
+    extra_hosts: [$HOSTNAME:127.0.0.1]
+    healthcheck: { disable: true }
+    image: wooportal/server-next:dev
+    network_mode: host
+    environment: ["SPRING_PROFILES_ACTIVE=development"]

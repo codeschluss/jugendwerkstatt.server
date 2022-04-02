@@ -9,8 +9,10 @@ public class NotFoundException extends RuntimeException {
 
   public NotFoundException(String message, String... params) {
     super(String.format("Not found: %1$s, params: %2$s", 
-            message,
-            Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))));
+        message,
+        params != null 
+          ? Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))
+          : ""));
   }
 
 }

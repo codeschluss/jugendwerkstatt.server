@@ -9,8 +9,10 @@ public class BadParamsException extends RuntimeException {
 
   public BadParamsException(String message, Object... params) {
     super(String.format("Bad param: %1$s, params: %2$s", 
-            message,
-            Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))));
+        message,
+        params != null 
+          ? Stream.of(params).map(p -> p.toString()).collect(Collectors.joining(", "))
+          : ""));
   }
  
 }

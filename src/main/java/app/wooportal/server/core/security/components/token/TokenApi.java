@@ -4,20 +4,20 @@ import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.stereotype.Component;
 import app.wooportal.server.core.security.JwtUserDetails;
 import app.wooportal.server.core.security.services.JwtUserDetailsService;
 import io.leangen.graphql.annotations.GraphQLMutation;
+import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
 @Component
 @GraphQLApi
 public class TokenApi {
   
-  private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authManager;
 
   private final TokenService tokenService;
   
@@ -27,10 +27,11 @@ public class TokenApi {
   private HttpServletRequest request;
 
   public TokenApi(
+      AuthenticationManager authManager,
       TokenService tokenService, 
       JwtUserDetailsService userDetailService) {
     
-    this.authenticationManager = new ProviderManager(new DaoAuthenticationProvider());
+    this.authManager = authManager;
     this.tokenService = tokenService;
     this.userDetailService = userDetailService;
   }
@@ -39,16 +40,20 @@ public class TokenApi {
   public TokenDto createToken(
       String username,
       String password) {
-    var jwtUserDetails = (JwtUserDetails) authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        username, password, Collections.emptyList())).getPrincipal();
-    
-    var accessToken = tokenService.createAccessToken(jwtUserDetails);
-    var refreshToken = tokenService.createRefreshToken(jwtUserDetails);
+    try {
+      var jwtUserDetails = (JwtUserDetails) authManager.authenticate(new UsernamePasswordAuthenticationToken(
+          username, password, Collections.emptyList())).getPrincipal();
+      
+      var accessToken = tokenService.createAccessToken(jwtUserDetails);
+      var refreshToken = tokenService.createRefreshToken(jwtUserDetails);
 
-    return new TokenDto(accessToken, refreshToken);
+      return new TokenDto(accessToken, refreshToken); 
+    } catch(Exception e) {
+      throw new BadCredentialsException(password);
+    }
   }
 
-  @GraphQLMutation(name = "refreshToken")
+  @GraphQLQuery(name = "refreshToken")
   public TokenDto refreshToken() throws Exception {
     var refreshToken = request.getHeader("Authorization");
     tokenService.verifyRefresh(refreshToken);

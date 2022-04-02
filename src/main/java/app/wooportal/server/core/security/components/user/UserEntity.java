@@ -1,9 +1,5 @@
 package app.wooportal.server.core.security.components.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import app.wooportal.server.core.base.BaseEntity;
-import app.wooportal.server.core.security.components.role.RoleEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,14 +10,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.security.components.role.RoleEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Setter
 @Getter
@@ -46,7 +44,6 @@ public class UserEntity extends BaseEntity {
   private String loginName;
  
   @Column(nullable = false)
-  @JsonProperty(access = Access.WRITE_ONLY)
   private String password;
   
   @ManyToMany(fetch = FetchType.LAZY)
