@@ -1,4 +1,3 @@
-# app.wooportal-gmbh.com/wooportal.server
 FROM alpine:latest
 LABEL maintainer info@codeschluss.de
 COPY / /tmp/wooportal.server
