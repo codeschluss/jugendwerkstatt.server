@@ -42,6 +42,7 @@ public class RoleEntity extends BaseEntity {
           @UniqueConstraint(columnNames = { "user_id", "role_id" })
       })
   @CollectionId(
+      columns = {},
       column = @Column(name = "id"),
       type = @Type(type = "uuid-char"),
       generator = "UUID"

@@ -60,5 +60,10 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
       @GraphQLArgument(name = CrudApi.id) String id) {
     super.deleteOne(id);
   }
+  
+  @GraphQLMutation(name = "verify")
+  public UserEntity verify(String key) {
+    return service.verify(key);
+  }
 
 }

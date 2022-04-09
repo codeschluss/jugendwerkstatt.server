@@ -1,12 +1,20 @@
 package app.wooportal.server.core.security.components.role;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.error.exception.NotFoundException;
 import app.wooportal.server.core.security.components.user.UserEntity;
 
 @Service
 public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
+  
+  public static String approved = "approved";
+  
+  public static String verified = "verified";
+  
+  public static String admin = "admin";
   
   public RoleService(
       RoleRepository repo,
@@ -17,6 +25,27 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
   public List<RoleEntity> getByUser(UserEntity user) {
     return repo.findAll(query()
         .and(predicate.withUserId(user.getId()))).getList();
+  }
+
+  public RoleEntity getAdminRole() {
+    return repo.findOne(predicate.withName(admin)).get();
+  }
+  
+  public RoleEntity getApprovedRole() {
+    return repo.findOne(predicate.withName(approved)).get();
+  }
+  
+  public RoleEntity getVerifiedRole() {
+    return repo.findOne(predicate.withName(verified)).get();
+  }
+  
+  @PostConstruct
+  public void checkRoles() {
+    if (!repo.exists(predicate.withName(approved))
+        || !repo.exists(predicate.withName(verified))
+        || !repo.exists(predicate.withName(admin))) {
+      throw new NotFoundException("Not all roles exists!");
+    }
   }
 
 }

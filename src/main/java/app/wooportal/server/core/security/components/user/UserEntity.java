@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.CollectionId;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.role.RoleEntity;
+import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +39,7 @@ public class UserEntity extends BaseEntity {
   
   private String fullname;
   
-  @Column(
+  @Column(  
       unique = true, 
       nullable = false,
       name = "login_name")
@@ -60,5 +62,10 @@ public class UserEntity extends BaseEntity {
       generator = "UUID"
   )
   private List<RoleEntity> roles = new ArrayList<>();
+  
+  @OneToOne(
+      mappedBy = "user",
+      fetch = FetchType.LAZY)
+  private VerificationEntity verification;
   
 }
