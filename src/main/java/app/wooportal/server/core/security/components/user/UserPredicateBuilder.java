@@ -1,5 +1,6 @@
 package app.wooportal.server.core.security.components.user;
 
+import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
@@ -23,6 +24,19 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
 
   public BooleanExpression withRole(String name) {
     return query.roles.any().name.equalsIgnoreCase(name);
+  }
+
+  public BooleanExpression createdBeforeAndNotVerified(
+      OffsetDateTime date) {
+    return before(date).and(notVerified());
+  }
+  
+  public BooleanExpression before(OffsetDateTime date) {
+    return query.created.before(date);
+  }
+  
+  public BooleanExpression notVerified() {
+    return query.verification.isNotNull();
   }
 
 }

@@ -14,7 +14,7 @@
 			<span>Hallo ${fullname},</span>
 			<br />
 			<br />
-			<span>Glückwunsch für deine Registrierung bei der ${portalName}!</span>
+			<span>herzlich Willkommen!</span>
 			<br />
 			<br />
 			<span>Um dein Konto zu aktivitieren, klicke bitte auf die folgende Schaltfläche, um deine E-Mail-Adresse zu verifizieren:</span>

@@ -17,6 +17,20 @@ import java.util.Set;
 public class ReflectionUtils {
 
   private static final Set<Class<?>> BASE_TYPES = getBaseTypes();
+  
+  public static <E> E copy(E object) {
+    var newObject = newInstance(object);
+    for (var field : object.getClass().getDeclaredFields()) {
+      var value = get(field.getName(), object);
+      if (value.isPresent()) {
+        set(
+            field.getName(), 
+            newObject, 
+            value.get());
+      }
+    }
+    return newObject;
+  }
 
   public static <A extends Annotation> Optional<Object> getAnnotationValue(
       Object obj, String fieldName, Class<A> annotationClass, String annotationField) {

@@ -56,15 +56,14 @@ public class VerificationService extends DataService<VerificationEntity, Verific
       VerificationEntity saved,
       VerificationEntity newEntity, 
       JsonNode context) {
-    var user = saved.getUser();
     mailService.sendEmail(
         "Email verifizieren",
         "verification.ftl", 
         Map.of(
-            "fullname", user.getFullname(),
+            "fullname", saved.getUser().getFullname(),
             "portalName", config.getPortalName(),
             "verificationLink", createVerifcationLink(saved)),
-        user.getLoginName());
+        saved.getUser().getLoginName());
   }
 
   private String createVerifcationLink(VerificationEntity saved) {

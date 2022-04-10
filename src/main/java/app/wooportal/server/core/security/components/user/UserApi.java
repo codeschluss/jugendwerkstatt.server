@@ -61,6 +61,11 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     super.deleteOne(id);
   }
   
+  @GraphQLMutation(name = "sendVerification")
+  public void sendVerification(String mailAddress) {
+    service.createVerification(mailAddress);
+  }
+  
   @GraphQLMutation(name = "verify")
   public UserEntity verify(String key) {
     return service.verify(key);

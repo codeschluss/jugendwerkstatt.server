@@ -1,14 +1,19 @@
 package app.wooportal.server.core.security.components.user;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
+import app.wooportal.server.core.error.exception.NotFoundException;
 import app.wooportal.server.core.error.exception.VerificationInvalidException;
 import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import app.wooportal.server.core.security.components.verification.VerificationService;
+import app.wooportal.server.core.utils.ReflectionUtils;
 
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
@@ -41,6 +46,12 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return repo.findOne(predicate.withLoginName(name));
   }
   
+  public List<UserEntity> getNotVerifiedOlderThan(OffsetDateTime date) {
+    return repo.findAll(query(false)
+        .and(predicate.createdBeforeAndNotVerified(date)))
+        .getList();
+  }
+  
   @Override
   public void preSave(
       UserEntity entity,
@@ -56,6 +67,25 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (entity.getId() == null || entity.getId().isBlank()) {
       newEntity.setVerification(new VerificationEntity());
     }
+  }
+  
+  public void createVerification(String mailAddress) {
+    var result = repo.findOne(predicate.withLoginName(mailAddress));
+    
+    if (result.isEmpty()) {
+      throw new NotFoundException("User with mail does not exsit", mailAddress);
+    }
+    
+    if (result.get().getRoles().stream().anyMatch(r -> r.getName().equalsIgnoreCase(RoleService.verified))) {
+      throw new AlreadyVerifiedException("Already verified");
+    }
+    
+    if (result.get().getVerification() != null) {
+      getService(VerificationService.class).deleteById(result.get().getVerification().getId());
+    }
+    var newEntity = ReflectionUtils.copy(result.get());
+    newEntity.setVerification(new VerificationEntity());
+    persist(result.get(), newEntity, null);
   }
 
   public UserEntity verify(String key) {
