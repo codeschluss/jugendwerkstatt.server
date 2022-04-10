@@ -1,18 +1,30 @@
 package app.wooportal.server.core.security.components.verification;
 
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.config.GeneralConfiguration;
+import app.wooportal.server.core.mail.MailService;
 import app.wooportal.server.core.utils.StringUtils;
 
 @Service
 public class VerificationService extends DataService<VerificationEntity, VerificationPredicateBuilder> {
+  
+  private final GeneralConfiguration config;
+  
+  private final MailService mailService;
 
   public VerificationService(
       VerificationRepository repo,
-      VerificationPredicateBuilder predicate) {
+      VerificationPredicateBuilder predicate,
+      GeneralConfiguration config,
+      MailService mailService) {
     super(repo, predicate);
+    
+    this.config = config;
+    this.mailService = mailService;
   }
 
   public Optional<VerificationEntity> getByKey(String name) {
@@ -25,15 +37,38 @@ public class VerificationService extends DataService<VerificationEntity, Verific
       VerificationEntity newEntity, 
       JsonNode context) {
     if(newEntity.getKey() == null || newEntity.getKey().isBlank()) {      
-      while(true) {
-        var key = StringUtils.randomAlphanumeric(255);
-        if (getByKey(key).isEmpty()) {
-          newEntity.setKey(key);
-          setContext("key", context);
-          break;
-        }
+      newEntity.setKey(generateNewKey());
+      setContext("key", context);
+    }
+  }
+  
+  private String generateNewKey() {
+    while(true) {
+      var key = StringUtils.randomAlphanumeric(255);
+      if (getByKey(key).isEmpty()) {
+        return key;
       }
     }
+  }
+
+  @Override
+  public void postSave(
+      VerificationEntity saved,
+      VerificationEntity newEntity, 
+      JsonNode context) {
+    var user = saved.getUser();
+    mailService.sendEmail(
+        "Email verifizieren",
+        "verification.ftl", 
+        Map.of(
+            "fullname", user.getFullname(),
+            "portalName", config.getPortalName(),
+            "verificationLink", createVerifcationLink(saved)),
+        user.getLoginName());
+  }
+
+  private String createVerifcationLink(VerificationEntity saved) {
+    return config.getHost() + "/verification/" + saved.getKey();
   }
   
 }

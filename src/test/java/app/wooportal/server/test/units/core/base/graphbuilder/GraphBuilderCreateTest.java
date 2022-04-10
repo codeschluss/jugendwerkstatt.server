@@ -122,6 +122,7 @@ public class GraphBuilderCreateTest {
   }
   
   @TestConfiguration
+  @Profile("test")
   static class TestContextConfiguration {
 
     @Bean
@@ -130,7 +131,7 @@ public class GraphBuilderCreateTest {
       return new ObjectMapper();
     }
 
-    @Bean
+    @Bean 
     @Profile("test")
     public JavaMailSender mail() {
       return new JavaMailSenderImpl();

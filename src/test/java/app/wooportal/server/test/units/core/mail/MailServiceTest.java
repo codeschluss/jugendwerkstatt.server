@@ -17,12 +17,15 @@ import javax.mail.internet.MimeMessage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.mail.javamail.JavaMailSender;
+import app.wooportal.server.core.config.GeneralConfiguration;
 import app.wooportal.server.core.mail.MailConfiguration;
 import app.wooportal.server.core.mail.MailService;
 import app.wooportal.server.core.mail.MailTemplateService;
 import freemarker.template.Configuration;
 
 public class MailServiceTest {
+  
+  private static GeneralConfiguration generalConfig;
   
   private static MailConfiguration mailConfig;
   
@@ -36,14 +39,18 @@ public class MailServiceTest {
     when(mailSenderMock.createMimeMessage()).thenReturn(
         new MimeMessage(Session.getDefaultInstance(new Properties())));
     
+    generalConfig = new GeneralConfiguration(
+        "localhost",
+        "portal");
+    
     mailConfig = new MailConfiguration(
         "test@from.de", 
         "test@to.de", 
-        "/templates/", 
-        "portal");
+        "/templates/");
     mailService = new MailService(
+        generalConfig,
+        mailConfig,
         mailSenderMock, 
-        mailConfig, 
         new MailTemplateService(
             new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS), 
             mailConfig));
@@ -63,7 +70,7 @@ public class MailServiceTest {
     verify(mailSenderMock).send((MimeMessage) argThat((message)-> {
       try {
         assertThat(((MimeMessage) message).getSubject()).contains(subject);
-        assertThat(((MimeMessage) message).getSubject()).contains(mailConfig.getPortalName());
+        assertThat(((MimeMessage) message).getSubject()).contains(generalConfig.getPortalName());
         assertThat(((MimeMessage) message).getFrom()).anyMatch(address -> 
           ((InternetAddress) address).getAddress().equals(mailConfig.getFromAddress()));
         assertThat(((MimeMessage) message).getRecipients(Message.RecipientType.TO)).anyMatch(address -> 

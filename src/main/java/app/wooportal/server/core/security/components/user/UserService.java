@@ -16,7 +16,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
   
   private final RoleService roleService;
-
+  
   public UserService(
       UserRepository repo,
       UserPredicateBuilder predicate,
