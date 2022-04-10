@@ -3,12 +3,13 @@ package app.wooportal.server.core.image;
 import java.io.Serial;
 import java.util.Base64;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import app.wooportal.server.core.base.BaseEntity;
-import io.leangen.graphql.annotations.types.GraphQLType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@GraphQLType
+@Entity
+@Table(name = "images")
 public class ImageEntity extends BaseEntity {
 
   @Serial
