@@ -3,9 +3,7 @@ package app.wooportal.server.core.security.components.verification;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.twelvemonkeys.lang.StringUtil;
 import app.wooportal.server.core.base.DataService;
-import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.utils.StringUtils;
 
 @Service
@@ -26,8 +24,15 @@ public class VerificationService extends DataService<VerificationEntity, Verific
       VerificationEntity entity,
       VerificationEntity newEntity, 
       JsonNode context) {
-    if(newEntity.getKey() == null || newEntity.getKey().isBlank()) {
-      newEntity.setKey(StringUtils.randomAlphanumeric(255));
+    if(newEntity.getKey() == null || newEntity.getKey().isBlank()) {      
+      while(true) {
+        var key = StringUtils.randomAlphanumeric(255);
+        if (getByKey(key).isEmpty()) {
+          newEntity.setKey(key);
+          setContext("key", context);
+          break;
+        }
+      }
     }
   }
   

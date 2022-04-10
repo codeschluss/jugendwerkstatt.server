@@ -3,7 +3,6 @@ package app.wooportal.server.core.image;
 import java.io.Serial;
 import java.util.Base64;
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -20,9 +19,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-@MappedSuperclass
 @GraphQLType
-public abstract class ImageEntity extends BaseEntity {
+public class ImageEntity extends BaseEntity {
 
   @Serial
   private static final long serialVersionUID = 1L;
