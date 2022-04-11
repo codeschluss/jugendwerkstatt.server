@@ -150,18 +150,28 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
     return graph.create(getEntityClass(), graphDef);
   }
   
-  protected void setContext(String field, JsonNode context) {
+  protected JsonNode createContext(String... fields) {
+    var context = objectMapper.createObjectNode();
+    for (var field : fields) {
+      setContext(field, context);
+    }
+    return context;
+  }
+  
+  protected JsonNode setContext(String field, JsonNode context) {
     if (context != null && (context.get(field) == null || context.get(field).isNull())
         && context instanceof ObjectNode) {
       ((ObjectNode) context).set(field, null);
     }
+    return context;
   }
   
-  protected void removeContext(String field, JsonNode context) {
+  protected JsonNode removeContext(String field, JsonNode context) {
     if (context != null && context.has(field)
         && context instanceof ObjectNode) {
       ((ObjectNode) context).remove(field);
     }
+    return context;
   }
   
   public List<E> saveAll(Collection<E> entities) {
@@ -213,7 +223,7 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
       ReflectionUtils.set("id", newEntity, uid);
     }
     
-    return context != null
+    return context != null && !context.isNull()
       ? saveFieldsWithContext(entity, newEntity, context)
       : saveFieldsWithoutContext(entity, newEntity);
   }

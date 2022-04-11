@@ -61,6 +61,16 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     super.deleteOne(id);
   }
   
+  @GraphQLMutation(name = "sendPasswordReset")
+  public void forgetPassword(String mailAddress) {
+    service.createPasswordReset(mailAddress);
+  }
+  
+  @GraphQLMutation(name = "resetPassword")
+  public void resetPassword(String key, String password) {
+    service.resetPassword(key, password);
+  }
+  
   @GraphQLMutation(name = "sendVerification")
   public void sendVerification(String mailAddress) {
     service.createVerification(mailAddress);

@@ -1,5 +1,7 @@
-package app.wooportal.server.core.security.components.verification;
+package app.wooportal.server.core.security.components.passwordReset;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -10,15 +12,15 @@ import app.wooportal.server.core.mail.MailService;
 import app.wooportal.server.core.utils.StringUtils;
 
 @Service
-public class VerificationService extends DataService<VerificationEntity, VerificationPredicateBuilder> {
+public class PasswordResetService extends DataService<PasswordResetEntity, PasswordResetBuilder> {
   
   private final GeneralConfiguration config;
   
   private final MailService mailService;
 
-  public VerificationService(
-      VerificationRepository repo,
-      VerificationPredicateBuilder predicate,
+  public PasswordResetService(
+      PasswordResetRepository repo,
+      PasswordResetBuilder predicate,
       GeneralConfiguration config,
       MailService mailService) {
     super(repo, predicate);
@@ -27,25 +29,30 @@ public class VerificationService extends DataService<VerificationEntity, Verific
     this.mailService = mailService;
   }
 
-  public Optional<VerificationEntity> getByKey(String name) {
+  public Optional<PasswordResetEntity> getByKey(String name) {
     return repo.findOne(predicate.withKey(name));
+  }
+  
+  public List<PasswordResetEntity> getCreatedBefore(OffsetDateTime date) {
+    return repo.findAll(query(false)
+        .and(predicate.createdBefore(date)))
+        .getList();
   }
   
   @Override
   public void preSave(
-      VerificationEntity entity,
-      VerificationEntity newEntity, 
+      PasswordResetEntity entity,
+      PasswordResetEntity newEntity, 
       JsonNode context) {
     if(newEntity.getKey() == null || newEntity.getKey().isBlank()) {      
       newEntity.setKey(generateNewKey());
       setContext("key", context);
       mailService.sendEmail(
-          "Email verifizieren",
-          "verification.ftl", 
+          "Passwort zurücksetzen",
+          "password_reset.ftl",
           Map.of(
-              "fullname", newEntity.getUser().getFullname(),
               "portalName", config.getPortalName(),
-              "link", createVerifcationLink(newEntity)),
+              "link", createPasswordResetLink(newEntity)),
           newEntity.getUser().getLoginName());
     }
   }
@@ -59,8 +66,8 @@ public class VerificationService extends DataService<VerificationEntity, Verific
     }
   }
 
-  private String createVerifcationLink(VerificationEntity saved) {
-    return config.getHost() + "/verification/" + saved.getKey();
+  private String createPasswordResetLink(PasswordResetEntity saved) {
+    return config.getHost() + "/passwordreset/" + saved.getKey();
   }
   
 }

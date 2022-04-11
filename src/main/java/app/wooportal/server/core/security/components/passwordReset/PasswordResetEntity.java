@@ -1,4 +1,4 @@
-package app.wooportal.server.core.security.components.verification;
+package app.wooportal.server.core.security.components.passwordReset;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
-@Table(name = "verifications")
-public class VerificationEntity extends BaseEntity {
+@Table(name = "password_resets")
+public class PasswordResetEntity extends BaseEntity {
   
   private static final long serialVersionUID = 1L;
   

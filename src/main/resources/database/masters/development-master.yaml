@@ -4,3 +4,5 @@ databaseChangeLog:
       file: database/seeds/seed-data.yaml
   - include:
       file: database/datasets/seed-data.yaml
+  - include:
+      file: database/changes/0004.create_table_passwordreset.yaml

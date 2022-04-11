@@ -15,6 +15,7 @@ import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
 import app.wooportal.server.core.security.components.role.RoleEntity;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import lombok.AccessLevel;
@@ -47,6 +48,11 @@ public class UserEntity extends BaseEntity {
  
   @Column(nullable = false)
   private String password;
+  
+  @OneToOne(
+      mappedBy = "user",
+      fetch = FetchType.LAZY)
+  private PasswordResetEntity passwordReset;
   
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(

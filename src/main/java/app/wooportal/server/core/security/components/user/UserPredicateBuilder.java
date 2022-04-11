@@ -28,10 +28,10 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
 
   public BooleanExpression createdBeforeAndNotVerified(
       OffsetDateTime date) {
-    return before(date).and(notVerified());
+    return createdBefore(date).and(notVerified());
   }
   
-  public BooleanExpression before(OffsetDateTime date) {
+  public BooleanExpression createdBefore(OffsetDateTime date) {
     return query.created.before(date);
   }
   

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
+import app.wooportal.server.core.error.exception.InvalidPasswordReset;
 import app.wooportal.server.core.error.exception.NotFoundException;
-import app.wooportal.server.core.error.exception.VerificationInvalidException;
+import app.wooportal.server.core.error.exception.InvalidVerificationException;
+import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
+import app.wooportal.server.core.security.components.passwordReset.PasswordResetService;
 import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import app.wooportal.server.core.security.components.verification.VerificationService;
@@ -27,11 +30,13 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       UserPredicateBuilder predicate,
       BCryptPasswordEncoder encoder,
       RoleService roleService,
+      PasswordResetService passwordResetService,
       VerificationService verificationService) {
     super(repo, predicate);
     
     this.bcryptPasswordEncoder = encoder;
     this.roleService = roleService;
+    addService("passwordReset", passwordResetService);
     addService("verification", verificationService);
   }
   
@@ -46,7 +51,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return repo.findOne(predicate.withLoginName(name));
   }
   
-  public List<UserEntity> getNotVerifiedOlderThan(OffsetDateTime date) {
+  public List<UserEntity> getNotVerifiedBefore(OffsetDateTime date) {
     return repo.findAll(query(false)
         .and(predicate.createdBeforeAndNotVerified(date)))
         .getList();
@@ -58,10 +63,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       UserEntity newEntity, 
       JsonNode context) {
     if (newEntity.getPassword() != null) {
-      var password = bcryptPasswordEncoder.encode(newEntity.getPassword());
-      entity.setPassword(password);
-      newEntity.setPassword(password);
-      setContext("password", context);
+      newEntity.setPassword(bcryptPasswordEncoder.encode(newEntity.getPassword()));
     }
     
     if (entity.getId() == null || entity.getId().isBlank()) {
@@ -69,11 +71,37 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
   }
   
+  public void createPasswordReset(String mailAddress) {
+    var result = repo.findOne(predicate.withLoginName(mailAddress));
+    
+    if (result.isEmpty()) {
+      throw new NotFoundException("User with mail does not exist", mailAddress);
+    }
+    
+    if (result.get().getPasswordReset() != null) {
+      getService(PasswordResetService.class).deleteById(result.get().getPasswordReset().getId());
+    }
+    
+    var copy = ReflectionUtils.copy(result.get());
+    copy.setPasswordReset(new PasswordResetEntity());
+    persist(result.get(), copy, createContext("passwordReset"));
+  }
+  
+  public void resetPassword(String key, String password) {
+    var passwordReset = getService(PasswordResetService.class).getByKey(key);
+    if (passwordReset.isEmpty()) {
+        throw new InvalidPasswordReset(key);
+    }
+    var user = passwordReset.get().getUser();
+    user.setPassword(bcryptPasswordEncoder.encode(password));
+    repo.save(user);
+  }
+  
   public void createVerification(String mailAddress) {
     var result = repo.findOne(predicate.withLoginName(mailAddress));
     
     if (result.isEmpty()) {
-      throw new NotFoundException("User with mail does not exsit", mailAddress);
+      throw new NotFoundException("User with mail does not exist", mailAddress);
     }
     
     if (result.get().getRoles().stream().anyMatch(r -> r.getName().equalsIgnoreCase(RoleService.verified))) {
@@ -83,9 +111,10 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (result.get().getVerification() != null) {
       getService(VerificationService.class).deleteById(result.get().getVerification().getId());
     }
-    var newEntity = ReflectionUtils.copy(result.get());
-    newEntity.setVerification(new VerificationEntity());
-    persist(result.get(), newEntity, null);
+    
+    var copy = ReflectionUtils.copy(result.get());
+    copy.setVerification(new VerificationEntity());
+    persist(result.get(), copy, createContext("verification"));
   }
 
   public UserEntity verify(String key) {
@@ -96,7 +125,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       getService(VerificationService.class).deleteById(verification.get().getId());
       return repo.save(user);
     }
-    throw new VerificationInvalidException(key);
+    throw new InvalidVerificationException(key);
   }
   
 }
