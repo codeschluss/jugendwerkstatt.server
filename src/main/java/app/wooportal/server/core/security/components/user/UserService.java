@@ -53,8 +53,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   public List<UserEntity> getNotVerifiedBefore(OffsetDateTime date) {
     return repo.findAll(query(false)
-        .and(predicate.createdBeforeAndNotVerified(date)))
-        .getList();
+          .and(predicate.createdBefore(date))
+          .and(predicate.notVerified())
+        ).getList();
   }
   
   @Override

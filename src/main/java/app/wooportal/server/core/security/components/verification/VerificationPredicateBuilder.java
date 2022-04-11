@@ -17,7 +17,9 @@ public class VerificationPredicateBuilder extends PredicateBuilder<QVerification
   }
   
   public BooleanExpression withKey(String key) {
-    return query.key.eq(key);
+    return key != null
+        ? query.key.eq(key)
+        : null;
   }
 
 }

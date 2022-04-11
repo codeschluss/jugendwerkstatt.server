@@ -19,20 +19,21 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   }
 
   public BooleanExpression withLoginName(String loginName) {
-    return query.loginName.equalsIgnoreCase(loginName);
+    return loginName != null && !loginName.isBlank()
+        ? query.loginName.equalsIgnoreCase(loginName)
+        : null;
   }
 
   public BooleanExpression withRole(String name) {
-    return query.roles.any().name.equalsIgnoreCase(name);
-  }
-
-  public BooleanExpression createdBeforeAndNotVerified(
-      OffsetDateTime date) {
-    return createdBefore(date).and(notVerified());
+    return name != null && !name.isBlank()
+        ? query.roles.any().name.equalsIgnoreCase(name)
+        : null;
   }
   
   public BooleanExpression createdBefore(OffsetDateTime date) {
-    return query.created.before(date);
+    return date != null
+        ? query.created.before(date)
+        : null;
   }
   
   public BooleanExpression notVerified() {

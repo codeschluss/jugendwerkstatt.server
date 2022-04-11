@@ -18,11 +18,15 @@ public class PasswordResetBuilder extends PredicateBuilder<QPasswordResetEntity,
   }
   
   public BooleanExpression withKey(String key) {
-    return query.key.eq(key);
+    return key != null && !key.isBlank()
+        ? query.key.eq(key)
+        : null;
   }
 
   public BooleanExpression createdBefore(OffsetDateTime date) {
-    return query.created.before(date);
+    return date != null
+        ? query.created.before(date)
+        : null;
   }
 
 }
