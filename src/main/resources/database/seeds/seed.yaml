@@ -58,7 +58,7 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: user_roles_primary_key
                   name: id
-                  type: VARCHAR(255)
+                  type: CHAR(36)
             tableName: user_roles
   - changeSet:
       id: seed.3
