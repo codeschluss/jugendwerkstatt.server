@@ -10,6 +10,7 @@ import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.InvalidPasswordReset;
 import app.wooportal.server.core.error.exception.NotFoundException;
+import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.error.exception.InvalidVerificationException;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetService;
@@ -26,7 +27,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   private final RoleService roleService;
   
   public UserService(
-      UserRepository repo,
+      DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
       BCryptPasswordEncoder encoder,
       RoleService roleService,

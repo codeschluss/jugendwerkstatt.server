@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.config.GeneralConfiguration;
 import app.wooportal.server.core.mail.MailService;
+import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.utils.StringUtils;
 
 @Service
@@ -17,7 +18,7 @@ public class VerificationService extends DataService<VerificationEntity, Verific
   private final MailService mailService;
 
   public VerificationService(
-      VerificationRepository repo,
+      DataRepository<VerificationEntity> repo,
       VerificationPredicateBuilder predicate,
       GeneralConfiguration config,
       MailService mailService) {

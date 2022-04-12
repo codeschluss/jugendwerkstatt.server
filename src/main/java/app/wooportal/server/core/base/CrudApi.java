@@ -3,10 +3,14 @@ package app.wooportal.server.core.base;
 import app.wooportal.server.core.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.dto.listing.PageableList;
 import app.wooportal.server.core.error.exception.BadParamsException;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public abstract class CrudApi<E extends BaseEntity, S extends DataService<E, ?>> {
   
   protected final static String params = "params";

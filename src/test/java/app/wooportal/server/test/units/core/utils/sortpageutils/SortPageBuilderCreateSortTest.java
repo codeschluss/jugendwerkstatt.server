@@ -7,7 +7,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import app.wooportal.server.core.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.utils.SortPageUtils;
-import app.wooportal.server.test.units.core.setup.services.ObjectFactory;
+import app.wooportal.server.test.units.services.ObjectFactory;
 
 public class SortPageBuilderCreateSortTest {
   

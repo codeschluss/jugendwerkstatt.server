@@ -1,14 +1,15 @@
 package app.wooportal.server.test.units.core.base.dataService;
 
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.base.TestRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.base.TestService;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.base.TestService;
+import app.wooportal.server.test.units.services.RepoService;
 
 public class DataServiceGetExistingTest {
   
@@ -17,7 +18,7 @@ public class DataServiceGetExistingTest {
   @BeforeEach
   public void init() {
     service = new TestService(
-        new TestRepositoryImpl(List.of(
+        new RepoService<TestEntity>(List.of(
             newTestEntity(Map.of("id", "1")),
             newTestEntity(Map.of("id", "2")))),
         new TestPredicateBuilder());

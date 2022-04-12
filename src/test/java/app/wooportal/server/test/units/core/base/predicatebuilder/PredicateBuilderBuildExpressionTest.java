@@ -11,8 +11,8 @@ import app.wooportal.server.core.dto.query.QueryEntity;
 import app.wooportal.server.core.dto.query.QueryExpression;
 import app.wooportal.server.core.dto.query.QueryOperator;
 import app.wooportal.server.core.error.exception.BadParamsException;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.services.QueryDslAssertion;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.services.QueryDslAssertion;
 
 public class PredicateBuilderBuildExpressionTest {
   

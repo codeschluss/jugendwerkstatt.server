@@ -2,11 +2,11 @@ package app.wooportal.server.test.units.core.base.predicatebuilder;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.test.units.core.setup.entities.base.TestEntity;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.child.TestChildEntity;
-import app.wooportal.server.test.units.core.setup.entities.listChild.TestListChildEntity;
-import app.wooportal.server.test.units.core.setup.services.QueryDslAssertion;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.child.TestChildEntity;
+import app.wooportal.server.test.units.core.entities.listChild.TestListChildEntity;
+import app.wooportal.server.test.units.services.QueryDslAssertion;
 //TODO: Fix examples 
 public class PredicateBuilderWithExampleTest {
   

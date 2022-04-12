@@ -2,8 +2,8 @@ package app.wooportal.server.test.units.core.base.predicatebuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.services.QueryDslAssertion;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.services.QueryDslAssertion;
 import com.querydsl.core.types.Ops;
 
 public class PredicateBuilderWithIdTest {

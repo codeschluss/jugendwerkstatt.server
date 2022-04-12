@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import app.wooportal.server.core.image.ImageConfiguration;
 import app.wooportal.server.core.image.ImageService;
-import app.wooportal.server.test.units.core.setup.entities.image.TestImageEntity;
-import app.wooportal.server.test.units.core.setup.services.ImageReader;
+import app.wooportal.server.test.units.core.entities.image.TestImageEntity;
+import app.wooportal.server.test.units.services.ImageReader;
 
 public class ImageServiceResizeTest {
   

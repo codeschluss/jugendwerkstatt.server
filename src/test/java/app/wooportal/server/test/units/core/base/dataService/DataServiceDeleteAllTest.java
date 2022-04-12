@@ -1,22 +1,22 @@
 package app.wooportal.server.test.units.core.base.dataService;
 
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.test.units.core.setup.entities.base.TestEntity;
-import app.wooportal.server.test.units.core.setup.entities.base.TestRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.base.TestService;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestService;
+import app.wooportal.server.test.units.services.RepoService;
 
 
 public class DataServiceDeleteAllTest {
   
   private TestService service;
   
-  private TestRepositoryImpl testRepo;
+  private RepoService<TestEntity> testRepo;
   
   private List<TestEntity> data = List.of(
       newTestEntity(Map.of("id", "1")),
@@ -25,7 +25,7 @@ public class DataServiceDeleteAllTest {
   
   @BeforeEach
   public void init() {
-    testRepo = new TestRepositoryImpl(data);
+    testRepo = new RepoService<>(data);
     service = new TestService(testRepo, null);
   }
   

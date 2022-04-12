@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.wooportal.server.core.base.GraphBuilder;
 import app.wooportal.server.core.context.GraphQlContextAdapter;
-import app.wooportal.server.test.units.core.setup.entities.child.TestChildEntity;
+import app.wooportal.server.test.units.core.entities.child.TestChildEntity;
 
 @ActiveProfiles("test")
 @SpringBootTest

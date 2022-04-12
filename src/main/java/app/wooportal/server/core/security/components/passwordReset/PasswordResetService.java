@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.config.GeneralConfiguration;
 import app.wooportal.server.core.mail.MailService;
+import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.utils.StringUtils;
 
 @Service
@@ -19,7 +20,7 @@ public class PasswordResetService extends DataService<PasswordResetEntity, Passw
   private final MailService mailService;
 
   public PasswordResetService(
-      PasswordResetRepository repo,
+      DataRepository<PasswordResetEntity> repo,
       PasswordResetBuilder predicate,
       GeneralConfiguration config,
       MailService mailService) {

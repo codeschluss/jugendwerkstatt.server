@@ -1,8 +1,8 @@
 package app.wooportal.server.test.units.core.base.dataService;
 
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestChildEntity;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestEntity;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestListChildEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestChildEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestListChildEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.wooportal.server.core.base.GraphBuilder;
 import app.wooportal.server.core.context.GraphQlContextAdapter;
-import app.wooportal.server.test.units.core.setup.entities.base.TestEntity;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.base.TestRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.base.TestService;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.base.TestService;
+import app.wooportal.server.test.units.services.RepoService;
 
 
 public class DataServiceGetByExampleTest {
@@ -35,7 +35,7 @@ public class DataServiceGetByExampleTest {
   @BeforeEach
   public void init() throws IOException {
     service = new TestService(
-        new TestRepositoryImpl(List.of(
+        new RepoService<TestEntity>(List.of(
             newTestEntity(Map.of(
                 "id", "1",
                 "child", newTestChildEntity(Map.of("name", "test")),

@@ -1,9 +1,9 @@
 package app.wooportal.server.test.units.core.base.dataService;
 
-import static app.wooportal.server.test.units.core.setup.services.EntityAssertion.assertEntityMatch;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestChildEntity;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestEntity;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestListChildEntity;
+import static app.wooportal.server.test.units.services.EntityAssertion.assertEntityMatch;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestChildEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestListChildEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,15 +17,16 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import app.wooportal.server.core.context.GraphQlContextAdapter;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.base.TestRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.base.TestService;
-import app.wooportal.server.test.units.core.setup.entities.child.TestChildPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.child.TestChildRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.child.TestChildService;
-import app.wooportal.server.test.units.core.setup.entities.listChild.TestListChildPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.listChild.TestListChildRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.listChild.TestListChildService;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.base.TestService;
+import app.wooportal.server.test.units.core.entities.child.TestChildEntity;
+import app.wooportal.server.test.units.core.entities.child.TestChildPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.child.TestChildService;
+import app.wooportal.server.test.units.core.entities.listChild.TestListChildEntity;
+import app.wooportal.server.test.units.core.entities.listChild.TestListChildPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.listChild.TestListChildService;
+import app.wooportal.server.test.units.services.RepoService;
 
 public class DataServiceSaveTest {
   
@@ -68,19 +69,19 @@ public class DataServiceSaveTest {
     contextAdapter = new GraphQlContextAdapter(mapper);
     
     childService = new TestChildService(
-        new TestChildRepositoryImpl(List.of(child1)), 
+        new RepoService<TestChildEntity>(List.of(child1)), 
         new TestChildPredicateBuilder());
     childService.setContext(contextAdapter);
     childService.setObjectMapper(mapper);
     
     listChildService = new TestListChildService(
-        new TestListChildRepositoryImpl(List.of(listChild1, listChild2, listChild3)), 
+        new RepoService<TestListChildEntity>(List.of(listChild1, listChild2, listChild3)), 
         new TestListChildPredicateBuilder());
     listChildService.setContext(contextAdapter);
     listChildService.setObjectMapper(mapper);
     
     service = new TestService(
-        new TestRepositoryImpl(List.of(entity1, entity2)), 
+        new RepoService<TestEntity>(List.of(entity1, entity2)), 
         new TestPredicateBuilder(), 
         childService,
         listChildService);

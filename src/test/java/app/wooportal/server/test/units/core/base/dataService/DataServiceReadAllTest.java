@@ -1,7 +1,7 @@
 package app.wooportal.server.test.units.core.base.dataService;
 
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newInstance;
-import static app.wooportal.server.test.units.core.setup.services.ObjectFactory.newTestEntity;
+import static app.wooportal.server.test.units.services.ObjectFactory.newInstance;
+import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -21,10 +21,10 @@ import app.wooportal.server.core.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.dto.query.QueryEntity;
 import app.wooportal.server.core.dto.query.QueryExpression;
 import app.wooportal.server.core.dto.query.QueryOperator;
-import app.wooportal.server.test.units.core.setup.entities.base.TestEntity;
-import app.wooportal.server.test.units.core.setup.entities.base.TestPredicateBuilder;
-import app.wooportal.server.test.units.core.setup.entities.base.TestRepositoryImpl;
-import app.wooportal.server.test.units.core.setup.entities.base.TestService;
+import app.wooportal.server.test.units.core.entities.base.TestEntity;
+import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
+import app.wooportal.server.test.units.core.entities.base.TestService;
+import app.wooportal.server.test.units.services.RepoService;
 
 public class DataServiceReadAllTest {
   
@@ -34,7 +34,7 @@ public class DataServiceReadAllTest {
   @BeforeEach
   public void init() throws IOException {
     service = new TestService(
-        new TestRepositoryImpl(List.of(
+        new RepoService<TestEntity>(List.of(
             newTestEntity(Map.of(
                 "id", "1",
                 "name", "b")),
