@@ -21,6 +21,8 @@ public class RepoService<E extends BaseEntity> implements DataRepository<E> {
 
   private List<E> data;
   
+  private List<String> ignoredFields = List.of("modified", "created", "id");
+  
   public RepoService() {
     init(null);
   }
@@ -102,9 +104,11 @@ public class RepoService<E extends BaseEntity> implements DataRepository<E> {
   
   private <S extends E> void constraintCheck(S entity) {
     for (var field: ReflectionUtils.getFields(entity.getClass())) {
-      var fieldValue = ReflectionUtils.get(field.getName(), entity);
-      nullableConstraintCheck(entity.getClass().getName(), field, fieldValue);
-      uniqueConstraintCheck(entity.getClass().getName(), field, fieldValue);
+      if(!ignoredFields.contains(field.getName())) {
+        var fieldValue = ReflectionUtils.get(field.getName(), entity);
+        nullableConstraintCheck(entity.getClass().getName(), field, fieldValue);
+      }
+
     }
   }
 
@@ -113,7 +117,7 @@ public class RepoService<E extends BaseEntity> implements DataRepository<E> {
       Field field, 
       Optional<Object> fieldValue) {
     if (ReflectionUtils.getAnnotation(field, JoinColumn.class).isPresent()
-        && ReflectionUtils.getAnnotation(field, JoinColumn.class).get().nullable()
+        && !ReflectionUtils.getAnnotation(field, JoinColumn.class).get().nullable()
         && fieldValue.isEmpty()) {
       throw new PropertyValueException(
           "not-null property references a null or transient value",
@@ -122,31 +126,14 @@ public class RepoService<E extends BaseEntity> implements DataRepository<E> {
     }
     
     if (ReflectionUtils.getAnnotation(field, Column.class).isPresent() 
-        && ReflectionUtils.getAnnotation(field, Column.class).get().nullable()
+        && !ReflectionUtils.getAnnotation(field, Column.class).get().nullable()
         && fieldValue.isEmpty()) {
       throw new PropertyValueException(
           "not-null property references a null or transient value",
           entityName,
           field.getName());
     }
-  }
-  
-  private void uniqueConstraintCheck(
-      String entityName,
-      Field field, 
-      Optional<Object> fieldValue) {
-    var columnAnnotation = ReflectionUtils.getAnnotation(field, Column.class);
-    if (fieldValue.isPresent() && columnAnnotation.isPresent() && columnAnnotation.get().unique()
-        && data.stream().anyMatch(element -> {
-          var result = ReflectionUtils.get(field.getName(), element);
-          return result.isPresent() && result.get().equals(fieldValue.get());
-        })) {
-      throw new PropertyValueException(
-          "unique property is not unique",
-          entityName,
-          field.getName());
-    }
-  }
+  } 
 
   public Optional<E> findById(String id) {
     for (var element : data) {

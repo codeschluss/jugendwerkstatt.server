@@ -117,12 +117,14 @@ public class DataServiceSaveTest {
   
   @Test
   public void saveChildWithoutContext() throws Exception {
+    var testChild = newTestChildEntity(Map.of(
+        "id", "2", 
+        "name", "child2"));
     var test = newTestEntity(Map.of(
         "id", "1", 
         "name", "test1",
-        "child", newTestChildEntity(Map.of(
-            "id", "2", 
-            "name", "child2"))));
+        "child", testChild));
+    testChild.setParent(test);
     
     var sizeParentBefore = service.getRepo().findAll().size();
     var sizeChildBefore = childService.getRepo().findAll().size();
