@@ -15,11 +15,11 @@ public class RolePredicateBuilder extends PredicateBuilder<QRoleEntity, RoleEnti
   public BooleanExpression freeSearch(String term) {
     return query.name.likeIgnoreCase(term);
   }
-  
+
   public BooleanExpression withUserId(String userId) {
     return query.users.any().id.eq(userId);
   }
-  
+
   public BooleanExpression withName(String name) {
     return query.name.eq(name);
   }
