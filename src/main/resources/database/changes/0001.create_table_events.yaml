@@ -1,0 +1,156 @@
+databaseChangeLog:
+  - logicalFilePath: path_independent
+  - changeSet:
+      id: 0001.create_table_events.1
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: event_primary_key
+                  name: id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: created
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: modified
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: category_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: organizer_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title_image_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address_id
+                  type: CHAR(36)
+            tableName: events
+  - changeSet:
+      id: 0001.create_table_events.2
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: event_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: event_images_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: event_images
+  - changeSet:
+      id: 0001.create_table_events.3
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: event_id
+            indexName: idx_fk7htf734s8e3t6ht7z71nd4mhc
+            tableName: event_images
+  - changeSet:
+      id: 0001.create_table_events.4
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: image_id
+            indexName: idx_fkcf34zz8jp1v5o2vjly1u9l35s
+            tableName: event_images
+  - changeSet:
+      id: 0001.create_table_events.5
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: event_id
+            baseTableName: event_images
+            constraintName: fk7htf734s8e3t6ht7z71nd4mhc
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: events
+            validate: true
+  - changeSet:
+      id: 0001.create_table_events.6
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: image_id
+            baseTableName: event_images
+            constraintName: fkcf34zz8jp1v5o2vjly1u9l35s
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: images
+            validate: true
+  - changeSet:
+      id: 0001.create_table_events.7
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: title_image_id
+            indexName: idx_fkf5vav78ko941012kxkjwkl1y8
+            tableName: events
+  - changeSet:
+      id: 0001.create_table_events.8
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: title_image_id
+            baseTableName: events
+            constraintName: fkf5vav78ko941012kxkjwkl1y8
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: images
+            validate: true
