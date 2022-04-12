@@ -10,21 +10,34 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.JsonNode;
+import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorService;
 
 @Service
-public class ImageService {
+public class ImageService extends DataService<ImageEntity, ImagePredicateBuilder> {
 
   private final ImageConfiguration config;
   
   private final ErrorService errorService;
 
+  
   public ImageService(
+      ImageRepository repo,
+      ImagePredicateBuilder predicate,
       ImageConfiguration config,
       ErrorService errorService) {
+    super(repo, predicate);
     this.config = config;
+  
     
     this.errorService = errorService;
+  }
+  
+  @Override
+  public void preSave(ImageEntity entity, ImageEntity newEntity, JsonNode context) {
+    entity.setImage(resize(newEntity));
+    newEntity.setImage(resize(newEntity));
   }
  
   public byte[] resize(ImageEntity entity) {

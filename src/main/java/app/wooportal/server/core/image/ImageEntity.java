@@ -27,9 +27,7 @@ public class ImageEntity extends BaseEntity {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  @Column(
-      columnDefinition = "MEDIUMBLOB", 
-      nullable = false)
+  @Column(columnDefinition = "MEDIUMBLOB", nullable = false)
   @JsonIgnore
   private byte[] image;
 
@@ -50,7 +48,7 @@ public class ImageEntity extends BaseEntity {
     }
     return null;
   }
-  
+
   public void setImage(byte[] image) {
     this.image = image;
     this.imageData = Base64.getEncoder().encodeToString(this.image);

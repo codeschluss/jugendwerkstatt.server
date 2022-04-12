@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import app.wooportal.server.core.image.ImageConfiguration;
+import app.wooportal.server.core.image.ImageEntity;
 import app.wooportal.server.core.image.ImageService;
-import app.wooportal.server.test.units.core.entities.image.TestImageEntity;
 import app.wooportal.server.test.units.services.ImageReader;
 
 public class ImageServiceResizeTest {
@@ -20,13 +20,13 @@ public class ImageServiceResizeTest {
     imageConfig.setMaxHeight(200);
     imageConfig.setMaxWidth(200);
     
-    imageService = new ImageService(imageConfig, null);
+    imageService = new ImageService(null, null, imageConfig, null);
   }
   
   @Test
   public void resizeOk() {
     var path = basePath + "test_232x232.jpg";
-    var test = new TestImageEntity();
+    var test = new ImageEntity();
     test.setImage(ImageReader.readFile(path));
     test.setMimeType(ImageReader.getMimeType(path));
     
@@ -38,7 +38,7 @@ public class ImageServiceResizeTest {
   @Test
   public void resizeNotNeededOk() {
     var path = basePath + "test_100x100.jpg";
-    var test = new TestImageEntity();
+    var test = new ImageEntity();
     test.setImage(ImageReader.readFile(path));
     test.setMimeType(ImageReader.getMimeType(path));
     
@@ -56,7 +56,7 @@ public class ImageServiceResizeTest {
   
   @Test
   public void resizeNullImage() {
-    var test = new TestImageEntity();
+    var test = new ImageEntity();
     test.setMimeType("test");
     
     var result = imageService.resize(test);
@@ -66,7 +66,7 @@ public class ImageServiceResizeTest {
   
   @Test
   public void resizeEmptyImage() {
-    var test = new TestImageEntity();
+    var test = new ImageEntity();
     test.setImage(new byte[0]);
     test.setMimeType("test");
     
