@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0009.create_table_jobads.1
+      id: 0008.create_table_jobads.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: jobad_primary_key
+                    primaryKeyName: job_ad_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -34,21 +34,25 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: start_date
-                  type: TIMESTAMP
+                  type: TIMESTAMP WITH TIME ZONE
               - column:
                   constraints:
                     nullable: false
                   name: due_date
-                  type: TIMESTAMP
+                  type: TIMESTAMP WITH TIME ZONE
               - column:
                   constraints:
                     nullable: false
                   name: company_id
                   type: CHAR(36)
-            tableName: jobads
-
+              - column:
+                  constraints:
+                    nullable: false
+                  name: job_type_id
+                  type: CHAR(36)
+            tableName: job_ads
   - changeSet:
-      id: 0009.create_table_jobads.2
+      id: 0008.create_table_jobads.2
       author: codeschluss
       changes:
         - createIndex:
@@ -56,19 +60,19 @@ databaseChangeLog:
               - column:
                   name: company_id
             indexName: idx_fkg2gjth2ox5pfte56xq3tg3yk5
-            tableName: jobads
+            tableName: job_ads
   - changeSet:
       id: 0008.create_table_jobads.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: company_id
-            baseTableName: jobads
+            baseTableName: job_ads
             constraintName: fkg2gjth2ox5pfte56xq3tg3yk5
             deferrable: false
             initiallyDeferred: false
             onUpdate: CASCADE
+            onDelete: CASCADE
             referencedColumnNames: id
             referencedTableName: companies
             validate: true
-            

@@ -28,21 +28,18 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                    unique: true
                   name: name
                   type: VARCHAR(255)
               - column:
                   constraints:
-                    nullable: true
+                    unique: true
                   name: mail
                   type: VARCHAR(255)
               - column:
-                  constraints:
-                    nullable: true
                   name: phone
                   type: VARCHAR(255)
               - column:
-                  constraints:
-                    nullable: true
                   name: website
                   type: VARCHAR(255)
             tableName: companies

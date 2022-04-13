@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: jobtype_primary_key
+                    primaryKeyName: jobt_type_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -28,14 +28,10 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                    unique: true
                   name: name
                   type: VARCHAR(255)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: jobad_id
-                  type: CHAR(36)                  
-            tableName: jobtypes
+            tableName: job_types
   - changeSet:
       id: 0009.create_table_jobtypes.2
       author: codeschluss
@@ -43,21 +39,20 @@ databaseChangeLog:
         - createIndex:
             columns:
               - column:
-                  name: jobad_id
+                  name: job_type_id
             indexName: idx_fk1omfxiwqta9z5s59wd59ayf9m
-            tableName: jobtypes
+            tableName: job_ads
   - changeSet:
       id: 0009.create_table_jobtypes.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: jobad_id
-            baseTableName: jobtypes
+            baseColumnNames: job_type_id
+            baseTableName: job_ads
             constraintName: fk1omfxiwqta9z5s59wd59ayf9m
             deferrable: false
             initiallyDeferred: false
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: jobads
+            referencedTableName: job_types
             validate: true
-            

@@ -16,7 +16,8 @@ public class JobAdPredicateBuilder extends PredicateBuilder<QJobAdEntity, JobAdE
   @Override
   public BooleanExpression freeSearch(String term) {
     return query.title.likeIgnoreCase(term)
-        .or(query.company.name.likeIgnoreCase(term));
+        .or(query.company.name.likeIgnoreCase(term))
+        .or(query.type.name.likeIgnoreCase(term));
   }
 
   public BooleanExpression withTitle(String title) {
