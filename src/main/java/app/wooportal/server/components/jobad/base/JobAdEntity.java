@@ -1,0 +1,51 @@
+package app.wooportal.server.components.jobad.base;
+
+import java.io.Serial;
+import java.time.OffsetDateTime;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import app.wooportal.server.components.jobad.company.CompanyEntity;
+import app.wooportal.server.components.jobad.jobtype.JobTypeEntity;
+import app.wooportal.server.core.base.BaseEntity;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
+@Entity
+@Table(name = "jobads")
+public class JobAdEntity extends BaseEntity {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+	@Column(unique = true, nullable = false)
+	private String title;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
+	private CompanyEntity company;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jobad")
+	private List<JobTypeEntity> jobType;
+
+	@Column(name = "due_date")
+	private OffsetDateTime dueDate;
+
+	@Column(name = "start_date")
+	private OffsetDateTime startDate;
+
+}

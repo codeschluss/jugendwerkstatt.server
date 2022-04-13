@@ -16,3 +16,9 @@ databaseChangeLog:
       file: database/changes/0005.create_table_addresses.yaml
   - include:
       file: database/changes/0006.create_table_passwordresets.yaml
+  - include:
+      file: database/changes/0007.create_table_companies.yaml
+  - include:
+      file: database/changes/0008.create_table_jobads.yaml
+  - include:
+      file: database/changes/0009.create_table_jobtypes.yaml  
