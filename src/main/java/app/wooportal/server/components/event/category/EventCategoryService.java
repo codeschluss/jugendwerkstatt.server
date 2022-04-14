@@ -5,20 +5,20 @@ import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
 
 @Service
-public class CategoryService extends DataService<CategoryEntity, CategoryPredicateBuilder> {
+public class EventCategoryService extends DataService<EventCategoryEntity, EventCategoryPredicateBuilder> {
 
-  public CategoryService(CategoryRepository repo, CategoryPredicateBuilder predicate) {
+  public EventCategoryService(EventCategoryRepository repo, EventCategoryPredicateBuilder predicate) {
     super(repo, predicate);
   }
   
   @Override
-  public Optional<CategoryEntity> getExisting(CategoryEntity entity) {
+  public Optional<EventCategoryEntity> getExisting(EventCategoryEntity entity) {
     return entity.getName() == null || entity.getName().isEmpty()
         ? Optional.empty()
         : getByName(entity.getName());
   }
 
-  public Optional<CategoryEntity> getByName(String name) {
+  public Optional<EventCategoryEntity> getByName(String name) {
     return repo.findOne(predicate.withName(name));
   }
 }

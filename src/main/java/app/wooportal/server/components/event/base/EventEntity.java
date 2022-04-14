@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import app.wooportal.server.components.event.address.AddressEntity;
-import app.wooportal.server.components.event.category.CategoryEntity;
+import app.wooportal.server.components.address.AddressEntity;
+import app.wooportal.server.components.event.category.EventCategoryEntity;
 import app.wooportal.server.components.event.organizer.OrganizerEntity;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.core.base.BaseEntity;
@@ -43,7 +43,7 @@ public class EventEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
-  private CategoryEntity category;
+  private EventCategoryEntity category;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
   private List<ScheduleEntity> schedules;

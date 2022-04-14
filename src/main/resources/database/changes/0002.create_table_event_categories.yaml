@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0008.create_table_jobtypes.1
+      id: 0002.create_table_event_categories.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: jobtype_primary_key
+                    primaryKeyName: event_categories_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -28,31 +28,40 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  name: color
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: icon
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
                   name: name
-                  type: VARCHAR(255)                 
-            tableName: jobtypes
+                  type: VARCHAR(255)
+            tableName: event_categories
   - changeSet:
-      id: 0009.create_table_jobtypes.2
+      id: 0002.create_table_event_categories.2
       author: codeschluss
       changes:
         - createIndex:
             columns:
               - column:
-                  name: job_type_id
-            indexName: idx_fk1omfxiwqta9z5s59wd59ayf9m
-            tableName: job_ads
+                  name: event_categories_id
+            indexName: idx_fkuteqctpjw2mpt4muc1wu0llrw
+            tableName: events
   - changeSet:
-      id: 0009.create_table_jobtypes.3
+      id: 0002.create_table_event_categories.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: job_type_id
-            baseTableName: job_ads
-            constraintName: fk1omfxiwqta9z5s59wd59ayf9m
+            baseColumnNames: event_categories_id
+            baseTableName: events
+            constraintName: fkuteqctpjw2mpt4muc1wu0llrw
             deferrable: false
             initiallyDeferred: false
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: jobtypes
+            referencedTableName: event_categories
             validate: true
-            
