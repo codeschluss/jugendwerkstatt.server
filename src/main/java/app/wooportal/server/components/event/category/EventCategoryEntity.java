@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
@@ -27,16 +26,16 @@ public class EventCategoryEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  @Column(nullable = false)
+  private String color;
+  
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-  @JsonIgnore
   private List<EventEntity> events;
+  
+  @Column(nullable = false)
+  private String icon;
 
   @Column(unique = true, nullable = false, name = "name")
   private String name;
-  
-  @Column(nullable = false)
-  private String color;
 
-  @Column(nullable = false)
-  private String icon;
 }

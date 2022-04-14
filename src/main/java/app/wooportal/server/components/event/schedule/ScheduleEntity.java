@@ -25,11 +25,11 @@ public class ScheduleEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private EventEntity event;
-  
   @Column(name = "end_date")
   private OffsetDateTime endDate;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  private EventEntity event;
   
   @Column(name = "start_date")
   private OffsetDateTime startDate;

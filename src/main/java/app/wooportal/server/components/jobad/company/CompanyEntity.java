@@ -28,22 +28,22 @@ import lombok.Setter;
 public class CompanyEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private AddressEntity address;
 
   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
   private List<JobAdEntity> jobAd;
+  
+  @Column(unique = true)
+  private String mail;
 
   @Column(unique = true, nullable = false)
   private String name;
 
-  @Column(unique = true)
-  private String mail;
-
   private String phone;
 
   private String website;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
-  private AddressEntity address;
 
 }

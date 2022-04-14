@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import app.wooportal.server.components.link.base.LinkEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
@@ -28,7 +27,6 @@ public class LinkCategoryEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-  @JsonIgnore
   private List<LinkEntity> link;
 
   @Column(unique = true, nullable = false)
