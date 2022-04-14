@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0011.create_table_links.1
+      id: 0014.create_table_templates.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: links_primary_key
+                    primaryKeyName: tempaltes_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -28,41 +28,43 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: title
+                    unique: true
+                  name: name
                   type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
                     unique: true
-                  name: url
-                  type: VARCHAR(255)                  
+                  name: content
+                  type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
-                  name: category_id
+                  name: template_type_id
                   type: CHAR(36)
-            tableName: links
+            tableName: templates
   - changeSet:
-      id: 0011.create_table_links.2
+      id: 0014.create_table_templates.2
       author: codeschluss
       changes:
         - createIndex:
             columns:
               - column:
-                  name: category_id
-            indexName: idx_fku5sspz9d95dwfn5yqtmyxkjh2
-            tableName: links
+                  name: template_type_id
+            indexName: idx_fk53lxo6azsaoq6rljaeqhy0okw
+            tableName: templates
   - changeSet:
-      id: 0011.create_table_links.3
+      id: 0014.create_table_templates.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: category_id
-            baseTableName: links
-            constraintName: fku5sspz9d95dwfn5yqtmyxkjh2
+            baseColumnNames: template_type_id
+            baseTableName: templates
+            constraintName: fk53lxo6azsaoq6rljaeqhy0okw
             deferrable: false
             initiallyDeferred: false
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: link_categories
+            referencedTableName: template_types
             validate: true
+ 
