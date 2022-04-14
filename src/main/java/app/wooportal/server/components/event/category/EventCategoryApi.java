@@ -1,4 +1,4 @@
-package app.wooportal.server.components.event.address;
+package app.wooportal.server.components.event.category;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,53 +13,54 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
 @GraphQLApi
 @Component
-public class AddressApi extends CrudApi<AddressEntity, AddressService> {
+public class EventCategoryApi extends CrudApi<EventCategoryEntity, EventCategoryService> {
   
-  public AddressApi(
-      AddressService AddressService) {
-    super(AddressService);
+  public EventCategoryApi(
+      EventCategoryService CategoryService) {
+    super(CategoryService);
   }
   
   @Override
-  @GraphQLQuery(name = "getAddresss")
-  public PageableList<AddressEntity> readAll(
+  @GraphQLQuery(name = "getCategorys")
+  public PageableList<EventCategoryEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
   }
   
   @Override
-  @GraphQLQuery(name = "getAddress")
-  public Optional<AddressEntity> readOne(
-      @GraphQLArgument(name = CrudApi.entity) AddressEntity entity) {
+  @GraphQLQuery(name = "getCategory")
+  public Optional<EventCategoryEntity> readOne(
+      @GraphQLArgument(name = CrudApi.entity) EventCategoryEntity entity) {
     return super.readOne(entity);
   }
   
   @Override
-  @GraphQLMutation(name = "saveAddresss")
-  public List<AddressEntity> saveAll(
-      @GraphQLArgument(name = CrudApi.entities) List<AddressEntity> entities) {
+  @GraphQLMutation(name = "saveCategorys")
+  public List<EventCategoryEntity> saveAll(
+      @GraphQLArgument(name = CrudApi.entities) List<EventCategoryEntity> entities) {
     return super.saveAll(entities);
   }
   
   @Override
-  @GraphQLMutation(name = "saveAddress")
-  public AddressEntity saveOne(
-      @GraphQLArgument(name = CrudApi.entity) AddressEntity entity) {
+  @GraphQLMutation(name = "saveCategory")
+  public EventCategoryEntity saveOne(
+      @GraphQLArgument(name = CrudApi.entity) EventCategoryEntity entity) {
     return super.saveOne(entity);
   }
   
   @Override
-  @GraphQLMutation(name = "deleteAddresss")
+  @GraphQLMutation(name = "deleteCategorys")
   public void deleteAll(
       @GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     super.deleteAll(ids);
   }
   
-  @GraphQLMutation(name = "deleteAddress")
+  @GraphQLMutation(name = "deleteCategory")
   public void delete(
       @GraphQLArgument(name = CrudApi.id) String id) {
     super.deleteOne(id);
   }
+  
   }
 
 

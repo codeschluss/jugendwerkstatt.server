@@ -7,7 +7,7 @@ databaseChangeLog:
   - include:
       file: database/changes/0001.create_table_events.yaml
   - include:
-      file: database/changes/0002.create_table_categories.yaml
+      file: database/changes/0002.create_table_event_categories.yaml
   - include:
       file: database/changes/0003.create_table_schedules.yaml
   - include:
@@ -21,4 +21,8 @@ databaseChangeLog:
   - include:
       file: database/changes/0008.create_table_jobads.yaml
   - include:
-      file: database/changes/0009.create_table_jobtypes.yaml  
+      file: database/changes/0009.create_table_jobtypes.yaml
+  - include:
+      file: database/changes/0010.create_table_link_categories.yaml
+  - include:
+      file: database/changes/0011.create_table_links.yaml              

@@ -42,4 +42,33 @@ databaseChangeLog:
               - column:
                   name: website
                   type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address_id
+                  type: CHAR(36)                  
             tableName: companies
+  - changeSet:
+      id: 0007.create_table_companies.2
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: address_id
+            indexName: idx_fklisjnu62wh33d6quzf11t1sgv
+            tableName: companies
+  - changeSet:
+      id: 0007.create_table_companies.3
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: address_id
+            baseTableName: companies
+            constraintName: fklisjnu62wh33d6quzf11t1sgv
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: addresses
+            validate: true            

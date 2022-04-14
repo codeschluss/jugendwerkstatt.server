@@ -1,4 +1,4 @@
-package app.wooportal.server.components.event.category;
+package app.wooportal.server.components.link.category;
 
 import java.util.List;
 import javax.persistence.Column;
@@ -7,7 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import app.wooportal.server.components.event.base.EventEntity;
+import app.wooportal.server.components.link.base.LinkEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,21 +22,16 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
-@Table(name = "categories")
-public class CategoryEntity extends BaseEntity {
+@Table(name = "link_categories")
+public class LinkCategoryEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
   @JsonIgnore
-  private List<EventEntity> events;
+  private List<LinkEntity> link;
 
-  @Column(unique = true, nullable = false, name = "name")
+  @Column(unique = true, nullable = false)
   private String name;
-  
-  @Column(nullable = false)
-  private String color;
 
-  @Column(nullable = false)
-  private String icon;
 }

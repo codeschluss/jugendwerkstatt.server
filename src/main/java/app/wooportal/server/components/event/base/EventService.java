@@ -2,7 +2,7 @@ package app.wooportal.server.components.event.base;
 
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import app.wooportal.server.components.event.address.AddressService;
+import app.wooportal.server.components.address.AddressService;
 import app.wooportal.server.components.event.organizer.OrganizerService;
 import app.wooportal.server.components.event.schedule.ScheduleService;
 import app.wooportal.server.core.base.DataService;

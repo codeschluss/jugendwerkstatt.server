@@ -38,7 +38,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: category_id
+                  name: event_categories_id
                   type: CHAR(36)
               - column:
                   constraints:
