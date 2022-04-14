@@ -27,23 +27,23 @@ import lombok.Setter;
 @Table(name = "companies")
 public class CompanyEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-	private List<JobAdEntity> jobAd;
+  @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+  private List<JobAdEntity> jobAd;
 
-	@Column(unique = true, nullable = false)
-	private String name;
+  @Column(unique = true, nullable = false)
+  private String name;
 
-	@Column(unique = true)
-	private String mail;
+  @Column(unique = true)
+  private String mail;
 
-	private String phone;
+  private String phone;
 
-	private String website;
-	
-	  @ManyToOne(fetch = FetchType.LAZY)
-	  @JoinColumn(nullable = false)
-	  private AddressEntity address;
+  private String website;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private AddressEntity address;
 
 }
