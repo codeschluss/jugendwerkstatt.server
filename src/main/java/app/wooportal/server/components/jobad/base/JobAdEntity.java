@@ -28,21 +28,21 @@ public class JobAdEntity extends BaseEntity {
   @Serial
   private static final long serialVersionUID = 1L;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private CompanyEntity company;
+  
+  @Column(name = "due_date")
+  private OffsetDateTime dueDate;
+  
+  @Column(name = "start_date")
+  private OffsetDateTime startDate;
+  
   @Column(nullable = false)
   private String title;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
-  private CompanyEntity company;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private JobTypeEntity type;
-
-  @Column(name = "due_date")
-  private OffsetDateTime dueDate;
-
-  @Column(name = "start_date")
-  private OffsetDateTime startDate;
 
 }

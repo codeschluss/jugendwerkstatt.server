@@ -28,19 +28,19 @@ public class AddressEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
-  private List<EventEntity> event;
+  private List<CompanyEntity> company;
   
   @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
-  private List<CompanyEntity> company;
+  private List<EventEntity> event;
+  
+  @Column(name = "house_number")
+  private String houseNumber;
 
   @Column(nullable = true)
   private Float latitude;
 
   @Column(nullable = true)
   private Float longtitude;
-
-  @Column(name = "house_number")
-  private String houseNumber;
 
   @Column(name = "place")
   private String place;

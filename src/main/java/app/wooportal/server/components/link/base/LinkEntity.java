@@ -25,16 +25,16 @@ public class LinkEntity extends BaseEntity {
 
   @Serial
   private static final long serialVersionUID = 1L;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private LinkCategoryEntity category;
 
   @Column(unique = true, nullable = false)
   private String title;
 
   @Column(nullable = false)
   private String url;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
-  private LinkCategoryEntity category;
 
 
 }
