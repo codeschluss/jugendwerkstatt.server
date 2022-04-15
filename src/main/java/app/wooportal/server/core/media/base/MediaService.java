@@ -64,9 +64,9 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
     if (result.isEmpty()) {
       throw new NotFoundException("media does not exist", id);
     }
-    var formatType = MediaHelper.extractFormatFromMimeType( result.get().getMimeType());
+    var formatType = MediaHelper.extractFormatFromMimeType(result.get().getMimeType());
     return ResponseEntity.ok().headers(createHeader(result.get().getName(), formatType))
-      .contentType(MediaType.parseMediaType(formatType))
+      .contentType(MediaType.parseMediaType(result.get().getMimeType()))
       .body(storageService.read(id, formatType));
   }
   
