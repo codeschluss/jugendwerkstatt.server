@@ -26,7 +26,7 @@ public class ImageServiceResizeUrlImageTest {
     imageConfig.setMaxWidth(200);
     
     var errorService = mock(ErrorService.class);
-    imageService = new ImageService(null, null, imageConfig, errorService);
+    imageService = new ImageService(imageConfig, errorService);
   }
   
   @Test
