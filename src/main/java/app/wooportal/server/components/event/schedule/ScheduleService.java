@@ -2,11 +2,14 @@ package app.wooportal.server.components.event.schedule;
 
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class ScheduleService extends DataService<ScheduleEntity, SchedulePredicateBuilder> {
 
-  public ScheduleService(ScheduleRepository repo, SchedulePredicateBuilder predicate) {
+  public ScheduleService(
+      DataRepository<ScheduleEntity> repo, 
+      SchedulePredicateBuilder predicate) {
     super(repo, predicate);
 
   }

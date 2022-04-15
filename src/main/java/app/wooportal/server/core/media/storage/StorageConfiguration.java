@@ -1,4 +1,4 @@
-package app.wooportal.server.core.image;
+package app.wooportal.server.core.media.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Configuration
-@ConfigurationProperties(prefix = "images")
-public class ImageConfiguration {
+@ConfigurationProperties(prefix = "storage")
+public class StorageConfiguration {
 
-  private int maxHeight;
-  private int maxWidth;
+  private String location;
+
 }

@@ -28,14 +28,14 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: image
-                  type: BYTEA
+                  name: mime_type
+                  type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
-                  name: mime_type
+                  name: name
                   type: VARCHAR(255)
-            tableName: images
+            tableName: media
   - changeSet:
       id: seed.2
       author: codeschluss

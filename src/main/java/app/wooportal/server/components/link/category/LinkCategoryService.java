@@ -3,12 +3,15 @@ package app.wooportal.server.components.link.category;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class LinkCategoryService
     extends DataService<LinkCategoryEntity, LinkCategoryPredicateBuilder> {
 
-  public LinkCategoryService(LinkCategoryRepository repo, LinkCategoryPredicateBuilder predicate) {
+  public LinkCategoryService(
+      DataRepository<LinkCategoryEntity> repo, 
+      LinkCategoryPredicateBuilder predicate) {
     super(repo, predicate);
   }
 

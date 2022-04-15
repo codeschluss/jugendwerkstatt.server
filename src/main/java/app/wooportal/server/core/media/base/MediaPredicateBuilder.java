@@ -1,14 +1,14 @@
-package app.wooportal.server.core.image;
+package app.wooportal.server.core.media.base;
 
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
 
 @Service
-public class ImagePredicateBuilder extends PredicateBuilder<QImageEntity, ImageEntity> {
+public class MediaPredicateBuilder extends PredicateBuilder<QMediaEntity, MediaEntity> {
 
-  public ImagePredicateBuilder() {
-    super(QImageEntity.imageEntity);
+  public MediaPredicateBuilder() {
+    super(QMediaEntity.mediaEntity);
   }
 
   @Override

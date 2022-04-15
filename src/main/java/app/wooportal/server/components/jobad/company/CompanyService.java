@@ -5,11 +5,14 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class CompanyService extends DataService<CompanyEntity, CompanyPredicateBuilder> {
 
-  public CompanyService(CompanyRepository repo, CompanyPredicateBuilder predicate) {
+  public CompanyService(
+      DataRepository<CompanyEntity> repo, 
+      CompanyPredicateBuilder predicate) {
     super(repo, predicate);
   }
 

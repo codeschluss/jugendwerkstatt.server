@@ -1,21 +1,18 @@
-package app.wooportal.server.core.image;
+package app.wooportal.server.core.media.image;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Base64;
 import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.JsonNode;
-import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorService;
 
 @Service
-public class ImageService extends DataService<ImageEntity, ImagePredicateBuilder> {
+public class ImageService {
 
   private final ImageConfiguration config;
   
@@ -23,44 +20,25 @@ public class ImageService extends DataService<ImageEntity, ImagePredicateBuilder
 
   
   public ImageService(
-      ImageRepository repo,
-      ImagePredicateBuilder predicate,
       ImageConfiguration config,
       ErrorService errorService) {
-    super(repo, predicate);
     this.config = config;
-  
-    
     this.errorService = errorService;
   }
-  
-  @Override
-  public void preSave(ImageEntity entity, ImageEntity newEntity, JsonNode context) {
-    entity.setImage(resize(newEntity));
-    newEntity.setImage(resize(newEntity));
-  }
  
-  public byte[] resize(ImageEntity entity) {
-    if (entity != null && entity.getImageData() != null && !entity.getImageData().isBlank()) {
-      byte[] image = Base64.getDecoder().decode(entity.getImageData());
-      String formatType = extractFormatFromMimeType(entity.getMimeType());
-      ByteArrayInputStream inputStream = new ByteArrayInputStream(image);
-      BufferedImage imageBuff;
+  public byte[] resize(byte[] data, String formatType) {
+    if (data != null && data.length > 0 && formatType != null && !formatType.isBlank()) {
+      var inputStream = new ByteArrayInputStream(data);
       try {
-        imageBuff = ImageIO.read(inputStream);
+        var imageBuff = ImageIO.read(inputStream);
         return needsResize(imageBuff)
             ? resize(imageBuff, formatType)
-            : image;
+            : data;
       } catch (IOException e) {
         errorService.sendErrorMail(e);
       }
     }
     return null;
-  }
-  
-  private String extractFormatFromMimeType(String mimeType) {
-    String[] parts = mimeType.split("/");
-    return parts.length > 1 ? parts[1] : parts[0];
   }
 
   public byte[] resizeUrlImage(URL url, String formatType) {

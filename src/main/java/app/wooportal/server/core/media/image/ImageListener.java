@@ -1,4 +1,4 @@
-package app.wooportal.server.core.image;
+package app.wooportal.server.core.media.image;
 
 import javax.annotation.ManagedBean;
 import javax.servlet.ServletContext;

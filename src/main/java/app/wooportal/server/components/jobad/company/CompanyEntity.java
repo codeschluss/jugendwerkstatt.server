@@ -30,7 +30,7 @@ public class CompanyEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
+  @JoinColumn(nullable = false) 
   private AddressEntity address;
 
   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)

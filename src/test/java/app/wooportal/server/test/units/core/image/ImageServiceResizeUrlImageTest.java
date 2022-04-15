@@ -9,8 +9,8 @@ import java.net.URL;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import app.wooportal.server.core.error.ErrorService;
-import app.wooportal.server.core.image.ImageConfiguration;
-import app.wooportal.server.core.image.ImageService;
+import app.wooportal.server.core.media.image.ImageConfiguration;
+import app.wooportal.server.core.media.image.ImageService;
 import app.wooportal.server.test.units.services.ImageReader;
 
 public class ImageServiceResizeUrlImageTest {

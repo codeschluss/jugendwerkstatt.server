@@ -38,7 +38,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: event_categories_id
+                  name: category_id
                   type: CHAR(36)
               - column:
                   constraints:
@@ -76,10 +76,10 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: event_images_primary_key
+                    primaryKeyName: event_media_primary_key
                   name: id
                   type: CHAR(36)
-            tableName: event_images
+            tableName: event_media
   - changeSet:
       id: 0001.create_table_events.3
       author: codeschluss
@@ -89,7 +89,7 @@ databaseChangeLog:
               - column:
                   name: event_id
             indexName: idx_fk7htf734s8e3t6ht7z71nd4mhc
-            tableName: event_images
+            tableName: event_media
   - changeSet:
       id: 0001.create_table_events.4
       author: codeschluss
@@ -99,14 +99,14 @@ databaseChangeLog:
               - column:
                   name: image_id
             indexName: idx_fkcf34zz8jp1v5o2vjly1u9l35s
-            tableName: event_images
+            tableName: event_media
   - changeSet:
       id: 0001.create_table_events.5
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: event_id
-            baseTableName: event_images
+            baseTableName: event_media
             constraintName: fk7htf734s8e3t6ht7z71nd4mhc
             deferrable: false
             initiallyDeferred: false
@@ -121,14 +121,14 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: image_id
-            baseTableName: event_images
+            baseTableName: event_media
             constraintName: fkcf34zz8jp1v5o2vjly1u9l35s
             deferrable: false
             initiallyDeferred: false
             onDelete: CASCADE
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: images
+            referencedTableName: media
             validate: true
   - changeSet:
       id: 0001.create_table_events.7
@@ -152,5 +152,5 @@ databaseChangeLog:
             initiallyDeferred: false
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: images
+            referencedTableName: media
             validate: true

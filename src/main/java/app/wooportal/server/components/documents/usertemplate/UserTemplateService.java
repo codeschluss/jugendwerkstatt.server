@@ -3,12 +3,15 @@ package app.wooportal.server.components.documents.usertemplate;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class UserTemplateService
     extends DataService<UserTemplateEntity, UserTemplatePredicateBuilder> {
 
-  public UserTemplateService(UserTemplateRepository repo, UserTemplatePredicateBuilder predicate) {
+  public UserTemplateService(
+      DataRepository<UserTemplateEntity> repo, 
+      UserTemplatePredicateBuilder predicate) {
     super(repo, predicate);
   }
 

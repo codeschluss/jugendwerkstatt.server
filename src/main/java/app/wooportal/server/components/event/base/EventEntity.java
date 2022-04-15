@@ -17,7 +17,7 @@ import app.wooportal.server.components.event.category.EventCategoryEntity;
 import app.wooportal.server.components.event.organizer.OrganizerEntity;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.core.base.BaseEntity;
-import app.wooportal.server.core.image.ImageEntity;
+import app.wooportal.server.core.media.base.MediaEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,17 +54,17 @@ public class EventEntity extends BaseEntity {
   
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
-      name = "event_images",
+      name = "event_media",
       joinColumns = @JoinColumn(name = "event_id"),
-      inverseJoinColumns = @JoinColumn(name = "image_id"),
+      inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {
-          @UniqueConstraint(columnNames = { "event_id", "image_id" })
+          @UniqueConstraint(columnNames = { "event_id", "media_id" })
       })
-  private List<ImageEntity> images;
+  private List<MediaEntity> images;
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
-  private ImageEntity titleImage;
+  private MediaEntity titleImage;
  
   
   @ManyToOne(fetch = FetchType.LAZY)

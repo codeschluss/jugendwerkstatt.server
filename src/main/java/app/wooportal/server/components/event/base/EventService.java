@@ -6,25 +6,26 @@ import app.wooportal.server.components.address.AddressService;
 import app.wooportal.server.components.event.organizer.OrganizerService;
 import app.wooportal.server.components.event.schedule.ScheduleService;
 import app.wooportal.server.core.base.DataService;
-import app.wooportal.server.core.image.ImageService;
+import app.wooportal.server.core.media.base.MediaService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class EventService extends DataService<EventEntity, EventPredicateBuilder> {
 
   public EventService(
-      EventRepository repo,
+      DataRepository<EventEntity> repo,
       EventPredicateBuilder predicate,
       ScheduleService scheduleService,
       OrganizerService organizerService,
       AddressService addressService,
-      ImageService imageService) {
+      MediaService mediaService) {
     super(repo, predicate);
     
     addService("schedules", scheduleService);
     addService("organizer", organizerService);
     addService("address", addressService);
-    addService("titleImage", imageService);
-    addService("images", imageService);
+    addService("titleImage", mediaService);
+    addService("images", mediaService);
   }
 
   @Override

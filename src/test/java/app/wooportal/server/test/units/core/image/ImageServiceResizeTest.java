@@ -3,9 +3,9 @@ package app.wooportal.server.test.units.core.image;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.core.image.ImageConfiguration;
-import app.wooportal.server.core.image.ImageEntity;
-import app.wooportal.server.core.image.ImageService;
+import app.wooportal.server.core.media.base.MediaHelper;
+import app.wooportal.server.core.media.image.ImageConfiguration;
+import app.wooportal.server.core.media.image.ImageService;
 import app.wooportal.server.test.units.services.ImageReader;
 
 public class ImageServiceResizeTest {
@@ -20,57 +20,48 @@ public class ImageServiceResizeTest {
     imageConfig.setMaxHeight(200);
     imageConfig.setMaxWidth(200);
     
-    imageService = new ImageService(null, null, imageConfig, null);
+    imageService = new ImageService(imageConfig, null);
   }
   
   @Test
   public void resizeOk() {
     var path = basePath + "test_232x232.jpg";
-    var test = new ImageEntity();
-    test.setImage(ImageReader.readFile(path));
-    test.setMimeType(ImageReader.getMimeType(path));
+    var data = ImageReader.readFile(path);
+    var mimeType = ImageReader.getMimeType(path);
     
-    var result = imageService.resize(test);
+    var result = imageService.resize(data, MediaHelper.extractFormatFromMimeType(mimeType));
     
-    assertThat(result).isNotEqualTo(test.getImageData());
+    assertThat(result).isNotEqualTo(data);
   }
   
   @Test
   public void resizeNotNeededOk() {
     var path = basePath + "test_100x100.jpg";
-    var test = new ImageEntity();
-    test.setImage(ImageReader.readFile(path));
-    test.setMimeType(ImageReader.getMimeType(path));
+    var data = ImageReader.readFile(path);
+    var mimeType = ImageReader.getMimeType(path);
     
-    var result = imageService.resize(test);
+    var result = imageService.resize(data, MediaHelper.extractFormatFromMimeType(mimeType));
     
-    assertThat(result).isEqualTo(test.getImage());
+    assertThat(result).isEqualTo(data);
   }
   
   @Test
-  public void resizeNullEntity() {   
-    var result = imageService.resize(null);
+  public void resizeNullParams() {   
+    var result = imageService.resize(null, null);
     
     assertThat(result).isNull();
   }
   
   @Test
-  public void resizeNullImage() {
-    var test = new ImageEntity();
-    test.setMimeType("test");
-    
-    var result = imageService.resize(test);
+  public void resizeNullImage() {    
+    var result = imageService.resize(null, "test");
     
     assertThat(result).isNull();
   }
   
   @Test
-  public void resizeEmptyImage() {
-    var test = new ImageEntity();
-    test.setImage(new byte[0]);
-    test.setMimeType("test");
-    
-    var result = imageService.resize(test);
+  public void resizeEmptyImage() {    
+    var result = imageService.resize(new byte[0], "test");
     
     assertThat(result).isNull();
   }

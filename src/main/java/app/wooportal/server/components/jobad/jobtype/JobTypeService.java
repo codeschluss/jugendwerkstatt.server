@@ -3,11 +3,14 @@ package app.wooportal.server.components.jobad.jobtype;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class JobTypeService extends DataService<JobTypeEntity, JobTypePredicateBuilder> {
 
-  public JobTypeService(JobTypeRepository repo, JobTypePredicateBuilder predicate) {
+  public JobTypeService(
+      DataRepository<JobTypeEntity> repo, 
+      JobTypePredicateBuilder predicate) {
     super(repo, predicate);
   }
 
