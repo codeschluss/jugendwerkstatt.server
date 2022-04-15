@@ -1,4 +1,4 @@
-package app.wooportal.server.components.documents.templatetype;
+package app.wooportal.server.components.documents.templateType;
 
 import java.util.List;
 import java.util.Optional;

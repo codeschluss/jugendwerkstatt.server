@@ -34,7 +34,6 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                    unique: true
                   name: content
                   type: VARCHAR(255)
               - column:

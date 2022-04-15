@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "job_types")
 public class JobTypeEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
-	private List<JobAdEntity> jobAds;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
+  private List<JobAdEntity> jobAds;
 
-	@Column(nullable = false, unique = true)
-	private String name;
+  @Column(nullable = false, unique = true)
+  private String name;
 
 }

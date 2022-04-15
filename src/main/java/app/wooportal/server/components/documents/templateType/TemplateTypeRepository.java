@@ -1,4 +1,4 @@
-package app.wooportal.server.components.documents.templatetype;
+package app.wooportal.server.components.documents.templateType;
 
 import app.wooportal.server.core.repository.DataRepository;
 import org.springframework.stereotype.Repository;
