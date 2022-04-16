@@ -80,14 +80,14 @@ public class UserApiTest {
   @Test
   public void saveOneOk() {
     var test = newInstance(UserEntity.class, Map.of(
-        "loginName", "test@example.com",
+        "email", "test@example.com",
         "password", "test",
         "fullname", "test test"
         ));
     var result = setup.getApi().saveOne(test);
     
     assertThat(result).matches(e -> e.getFullname().equals(test.getFullname())
-        && e.getLoginName().equals(test.getLoginName())
+        && e.getEmail().equals(test.getEmail())
         && e.getVerification() != null
     );
   }

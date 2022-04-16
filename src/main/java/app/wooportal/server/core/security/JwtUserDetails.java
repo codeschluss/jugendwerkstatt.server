@@ -25,7 +25,7 @@ public class JwtUserDetails extends User {
   public JwtUserDetails(
       UserEntity user,
       List<RoleEntity> roles) {
-    super(user.getLoginName(), user.getPassword(), Collections.emptyList());
+    super(user.getEmail(), user.getPassword(), Collections.emptyList());
     this.user = user;
     this.roles = roles;
   }

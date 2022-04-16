@@ -47,7 +47,7 @@ public class VerificationService extends DataService<VerificationEntity, Verific
               "fullname", newEntity.getUser().getFullname(),
               "portalName", config.getPortalName(),
               "link", createVerifcationLink(newEntity)),
-          newEntity.getUser().getLoginName());
+          newEntity.getUser().getEmail());
     }
   }
   

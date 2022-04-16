@@ -54,7 +54,7 @@ public class PasswordResetService extends DataService<PasswordResetEntity, Passw
           Map.of(
               "portalName", config.getPortalName(),
               "link", createPasswordResetLink(newEntity)),
-          newEntity.getUser().getLoginName());
+          newEntity.getUser().getEmail());
     }
   }
   

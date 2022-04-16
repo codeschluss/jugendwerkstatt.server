@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: images_primary_key
+                    primaryKeyName: media_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -50,6 +50,30 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  name: media_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_media_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: user_media
+  - changeSet:
+      id: seed.3
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
                   name: role_id
                   type: CHAR(36)
               - column:
@@ -61,7 +85,7 @@ databaseChangeLog:
                   type: CHAR(36)
             tableName: user_roles
   - changeSet:
-      id: seed.3
+      id: seed.4
       author: codeschluss
       changes:
         - createTable:
@@ -90,7 +114,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: roles
   - changeSet:
-      id: seed.4
+      id: seed.5
       author: codeschluss
       changes:
         - createTable:
@@ -129,7 +153,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: users
   - changeSet:
-      id: seed.5
+      id: seed.6
       author: codeschluss
       changes:
         - createTable:
@@ -167,7 +191,7 @@ databaseChangeLog:
                   type: CHAR(36)
             tableName: verifications
   - changeSet:
-      id: seed.6
+      id: seed.7
       author: codeschluss
       changes:
         - createIndex:
@@ -177,7 +201,7 @@ databaseChangeLog:
             indexName: idx_fkh8ciramu9cc9q3qcqiv4ue8a6
             tableName: user_roles
   - changeSet:
-      id: seed.7
+      id: seed.8
       author: codeschluss
       changes:
         - createIndex:
@@ -187,7 +211,7 @@ databaseChangeLog:
             indexName: idx_fkhfh9dx7w3ubf1co1vdev94g3f
             tableName: user_roles
   - changeSet:
-      id: seed.8
+      id: seed.9
       author: codeschluss
       changes:
         - createIndex:
@@ -199,8 +223,42 @@ databaseChangeLog:
             indexName: idx_uka9dydk3dj4qb8cvmjijqnrg5t
             tableName: user_roles
             unique: true
+
   - changeSet:
-      id: seed.9
+      id: seed.10
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: media_id
+            indexName: idx_fkumlb3c89di3iu9tz6n28m64dg
+            tableName: user_media
+  - changeSet:
+      id: seed.11
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_fkbbo8cgtgin9ne04nbz9v02j50
+            tableName: user_media
+  - changeSet:
+      id: seed.12
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: role_id
+            indexName: idx_ukvwrio8lp2qhth16q025411bbg
+            tableName: user_roles
+            unique: true
+  - changeSet:
+      id: seed.13
       author: codeschluss
       changes:
         - createIndex:
@@ -210,7 +268,7 @@ databaseChangeLog:
             indexName: idx_fkbjxowy0jbb7pg9tdqolsn8209
             tableName: verifications
   - changeSet:
-      id: seed.10
+      id: seed.14
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -225,7 +283,7 @@ databaseChangeLog:
             referencedTableName: roles
             validate: true
   - changeSet:
-      id: seed.11
+      id: seed.15
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -240,13 +298,43 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.12
+      id: seed.16
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: user_id
             baseTableName: verifications
             constraintName: fkbjxowy0jbb7pg9tdqolsn8209
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+  - changeSet:
+      id: seed.17
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: media_id
+            baseTableName: user_media
+            constraintName: fkumlb3c89di3iu9tz6n28m64dg
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
+            validate: true
+  - changeSet:
+      id: seed.18
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_media
+            constraintName: fkbbo8cgtgin9ne04nbz9v02j50
             deferrable: false
             initiallyDeferred: false
             onDelete: CASCADE

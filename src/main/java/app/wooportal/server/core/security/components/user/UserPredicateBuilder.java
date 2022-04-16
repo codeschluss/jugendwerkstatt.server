@@ -14,13 +14,13 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.loginName.likeIgnoreCase(term)
+    return query.email.likeIgnoreCase(term)
         .or(query.roles.any().name.likeIgnoreCase(term));
   }
 
   public BooleanExpression withLoginName(String loginName) {
     return loginName != null && !loginName.isBlank()
-        ? query.loginName.equalsIgnoreCase(loginName)
+        ? query.email.equalsIgnoreCase(loginName)
         : null;
   }
 

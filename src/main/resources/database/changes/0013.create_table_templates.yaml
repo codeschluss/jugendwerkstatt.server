@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0011.create_table_uploads.1
+      id: 0013.create_table_templates.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: upload_primary_key
+                    primaryKeyName: tempaltes_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -28,37 +28,42 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: user_id
-                  type: CHAR(36)
+                    unique: true
+                  name: name
+                  type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
-                    unique: true
-                  name: name
-                  type: VARCHAR(255)                  
-            tableName: uploads
+                  name: content
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: template_type_id
+                  type: CHAR(36)
+            tableName: templates
   - changeSet:
-      id: 0011.create_table_uploads.2
+      id: 0013.create_table_templates.2
       author: codeschluss
       changes:
         - createIndex:
             columns:
               - column:
-                  name: user_id
-            indexName: idx_fkltuipgfa56307sgfi0q0cini1
-            tableName: uploads
+                  name: template_type_id
+            indexName: idx_fk53lxo6azsaoq6rljaeqhy0okw
+            tableName: templates
   - changeSet:
-      id: 0011.create_table_uploads.3
+      id: 0013.create_table_templates.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: user_id
-            baseTableName: uploads
-            constraintName: fkltuipgfa56307sgfi0q0cini1
+            baseColumnNames: template_type_id
+            baseTableName: templates
+            constraintName: fk53lxo6azsaoq6rljaeqhy0okw
             deferrable: false
             initiallyDeferred: false
             onUpdate: CASCADE
-            onDelete: CASCADE
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: template_types
             validate: true
+ 

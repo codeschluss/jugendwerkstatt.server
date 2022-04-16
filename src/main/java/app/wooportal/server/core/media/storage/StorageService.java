@@ -8,6 +8,6 @@ public interface StorageService {
   
   public byte[] read(String id, String formatType) throws IOException;
 
-  public void store(String id, byte[] data, String formatType) throws IOException;
+  public void store(String id, String formatType, byte[] data) throws IOException;
   
 }

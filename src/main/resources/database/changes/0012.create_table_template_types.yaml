@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0013.create_table_template_types.1
+      id: 0012.create_table_template_types.1
       author: codeschluss
       changes:
         - createTable:

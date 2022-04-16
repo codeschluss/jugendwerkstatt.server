@@ -47,7 +47,7 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
         storageService.delete(entity.getId(), formatType);
       }
       try {
-        storageService.store(entity.getId(), data, formatType);
+        storageService.store(entity.getId(), formatType, data);
       } catch (IOException e) {
         //TODO: handle errors
       }

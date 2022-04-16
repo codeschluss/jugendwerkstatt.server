@@ -43,9 +43,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   @Override
   public Optional<UserEntity> getExisting(UserEntity entity) {
-    return entity.getLoginName() == null || entity.getLoginName().isEmpty()
+    return entity.getEmail() == null || entity.getEmail().isEmpty()
         ? Optional.empty()
-        : getByLoginName(entity.getLoginName());
+        : getByLoginName(entity.getEmail());
   }
 
   public Optional<UserEntity> getByLoginName(String name) {

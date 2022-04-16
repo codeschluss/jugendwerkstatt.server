@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0015.create_table_user_templates.1
+      id: 0014.create_table_user_templates.1
       author: codeschluss
       changes:
         - createTable:
@@ -48,7 +48,7 @@ databaseChangeLog:
                   type: CHAR(36)                  
             tableName: user_templates
   - changeSet:
-      id: 0015.create_table_user_templates.2
+      id: 0014.create_table_user_templates.2
       author: codeschluss
       changes:
         - createIndex:
@@ -58,7 +58,7 @@ databaseChangeLog:
             indexName: idx_fkisul8ew2dzt1cydmo27blmu2x
             tableName: user_templates
   - changeSet:
-      id: 0015.create_table_user_templates.3
+      id: 0014.create_table_user_templates.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -72,7 +72,7 @@ databaseChangeLog:
             referencedTableName: template_types
             validate: true
   - changeSet:
-      id: 0015.create_table_user_templates.4
+      id: 0014.create_table_user_templates.4
       author: codeschluss
       changes:
         - createIndex:
@@ -82,7 +82,7 @@ databaseChangeLog:
             indexName: idx_fk7gaa59i3rt2dj89y3ubs1ob8k
             tableName: user_templates
   - changeSet:
-      id: 0015.create_table_user_templates.5
+      id: 0014.create_table_user_templates.5
       author: codeschluss
       changes:
         - addForeignKeyConstraint:

@@ -29,7 +29,7 @@ public class DefaultStorageService implements StorageService {
   }
 
   @Override
-  public void store(String id, byte[] data, String formatType) throws IOException {
+  public void store(String id, String formatType, byte[] data) throws IOException {
     Files.createDirectories(Paths.get(storageConfig.getLocation()));
     Files.write(createFile(id, formatType).toPath(), data);
   }

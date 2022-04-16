@@ -27,12 +27,10 @@ databaseChangeLog:
   - include:
       file: database/changes/0011.create_table_links.yaml         
   - include:
-      file: database/changes/0012.create_table_uploads.yaml 
+      file: database/changes/0012.create_table_template_types.yaml 
   - include:
-      file: database/changes/0013.create_table_template_types.yaml 
+      file: database/changes/0013.create_table_templates.yaml
   - include:
-      file: database/changes/0014.create_table_templates.yaml
-  - include:
-      file: database/changes/0015.create_table_user_templates.yaml     
+      file: database/changes/0014.create_table_user_templates.yaml     
       
                                 
