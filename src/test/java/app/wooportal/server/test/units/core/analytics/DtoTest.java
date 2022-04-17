@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.core.dto.analytics.AnalyticsDto;
-import app.wooportal.server.core.dto.analytics.AnalyticsEntry;
+import app.wooportal.server.core.base.dto.analytics.AnalyticsDto;
+import app.wooportal.server.core.base.dto.analytics.AnalyticsEntry;
 
 public class DtoTest {
   

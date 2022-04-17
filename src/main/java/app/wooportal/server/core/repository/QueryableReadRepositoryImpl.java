@@ -17,7 +17,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.transaction.annotation.Transactional;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.base.Query;
-import app.wooportal.server.core.dto.listing.PageableList;
+import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.utils.ReflectionUtils;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Predicate;

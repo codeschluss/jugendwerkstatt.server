@@ -2,9 +2,9 @@ package app.wooportal.server.core.base;
 
 import java.util.Collection;
 import java.util.Optional;
-import app.wooportal.server.core.dto.listing.FilterSortPaginate;
-import app.wooportal.server.core.dto.query.QueryExpression;
-import app.wooportal.server.core.dto.query.QueryOperator;
+import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
+import app.wooportal.server.core.base.dto.query.QueryExpression;
+import app.wooportal.server.core.base.dto.query.QueryOperator;
 import app.wooportal.server.core.error.exception.BadParamsException;
 import app.wooportal.server.core.utils.DateUtils;
 import app.wooportal.server.core.utils.PersistenceUtils;

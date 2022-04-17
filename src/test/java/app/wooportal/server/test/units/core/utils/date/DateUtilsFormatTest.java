@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.core.dto.analytics.IntervalFilter;
+import app.wooportal.server.core.base.dto.analytics.IntervalFilter;
 import app.wooportal.server.core.utils.DateUtils;
 
 public class DateUtilsFormatTest {

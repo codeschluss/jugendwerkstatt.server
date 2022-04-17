@@ -1,7 +1,7 @@
 package app.wooportal.server.core.base;
 
-import app.wooportal.server.core.dto.listing.FilterSortPaginate;
-import app.wooportal.server.core.dto.listing.PageableList;
+import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
+import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.error.exception.BadParamsException;
 import lombok.Getter;
 import lombok.Setter;

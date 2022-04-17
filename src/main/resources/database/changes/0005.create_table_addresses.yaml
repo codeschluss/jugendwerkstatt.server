@@ -48,7 +48,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: true
-                  name: longtitude
+                  name: longitude
                   type: float8
               - column:
                   constraints:

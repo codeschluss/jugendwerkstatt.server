@@ -5,7 +5,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.base.Query;
-import app.wooportal.server.core.dto.listing.PageableList;
+import app.wooportal.server.core.base.dto.listing.PageableList;
 import com.querydsl.core.types.Predicate;
 
 @NoRepositoryBean

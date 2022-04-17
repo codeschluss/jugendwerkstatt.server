@@ -1,8 +1,8 @@
 package app.wooportal.server.core.utils;
 
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.config.DefaultSort;
-import app.wooportal.server.core.dto.listing.FilterSortPaginate;
 import java.lang.reflect.Field;
 import java.util.Optional;
 import java.util.stream.Collectors;
