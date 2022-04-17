@@ -1,4 +1,4 @@
-package app.wooportal.server.core.security.components.role;
+    package app.wooportal.server.core.security.components.role;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -11,11 +11,13 @@ import app.wooportal.server.core.security.components.user.UserEntity;
 @Service
 public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
   
+  public static String admin = "admin";
+  
   public static String approved = "approved";
   
-  public static String verified = "verified";
+  public static String superviser = "superviser";
   
-  public static String admin = "admin";
+  public static String verified = "verified";
   
   public RoleService(
       DataRepository<RoleEntity> repo,
@@ -34,6 +36,10 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
   
   public RoleEntity getApprovedRole() {
     return repo.findOne(predicate.withName(approved)).get();
+  }
+  
+  public RoleEntity getSuperviserRole() {
+    return repo.findOne(predicate.withName(superviser)).get();
   }
   
   public RoleEntity getVerifiedRole() {

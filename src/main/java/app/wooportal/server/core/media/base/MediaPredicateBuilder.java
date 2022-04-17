@@ -13,7 +13,7 @@ public class MediaPredicateBuilder extends PredicateBuilder<QMediaEntity, MediaE
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.id.likeIgnoreCase(term);
+    return query.name.likeIgnoreCase(term);
   }
 
 }

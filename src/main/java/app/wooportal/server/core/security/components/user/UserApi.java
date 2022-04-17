@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.error.exception.NotFoundException;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -79,6 +80,11 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   @GraphQLMutation(name = "verify")
   public UserEntity verify(String key) {
     return service.verify(key);
+  }
+  
+  @GraphQLMutation(name = "test")
+  public UserEntity test() {
+    throw new NotFoundException("test", "test");
   }
 
 }

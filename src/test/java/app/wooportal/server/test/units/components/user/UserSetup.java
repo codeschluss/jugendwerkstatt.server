@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.GraphBuilder;
+import app.wooportal.server.core.media.base.MediaEntity;
+import app.wooportal.server.core.media.base.MediaPredicateBuilder;
+import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetBuilder;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetService;
@@ -45,6 +48,7 @@ public class UserSetup {
 
   public void init(
       List<UserEntity> userData,
+      List<MediaEntity> uploadData,
       List<RoleEntity> roleData,
       List<PasswordResetEntity> passwordResetData,
       List<VerificationEntity> verificationData) {
@@ -54,12 +58,21 @@ public class UserSetup {
         new RepoService<UserEntity>(userData), 
         new UserPredicateBuilder(), 
         encoder,
+        createMediaService(uploadData),
         createRoleService(roleData),
         createPasswordResetData(passwordResetData),
         createVerificationData(verificationData));
     service.setGraph(new GraphBuilder<>(entityManager));
     service.setContext(new TestApiContextAdapter());
     api = new UserApi(service);
+  }
+  
+  private MediaService createMediaService(List<MediaEntity> uploadData) {
+    return new MediaService(
+        new RepoService<MediaEntity>(uploadData),
+        new MediaPredicateBuilder(),
+        null,
+        null);
   }
 
   private RoleService createRoleService(List<RoleEntity> roleData) {

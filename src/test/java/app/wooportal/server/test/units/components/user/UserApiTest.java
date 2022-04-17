@@ -29,7 +29,7 @@ public class UserApiTest {
 
   @BeforeEach
   public void init() {
-    setup.init(data, null, null, null);
+    setup.init(data, null, null, null, null);
   }
 
   @Test

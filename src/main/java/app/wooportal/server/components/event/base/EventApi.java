@@ -3,10 +3,12 @@ package app.wooportal.server.components.event.base;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
+import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -61,6 +63,12 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
     super.deleteOne(id);
   }
   
+  @GraphQLQuery(name = "nextSchedule")
+  public ScheduleEntity getNextSchedule(
+      @GraphQLContext EventEntity workstation) {
+    return null;
   }
+  
+}
 
 
