@@ -57,6 +57,18 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
   private boolean isImage(String mimeType) {
     return imageFormats.stream().anyMatch(format -> mimeType.toLowerCase().contains(mimeType));
   }
+  
+  public ResponseEntity<byte[]> download(String id) throws IOException {
+    var result = getById(id);
+    
+    if (result.isEmpty()) {
+      throw new NotFoundException("media does not exist", id);
+    }
+    var formatType = MediaHelper.extractFormatFromMimeType(result.get().getMimeType());
+    return ResponseEntity.ok().headers(createHeader(result.get().getName(), formatType))
+        .contentType(MediaType.parseMediaType(result.get().getMimeType()))
+        .body(storageService.read(id, formatType));
+  }
 
   public ResponseEntity<byte[]> getMedia(String id) throws IOException {
     var result = getById(id);
@@ -65,7 +77,7 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
       throw new NotFoundException("media does not exist", id);
     }
     var formatType = MediaHelper.extractFormatFromMimeType(result.get().getMimeType());
-    return ResponseEntity.ok().headers(createHeader(result.get().getName(), formatType))
+    return ResponseEntity.ok()
       .contentType(MediaType.parseMediaType(result.get().getMimeType()))
       .body(storageService.read(id, formatType));
   }

@@ -50,3 +50,9 @@ testem.log
 .DS_Store
 Thumbs.db
 /target/
+
+#Storage
+.storage/
+
+# Credentials
+/src/main/resources/credentials/firebase-credentials.json

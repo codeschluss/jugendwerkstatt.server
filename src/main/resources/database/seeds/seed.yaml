@@ -141,7 +141,10 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: login_name
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: fullname
                   type: VARCHAR(255)
               - column:
                   constraints:
@@ -149,8 +152,8 @@ databaseChangeLog:
                   name: password
                   type: VARCHAR(255)
               - column:
-                  name: fullname
-                  type: VARCHAR(255)
+                  name: profile_picture_id
+                  type: CHAR(36)
             tableName: users
   - changeSet:
       id: seed.6
@@ -271,6 +274,16 @@ databaseChangeLog:
       id: seed.14
       author: codeschluss
       changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: profile_picture_id
+            indexName: idx_fkrsu528p3gi7l3ulnmnheoe94u
+            tableName: users
+  - changeSet:
+      id: seed.15
+      author: codeschluss
+      changes:
         - addForeignKeyConstraint:
             baseColumnNames: role_id
             baseTableName: user_roles
@@ -283,7 +296,7 @@ databaseChangeLog:
             referencedTableName: roles
             validate: true
   - changeSet:
-      id: seed.15
+      id: seed.16
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -298,7 +311,7 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.16
+      id: seed.17
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -313,7 +326,7 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.17
+      id: seed.18
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -328,7 +341,7 @@ databaseChangeLog:
             referencedTableName: media
             validate: true
   - changeSet:
-      id: seed.18
+      id: seed.19
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -341,4 +354,19 @@ databaseChangeLog:
             onUpdate: CASCADE
             referencedColumnNames: id
             referencedTableName: users
+            validate: true
+  - changeSet:
+      id: seed.20
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: profile_picture_id
+            baseTableName: users
+            constraintName: fkrsu528p3gi7l3ulnmnheoe94u
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
             validate: true

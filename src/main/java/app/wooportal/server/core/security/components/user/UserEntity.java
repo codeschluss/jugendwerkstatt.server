@@ -40,15 +40,18 @@ public class UserEntity extends BaseEntity {
 
   private String fullname;
 
-  @Column(unique = true, nullable = false, name = "login_name")
+  @Column(unique = true, nullable = false)
   private String email;
 
   @Column(nullable = false)
   private String password;
-
   
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private PasswordResetEntity passwordReset;
+  
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private MediaEntity profilePicture;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),

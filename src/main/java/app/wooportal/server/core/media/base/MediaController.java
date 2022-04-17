@@ -19,4 +19,9 @@ public class MediaController {
   public ResponseEntity<byte[]> getMedia(@PathVariable String id) throws IOException {
     return service.getMedia(id);
   }
+  
+  @GetMapping(value = "/media/download/{id}")
+  public ResponseEntity<byte[]> download(@PathVariable String id) throws IOException {
+    return service.download(id);
+  }
 }

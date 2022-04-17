@@ -31,6 +31,7 @@ databaseChangeLog:
   - include:
       file: database/changes/0013.create_table_templates.yaml
   - include:
-      file: database/changes/0014.create_table_user_templates.yaml     
-      
+      file: database/changes/0014.create_table_user_templates.yaml
+  - include:
+      file: database/datasets/test-data.yaml
                                 
