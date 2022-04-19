@@ -1,4 +1,4 @@
-package app.wooportal.server.components.evaluation.assignmentstate;
+package app.wooportal.server.components.evaluation.assignmentState;
 
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;

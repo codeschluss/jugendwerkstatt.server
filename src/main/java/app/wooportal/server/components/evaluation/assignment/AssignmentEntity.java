@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import app.wooportal.server.components.evaluation.answer.AnswerEntity;
-import app.wooportal.server.components.evaluation.assignmentstate.AssignmentStateEntity;
+import app.wooportal.server.components.evaluation.assignmentState.AssignmentStateEntity;
 import app.wooportal.server.components.evaluation.questionnaire.QuestionnaireEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;

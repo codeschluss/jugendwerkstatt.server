@@ -2,7 +2,7 @@ package app.wooportal.server.components.evaluation.assignment;
 
 import org.springframework.stereotype.Service;
 import app.wooportal.server.components.evaluation.answer.AnswerService;
-import app.wooportal.server.components.evaluation.assignmentstate.AssignmentStateService;
+import app.wooportal.server.components.evaluation.assignmentState.AssignmentStateService;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.repository.DataRepository;
 

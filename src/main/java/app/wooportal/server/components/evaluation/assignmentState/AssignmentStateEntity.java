@@ -1,4 +1,4 @@
-package app.wooportal.server.components.evaluation.assignmentstate;
+package app.wooportal.server.components.evaluation.assignmentState;
 
 import java.util.List;
 import javax.persistence.Column;
