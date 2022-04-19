@@ -1,16 +1,15 @@
-package app.wooportal.server.components.event.category;
+package app.wooportal.server.components.evaluation.questionnaire;
 
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
 
-
 @Service
-public class EventCategoryPredicateBuilder
-    extends PredicateBuilder<QEventCategoryEntity, EventCategoryEntity> {
+public class QuestionnairePredicateBuilder
+    extends PredicateBuilder<QQuestionnaireEntity, QuestionnaireEntity> {
 
-  public EventCategoryPredicateBuilder() {
-    super(QEventCategoryEntity.eventCategoryEntity);
+  public QuestionnairePredicateBuilder() {
+    super(QQuestionnaireEntity.questionnaireEntity);
   }
 
   @Override
