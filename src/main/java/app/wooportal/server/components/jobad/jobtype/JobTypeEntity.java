@@ -23,6 +23,9 @@ import lombok.NoArgsConstructor;
 public class JobTypeEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+  
+  @Column(nullable = false)
+  private String color;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
   private List<JobAdEntity> jobAds;

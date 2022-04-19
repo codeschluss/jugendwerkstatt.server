@@ -25,9 +25,6 @@ import lombok.Setter;
 public class EventCategoryEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-
-  @Column(nullable = false)
-  private String color;
   
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
   private List<EventEntity> events;

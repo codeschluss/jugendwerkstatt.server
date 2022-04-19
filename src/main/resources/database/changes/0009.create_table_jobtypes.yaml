@@ -28,6 +28,11 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  name: color
+                  type: VARCHAR(255)                  
+              - column:
+                  constraints:
+                    nullable: false
                   name: name
                   type: VARCHAR(255)                 
             tableName: jobtypes
