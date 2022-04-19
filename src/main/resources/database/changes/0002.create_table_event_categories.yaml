@@ -28,11 +28,6 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: color
-                  type: VARCHAR(255)
-              - column:
-                  constraints:
-                    nullable: false
                   name: icon
                   type: VARCHAR(255)
               - column:
