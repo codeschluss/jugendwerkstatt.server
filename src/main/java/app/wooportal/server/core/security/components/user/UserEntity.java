@@ -50,7 +50,6 @@ public class UserEntity extends BaseEntity {
   private PasswordResetEntity passwordReset;
   
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private MediaEntity profilePicture;
 
   @ManyToMany(fetch = FetchType.LAZY)
