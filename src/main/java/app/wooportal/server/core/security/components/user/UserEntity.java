@@ -42,7 +42,6 @@ public class UserEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private CourseEntity course;
 
   private String fullname;
