@@ -78,13 +78,12 @@ INSERT INTO questions(id, item, questionnaire_id) VALUES
 ('90a8772d-f551-4111-9601-069e453ef770', 'question2', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4');
 
 INSERT INTO assignments(id, assignment_state_id, questionnaire_id, user_id) VALUES
-('5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
-('fea1d645-10cf-4905-98f2-87a2054cfe2a', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '528250c0-e0e3-4166-aa71-0f150eb2453f');
+('5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
 INSERT INTO answers(id, rating, question_id, assignment_id) VALUES
-('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', 'fea1d645-10cf-4905-98f2-87a2054cfe2a'),
-('7c8e86c7-4049-42ad-89b6-6c3da2bd8a38', '3', '4100e7c3-e648-4b68-b937-89d9fec60880', 'fea1d645-10cf-4905-98f2-87a2054cfe2a'),
+('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
+('7c8e86c7-4049-42ad-89b6-6c3da2bd8a38', '3', '4100e7c3-e648-4b68-b937-89d9fec60880', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
 ('9963bfd5-877c-4e50-8cca-3d3f3a094857', '2', '90f4880d-dae8-4290-922c-216c48ce249d', '89cece0b-8068-49d3-ad74-e882386c5c8b'),
 ('ad0f00a3-ef45-4b14-9ecf-5b5d78930a81', '2', '90a8772d-f551-4111-9601-069e453ef770', '89cece0b-8068-49d3-ad74-e882386c5c8b');
 
@@ -106,8 +105,18 @@ INSERT INTO templates(id, name, content, template_type_id) VALUES
 ('4f27f7cc-f849-4438-83fe-1b8fffccb2c5', 'Vorlage2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a');
 
 INSERT INTO user_templates(id, name, content, template_type_id, user_id) VALUES
-('0c132c71-d17c-4d1e-b473-f6f0fa085c6a', 'Firma1', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
-('d5ef1f29-56f8-4d89-bc77-e963c6a7bb3e', 'Firma2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '28fc7d3a-afc7-49ca-8070-eea8671abab3');
+('0c132c71-d17c-4d1e-b473-f6f0fa085c6a', 'Firma1', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('d5ef1f29-56f8-4d89-bc77-e963c6a7bb3e', 'Firma2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
+INSERT INTO groups(id, name) VALUES
+('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall'),
+('1f8c55b2-4210-4eea-bc14-6a6d55cc538e', 'Holz');
 
+INSERT INTO courses(id, name, group_id) VALUES
+('2163ee48-8605-46eb-bbd0-c62497007b18', 'Metall 1', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
+('ab36cc61-a884-4da8-be52-db8f19abcbd1', 'Metall 2', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
+('dce3746a-6109-45fd-8bfa-09bb99378d37', 'Holz 1', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e');
 
+INSERT INTO feedbacks(id, rating, course_id, user_id) VALUES
+('566458a2-fe16-4850-8e68-44c1cd5fd8cd', '3', '2163ee48-8605-46eb-bbd0-c62497007b18', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('50bb5dd5-e180-4cf4-9f30-f16bea9acfa8', '5', 'ab36cc61-a884-4da8-be52-db8f19abcbd1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');

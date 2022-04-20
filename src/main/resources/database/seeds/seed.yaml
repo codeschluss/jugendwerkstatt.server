@@ -154,6 +154,9 @@ databaseChangeLog:
               - column:
                   name: profile_picture_id
                   type: CHAR(36)
+              - column:
+                  name: course_id
+                  type: CHAR(36)                  
             tableName: users
   - changeSet:
       id: seed.6
