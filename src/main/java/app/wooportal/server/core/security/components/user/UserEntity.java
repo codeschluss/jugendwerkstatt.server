@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
+import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
@@ -39,6 +41,10 @@ public class UserEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private CourseEntity course;
+
   private String fullname;
 
   @Column(unique = true, nullable = false)
@@ -46,10 +52,10 @@ public class UserEntity extends BaseEntity {
 
   @Column(nullable = false)
   private String password;
-  
+
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private PasswordResetEntity passwordReset;
-  
+
   @OneToOne(fetch = FetchType.LAZY)
   private MediaEntity profilePicture;
 
@@ -61,14 +67,12 @@ public class UserEntity extends BaseEntity {
       uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
   @CollectionId(column = @Column(name = "id"), type = @Type(type = "uuid-char"), generator = "UUID")
   private List<RoleEntity> roles = new ArrayList<>();
-  
+
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private Set<UserTemplateEntity> userTemplates;
   
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "user_media", 
-      joinColumns = @JoinColumn(name = "user_id"),
+  @JoinTable(name = "user_media", joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "media_id"})})
   @CollectionId(column = @Column(name = "id"), type = @Type(type = "uuid-char"), generator = "UUID")
