@@ -1,7 +1,7 @@
 package app.wooportal.server.components.evaluation.assignment;
 
 import java.io.Serial;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -31,7 +31,7 @@ public class AssignmentEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignment")
-  private List<AnswerEntity> answers;
+  private Set<AnswerEntity> answers;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

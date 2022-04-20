@@ -1,6 +1,6 @@
 package app.wooportal.server.components.event.organizer;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class OrganizerEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY)
-  private List<EventEntity> event;
+  private Set<EventEntity> event;
 
   private String mail;
   

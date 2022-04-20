@@ -1,6 +1,6 @@
 package app.wooportal.server.components.evaluation.assignmentState;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class AssignmentStateEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "assignmentState", fetch = FetchType.LAZY)
-  private List<AssignmentEntity> assignments;
+  private Set<AssignmentEntity> assignments;
 
   @Column(unique = true, nullable = false)
   private String name;

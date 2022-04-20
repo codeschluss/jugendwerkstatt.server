@@ -1,6 +1,6 @@
 package app.wooportal.server.components.jobad.company;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +34,7 @@ public class CompanyEntity extends BaseEntity {
   private AddressEntity address;
 
   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-  private List<JobAdEntity> jobAd;
+  private Set<JobAdEntity> jobAd;
   
   @Column(unique = true)
   private String mail;

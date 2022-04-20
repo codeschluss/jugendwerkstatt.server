@@ -1,6 +1,6 @@
 package app.wooportal.server.components.link.category;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class LinkCategoryEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-  private List<LinkEntity> link;
+  private Set<LinkEntity> link;
 
   @Column(unique = true, nullable = false)
   private String name;

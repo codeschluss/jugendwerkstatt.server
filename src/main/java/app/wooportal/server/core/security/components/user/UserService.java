@@ -39,8 +39,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     
     this.bcryptPasswordEncoder = encoder;
     this.roleService = roleService;
-    addService("uploads", mediaService);
     addService("passwordReset", passwordResetService);
+    addService("profilePicture", mediaService);
+    addService("uploads", mediaService);
     addService("verification", verificationService);
   }
   

@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityGraph;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.Hibernate;
@@ -255,15 +256,36 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
     
     if (!PersistenceUtils.isIgnoredField(fieldName)) {
       var fieldValue = ReflectionUtils.get(fieldName, newEntity).orElse(null);
-      if (fieldValue != null || PersistenceUtils.isNullable(entity, fieldName)) {
-        Object value = getService(fieldName) != null
-            ? getService(fieldName).save((E) fieldValue, context)
-            : fieldValue instanceof String ? ((String) fieldValue).strip() : fieldValue;
-        ReflectionUtils.set(fieldName, entity, value); 
+      if (ReflectionUtils.getAnnotation(entity, fieldName, ManyToMany.class).isPresent()
+          && getService(fieldName) != null) {
+        var currentValue = ReflectionUtils.get(fieldName, entity);
+        if (currentValue.isPresent()) {
+          getService(fieldName).deleteAll((Collection<E>) currentValue.get());
+        }
+        fieldValue = saveManyToMany((Collection<E>) fieldValue, getService(fieldName), context);
+      }
+      if (fieldValue != null || PersistenceUtils.isNullable(entity, fieldName)) {        
+        Object value = getService(fieldName) == null || fieldValue == null || Collection.class.isAssignableFrom(fieldValue.getClass())
+            ? fieldValue instanceof String ? ((String) fieldValue).strip() : fieldValue
+            : getService(fieldName).save((E) fieldValue, context);
+        ReflectionUtils.set(fieldName, entity, value);
       }
     }
-
     return Optional.empty();
+  }
+
+  private List<E> saveManyToMany(
+      Collection<E> fieldValue,
+      DataService<E, P> service,
+      JsonNode context) {
+    if (fieldValue != null && !fieldValue.isEmpty()) {
+      var result = new ArrayList<E>();
+      for (E element : fieldValue) {
+        result.add(service.save(element, context));
+      }
+      return result;
+    }
+    return null;
   }
 
   protected void savePostSaveFields(E persisted, E newEntity, List<String> postSaveFieldNames, JsonNode context) {

@@ -1,6 +1,6 @@
 package app.wooportal.server.components.evaluation.question;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +30,7 @@ public class QuestionEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
-  private List<AnswerEntity> answers;
+  private Set<AnswerEntity> answers;
 
   @Column(nullable = false)
   private String item;

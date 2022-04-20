@@ -1,6 +1,6 @@
 package app.wooportal.server.components.jobad.jobtype;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +28,7 @@ public class JobTypeEntity extends BaseEntity {
   private String color;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
-  private List<JobAdEntity> jobAds;
+  private Set<JobAdEntity> jobAds;
 
   @Column(nullable = false, unique = true)
   private String name;

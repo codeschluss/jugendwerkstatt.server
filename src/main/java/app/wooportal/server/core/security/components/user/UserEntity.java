@@ -2,6 +2,7 @@ package app.wooportal.server.core.security.components.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,14 +54,16 @@ public class UserEntity extends BaseEntity {
   private MediaEntity profilePicture;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+  @JoinTable(
+      name = "user_roles", 
+      joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "role_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
   @CollectionId(column = @Column(name = "id"), type = @Type(type = "uuid-char"), generator = "UUID")
   private List<RoleEntity> roles = new ArrayList<>();
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  private List<UserTemplateEntity> userTemplates;
+  private Set<UserTemplateEntity> userTemplates;
   
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(

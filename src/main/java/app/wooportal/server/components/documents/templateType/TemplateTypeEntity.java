@@ -1,6 +1,6 @@
 package app.wooportal.server.components.documents.templateType;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,9 +29,9 @@ public class TemplateTypeEntity extends BaseEntity {
   private String name;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateType")
-  private List<TemplateEntity> templates;
+  private Set<TemplateEntity> templates;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateType")
-  private List<UserTemplateEntity> userTemplates;
+  private Set<UserTemplateEntity> userTemplates;
 
 }

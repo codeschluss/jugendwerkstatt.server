@@ -2,6 +2,7 @@ package app.wooportal.server.components.event.base;
 
 import java.io.Serial;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,7 +47,7 @@ public class EventEntity extends BaseEntity {
   private EventCategoryEntity category;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
-  private List<ScheduleEntity> schedules;
+  private Set<ScheduleEntity> schedules;
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

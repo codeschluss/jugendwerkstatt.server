@@ -1,6 +1,6 @@
 package app.wooportal.server.components.evaluation.questionnaire;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,11 +28,11 @@ public class QuestionnaireEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")
-  private List<AssignmentEntity> assignments;
+  private Set<AssignmentEntity> assignments;
 
   @Column(unique = true, nullable = false)
   private String name;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")
-  private List<QuestionEntity> questions;
+  private Set<QuestionEntity> questions;
 }

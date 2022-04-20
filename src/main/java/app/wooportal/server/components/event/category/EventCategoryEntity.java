@@ -1,6 +1,6 @@
 package app.wooportal.server.components.event.category;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class EventCategoryEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-  private List<EventEntity> events;
+  private Set<EventEntity> events;
   
   @Column(nullable = false)
   private String icon;
