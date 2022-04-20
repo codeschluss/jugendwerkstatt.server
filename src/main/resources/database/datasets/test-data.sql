@@ -26,22 +26,22 @@ INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('64d47bfa-f34d-49bb-8bae-9e3ff7b2e1d4', '71a857db-dd35-4d08-bb0f-20115a584ee5', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765');
 
 INSERT INTO organizers (id, name, mail, phone, website) VALUES
-('2295ed87-3f46-428a-a179-e7b7093d2f05', 'IHK-Ulm', 'Gaille.Susanne@web.de', '0176-3138557', 'https://www.ihk-ausbildungsmesse.de/' ),
-('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Rainer.Zufall@web.de', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/');
+('2295ed87-3f46-428a-a179-e7b7093d2f05', 'IHK-Ulm', 'Gaille.Susanne@example.com', '0176-3138557', 'https://www.ihk-ausbildungsmesse.de/'),
+('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Rainer.Zufall@example.com', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/');
 
 INSERT INTO event_categories (id, name, icon) VALUES
 ('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training', 'goodIcon'),
 ('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sport', 'niceIcon');
 
 INSERT INTO addresses (id, house_number, latitude, longitude, place, postal_code, street) VALUES
-('ff656406-89af-4835-a9bf-571fd978f78f', '27', '48.397340', '9.992980', 'Ulm', '89073', 'ihk-street' ),
+('ff656406-89af-4835-a9bf-571fd978f78f', '27', '48.397340', '9.992980', 'Ulm', '89073', 'ihk-street'),
 ('b1b84b9d-a30c-4921-8d20-af21058bec79', '22', '48.397340', '9.992980', 'Ulm', '89073', 'müller-street'),
 ('4ff89e9a-2751-4a15-845e-8283194e81fa', '28', '48.397340', '9.992980', 'Ulm', '89073', 'bowling-street'),
 ('5dc8809e-8890-4262-b334-a0dff5b8ffd8', '33', '48.397340', '9.992980', 'Ulm', '89073', 'claus-street');
 
 INSERT INTO events (id, name, description, category_id, organizer_id, title_image_id, address_id) VALUES
 ('440a6eec-be4d-47e8-b38d-3a819bc4624e', 'Vocational-Training-Fair','First touch with companys','555f2324-87bf-4510-ac08-893076444dbb',
-'2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f' ),
+'2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
 ('3e9b15fb-02ce-4d09-bfcd-40751eaee1b7', 'Team-Bowling', 'Social gathering and bowling','a464edde-2e2f-455e-a5ca-84fd28f8ad4a',
 'ead07153-6e4b-45ae-abd4-562fc126e92f','c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', '4ff89e9a-2751-4a15-845e-8283194e81fa');
 
@@ -56,10 +56,58 @@ INSERT INTO jobtypes (id, name, color) VALUES
 ('1a773b24-de53-4ccc-9daa-e9261590f88b', 'carpentry', '#00FF00');
 
 INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
-('89aaa55a-168d-4165-85fc-abde073d6732', 'Carpentry Müller GmbH', 'alex@müllergmbh.de', '11830', 'müllergmbh.de', 'b1b84b9d-a30c-4921-8d20-af21058bec79'),
-('f476ed5a-c5c6-429b-bcf0-85fcf8363be3', 'Metal Claus GmbH', 'claus@metal.de', '112', 'clausmetal.de', '5dc8809e-8890-4262-b334-a0dff5b8ffd8');
+('89aaa55a-168d-4165-85fc-abde073d6732', 'Carpentry Müller GmbH', 'müller@example.com', '11830', 'müllergmbh.de', 'b1b84b9d-a30c-4921-8d20-af21058bec79'),
+('f476ed5a-c5c6-429b-bcf0-85fcf8363be3', 'Metal Claus GmbH', 'claus@example.com', '112', 'clausmetal.de', '5dc8809e-8890-4262-b334-a0dff5b8ffd8');
 
 INSERT INTO job_ads(id, title, start_date, due_date, company_id, job_type_id) VALUES
 ('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
 ('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b');
+
+INSERT INTO assignment_states (id, name) VALUES
+('aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', 'ASSIGNED'),
+('577d7e21-f994-433f-8f7b-c7ac3887d692', 'DONE');
+
+INSERT INTO questionnaires(id, name) VALUES
+('0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', 'Metal-Group-Evaluation'),
+('0e1a2d66-5629-4988-b45f-d207a3b9d4f4', 'Carpentry-Group-Evaluation');
+
+INSERT INTO questions(id, item, questionnaire_id) VALUES
+('7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', 'question1', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f'),
+('4100e7c3-e648-4b68-b937-89d9fec60880', 'question2', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f'),
+('90f4880d-dae8-4290-922c-216c48ce249d', 'question1', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4'),
+('90a8772d-f551-4111-9601-069e453ef770', 'question2', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4');
+
+INSERT INTO assignments(id, assignment_state_id, questionnaire_id, user_id) VALUES
+('5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
+('fea1d645-10cf-4905-98f2-87a2054cfe2a', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '528250c0-e0e3-4166-aa71-0f150eb2453f');
+
+INSERT INTO answers(id, rating, question_id, assignment_id) VALUES
+('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', 'fea1d645-10cf-4905-98f2-87a2054cfe2a'),
+('7c8e86c7-4049-42ad-89b6-6c3da2bd8a38', '3', '4100e7c3-e648-4b68-b937-89d9fec60880', 'fea1d645-10cf-4905-98f2-87a2054cfe2a'),
+('9963bfd5-877c-4e50-8cca-3d3f3a094857', '2', '90f4880d-dae8-4290-922c-216c48ce249d', '89cece0b-8068-49d3-ad74-e882386c5c8b'),
+('ad0f00a3-ef45-4b14-9ecf-5b5d78930a81', '2', '90a8772d-f551-4111-9601-069e453ef770', '89cece0b-8068-49d3-ad74-e882386c5c8b');
+
+INSERT INTO link_categories(id, name) VALUES
+('ff6340c7-e973-45c2-b1a0-1ff9cd70a861', 'Was will ich? Was kann ich?'),
+('a5cb2e7f-baa2-4d28-a4a8-9106b2024049', 'Welche Ausbildungen gibt es?');
+
+INSERT INTO links(id, url, title, category_id) VALUES
+('077d22e5-1e37-463b-bd91-2bf84873ad46', 'https://planet-beruf.de/schuelerinnen/video/video-how-to-bewerbungsvideos-drehen', 'How to .. Bewerbungsvideo drehen', 'ff6340c7-e973-45c2-b1a0-1ff9cd70a861'),
+('61a37d3e-e72a-4504-8766-2eb2176c17ed', 'https://planet-beruf.de/schuelerinnen/welche-ausbildungen-gibt-es/welche-berufe-gibt-es', 'Welche Berufe gibt es?', 'a5cb2e7f-baa2-4d28-a4a8-9106b2024049');
+
+INSERT INTO template_types(id, name) VALUES
+('e99c1aec-a2ce-4c10-8532-43d518551330', 'Deckblatt'),
+('5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', 'Anschreiben'),
+('31d957ee-7b0b-4118-b470-ed08719df47f', 'Lebenslauf');
+
+INSERT INTO templates(id, name, content, template_type_id) VALUES
+('2f51d668-eab1-478b-8b0d-b2b16d38d64a', 'Vorlage1', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a'),
+('4f27f7cc-f849-4438-83fe-1b8fffccb2c5', 'Vorlage2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a');
+
+INSERT INTO user_templates(id, name, content, template_type_id, user_id) VALUES
+('0c132c71-d17c-4d1e-b473-f6f0fa085c6a', 'Firma1', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
+('d5ef1f29-56f8-4d89-bc77-e963c6a7bb3e', 'Firma2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '28fc7d3a-afc7-49ca-8070-eea8671abab3');
+
+
 
