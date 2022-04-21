@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0020.create_table_groups.1
+      id: 0023.create_table_subscription_types.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: group_primary_key
+                    primaryKeyName: subscription_type_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -30,5 +30,14 @@ databaseChangeLog:
                     nullable: false
                     unique: true
                   name: name
-                  type: VARCHAR(255)            
-            tableName: groups
+                  type: VARCHAR(255)   
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(255)                             
+            tableName: subscription_types
+            
+            
+            
+            
