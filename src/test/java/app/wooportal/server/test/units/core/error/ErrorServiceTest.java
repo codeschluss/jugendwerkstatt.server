@@ -7,18 +7,18 @@ import static org.mockito.Mockito.verify;
 import javax.mail.MessagingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import app.wooportal.server.core.error.ErrorService;
+import app.wooportal.server.core.error.ErrorMailService;
 import app.wooportal.server.core.mail.MailService;
 
 public class ErrorServiceTest {
   
   private static MailService mailServiceMock;
-  private static ErrorService errorService;
+  private static ErrorMailService errorService;
   
   @BeforeAll
   public static void init() {
     mailServiceMock = mock(MailService.class);
-    errorService = new ErrorService(mailServiceMock);
+    errorService = new ErrorMailService(mailServiceMock);
   }
   
   @Test

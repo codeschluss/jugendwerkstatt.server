@@ -47,13 +47,14 @@ public class CourseApi extends CrudApi<CourseEntity, CourseService> {
 
   @Override
   @GraphQLMutation(name = "deleteCourses")
-  public void deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
   }
 
+  @Override
   @GraphQLMutation(name = "deleteCourse")
-  public void delete(@GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
 
 }

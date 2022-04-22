@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import app.wooportal.server.core.mail.MailService;
 
 @Service
-public class ErrorService {
+public class ErrorMailService {
   
   private final MailService mailService;
   
-  public ErrorService(
+  public ErrorMailService(
       MailService mailService) {
     this.mailService = mailService;
   }

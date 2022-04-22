@@ -16,51 +16,50 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 public class EventCategoryApi extends CrudApi<EventCategoryEntity, EventCategoryService> {
   
   public EventCategoryApi(
-      EventCategoryService CategoryService) {
-    super(CategoryService);
+      EventCategoryService eventCategoryService) {
+    super(eventCategoryService);
   }
   
   @Override
-  @GraphQLQuery(name = "getCategorys")
+  @GraphQLQuery(name = "getEventCategories")
   public PageableList<EventCategoryEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
   }
   
   @Override
-  @GraphQLQuery(name = "getCategory")
+  @GraphQLQuery(name = "getEventCategory")
   public Optional<EventCategoryEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) EventCategoryEntity entity) {
     return super.readOne(entity);
   }
   
   @Override
-  @GraphQLMutation(name = "saveCategorys")
+  @GraphQLMutation(name = "saveEventCategories")
   public List<EventCategoryEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<EventCategoryEntity> entities) {
     return super.saveAll(entities);
   }
   
   @Override
-  @GraphQLMutation(name = "saveCategory")
+  @GraphQLMutation(name = "saveEventCategory")
   public EventCategoryEntity saveOne(
       @GraphQLArgument(name = CrudApi.entity) EventCategoryEntity entity) {
     return super.saveOne(entity);
   }
   
   @Override
-  @GraphQLMutation(name = "deleteCategorys")
-  public void deleteAll(
-      @GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  @GraphQLMutation(name = "deleteEventCategories")
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
+  }
+
+  @Override
+  @GraphQLMutation(name = "deleteEventCategory")
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
   
-  @GraphQLMutation(name = "deleteCategory")
-  public void delete(
-      @GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
-  }
-  
-  }
+}
 
 

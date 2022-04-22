@@ -48,13 +48,14 @@ public class TemplateApi extends CrudApi<TemplateEntity, TemplateService> {
 
   @Override
   @GraphQLMutation(name = "deleteTemplates")
-  public void deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
   }
 
+  @Override
   @GraphQLMutation(name = "deleteTemplate")
-  public void delete(@GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
 
 }

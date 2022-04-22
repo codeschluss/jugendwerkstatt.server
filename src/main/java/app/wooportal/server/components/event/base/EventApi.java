@@ -49,18 +49,18 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
 
   @Override
   @GraphQLMutation(name = "deleteEvents")
-  public void deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
   }
 
+  @Override
   @GraphQLMutation(name = "deleteEvent")
-  public void delete(@GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
   
   @GraphQLQuery(name = "nextSchedule")
-  public ScheduleEntity getNextSchedule(
-      @GraphQLContext EventEntity workstation) {
+  public ScheduleEntity getNextSchedule(@GraphQLContext EventEntity workstation) {
     return null;
   }
  

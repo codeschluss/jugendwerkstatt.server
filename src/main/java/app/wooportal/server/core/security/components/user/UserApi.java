@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
-import app.wooportal.server.core.error.exception.NotFoundException;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -51,40 +50,34 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   
   @Override
   @GraphQLMutation(name = "deleteUsers")
-  public void deleteAll(
-      @GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
   }
   
+  @Override
   @GraphQLMutation(name = "deleteUser")
-  public void delete(
-      @GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
   
   @GraphQLMutation(name = "sendPasswordReset")
-  public void forgetPassword(String mailAddress) {
-    service.createPasswordReset(mailAddress);
+  public Boolean forgetPassword(String mailAddress) {
+    return service.createPasswordReset(mailAddress);
   }
   
   @GraphQLMutation(name = "resetPassword")
-  public void resetPassword(String key, String password) {
-    service.resetPassword(key, password);
+  public Boolean resetPassword(String key, String password) {
+    return service.resetPassword(key, password);
   }
   
   @GraphQLMutation(name = "sendVerification")
-  public void sendVerification(String mailAddress) {
-    service.createVerification(mailAddress);
+  public Boolean sendVerification(String mailAddress) {
+    return service.createVerification(mailAddress);
   }
   
   @GraphQLMutation(name = "verify")
   public UserEntity verify(String key) {
     return service.verify(key);
-  }
-  
-  @GraphQLMutation(name = "test")
-  public UserEntity test() {
-    throw new NotFoundException("test", "test");
   }
 
 }

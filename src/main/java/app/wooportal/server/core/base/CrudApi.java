@@ -57,15 +57,17 @@ public abstract class CrudApi<E extends BaseEntity, S extends DataService<E, ?>>
         : null;
   }
   
-  public void deleteOne(String id) {
+  public Boolean deleteOne(String id) {
     if (id != null && !id.isEmpty()) {
       service.deleteById(id); 
     }
+    return true;
   }
   
-  public void deleteAll(List<String> ids) {
+  public Boolean deleteAll(List<String> ids) {
     if (ids != null && !ids.isEmpty()) {
       service.deleteById(ids.toArray(String[]::new));
     }
+    return true;
   }
 }

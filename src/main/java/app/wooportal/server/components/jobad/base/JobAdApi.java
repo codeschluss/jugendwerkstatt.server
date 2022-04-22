@@ -15,43 +15,46 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class JobAdApi extends CrudApi<JobAdEntity, JobAdService> {
 
-	public JobAdApi(JobAdService JobAdService) {
-		super(JobAdService);
-	}
+  public JobAdApi(JobAdService JobAdService) {
+    super(JobAdService);
+  }
 
-	@Override
-	@GraphQLQuery(name = "getJobAds")
-	public PageableList<JobAdEntity> readAll(@GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
-		return super.readAll(params);
-	}
+  @Override
+  @GraphQLQuery(name = "getJobAds")
+  public PageableList<JobAdEntity> readAll(
+      @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
+    return super.readAll(params);
+  }
 
-	@Override
-	@GraphQLQuery(name = "getJobAd")
-	public Optional<JobAdEntity> readOne(@GraphQLArgument(name = CrudApi.entity) JobAdEntity entity) {
-		return super.readOne(entity);
-	}
+  @Override
+  @GraphQLQuery(name = "getJobAd")
+  public Optional<JobAdEntity> readOne(@GraphQLArgument(name = CrudApi.entity) JobAdEntity entity) {
+    return super.readOne(entity);
+  }
 
-	@Override
-	@GraphQLMutation(name = "saveJobAds")
-	public List<JobAdEntity> saveAll(@GraphQLArgument(name = CrudApi.entities) List<JobAdEntity> entities) {
-		return super.saveAll(entities);
-	}
+  @Override
+  @GraphQLMutation(name = "saveJobAds")
+  public List<JobAdEntity> saveAll(
+      @GraphQLArgument(name = CrudApi.entities) List<JobAdEntity> entities) {
+    return super.saveAll(entities);
+  }
 
-	@Override
-	@GraphQLMutation(name = "saveJobAd")
-	public JobAdEntity saveOne(@GraphQLArgument(name = CrudApi.entity) JobAdEntity entity) {
-		return super.saveOne(entity);
-	}
+  @Override
+  @GraphQLMutation(name = "saveJobAd")
+  public JobAdEntity saveOne(@GraphQLArgument(name = CrudApi.entity) JobAdEntity entity) {
+    return super.saveOne(entity);
+  }
 
-	@Override
-	@GraphQLMutation(name = "deleteJobAds")
-	public void deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-		super.deleteAll(ids);
-	}
+  @Override
+  @GraphQLMutation(name = "deleteJobAds")
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
+  }
 
-	@GraphQLMutation(name = "deleteJobAd")
-	public void delete(@GraphQLArgument(name = CrudApi.id) String id) {
-		super.deleteOne(id);
-	}
+  @Override
+  @GraphQLMutation(name = "deleteJobAd")
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
+  }
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
-import app.wooportal.server.core.error.exception.InvalidPasswordReset;
+import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
 import app.wooportal.server.core.error.exception.NotFoundException;
 import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.repository.DataRepository;
@@ -77,7 +77,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
   }
   
-  public void createPasswordReset(String mailAddress) {
+  public Boolean createPasswordReset(String mailAddress) {
     var result = repo.findOne(predicate.withLoginName(mailAddress));
     
     if (result.isEmpty()) {
@@ -91,19 +91,21 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     var copy = ReflectionUtils.copy(result.get());
     copy.setPasswordReset(new PasswordResetEntity());
     persist(result.get(), copy, createContext("passwordReset"));
+    return true;
   }
   
-  public void resetPassword(String key, String password) {
+  public Boolean resetPassword(String key, String password) {
     var passwordReset = getService(PasswordResetService.class).getByKey(key);
     if (passwordReset.isEmpty()) {
-        throw new InvalidPasswordReset(key);
+        throw new InvalidPasswordResetException("Password reset not requested", key);
     }
     var user = passwordReset.get().getUser();
     user.setPassword(bcryptPasswordEncoder.encode(password));
     repo.save(user);
+    return true;
   }
   
-  public void createVerification(String mailAddress) {
+  public Boolean createVerification(String mailAddress) {
     var result = repo.findOne(predicate.withLoginName(mailAddress));
     
     if (result.isEmpty()) {
@@ -121,6 +123,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     var copy = ReflectionUtils.copy(result.get());
     copy.setVerification(new VerificationEntity());
     persist(result.get(), copy, createContext("verification"));
+    return true;
   }
 
   public UserEntity verify(String key) {
@@ -131,7 +134,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       getService(VerificationService.class).deleteById(verification.get().getId());
       return repo.save(user);
     }
-    throw new InvalidVerificationException(key);
+    throw new InvalidVerificationException("Verification invalid", key);
   }
   
 }

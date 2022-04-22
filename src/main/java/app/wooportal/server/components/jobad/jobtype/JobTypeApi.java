@@ -48,13 +48,14 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLMutation(name = "deleteJobTypes")
-  public void deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
-    super.deleteAll(ids);
+  public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
+    return super.deleteAll(ids);
   }
 
+  @Override
   @GraphQLMutation(name = "deleteJobType")
-  public void delete(@GraphQLArgument(name = CrudApi.id) String id) {
-    super.deleteOne(id);
+  public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
+    return super.deleteOne(id);
   }
 
 }

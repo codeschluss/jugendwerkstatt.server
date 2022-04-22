@@ -9,19 +9,19 @@ import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import org.springframework.stereotype.Service;
-import app.wooportal.server.core.error.ErrorService;
+import app.wooportal.server.core.error.ErrorMailService;
 
 @Service
 public class ImageService {
 
   private final ImageConfiguration config;
   
-  private final ErrorService errorService;
+  private final ErrorMailService errorService;
 
   
   public ImageService(
       ImageConfiguration config,
-      ErrorService errorService) {
+      ErrorMailService errorService) {
     this.config = config;
     this.errorService = errorService;
   }

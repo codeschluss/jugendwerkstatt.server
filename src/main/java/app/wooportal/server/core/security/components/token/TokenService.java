@@ -56,13 +56,6 @@ public class TokenService {
     }
   }
   
-  public void verifyApi(String token) throws InvalidTokenException {
-    if (!verifyWithScope(token, securityConfig.getScopeApi())) {
-      throw new InvalidTokenException(
-          "Token must contain scope", securityConfig.getScopeApi());
-    }
-  }
-  
   private boolean verifyWithScope(String token, String requiredScope) {
     String[] scopes = verify(token).getClaim(securityConfig.getClaimScopes()).asArray(String.class);
     return Arrays.asList(scopes).stream()
