@@ -29,9 +29,11 @@ public class TemplateTypeEntity extends BaseEntity {
   private String name;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateType")
+  @EqualsAndHashCode.Exclude
   private Set<TemplateEntity> templates;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateType")
+  @EqualsAndHashCode.Exclude
   private Set<UserTemplateEntity> userTemplates;
 
 }

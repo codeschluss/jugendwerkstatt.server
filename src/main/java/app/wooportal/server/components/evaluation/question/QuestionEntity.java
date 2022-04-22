@@ -30,6 +30,7 @@ public class QuestionEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
+  @EqualsAndHashCode.Exclude
   private Set<AnswerEntity> answers;
 
   @Column(nullable = false)

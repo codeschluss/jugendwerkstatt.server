@@ -28,11 +28,13 @@ public class QuestionnaireEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")
+  @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignments;
 
   @Column(unique = true, nullable = false)
   private String name;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")
+  @EqualsAndHashCode.Exclude
   private Set<QuestionEntity> questions;
 }

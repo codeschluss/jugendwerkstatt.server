@@ -26,6 +26,7 @@ import app.wooportal.server.core.security.components.role.RoleEntity;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -68,6 +69,7 @@ public class UserEntity extends BaseEntity {
   private List<RoleEntity> roles = new ArrayList<>();
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @EqualsAndHashCode.Exclude
   private Set<UserTemplateEntity> userTemplates;
   
   @ManyToMany(fetch = FetchType.LAZY)

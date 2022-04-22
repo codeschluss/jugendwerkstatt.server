@@ -11,6 +11,7 @@ import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class GroupEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+  @EqualsAndHashCode.Exclude
   private List<CourseEntity> courses;
   
   @Column(unique = true, nullable = false)

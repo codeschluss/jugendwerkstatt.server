@@ -14,6 +14,7 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class CourseEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+  @EqualsAndHashCode.Exclude
   private List<FeedbackEntity> feedbacks;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +42,7 @@ public class CourseEntity extends BaseEntity {
   private String name;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+  @EqualsAndHashCode.Exclude
   private List<UserEntity> users;
 
 }

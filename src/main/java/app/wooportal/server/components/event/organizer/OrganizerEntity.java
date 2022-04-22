@@ -27,6 +27,7 @@ public class OrganizerEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<EventEntity> event;
 
   private String mail;

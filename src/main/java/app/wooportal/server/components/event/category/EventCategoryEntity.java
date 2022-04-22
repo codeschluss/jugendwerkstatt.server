@@ -27,6 +27,7 @@ public class EventCategoryEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
   
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<EventEntity> events;
   
   @Column(nullable = false)

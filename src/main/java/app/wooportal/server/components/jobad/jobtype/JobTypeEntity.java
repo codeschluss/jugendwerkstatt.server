@@ -28,6 +28,7 @@ public class JobTypeEntity extends BaseEntity {
   private String color;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
+  @EqualsAndHashCode.Exclude
   private Set<JobAdEntity> jobAds;
 
   @Column(nullable = false, unique = true)

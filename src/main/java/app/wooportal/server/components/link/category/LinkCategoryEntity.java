@@ -27,6 +27,7 @@ public class LinkCategoryEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<LinkEntity> link;
 
   @Column(unique = true, nullable = false)

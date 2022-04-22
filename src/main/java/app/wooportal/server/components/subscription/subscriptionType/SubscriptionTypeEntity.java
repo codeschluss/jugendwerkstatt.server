@@ -33,5 +33,6 @@ public class SubscriptionTypeEntity extends BaseEntity {
   private String name;
 
   @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<SubscriptionEntity> subscriptions;
 }

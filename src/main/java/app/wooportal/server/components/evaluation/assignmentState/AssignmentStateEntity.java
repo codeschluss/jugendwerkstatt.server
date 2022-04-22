@@ -27,6 +27,7 @@ public class AssignmentStateEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "assignmentState", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignments;
 
   @Column(unique = true, nullable = false)

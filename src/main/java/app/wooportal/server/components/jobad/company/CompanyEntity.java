@@ -34,6 +34,7 @@ public class CompanyEntity extends BaseEntity {
   private AddressEntity address;
 
   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
   private Set<JobAdEntity> jobAd;
   
   @Column(unique = true)
