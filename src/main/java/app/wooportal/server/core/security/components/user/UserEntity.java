@@ -18,6 +18,7 @@ import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
+import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
@@ -42,6 +43,10 @@ public class UserEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @EqualsAndHashCode.Exclude
+  private Set<AssignmentEntity> assignment;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseEntity course;
 
