@@ -43,7 +43,7 @@ databaseChangeLog:
         - createIndex:
             columns:
               - column:
-                  name: job_type_id
+                  name: type_id
             indexName: idx_fk1omfxiwqta9z5s59wd59ayf9m
             tableName: job_ads
   - changeSet:
@@ -51,7 +51,7 @@ databaseChangeLog:
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: job_type_id
+            baseColumnNames: type_id
             baseTableName: job_ads
             constraintName: fk1omfxiwqta9z5s59wd59ayf9m
             deferrable: false

@@ -48,7 +48,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: job_type_id
+                  name: type_id
                   type: CHAR(36)
             tableName: job_ads
   - changeSet:
