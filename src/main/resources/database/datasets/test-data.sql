@@ -59,7 +59,7 @@ INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
 ('89aaa55a-168d-4165-85fc-abde073d6732', 'Carpentry Müller GmbH', 'müller@example.com', '11830', 'müllergmbh.de', 'b1b84b9d-a30c-4921-8d20-af21058bec79'),
 ('f476ed5a-c5c6-429b-bcf0-85fcf8363be3', 'Metal Claus GmbH', 'claus@example.com', '112', 'clausmetal.de', '5dc8809e-8890-4262-b334-a0dff5b8ffd8');
 
-INSERT INTO job_ads(id, title, start_date, due_date, company_id, job_type_id) VALUES
+INSERT INTO job_ads(id, title, start_date, due_date, company_id, type_id) VALUES
 ('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
 ('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b');
 
