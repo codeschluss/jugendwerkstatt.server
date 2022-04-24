@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import app.wooportal.server.components.subscription.subscriptionType.SubscriptionTypeEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +33,9 @@ public class SubscriptionEntity extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private SubscriptionTypeEntity subscriptionType;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
+  private UserEntity user;
 
 }

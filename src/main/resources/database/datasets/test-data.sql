@@ -11,6 +11,15 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('af5c4d43-54f1-40d1-ba26-5895b91bb287', 'image/jpg', 'title image'),
 ('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image');
 
+INSERT INTO groups(id, name) VALUES
+('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall'),
+('1f8c55b2-4210-4eea-bc14-6a6d55cc538e', 'Holz');
+
+INSERT INTO courses(id, name, group_id) VALUES
+('2163ee48-8605-46eb-bbd0-c62497007b18', 'Metall 1', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
+('ab36cc61-a884-4da8-be52-db8f19abcbd1', 'Metall 2', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
+('dce3746a-6109-45fd-8bfa-09bb99378d37', 'Holz1', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e');
+
 INSERT INTO users (id, fullname, email, profile_picture_id, password) VALUES
 ('36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'Student', 'student@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
 ('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
@@ -33,14 +42,12 @@ INSERT INTO organizers (id, name, mail, phone, website) VALUES
 ('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Mustermann.Max@example.com', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/'),
 ('d2f041f1-4817-47be-a49a-b6e494a4a8a6', 'Jugendwerkstatt alpha e.V.', 'Susanne@example.com', '0176-5646541', 'https://www.alphaev.de');
 
-
 INSERT INTO event_categories (id, name, icon) VALUES
 ('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training', 'Education and Training'),
 ('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sports', 'Sports'),
 ('320e2686-a4bc-4990-9b95-8d6f3ddf56ba', 'Information', 'Information'),
 ('00db3dbf-b23d-4fb1-a1ff-5e7b321d8301', 'Social', 'Social'),
 ('c777f9a8-2061-4fc4-9cae-63130641e4d5', 'Other', 'Other');
-
 
 INSERT INTO addresses (id, house_number, latitude, longitude, place, postal_code, street) VALUES
 ('ff656406-89af-4835-a9bf-571fd978f78f', '27', '48.397340', '9.992980', 'Ulm', '89073', 'ihk-street'),
@@ -136,15 +143,6 @@ INSERT INTO user_templates(id, name, content, template_type_id, user_id) VALUES
 ('0c132c71-d17c-4d1e-b473-f6f0fa085c6a', 'Firma1', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('d5ef1f29-56f8-4d89-bc77-e963c6a7bb3e', 'Firma2', 'document', '5852aa11-4e5c-4d8d-bc41-9fa44cb6ca1a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
-INSERT INTO groups(id, name) VALUES
-('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall'),
-('1f8c55b2-4210-4eea-bc14-6a6d55cc538e', 'Holz');
-
-INSERT INTO courses(id, name, group_id) VALUES
-('2163ee48-8605-46eb-bbd0-c62497007b18', 'Metall 1', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
-('ab36cc61-a884-4da8-be52-db8f19abcbd1', 'Metall 2', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
-('dce3746a-6109-45fd-8bfa-09bb99378d37', 'Holz 1', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e');
-
 INSERT INTO feedbacks(id, rating, course_id, user_id) VALUES
 ('566458a2-fe16-4850-8e68-44c1cd5fd8cd', '3', '2163ee48-8605-46eb-bbd0-c62497007b18', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('50bb5dd5-e180-4cf4-9f30-f16bea9acfa8', '5', 'ab36cc61-a884-4da8-be52-db8f19abcbd1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
@@ -153,13 +151,14 @@ INSERT INTO subscription_types(id, name, description) VALUES
 ('a3d3c3ce-6908-42e6-97f7-ddaddae8deb3', 'Events', 'Bowling'),
 ('e7e34f9d-31fb-472e-aba7-15b14dcef865', 'JobAds', 'metal worker');
 
-INSERT INTO subscriptions(id, auth_secret, subscription_type_id) VALUES
-('1038e9e5-a82f-4d00-83fe-6ea0910d2c8d', 'secretkey', 'a3d3c3ce-6908-42e6-97f7-ddaddae8deb3'),
-('92557db8-b5fd-4bee-920c-ba2fe348713e', 'secretkey2', 'e7e34f9d-31fb-472e-aba7-15b14dcef865');
+INSERT INTO subscriptions(id, auth_secret, subscription_type_id, user_id) VALUES
+('1038e9e5-a82f-4d00-83fe-6ea0910d2c8d', 'secretkey', 'a3d3c3ce-6908-42e6-97f7-ddaddae8deb3', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('92557db8-b5fd-4bee-920c-ba2fe348713e', 'secretkey2', 'e7e34f9d-31fb-472e-aba7-15b14dcef865', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
+INSERT INTO user_events(id, user_id, event_id) VALUES
+('18c923a3-8160-4beb-bcc6-738b1fe5ad00', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),
+('ef115c0f-acc5-4700-b1e8-bb3ccfe2b194', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7');
 
-
-
-
-
-
+INSERT INTO user_job_ads(id, user_id, job_ad_id) VALUES
+('c1f7570c-96ff-4e83-95e2-b86a7691f3a2', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '39cdb5c0-aa0b-4665-a732-e51cb0986e6d'),
+('3afe8863-71e7-4488-8925-7d453eb2dc2a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e');

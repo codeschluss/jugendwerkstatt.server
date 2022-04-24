@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - logicalFilePath: path_independent
+  - changeSet:
+      id: 0008.create_table_job_ads.1
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: job_ad_primary_key
+                  name: id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: created
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: modified
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: start_date
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: due_date
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: company_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: job_type_id
+                  type: CHAR(36)
+            tableName: job_ads
+  - changeSet:
+      id: 0008.create_table_job_ads.2
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: company_id
+            indexName: idx_fkg2gjth2ox5pfte56xq3tg3yk5
+            tableName: job_ads
+  - changeSet:
+      id: 0008.create_table_job_ads.3
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: company_id
+            baseTableName: job_ads
+            constraintName: fkg2gjth2ox5pfte56xq3tg3yk5
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: companies
+            validate: true
+  - changeSet:
+      id: 0008.create_table_job_ads.4
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: job_ad_id
+            indexName: idx_fkvo2x8ddj8tr6cqr9miup7urcr
+            tableName: user_job_ads
+  - changeSet:
+      id: 0008.create_table_job_ads.5
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_fk7mfnzmwsnz39src3e8marwaxd
+            tableName: user_job_ads     
+  - changeSet:
+      id: 0008.create_table_job_ads.6
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: job_ad_id
+            baseTableName: user_job_ads
+            constraintName: fkvo2x8ddj8tr6cqr9miup7urcr
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: job_ads
+            validate: true
+  - changeSet:
+      id: 0008.create_table_job_ads.7
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_job_ads
+            constraintName: fk7mfnzmwsnz39src3e8marwaxd
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true               

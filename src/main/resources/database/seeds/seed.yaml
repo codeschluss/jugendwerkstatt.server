@@ -83,7 +83,7 @@ databaseChangeLog:
                     primaryKeyName: user_roles_primary_key
                   name: id
                   type: CHAR(36)
-            tableName: user_roles
+            tableName: user_roles            
   - changeSet:
       id: seed.4
       author: codeschluss
@@ -478,3 +478,51 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: languages
             validate: true
+  - changeSet:
+      id: seed.25
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: event_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_event_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: user_events
+  - changeSet:
+      id: seed.26
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: job_ad_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_jobad_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: user_job_ads                     

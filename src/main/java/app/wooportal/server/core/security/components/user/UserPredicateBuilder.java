@@ -11,31 +11,30 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   public UserPredicateBuilder() {
     super(QUserEntity.userEntity);
   }
-  
+
   @Override
   public BooleanExpression freeSearch(String term) {
     return query.email.likeIgnoreCase(term)
-        .or(query.roles.any().name.likeIgnoreCase(term));
+        .or(query.roles.any().name.likeIgnoreCase(term).or(query.course.name.likeIgnoreCase(term)));
   }
 
   public BooleanExpression withLoginName(String loginName) {
-    return loginName != null && !loginName.isBlank()
-        ? query.email.equalsIgnoreCase(loginName)
+    return loginName != null && !loginName.isBlank() ? query.email.equalsIgnoreCase(loginName)
         : null;
   }
 
   public BooleanExpression withRole(String name) {
-    return name != null && !name.isBlank()
-        ? query.roles.any().name.equalsIgnoreCase(name)
-        : null;
+    return name != null && !name.isBlank() ? query.roles.any().name.equalsIgnoreCase(name) : null;
   }
-  
+
+  public BooleanExpression withCourse() {
+    return query.course.isNotNull();
+  }
+
   public BooleanExpression createdBefore(OffsetDateTime date) {
-    return date != null
-        ? query.created.before(date)
-        : null;
+    return date != null ? query.created.before(date) : null;
   }
-  
+
   public BooleanExpression notVerified() {
     return query.verification.isNotNull();
   }

@@ -13,9 +13,8 @@ public class CoursePredicateBuilder extends PredicateBuilder<QCourseEntity, Cour
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.name.likeIgnoreCase(term);
+    return query.name.likeIgnoreCase(term);     
   }
-
   public BooleanExpression withName(String name) {
     return query.name.equalsIgnoreCase(name);
   }

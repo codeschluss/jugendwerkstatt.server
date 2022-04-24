@@ -50,28 +50,24 @@ public class EventEntity extends BaseEntity {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
   @EqualsAndHashCode.Exclude
   private Set<ScheduleEntity> schedules;
-  
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private OrganizerEntity organizer;
-  
+
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "event_media",
-      joinColumns = @JoinColumn(name = "event_id"),
+  @JoinTable(name = "event_media", joinColumns = @JoinColumn(name = "event_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
-      uniqueConstraints = {
-          @UniqueConstraint(columnNames = { "event_id", "media_id" })
-      })
+      uniqueConstraints = {@UniqueConstraint(columnNames = {"event_id", "media_id"})})
+
   private List<MediaEntity> images;
-  
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private MediaEntity titleImage;
- 
-  
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private AddressEntity address;
-  
+
 }
