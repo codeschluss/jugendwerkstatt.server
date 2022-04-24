@@ -20,7 +20,15 @@ public class SubscriptionService
         : getByAuth_Secret(entity.getAuth_secret());
   }
 
-  public Optional<SubscriptionEntity> getByAuth_Secret(String name) {
-    return repo.findOne(predicate.withAuth_Secret(name));
+  public Optional<SubscriptionEntity> getByAuth_Secret(String key) {
+    return repo.findOne(predicate.withAuth_Secret(key));
+  }
+  
+  public Optional<SubscriptionEntity> getBySubscriptionType(String name) {
+    return repo.findOne(predicate.withSubscriptionType(name));
+  }
+  
+  public Optional<SubscriptionEntity> getByUserId(String id) {
+    return repo.findOne(predicate.withUserId(id));
   }
 }

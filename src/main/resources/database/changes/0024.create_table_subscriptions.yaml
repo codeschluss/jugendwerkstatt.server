@@ -35,7 +35,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: subscription_type_id
-                  type: CHAR(36)                                       
+                  type: CHAR(36)   
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: CHAR(36)                                                          
             tableName: subscriptions
   - changeSet:
       id: 0024.create_table_subscriptions.2
@@ -62,4 +67,29 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: subscription_types
             validate: true
+  - changeSet:
+      id: 0024.create_table_subscriptions.4
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_fkebi0tftczh1f08byt4sfpgdav
+            tableName: subscriptions
+  - changeSet:
+      id: 0024.create_table_subscriptions.5
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: subscriptions
+            constraintName: fkebi0tftczh1f08byt4sfpgdav
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            onDelete: SET NULL
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true            
  

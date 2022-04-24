@@ -33,68 +33,51 @@ import lombok.Setter;
 @Setter
 @Component
 public class UserSetup {
-  
+
   private UserApi api;
-  
+
   @Autowired
   private BCryptPasswordEncoder encoder;
-  
+
   @Autowired
   private EntityManager entityManager;
-  
+
   private GraphBuilder<TestChildEntity> graphBuilder;
-  
+
   private TestMailService mailService;
 
-  public void init(
-      List<UserEntity> userData,
-      List<MediaEntity> uploadData,
-      List<RoleEntity> roleData,
-      List<PasswordResetEntity> passwordResetData,
+  public void init(List<UserEntity> userData, List<MediaEntity> uploadData,
+      List<RoleEntity> roleData, List<PasswordResetEntity> passwordResetData,
       List<VerificationEntity> verificationData) {
     mailService = new TestMailService();
-    
-    var service = new UserService(
-        new RepoService<UserEntity>(userData), 
-        new UserPredicateBuilder(), 
-        encoder,
-        createMediaService(uploadData),
-        createRoleService(roleData),
-        createPasswordResetData(passwordResetData),
-        createVerificationData(verificationData));
+
+    var service = new UserService(new RepoService<UserEntity>(userData), new UserPredicateBuilder(),
+        encoder, createMediaService(uploadData), createRoleService(roleData),
+        createPasswordResetData(passwordResetData), createVerificationData(verificationData), null);
+
     service.setGraph(new GraphBuilder<>(entityManager));
     service.setContext(new TestApiContextAdapter());
     api = new UserApi(service);
   }
-  
+
   private MediaService createMediaService(List<MediaEntity> uploadData) {
-    return new MediaService(
-        new RepoService<MediaEntity>(uploadData),
-        new MediaPredicateBuilder(),
-        null,
-        null);
+    return new MediaService(new RepoService<MediaEntity>(uploadData), new MediaPredicateBuilder(),
+        null, null);
   }
 
   private RoleService createRoleService(List<RoleEntity> roleData) {
-    return new RoleService(
-        new RepoService<RoleEntity>(roleData),
-        new RolePredicateBuilder());
+    return new RoleService(new RepoService<RoleEntity>(roleData), new RolePredicateBuilder());
   }
-  
+
   private PasswordResetService createPasswordResetData(
       List<PasswordResetEntity> passwordResetData) {
-    return new PasswordResetService(
-        new RepoService<PasswordResetEntity>(passwordResetData),
-        new PasswordResetBuilder(),
-        mailService.getGeneralConfig(),
-        mailService.getService());
+    return new PasswordResetService(new RepoService<PasswordResetEntity>(passwordResetData),
+        new PasswordResetBuilder(), mailService.getGeneralConfig(), mailService.getService());
   }
-  
+
   private VerificationService createVerificationData(List<VerificationEntity> verificationData) {
-    return new VerificationService(
-        new RepoService<VerificationEntity>(verificationData),
-        new VerificationPredicateBuilder(),
-        mailService.getGeneralConfig(),
+    return new VerificationService(new RepoService<VerificationEntity>(verificationData),
+        new VerificationPredicateBuilder(), mailService.getGeneralConfig(),
         mailService.getService());
   }
 

@@ -7,9 +7,7 @@ import app.wooportal.server.core.repository.DataRepository;
 @Service
 public class TemplateService extends DataService<TemplateEntity, TemplatePredicateBuilder> {
 
-  public TemplateService(
-      DataRepository<TemplateEntity> repo, 
-      TemplatePredicateBuilder predicate) {
+  public TemplateService(DataRepository<TemplateEntity> repo, TemplatePredicateBuilder predicate) {
     super(repo, predicate);
   }
 }

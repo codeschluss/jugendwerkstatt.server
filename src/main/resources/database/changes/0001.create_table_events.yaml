@@ -154,3 +154,53 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: media
             validate: true
+  - changeSet:
+      id: 0001.create_table_events.9
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: event_id
+            indexName: idx_fklxo90ganpccur2caekdqn269q
+            tableName: user_events
+  - changeSet:
+      id: 0001.create_table_events.10
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_fk14kdreet7twxlwzkiu8ga5ncs
+            tableName: user_events          
+  - changeSet:
+      id: 0001.create_table_events.11
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: event_id
+            baseTableName: user_events
+            constraintName: fklxo90ganpccur2caekdqn269q
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: events
+            validate: true
+  - changeSet:
+      id: 0001.create_table_events.12
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_events
+            constraintName: fk14kdreet7twxlwzkiu8ga5ncs
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true            
