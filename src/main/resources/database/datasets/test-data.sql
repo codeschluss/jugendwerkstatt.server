@@ -51,7 +51,7 @@ INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 ('58fa6c11-de2d-4c54-b85c-dab0d546473a', '2022-05-12 18:00:00+02', '2022-05-12 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
 ('fc7965c6-ce88-4ecc-a455-045237370b9a', '2022-05-19 18:00:00+02', '2022-05-19 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7');
 
-INSERT INTO jobtypes (id, name, color) VALUES
+INSERT INTO job_types (id, name, color) VALUES
 ('430d33c4-f0f2-42b1-927f-5270d91c7f32', 'metal trade', '#0000FF'),
 ('1a773b24-de53-4ccc-9daa-e9261590f88b', 'carpentry', '#00FF00');
 

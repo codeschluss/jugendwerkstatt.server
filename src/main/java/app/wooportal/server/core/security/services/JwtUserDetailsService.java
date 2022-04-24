@@ -13,12 +13,10 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 
   private final UserService userService;
-  
+
   private final RoleService roleService;
-  
-  public JwtUserDetailsService(
-      UserService userService,
-      RoleService roleService) {
+
+  public JwtUserDetailsService(UserService userService, RoleService roleService) {
     this.userService = userService;
     this.roleService = roleService;
   }
@@ -26,10 +24,9 @@ public class JwtUserDetailsService implements UserDetailsService {
   @Override
   public JwtUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Optional<UserEntity> user = userService.getByLoginName(username);
-    
-    return user.isPresent()
-        ? new JwtUserDetails(user.get(), roleService.getByUser(user.get()))
+
+    return user.isPresent() ? new JwtUserDetails(user.get(), roleService.getByUser(user.get()))
         : null;
   }
-  
+
 }

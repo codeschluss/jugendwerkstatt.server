@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: path_independent
   - changeSet:
-      id: 0008.create_table_jobtypes.1
+      id: 0008.create_table_job_types.1
       author: codeschluss
       changes:
         - createTable:
@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: jobtype_primary_key
+                    primaryKeyName: job_types_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -35,9 +35,9 @@ databaseChangeLog:
                     nullable: false
                   name: name
                   type: VARCHAR(255)                 
-            tableName: jobtypes
+            tableName: job_types
   - changeSet:
-      id: 0009.create_table_jobtypes.2
+      id: 0009.create_table_job_types.2
       author: codeschluss
       changes:
         - createIndex:
@@ -47,7 +47,7 @@ databaseChangeLog:
             indexName: idx_fk1omfxiwqta9z5s59wd59ayf9m
             tableName: job_ads
   - changeSet:
-      id: 0009.create_table_jobtypes.3
+      id: 0009.create_table_job_types.3
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -58,6 +58,6 @@ databaseChangeLog:
             initiallyDeferred: false
             onUpdate: CASCADE
             referencedColumnNames: id
-            referencedTableName: jobtypes
+            referencedTableName: job_types
             validate: true
             

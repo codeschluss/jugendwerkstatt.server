@@ -123,7 +123,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: user_primary_key
+                    primaryKeyName: users_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -206,7 +206,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: language_primary_key
+                    primaryKeyName: languages_primary_key
                   name: id
                   type: CHAR(36)
               - column:
@@ -244,7 +244,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: error_message_primary_key
+                    primaryKeyName: error_messages_primary_key
                   name: id
                   type: CHAR(36)
               - column:

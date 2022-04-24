@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: company_primary_key
+                    primaryKeyName: companies_primary_key
                   name: id
                   type: CHAR(36)
               - column:

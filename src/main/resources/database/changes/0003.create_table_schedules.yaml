@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: schedule_primary_key
+                    primaryKeyName: schedules_primary_key
                   name: id
                   type: CHAR(36)
               - column:

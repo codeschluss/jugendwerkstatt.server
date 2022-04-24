@@ -10,7 +10,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: answer_primary_key
+                    primaryKeyName: answers_primary_key
                   name: id
                   type: CHAR(36)
               - column:
