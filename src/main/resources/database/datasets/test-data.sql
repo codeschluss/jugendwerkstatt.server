@@ -5,6 +5,10 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', 'image/jpg', 'profile picture'),
 ('ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', 'image/jpg', 'profile picture'),
 ('9eaee436-86d7-467e-beb9-be884a9c291c', 'image/jpg', 'title image'),
+('670d0b9d-ecfb-4dd2-8f07-ead633c7ef5b', 'image/jpg', 'title image'),
+('6359d990-bcfc-400a-b685-fe3d7ff9d1c0', 'image/jpg', 'title image'),
+('e302e041-fb51-47b6-99bc-47fea56de39e', 'image/jpg', 'title image'),
+('af5c4d43-54f1-40d1-ba26-5895b91bb287', 'image/jpg', 'title image'),
 ('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image');
 
 INSERT INTO users (id, fullname, email, profile_picture_id, password) VALUES
@@ -26,24 +30,39 @@ INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('64d47bfa-f34d-49bb-8bae-9e3ff7b2e1d4', '71a857db-dd35-4d08-bb0f-20115a584ee5', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765');
 
 INSERT INTO organizers (id, name, mail, phone, website) VALUES
-('2295ed87-3f46-428a-a179-e7b7093d2f05', 'IHK-Ulm', 'Gaille.Susanne@example.com', '0176-3138557', 'https://www.ihk-ausbildungsmesse.de/'),
-('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Rainer.Zufall@example.com', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/');
+('2295ed87-3f46-428a-a179-e7b7093d2f05', 'IHK-Ulm', 'Musterfrau.Mandy@example.com', '0176-3138557', 'https://www.ihk-ausbildungsmesse.de/'),
+('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Mustermann.Max@example.com', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/'),
+('d2f041f1-4817-47be-a49a-b6e494a4a8a6', 'Jugendwerkstatt alpha e.V.', 'Susanne@example.com', '0176-5646541', 'https://www.alphaev.de');
+
 
 INSERT INTO event_categories (id, name, icon) VALUES
-('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training', 'goodIcon'),
-('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sport', 'niceIcon');
+('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training', 'Education and Training'),
+('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sports', 'Sports'),
+('320e2686-a4bc-4990-9b95-8d6f3ddf56ba', 'Information', 'Information'),
+('00db3dbf-b23d-4fb1-a1ff-5e7b321d8301', 'Social', 'Social'),
+('c777f9a8-2061-4fc4-9cae-63130641e4d5', 'Other', 'Other');
+
 
 INSERT INTO addresses (id, house_number, latitude, longitude, place, postal_code, street) VALUES
 ('ff656406-89af-4835-a9bf-571fd978f78f', '27', '48.397340', '9.992980', 'Ulm', '89073', 'ihk-street'),
 ('b1b84b9d-a30c-4921-8d20-af21058bec79', '22', '48.397340', '9.992980', 'Ulm', '89073', 'müller-street'),
 ('4ff89e9a-2751-4a15-845e-8283194e81fa', '28', '48.397340', '9.992980', 'Ulm', '89073', 'bowling-street'),
-('5dc8809e-8890-4262-b334-a0dff5b8ffd8', '33', '48.397340', '9.992980', 'Ulm', '89073', 'claus-street');
+('5dc8809e-8890-4262-b334-a0dff5b8ffd8', '33', '48.397340', '9.992980', 'Ulm', '89073', 'claus-street'),
+('4b2589d5-fc11-4cfd-be8a-c2471277b73d', '100', '48.333333', '9.888888', 'Wuppertal', '42285', 'Siegesstrasse'),
+('4966fe7a-6770-4b32-aa73-046c64fc6b51', '10', '48.444444', '9.777777', 'Ulm', '89077', 'Blaubeurerstrasse'),
+('0fbf3399-9265-40b4-8050-1cba034c2fe8', '21', '42.999999', '8.442342', 'Stuttgart', '70565', 'Ruppmannstrasse');
 
 INSERT INTO events (id, name, description, category_id, organizer_id, title_image_id, address_id) VALUES
 ('440a6eec-be4d-47e8-b38d-3a819bc4624e', 'Vocational-Training-Fair','First touch with companys','555f2324-87bf-4510-ac08-893076444dbb',
 '2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
-('3e9b15fb-02ce-4d09-bfcd-40751eaee1b7', 'Team-Bowling', 'Social gathering and bowling','a464edde-2e2f-455e-a5ca-84fd28f8ad4a',
-'ead07153-6e4b-45ae-abd4-562fc126e92f','c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', '4ff89e9a-2751-4a15-845e-8283194e81fa');
+('3e9b15fb-02ce-4d09-bfcd-40751eaee1b7', 'Team-Bowling', 'Team-Bowling in Ulm','a464edde-2e2f-455e-a5ca-84fd28f8ad4a',
+'ead07153-6e4b-45ae-abd4-562fc126e92f','c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', '4ff89e9a-2751-4a15-845e-8283194e81fa'),
+('4d2a2a1f-1c36-471b-8483-ae18338a5fd6', 'Opening Event', 'Information and guidance', '320e2686-a4bc-4990-9b95-8d6f3ddf56ba',
+'d2f041f1-4817-47be-a49a-b6e494a4a8a6', '670d0b9d-ecfb-4dd2-8f07-ead633c7ef5b', '4b2589d5-fc11-4cfd-be8a-c2471277b73d'),
+('8b66b8d7-dd54-460b-b1f1-4204cc660872', 'Game-Night', 'Monopoly, Chess, Uno and more', '00db3dbf-b23d-4fb1-a1ff-5e7b321d8301',
+'d2f041f1-4817-47be-a49a-b6e494a4a8a6', 'af5c4d43-54f1-40d1-ba26-5895b91bb287', '4b2589d5-fc11-4cfd-be8a-c2471277b73d'),
+('fa30c3b2-a14d-4627-a11b-d2704ee496eb', 'Christmas-Party', 'Celebration of the year 2022', 'c777f9a8-2061-4fc4-9cae-63130641e4d5',
+'d2f041f1-4817-47be-a49a-b6e494a4a8a6', '6359d990-bcfc-400a-b685-fe3d7ff9d1c0', '4b2589d5-fc11-4cfd-be8a-c2471277b73d');
 
 INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 ('2f2f8064-43e3-4e11-a157-d88d4f357e4c', '2022-10-19 10:00:00+02', '2022-10-19 16:00:00+02', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),
@@ -53,15 +72,22 @@ INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 
 INSERT INTO job_types (id, name, color) VALUES
 ('430d33c4-f0f2-42b1-927f-5270d91c7f32', 'metal trade', '#0000FF'),
-('1a773b24-de53-4ccc-9daa-e9261590f88b', 'carpentry', '#00FF00');
+('1a773b24-de53-4ccc-9daa-e9261590f88b', 'carpentry', '#00FF00'),
+('b840ae1f-f9b8-4223-b50a-1643fb82a674', 'craft', '#FF0000'),
+('be24e3e7-b08b-4792-be4e-df34cf8e9851', 'property', '#FFFF00');
 
 INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
 ('89aaa55a-168d-4165-85fc-abde073d6732', 'Carpentry Müller GmbH', 'müller@example.com', '11830', 'müllergmbh.de', 'b1b84b9d-a30c-4921-8d20-af21058bec79'),
-('f476ed5a-c5c6-429b-bcf0-85fcf8363be3', 'Metal Claus GmbH', 'claus@example.com', '112', 'clausmetal.de', '5dc8809e-8890-4262-b334-a0dff5b8ffd8');
+('f476ed5a-c5c6-429b-bcf0-85fcf8363be3', 'Metal Claus GmbH', 'claus@example.com', '112', 'clausmetal.de', '5dc8809e-8890-4262-b334-a0dff5b8ffd8'),
+('f36d8f40-e387-4282-8dca-30e29d644600', 'Ikea Deutschland', 'Fynn@example.com', '0877-252525', 'ikea.com', '4966fe7a-6770-4b32-aa73-046c64fc6b51'),
+('bd2c9144-1517-42e5-a35c-503793ccb51d', 'Regierungspräsidium Tübingen', 'mareike@example.com', '0588-545', 'rp.baden-wuerttemberg.de', '0fbf3399-9265-40b4-8050-1cba034c2fe8');
 
 INSERT INTO job_ads(id, title, start_date, due_date, company_id, type_id) VALUES
 ('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b');
+('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
+('10bee224-3c01-40cf-8598-1cce46269206', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-15 00:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('9ff39911-533a-4420-9149-f261de7d569c', 'interior designer', '2022-09-01 10:00:00+02', '2022-05-31 10:00:00+02','f36d8f40-e387-4282-8dca-30e29d644600', 'be24e3e7-b08b-4792-be4e-df34cf8e9851'),
+('0ae19f9c-94d6-4fdc-92f4-81595f3d6916', 'housekeeper', '2022-11-01 10:00:00+02', '2022-09-30 10:00:00+02', 'bd2c9144-1517-42e5-a35c-503793ccb51d', 'be24e3e7-b08b-4792-be4e-df34cf8e9851');
 
 INSERT INTO assignment_states (id, name) VALUES
 ('aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', 'ASSIGNED'),
@@ -128,6 +154,8 @@ INSERT INTO subscription_types(id, name, description) VALUES
 INSERT INTO subscriptions(id, auth_secret, subscription_type_id) VALUES
 ('1038e9e5-a82f-4d00-83fe-6ea0910d2c8d', 'secretkey', 'a3d3c3ce-6908-42e6-97f7-ddaddae8deb3'),
 ('92557db8-b5fd-4bee-920c-ba2fe348713e', 'secretkey2', 'e7e34f9d-31fb-472e-aba7-15b14dcef865');
+
+
 
 
 
