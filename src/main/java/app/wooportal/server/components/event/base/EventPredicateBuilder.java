@@ -14,15 +14,14 @@ public class EventPredicateBuilder extends PredicateBuilder<QEventEntity, EventE
   @Override
   public BooleanExpression freeSearch(String term) {
     return query.name.likeIgnoreCase(term)
+        .or(query.id.likeIgnoreCase(term))
         .or(query.description.likeIgnoreCase(term))
         .or(query.category.name.likeIgnoreCase(term))
         .or(query.organizer.name.likeIgnoreCase(term))
         .or(query.organizer.mail.likeIgnoreCase(term))
         .or(query.organizer.website.likeIgnoreCase(term));
   }
-
   public BooleanExpression withName(String name) {
     return query.name.equalsIgnoreCase(name);
   }
-
 }
