@@ -44,11 +44,11 @@ public class PushService {
     }
   }
 
-  public void sendPush(Optional<SubscriptionEntity> subscription, MessageDto message,
+  public void sendPush(SubscriptionEntity subscription, MessageDto message,
       Map<String, String> additionalData) {
     try {
       Builder messageBuilder =
-          Message.builder().setToken(subscription.get().getAuth_secret()).setNotification(Notification
+          Message.builder().setToken(subscription.getAuth_secret()).setNotification(Notification
               .builder().setTitle(message.getTitle()).setBody(message.getContent()).build());
 
       if (additionalData != null) {
@@ -64,7 +64,7 @@ public class PushService {
       FirebaseMessaging.getInstance().sendAsync(messageBuilder.build()).get();
 
     } catch (InterruptedException | ExecutionException e) {
-      subscriptionService.deleteById(subscription.get().getId());
+      subscriptionService.deleteById(subscription.getId());
     }
   }
 }

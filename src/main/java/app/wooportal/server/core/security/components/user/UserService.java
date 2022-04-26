@@ -129,14 +129,23 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       user.getRoles().add(roleService.getVerifiedRole());
       getService(VerificationService.class).deleteById(verification.get().getId());
       return repo.save(user);
-      
     }
     throw new InvalidVerificationException("Verification invalid", key);
   }
   
-  public List<UserEntity> pushtoStudents() {
+  public List<UserEntity> Evaluation(String... graph) {
     return repo
-        .findAll(query(false).and(predicate.withCourse()))
+        .findAll(
+            query(false).and(predicate.withCourseNotNull())
+            .addGraph(graph(graph)))
+        .getList();
+  }
+  
+  public List<UserEntity> GetAllUsers(String... graph) {
+    return repo
+        .findAll(
+            query(false)
+            .addGraph(graph(graph)))
         .getList();
   }
 }

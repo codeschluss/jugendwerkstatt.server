@@ -27,7 +27,7 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
     return name != null && !name.isBlank() ? query.roles.any().name.equalsIgnoreCase(name) : null;
   }
 
-  public BooleanExpression withCourse() {
+  public BooleanExpression withCourseNotNull() {
     return query.course.isNotNull();
   }
 
