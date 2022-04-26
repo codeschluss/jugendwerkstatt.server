@@ -1,5 +1,6 @@
 package app.wooportal.server.components.subscription.base;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
@@ -28,7 +29,4 @@ public class SubscriptionService
     return repo.findOne(predicate.withSubscriptionType(name));
   }
   
-  public Optional<SubscriptionEntity> getByUserId(String id) {
-    return repo.findOne(predicate.withUserId(id));
-  }
 }
