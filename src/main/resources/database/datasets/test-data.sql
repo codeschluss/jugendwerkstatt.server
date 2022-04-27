@@ -9,7 +9,9 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('6359d990-bcfc-400a-b685-fe3d7ff9d1c0', 'image/jpg', 'title image'),
 ('e302e041-fb51-47b6-99bc-47fea56de39e', 'image/jpg', 'title image'),
 ('af5c4d43-54f1-40d1-ba26-5895b91bb287', 'image/jpg', 'title image'),
-('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image');
+('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image'),
+('76460bc7-ed5c-4f70-a377-46e2cf49e86f', 'image/jpg', 'title image'),
+('ceb59217-29f6-4a58-a8f1-776b698a9c5a', 'video/mp4', 'GetRolled');
 
 INSERT INTO groups(id, name) VALUES
 ('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall'),
@@ -162,3 +164,11 @@ INSERT INTO user_events(id, user_id, event_id) VALUES
 INSERT INTO user_job_ads(id, user_id, job_ad_id) VALUES
 ('c1f7570c-96ff-4e83-95e2-b86a7691f3a2', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '39cdb5c0-aa0b-4665-a732-e51cb0986e6d'),
 ('3afe8863-71e7-4488-8925-7d453eb2dc2a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e');
+
+INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
+('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
+('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
+
+
+
+

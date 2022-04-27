@@ -27,7 +27,6 @@ public class PushScheduler {
       CourseService courseService) {
     this.firebasePushService = firebasePushService;
     this.userService = userService;
-
   }
 
   @Scheduled(cron ="0 7 * * * ?")
@@ -67,7 +66,7 @@ public class PushScheduler {
     }
   }
 
-  @Scheduled(cron = "* * * * * ?")
+  @Scheduled(cron = "0 7 * * * ?")
   public void pushForJobAds() {
 
     List<UserEntity> tempList = userService.GetAllUsers("favoriteJobAds", "subscriptions");

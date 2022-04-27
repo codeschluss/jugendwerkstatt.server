@@ -51,4 +51,6 @@ databaseChangeLog:
     - include:
         file: database/changes/0023.create_table_subscription_types.yaml
     - include:
-        file: database/changes/0024.create_table_subscriptions.yaml       
+        file: database/changes/0024.create_table_subscriptions.yaml  
+    - include:
+        file: database/changes/0025.create_table_pages.yaml             

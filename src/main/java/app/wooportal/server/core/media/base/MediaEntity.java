@@ -35,5 +35,4 @@ public class MediaEntity extends BaseEntity {
   
   @Column(nullable = false)
   private String name;
-  
 }

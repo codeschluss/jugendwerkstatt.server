@@ -1,0 +1,242 @@
+databaseChangeLog:
+  - logicalFilePath: path_independent
+  - changeSet:
+      id: 0025.create_table_pages.1
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pages_primary_key
+                  name: id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: created
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: modified
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: slug
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: content
+                  type: VARCHAR(255)
+              - column:
+                  name: title_image_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                  name: video_id
+                  type: CHAR(36)                  
+            tableName: pages
+  - changeSet:
+      id: 0025.create_table_pages.2
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: page_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image_id
+                  type: CHAR(36)                 
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: page_image_media_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: page_image_media         
+  - changeSet:
+      id: 0025.create_table_pages.3
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: page_id
+            indexName: idx_fkz59szqp6doqahwwpyu2xeilpl
+            tableName: page_image_media
+  - changeSet:
+      id: 0025.create_table_pages.4
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: image_id
+            indexName: idx_fk299l9gus5swrgvmzr4bfuyyvf
+            tableName: page_image_media
+  - changeSet:
+      id: 0025.create_table_pages.5
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: page_id
+            baseTableName: page_image_media
+            constraintName: fkz59szqp6doqahwwpyu2xeilpl
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: pages
+            validate: true
+  - changeSet:
+      id: 0025.create_table_pages.6
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: image_id
+            baseTableName: page_image_media
+            constraintName: fk299l9gus5swrgvmzr4bfuyyvf
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
+            validate: true
+  - changeSet:
+      id: 0025.create_table_pages.7
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: title_image_id
+            indexName: idx_fkzdglfx03ftkuxrtxd4fec6w78
+            tableName: pages
+  - changeSet:
+      id: 0025.create_table_pages.8
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: title_image_id
+            baseTableName: pages
+            constraintName: fkzdglfx03ftkuxrtxd4fec6w78
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
+            validate: true       
+  - changeSet:
+      id: 0025.create_table_pages.9
+      author: codeschluss
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: page_id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: video_id
+                  type: CHAR(36)                  
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: page_video_media_primary_key
+                  name: id
+                  type: CHAR(36)
+            tableName: page_video_media     
+  - changeSet:
+      id: 0025.create_table_pages.10
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: page_id
+            indexName: idx_fkg6o94n5mftlrgym1plkrfvv8o
+            tableName: page_video_media
+  - changeSet:
+      id: 0025.create_table_pages.11
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: video_id
+            indexName: idx_fklcdq6u73rymzb3jm48f3liskh
+            tableName: page_video_media 
+  - changeSet:
+      id: 0025.create_table_pages.12
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: page_id
+            baseTableName: page_video_media
+            constraintName: fkg6o94n5mftlrgym1plkrfvv8o
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: pages
+            validate: true
+  - changeSet:
+      id: 0025.create_table_pages.13
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: video_id
+            baseTableName: page_video_media
+            constraintName: fklcdq6u73rymzb3jm48f3liskh
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
+            validate: true
+  - changeSet:
+      id: 0025.create_table_pages.15
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: video_id
+            indexName: idx_fku5e9rxu4x7xjku44musvqt9jv
+            tableName: pages
+  - changeSet:
+      id: 0025.create_table_pages.16
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: video_id
+            baseTableName: pages
+            constraintName: fku5e9rxu4x7xjku44musvqt9jv
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: media
+            validate: true         
