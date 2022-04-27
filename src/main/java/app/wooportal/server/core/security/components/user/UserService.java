@@ -27,17 +27,17 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
   private final RoleService roleService;
-  private final CourseService courseService;
+  
 
 
   public UserService(DataRepository<UserEntity> repo, UserPredicateBuilder predicate,
       BCryptPasswordEncoder encoder, MediaService mediaService, RoleService roleService,
-      PasswordResetService passwordResetService, VerificationService verificationService, CourseService courseService) {
+      PasswordResetService passwordResetService, VerificationService verificationService,
+      CourseService courseService) {
     super(repo, predicate);
 
     this.bcryptPasswordEncoder = encoder;
     this.roleService = roleService;
-    this.courseService = courseService;
     addService("course", courseService);
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);
@@ -71,7 +71,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       newEntity.setVerification(new VerificationEntity());
     }
   }
-  
+
   public Boolean createPasswordReset(String mailAddress) {
     var result = repo.findOne(predicate.withLoginName(mailAddress));
 
@@ -88,18 +88,18 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     persist(result.get(), copy, createContext("passwordReset"));
     return true;
   }
-  
+
   public Boolean resetPassword(String key, String password) {
     var passwordReset = getService(PasswordResetService.class).getByKey(key);
     if (passwordReset.isEmpty()) {
-        throw new InvalidPasswordResetException("Password reset not requested", key);
+      throw new InvalidPasswordResetException("Password reset not requested", key);
     }
     var user = passwordReset.get().getUser();
     user.setPassword(bcryptPasswordEncoder.encode(password));
     repo.save(user);
     return true;
   }
-  
+
   public Boolean createVerification(String mailAddress) {
     var result = repo.findOne(predicate.withLoginName(mailAddress));
 
@@ -132,20 +132,13 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
     throw new InvalidVerificationException("Verification invalid", key);
   }
-  
+
   public List<UserEntity> Evaluation(String... graph) {
-    return repo
-        .findAll(
-            query(false).and(predicate.withCourseNotNull())
-            .addGraph(graph(graph)))
+    return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }
-  
+
   public List<UserEntity> GetAllUsers(String... graph) {
-    return repo
-        .findAll(
-            query(false)
-            .addGraph(graph(graph)))
-        .getList();
+    return repo.findAll(query(false).addGraph(graph(graph))).getList();
   }
 }

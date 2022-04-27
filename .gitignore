@@ -56,3 +56,5 @@ Thumbs.db
 
 # Credentials
 /src/main/resources/credentials/firebase-credentials.json
+/.apt_generated/
+/.apt_generated_tests/

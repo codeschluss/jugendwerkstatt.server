@@ -30,7 +30,7 @@ public class PushScheduler {
 
   }
 
-  @Scheduled(cron ="0 12 * * * ?")
+  @Scheduled(cron ="0 7 * * * ?")
   public void pushForEvents() {
 
     List<UserEntity> tempList =
@@ -44,14 +44,17 @@ public class PushScheduler {
 
         OffsetDateTime currentDate = OffsetDateTime.now();
 
-        for (ScheduleEntity scheduleList : event.getSchedules()) {
+        for (ScheduleEntity schedule : event.getSchedules()) {
             
-          if (currentDate
-              .getDayOfMonth() == (scheduleList.getStartDate().minusDays(3).getDayOfMonth())
-              || (currentDate.getDayOfMonth() == (scheduleList.getStartDate().getDayOfMonth()))) {
+          if ((currentDate
+              .getDayOfMonth() == (schedule.getStartDate().minusDays(3).getDayOfMonth())) &&
+              currentDate.getMonth() == (schedule.getStartDate().minusDays(3).getMonth())
+              || ((currentDate.getDayOfMonth() == (schedule.getStartDate().getDayOfMonth()))) &&
+              (currentDate.getMonth() == (schedule.getStartDate().getMonth())))
+          {
 
             MessageDto message = new MessageDto("Erinnerung zum Event " + event.getName() + ".",
-                "" + event.getName() + " findet am " + scheduleList.getStartDate()+ " statt.");
+                "" + event.getName() + " findet am " + schedule.getStartDate()+ " statt.");
 
             Set<SubscriptionEntity> subList = user.getSubscriptions();
             for (SubscriptionEntity subscription : subList) {
@@ -64,7 +67,7 @@ public class PushScheduler {
     }
   }
 
-  @Scheduled(fixedDelay = 30000)
+  @Scheduled(cron = "* * * * * ?")
   public void pushForJobAds() {
 
     List<UserEntity> tempList = userService.GetAllUsers("favoriteJobAds", "subscriptions");
@@ -77,8 +80,10 @@ public class PushScheduler {
 
         OffsetDateTime currentDate = OffsetDateTime.now();
 
-        if (currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(14).getDayOfMonth())
-            || (currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(7).getDayOfMonth()))) {
+        if ((currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(14).getDayOfMonth()) &&
+            currentDate.getMonth() == (jobAd.getDueDate().minusDays(14).getMonth()))
+            || ((currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(7).getDayOfMonth())&&
+                currentDate.getMonth() == (jobAd.getDueDate().minusDays(7).getMonth())))) {
 
           MessageDto message = new MessageDto("Erinnerung zum Jobangebot" + jobAd.getTitle() + ".",
               "Die Bewerbungsfrist endet am" + jobAd.getDueDate() + ".");
