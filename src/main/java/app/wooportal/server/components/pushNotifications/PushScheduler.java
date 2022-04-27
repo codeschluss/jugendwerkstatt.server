@@ -30,42 +30,44 @@ public class PushScheduler {
 
   }
 
-  @Scheduled(fixedDelay = 30000)
+  @Scheduled(cron ="0 12 * * * ?")
   public void pushForEvents() {
 
-    List<UserEntity> tempList = userService.GetAllUsers("favoriteEvents.schedules");
+    List<UserEntity> tempList =
+        userService.GetAllUsers("favoriteEvents.schedules", "subscriptions");
 
     Map<String, String> additionalData = new HashMap<>();
 
     for (UserEntity user : tempList) {
-            
+
       for (EventEntity event : user.getFavoriteEvents()) {
 
         OffsetDateTime currentDate = OffsetDateTime.now();
-        
-        for (ScheduleEntity scheduleList: event.getSchedules()) {
-          
-        if (currentDate.getDayOfMonth() == (scheduleList.getCreated().minusDays(3).getDayOfMonth())
-            || (currentDate.getDayOfMonth() == (scheduleList.getCreated().getDayOfMonth()))) {
-          
-          MessageDto message =
-              new MessageDto("Erinnerung zum Event"+event.getName()+".", ""+event.getName()+"findet am"+scheduleList.getCreated()+"statt.");
-          
-          Set<SubscriptionEntity> subList = user.getSubscriptions();
-          for (SubscriptionEntity subscription : subList) {
 
-            firebasePushService.sendPush(subscription, message, additionalData);
+        for (ScheduleEntity scheduleList : event.getSchedules()) {
+            
+          if (currentDate
+              .getDayOfMonth() == (scheduleList.getStartDate().minusDays(3).getDayOfMonth())
+              || (currentDate.getDayOfMonth() == (scheduleList.getStartDate().getDayOfMonth()))) {
+
+            MessageDto message = new MessageDto("Erinnerung zum Event " + event.getName() + ".",
+                "" + event.getName() + " findet am " + scheduleList.getStartDate()+ " statt.");
+
+            Set<SubscriptionEntity> subList = user.getSubscriptions();
+            for (SubscriptionEntity subscription : subList) {
+
+              firebasePushService.sendPush(subscription, message, additionalData);
+            }
           }
         }
       }
-    }
     }
   }
 
   @Scheduled(fixedDelay = 30000)
   public void pushForJobAds() {
 
-    List<UserEntity> tempList = userService.GetAllUsers("favoriteJobAds");
+    List<UserEntity> tempList = userService.GetAllUsers("favoriteJobAds", "subscriptions");
 
     Map<String, String> additionalData = new HashMap<>();
 
