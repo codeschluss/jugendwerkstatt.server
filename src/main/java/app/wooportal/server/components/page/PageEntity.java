@@ -1,8 +1,7 @@
-package app.wooportal.server.components.page.base;
+package app.wooportal.server.components.page;
 
 import java.io.Serial;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;

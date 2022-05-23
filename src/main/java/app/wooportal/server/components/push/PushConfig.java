@@ -1,4 +1,4 @@
-package app.wooportal.server.components.pushNotifications;
+package app.wooportal.server.components.push;
 
 import lombok.Data;
 

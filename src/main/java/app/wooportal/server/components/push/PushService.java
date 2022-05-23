@@ -1,4 +1,4 @@
-package app.wooportal.server.components.pushNotifications;
+package app.wooportal.server.components.push;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,7 +20,6 @@ import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
 import app.wooportal.server.components.subscription.base.SubscriptionEntity;
 import app.wooportal.server.components.subscription.base.SubscriptionService;
-
 
 @Service
 public class PushService {
