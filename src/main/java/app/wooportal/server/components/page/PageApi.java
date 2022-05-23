@@ -1,4 +1,4 @@
-package app.wooportal.server.components.page.base;
+package app.wooportal.server.components.page;
 
 import java.util.List;
 import java.util.Optional;
