@@ -3,7 +3,6 @@ package app.wooportal.server.components.pushNotifications;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;

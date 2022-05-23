@@ -1,13 +1,14 @@
 package app.wooportal.server.components.pushNotifications;
 
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import java.time.OffsetDateTime;
 import app.wooportal.server.components.event.base.EventEntity;
+import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.components.group.course.CourseService;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
@@ -20,11 +21,15 @@ public class PushScheduler {
 
   private final PushService firebasePushService;
   private final UserService userService;
+  private final EventService eventService;
 
 
-
-  public PushScheduler(PushService firebasePushService, UserService userService,
+  public PushScheduler(
+      EventService eventService,
+      PushService firebasePushService,
+      UserService userService,
       CourseService courseService) {
+    this.eventService = eventService;
     this.firebasePushService = firebasePushService;
     this.userService = userService;
   }
@@ -34,6 +39,11 @@ public class PushScheduler {
 
     List<UserEntity> tempList =
         userService.GetAllUsers("favoriteEvents.schedules", "subscriptions");
+    
+    var events = eventService.withDates(
+        OffsetDateTime.now(),
+        OffsetDateTime.now().minusDays(3),
+        OffsetDateTime.now().minusDays(2));
 
     Map<String, String> additionalData = new HashMap<>();
 
