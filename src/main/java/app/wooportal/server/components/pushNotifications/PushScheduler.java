@@ -1,6 +1,8 @@
 package app.wooportal.server.components.pushNotifications;
 
+import java.text.MessageFormat;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,22 +41,17 @@ public class PushScheduler {
 
   @Scheduled(cron = "0 7 * * * ?")
   public void pushForEvents() {
-
-    var schedules = scheduleService.withDates(List.of(OffsetDateTime.now(),
-        OffsetDateTime.now().minusDays(3), OffsetDateTime.now().minusDays(2)), "event");
-
-    Map<String, String> additionalData = new HashMap<>();
-
-    for (ScheduleEntity schedule : schedules) {
-
-      MessageDto message = new MessageDto(
-          "Erinnerung zum Event " + schedule.getEvent().getName() + ".",
-          "" + schedule.getEvent().getName() + " findet am " + schedule.getStartDate() + " statt.");
-
-      List<SubscriptionEntity> subList = subscriptionService.GetAllSubscriptions();
-      for (SubscriptionEntity subscription : subList) {
-
-        firebasePushService.sendPush(subscription, message, additionalData);
+    for (var schedule : scheduleService.withDates(List.of(
+        OffsetDateTime.now(),
+        OffsetDateTime.now().minusDays(3),
+        OffsetDateTime.now().minusDays(2)), "event")) {
+      var message = new MessageDto(
+          "Erinnerung zum Event",
+          MessageFormat.format("{0} findet am {1} statt.", 
+              schedule.getEvent().getName(), schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))));
+      
+      for (var subscription : subscriptionService.getAllSubscriptions()) {
+        firebasePushService.sendPush(subscription, message, new HashMap<String, String>());
       }
     }
   }
@@ -62,21 +59,15 @@ public class PushScheduler {
 
   @Scheduled(cron = "0 7 * * * ?")
   public void pushForJobAds() {
+    for (var jobAd : jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
+        OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14))) {
+      var message = new MessageDto(
+          "Erinnerung zum Jobangebot",
+          MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(), jobAd.getDueDate()));
 
-    var jobAds = jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
-        OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14));
-
-    Map<String, String> additionalData = new HashMap<>();
-
-    for (JobAdEntity jobAd : jobAds) {
-
-      MessageDto message = new MessageDto("Erinnerung zum Jobangebot" + jobAd.getTitle() + ".",
-          "Die Bewerbungsfrist endet am" + jobAd.getDueDate() + ".");
-
-      List<SubscriptionEntity> subList = subscriptionService.GetAllSubscriptions();
+      List<SubscriptionEntity> subList = subscriptionService.getAllSubscriptions();
       for (SubscriptionEntity subscription : subList) {
-
-        firebasePushService.sendPush(subscription, message, additionalData);
+        firebasePushService.sendPush(subscription, message, new HashMap<String, String>());
       }
     }
   }

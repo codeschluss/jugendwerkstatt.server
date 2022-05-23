@@ -29,7 +29,7 @@ public class SubscriptionService
     return repo.findOne(predicate.withSubscriptionType(name));
   }
 
-  public List<SubscriptionEntity> GetAllSubscriptions(String... graph) {
+  public List<SubscriptionEntity> getAllSubscriptions(String... graph) {
     return repo.findAll(query(false).addGraph(graph(graph))).getList();
   }
 }
