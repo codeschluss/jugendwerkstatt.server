@@ -28,7 +28,6 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                    unique: true
                   name: name
                   type: VARCHAR(255)
               - column:
