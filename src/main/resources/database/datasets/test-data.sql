@@ -12,7 +12,6 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image');
 
 INSERT INTO users (id, fullname, email, profile_picture_id, password) VALUES
-('28fc7d3a-afc7-49ca-8070-eea8671abab3', 'Admin', 'admin@example.com', '4a3717af-94b2-4a5d-b328-2d2754ea3cb5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
 ('36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'Student', 'student@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
 ('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
 ('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
