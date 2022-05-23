@@ -133,12 +133,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     throw new InvalidVerificationException("Verification invalid", key);
   }
 
-  public List<UserEntity> Evaluation(String... graph) {
+  public List<UserEntity> getAllStudents(String... graph) {
     return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }
 
-  public List<UserEntity> GetAllUsers(String... graph) {
-    return repo.findAll(query(false).addGraph(graph(graph))).getList();
-  }
 }
