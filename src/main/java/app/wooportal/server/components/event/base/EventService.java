@@ -1,5 +1,7 @@
 package app.wooportal.server.components.event.base;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.components.event.organizer.OrganizerService;
@@ -36,5 +38,13 @@ public class EventService extends DataService<EventEntity, EventPredicateBuilder
 
   public Optional<EventEntity> getByName(String name) {
     return repo.findOne(predicate.withName(name));
+  }
+  
+  public List<EventEntity> withDates(OffsetDateTime... dates) {
+    var query = query();
+    for (var date : dates) {
+      query.or(predicate.withDate(date));
+    }
+    return repo.findAll(query).getList();
   }
 }
