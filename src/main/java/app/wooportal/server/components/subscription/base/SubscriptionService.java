@@ -24,9 +24,12 @@ public class SubscriptionService
   public Optional<SubscriptionEntity> getByAuth_Secret(String key) {
     return repo.findOne(predicate.withAuth_Secret(key));
   }
-  
+
   public Optional<SubscriptionEntity> getBySubscriptionType(String name) {
     return repo.findOne(predicate.withSubscriptionType(name));
   }
-  
+
+  public List<SubscriptionEntity> GetAllSubscriptions(String... graph) {
+    return repo.findAll(query(false).addGraph(graph(graph))).getList();
+  }
 }

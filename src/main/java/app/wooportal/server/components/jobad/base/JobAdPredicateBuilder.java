@@ -1,5 +1,6 @@
 package app.wooportal.server.components.jobad.base;
 
+import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -23,5 +24,8 @@ public class JobAdPredicateBuilder extends PredicateBuilder<QJobAdEntity, JobAdE
   public BooleanExpression withTitle(String title) {
     return query.title.equalsIgnoreCase(title);
   }
-
+  public BooleanExpression withDate(OffsetDateTime date) {
+    return query.dueDate.after(date.withMinute(0).withHour(0))
+      .and(query.dueDate.before(date.withMinute(59).withHour(23)));
+}
 }

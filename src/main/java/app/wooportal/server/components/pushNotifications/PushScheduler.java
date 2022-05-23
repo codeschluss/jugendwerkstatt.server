@@ -7,12 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import app.wooportal.server.components.event.base.EventEntity;
-import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
+import app.wooportal.server.components.event.schedule.ScheduleService;
 import app.wooportal.server.components.group.course.CourseService;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
+import app.wooportal.server.components.jobad.base.JobAdService;
 import app.wooportal.server.components.subscription.base.SubscriptionEntity;
+import app.wooportal.server.components.subscription.base.SubscriptionService;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.security.components.user.UserService;
 
@@ -21,88 +22,61 @@ public class PushScheduler {
 
   private final PushService firebasePushService;
   private final UserService userService;
-  private final EventService eventService;
+  private final ScheduleService scheduleService;
+  private final SubscriptionService subscriptionService;
+  private final JobAdService jobAdService;
 
 
-  public PushScheduler(
-      EventService eventService,
-      PushService firebasePushService,
-      UserService userService,
-      CourseService courseService) {
-    this.eventService = eventService;
+  public PushScheduler(ScheduleService scheduleService, PushService firebasePushService,
+      UserService userService, CourseService courseService, SubscriptionService subscriptionService,
+      JobAdService jobAdService) {
+    this.scheduleService = scheduleService;
+    this.subscriptionService = subscriptionService;
     this.firebasePushService = firebasePushService;
     this.userService = userService;
+    this.jobAdService = jobAdService;
   }
 
-  @Scheduled(cron ="0 7 * * * ?")
+  @Scheduled(cron = "0 7 * * * ?")
   public void pushForEvents() {
 
-    List<UserEntity> tempList =
-        userService.GetAllUsers("favoriteEvents.schedules", "subscriptions");
-    
-    var events = eventService.withDates(
-        OffsetDateTime.now(),
-        OffsetDateTime.now().minusDays(3),
-        OffsetDateTime.now().minusDays(2));
+    var schedules = scheduleService.withDates(List.of(OffsetDateTime.now(),
+        OffsetDateTime.now().minusDays(3), OffsetDateTime.now().minusDays(2)), "event");
 
     Map<String, String> additionalData = new HashMap<>();
 
-    for (UserEntity user : tempList) {
+    for (ScheduleEntity schedule : schedules) {
 
-      for (EventEntity event : user.getFavoriteEvents()) {
+      MessageDto message = new MessageDto(
+          "Erinnerung zum Event " + schedule.getEvent().getName() + ".",
+          "" + schedule.getEvent().getName() + " findet am " + schedule.getStartDate() + " statt.");
 
-        OffsetDateTime currentDate = OffsetDateTime.now();
+      List<SubscriptionEntity> subList = subscriptionService.GetAllSubscriptions();
+      for (SubscriptionEntity subscription : subList) {
 
-        for (ScheduleEntity schedule : event.getSchedules()) {
-            
-          if ((currentDate
-              .getDayOfMonth() == (schedule.getStartDate().minusDays(3).getDayOfMonth())) &&
-              currentDate.getMonth() == (schedule.getStartDate().minusDays(3).getMonth())
-              || ((currentDate.getDayOfMonth() == (schedule.getStartDate().getDayOfMonth()))) &&
-              (currentDate.getMonth() == (schedule.getStartDate().getMonth())))
-          {
-
-            MessageDto message = new MessageDto("Erinnerung zum Event " + event.getName() + ".",
-                "" + event.getName() + " findet am " + schedule.getStartDate()+ " statt.");
-
-            Set<SubscriptionEntity> subList = user.getSubscriptions();
-            for (SubscriptionEntity subscription : subList) {
-
-              firebasePushService.sendPush(subscription, message, additionalData);
-            }
-          }
-        }
+        firebasePushService.sendPush(subscription, message, additionalData);
       }
     }
   }
 
+
   @Scheduled(cron = "0 7 * * * ?")
   public void pushForJobAds() {
 
-    List<UserEntity> tempList = userService.GetAllUsers("favoriteJobAds", "subscriptions");
+    var jobAds = jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
+        OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14));
 
     Map<String, String> additionalData = new HashMap<>();
 
-    for (UserEntity user : tempList) {
+    for (JobAdEntity jobAd : jobAds) {
 
-      for (JobAdEntity jobAd : user.getFavoriteJobAds()) {
+      MessageDto message = new MessageDto("Erinnerung zum Jobangebot" + jobAd.getTitle() + ".",
+          "Die Bewerbungsfrist endet am" + jobAd.getDueDate() + ".");
 
-        OffsetDateTime currentDate = OffsetDateTime.now();
+      List<SubscriptionEntity> subList = subscriptionService.GetAllSubscriptions();
+      for (SubscriptionEntity subscription : subList) {
 
-        if ((currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(14).getDayOfMonth()) &&
-            currentDate.getMonth() == (jobAd.getDueDate().minusDays(14).getMonth()))
-            || ((currentDate.getDayOfMonth() == (jobAd.getDueDate().minusDays(7).getDayOfMonth())&&
-                currentDate.getMonth() == (jobAd.getDueDate().minusDays(7).getMonth())))) {
-
-          MessageDto message = new MessageDto("Erinnerung zum Jobangebot" + jobAd.getTitle() + ".",
-              "Die Bewerbungsfrist endet am" + jobAd.getDueDate() + ".");
-
-          Set<SubscriptionEntity> subList = user.getSubscriptions();
-          for (SubscriptionEntity subscription : subList) {
-
-            firebasePushService.sendPush(subscription, message, additionalData);
-          }
-        }
+        firebasePushService.sendPush(subscription, message, additionalData);
       }
     }
   }

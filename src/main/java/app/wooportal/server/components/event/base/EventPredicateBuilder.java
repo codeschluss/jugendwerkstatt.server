@@ -29,8 +29,4 @@ public class EventPredicateBuilder extends PredicateBuilder<QEventEntity, EventE
     return query.name.equalsIgnoreCase(name);
   }
   
-  public BooleanExpression withDate(OffsetDateTime date) {
-    return query.schedules.any().startDate.after(date.withMinute(0).withHour(0))
-      .and(query.schedules.any().startDate.before(date.withMinute(59).withHour(23)));
-  }
 }

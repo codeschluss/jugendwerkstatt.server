@@ -40,11 +40,4 @@ public class EventService extends DataService<EventEntity, EventPredicateBuilder
     return repo.findOne(predicate.withName(name));
   }
   
-  public List<EventEntity> withDates(OffsetDateTime... dates) {
-    var query = query();
-    for (var date : dates) {
-      query.or(predicate.withDate(date));
-    }
-    return repo.findAll(query).getList();
-  }
 }

@@ -79,7 +79,7 @@ INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 ('fc7965c6-ce88-4ecc-a455-045237370b9a', '2022-05-19 18:00:00+02', '2022-05-19 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
 ('fdfbfd8e-a940-433e-bdd9-fe91194131a7', '2022-09-15 10:00:00+02', '2022-09-15 14:00:00+02', '4d2a2a1f-1c36-471b-8483-ae18338a5fd6'),
 ('6cd32c9d-ac17-4e87-8a13-f8634bf8c069', '2022-07-10 19:00:00+02', '2022-07-10 22:00:00+02', '8b66b8d7-dd54-460b-b1f1-4204cc660872'),
-('f4db1b24-8f48-464f-9565-8d2057bf5bc2', '2022-12-22 19:00:00+02', '2022-12-22 22:00:00+02', 'fa30c3b2-a14d-4627-a11b-d2704ee496eb');
+('f4db1b24-8f48-464f-9565-8d2057bf5bc2', '2022-05-23 19:00:00+02', '2022-05-23 22:00:00+02', 'fa30c3b2-a14d-4627-a11b-d2704ee496eb');
 
 INSERT INTO job_types (id, name, color) VALUES
 ('430d33c4-f0f2-42b1-927f-5270d91c7f32', 'metal trade', '#0000FF'),
@@ -96,7 +96,7 @@ INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
 INSERT INTO job_ads(id, title, start_date, due_date, company_id, type_id) VALUES
 ('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
 ('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
-('10bee224-3c01-40cf-8598-1cce46269206', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-15 00:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('10bee224-3c01-40cf-8598-1cce46269206', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
 ('9ff39911-533a-4420-9149-f261de7d569c', 'interior designer', '2022-09-01 10:00:00+02', '2022-05-31 10:00:00+02','f36d8f40-e387-4282-8dca-30e29d644600', 'be24e3e7-b08b-4792-be4e-df34cf8e9851'),
 ('0ae19f9c-94d6-4fdc-92f4-81595f3d6916', 'housekeeper', '2022-11-01 10:00:00+02', '2022-09-30 10:00:00+02', 'bd2c9144-1517-42e5-a35c-503793ccb51d', 'be24e3e7-b08b-4792-be4e-df34cf8e9851');
 
