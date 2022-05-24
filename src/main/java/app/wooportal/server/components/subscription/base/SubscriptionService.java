@@ -22,7 +22,7 @@ public class SubscriptionService
   }
 
   public Optional<SubscriptionEntity> getByAuth_Secret(String key) {
-    return repo.findOne(predicate.withAuth_Secret(key));
+    return repo.findOne(predicate.withDeviceToken(key));
   }
 
   public Optional<SubscriptionEntity> getBySubscriptionType(String name) {
