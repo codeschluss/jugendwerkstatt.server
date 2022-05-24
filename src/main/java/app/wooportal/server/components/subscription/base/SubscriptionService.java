@@ -17,8 +17,8 @@ public class SubscriptionService
 
   @Override
   public Optional<SubscriptionEntity> getExisting(SubscriptionEntity entity) {
-    return entity.getAuth_secret() == null || entity.getAuth_secret().isEmpty() ? Optional.empty()
-        : getByAuth_Secret(entity.getAuth_secret());
+    return entity.getDeviceToken() == null || entity.getDeviceToken().isEmpty() ? Optional.empty()
+        : getByAuth_Secret(entity.getDeviceToken());
   }
 
   public Optional<SubscriptionEntity> getByAuth_Secret(String key) {
