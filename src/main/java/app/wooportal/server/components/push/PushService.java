@@ -26,12 +26,13 @@ public class PushService {
 
   private final SubscriptionService subscriptionService;
 
+
   public PushService(SubscriptionService subscriptionService, PushConfig config)
       throws IOException {
     this.subscriptionService = subscriptionService;
     initializePushService(config);
   }
-  
+
   private void initializePushService(PushConfig config) throws IOException {
     ClassPathResource firebaseConfigFile = new ClassPathResource(config.getCredentials());
 
@@ -42,11 +43,17 @@ public class PushService {
     }
   }
 
+  public void sendNotification(MessageDto message) {
+    for (var subscription : subscriptionService.getAllSubscriptions()) {
+      sendPush(subscription, message, new HashMap<String, String>());
+    }
+  }
+
   public void sendPush(SubscriptionEntity subscription, MessageDto message,
       Map<String, String> additionalData) {
     try {
-      Builder messageBuilder =
-          Message.builder().setToken(subscription.getAuth_secret()).setNotification(Notification
+      var messageBuilder =
+          Message.builder().setToken(subscription.getDeviceToken()).setNotification(Notification
               .builder().setTitle(message.getTitle()).setBody(message.getContent()).build());
 
       if (additionalData != null) {
@@ -64,5 +71,6 @@ public class PushService {
     } catch (InterruptedException | ExecutionException e) {
       subscriptionService.deleteById(subscription.getId());
     }
+
   }
 }

@@ -14,14 +14,14 @@ public class SubscriptionPredicateBuilder
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.auth_secret.likeIgnoreCase(term)
+    return query.deviceToken.likeIgnoreCase(term)
         .or(query.subscriptionType.name.likeIgnoreCase(term))
         .or(query.subscriptionType.description.likeIgnoreCase(term));
     
   }
 
   public BooleanExpression withAuth_Secret(String key) {
-    return query.auth_secret.equalsIgnoreCase(key);
+    return query.deviceToken.equalsIgnoreCase(key);
   }
 
   public BooleanExpression withSubscriptionType(String name) {

@@ -28,7 +28,7 @@ public class SubscriptionEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(unique = true, nullable = false)
-  private String auth_secret;
+  private String deviceToken;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

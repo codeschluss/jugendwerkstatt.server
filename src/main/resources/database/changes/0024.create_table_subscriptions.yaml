@@ -29,7 +29,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-                  name: auth_secret
+                  name: device_token
                   type: VARCHAR(255)  
               - column:
                   constraints:
