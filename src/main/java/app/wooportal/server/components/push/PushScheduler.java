@@ -56,7 +56,7 @@ public class PushScheduler {
         OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14))) {
       var message = new MessageDto(
           "Erinnerung zum Jobangebot",
-          MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(), jobAd.getDueDate()));
+          MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(), jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))));
 
       List<SubscriptionEntity> subList = subscriptionService.getAllSubscriptions();
       for (SubscriptionEntity subscription : subList) {
