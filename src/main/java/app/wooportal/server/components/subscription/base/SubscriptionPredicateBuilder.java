@@ -20,7 +20,7 @@ public class SubscriptionPredicateBuilder
     
   }
 
-  public BooleanExpression withAuth_Secret(String key) {
+  public BooleanExpression withDeviceToken(String key) {
     return query.deviceToken.equalsIgnoreCase(key);
   }
 

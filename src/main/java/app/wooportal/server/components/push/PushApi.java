@@ -14,9 +14,9 @@ public class PushApi {
     this.pushService = pushService;
   }
 
-  @GraphQLMutation(name = "pushNotification")
-  public Boolean pushNotification(MessageDto message) {
-    pushService.sendNotification(message);
+  @GraphQLMutation(name = "sendGlobalPush")
+  public Boolean sendGlobalPush(MessageDto message) {
+    pushService.sendGlobalPush(message);
     return true;
   }
 }

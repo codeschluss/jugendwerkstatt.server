@@ -14,7 +14,6 @@ import com.google.firebase.messaging.ApnsConfig;
 import com.google.firebase.messaging.Aps;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
-import com.google.firebase.messaging.Message.Builder;
 import com.google.firebase.messaging.Notification;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
@@ -43,7 +42,7 @@ public class PushService {
     }
   }
 
-  public void sendNotification(MessageDto message) {
+  public void sendGlobalPush(MessageDto message) {
     for (var subscription : subscriptionService.getAllSubscriptions()) {
       sendPush(subscription, message, new HashMap<String, String>());
     }
