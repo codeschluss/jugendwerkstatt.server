@@ -33,7 +33,7 @@ public class PushScheduler {
     this.jobAdService = jobAdService;
   }
 
-  @Scheduled(cron = "0 22 * * * ?")
+  @Scheduled(cron = "0 26 * * * ?")
   public void pushForEvents() {
     for (var schedule : scheduleService.withDates(List.of(
         OffsetDateTime.now(),
@@ -41,8 +41,8 @@ public class PushScheduler {
         OffsetDateTime.now().minusDays(2)), "event")) {
       var message = new MessageDto(
           "Erinnerung zum Event",
-          MessageFormat.format("{0} findet am {1} statt.", 
-              schedule.getEvent().getName(), schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))));
+          MessageFormat.format("{0} findet am {1} Uhr statt.", 
+              schedule.getEvent().getName(), schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM HH:mm"))));
       
       for (var subscription : subscriptionService.getAllSubscriptions()) {
         firebasePushService.sendPush(subscription, message, new HashMap<String, String>());
