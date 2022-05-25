@@ -24,9 +24,10 @@ INSERT INTO courses(id, name, group_id) VALUES
 
 INSERT INTO users (id, fullname, email, profile_picture_id, password, phone) VALUES
 ('36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'Student', 'student@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '1111111111'),
-('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '22222222'),
-('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333'),
-('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '44444444');
+('e14e5d92-0b4a-47b3-991d-ac18dd6923b3', 'Student2', 'student2@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '2222222'),
+('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '3333333'),
+('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '44444444'),
+('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '555555555');
 
 INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('747fad72-720c-4747-8884-9dd61dc67f3c', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
@@ -169,6 +170,27 @@ INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
 ('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
 ('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
 
+INSERT INTO chats(id, name, admin) VALUES
+('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false),
+('b2cb2479-1c75-4bf6-9543-38c53a55a70f', 'Student', true);
+
+INSERT INTO participants(id, chat_id, user_id) VALUES
+('87c048f9-26fb-4b3f-9d37-f03556c08edd', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('75cd4f05-816a-45d0-b242-e12b00499e7f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', 'e14e5d92-0b4a-47b3-991d-ac18dd6923b3'),
+('36ea3a0f-31e7-4db0-b2f5-d9b42b5139c3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '528250c0-e0e3-4166-aa71-0f150eb2453f'),
+('30932b23-9b0a-472b-b16a-a6ae1c80740d', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '528250c0-e0e3-4166-aa71-0f150eb2453f');
+
+INSERT INTO messages(id, content, chat_id, user_id, media_id, parent_id) VALUES
+('456588b4-f512-4d78-953c-53dee35b18c0', 'Hello fellow woodworkers!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '528250c0-e0e3-4166-aa71-0f150eb2453f', null, null),
+('125b98f8-0310-4455-ba31-7a43a6cdc7b0', 'Hello all!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', null, null),
+('c25cca5d-3f2c-4297-bf41-50a9f98a59fa', 'Hello Supervisor, here is my form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'ceb59217-29f6-4a58-a8f1-776b698a9c5a', null),
+('569f2578-177e-4e08-a206-9f2626b8c258', 'This is not a form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '528250c0-e0e3-4166-aa71-0f150eb2453f', null, 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa');
+
+INSERT INTO read_receipts(id, message_id, participant_id) VALUES
+('2ce49f62-f74f-480a-b43e-f27232b8dc29', '456588b4-f512-4d78-953c-53dee35b18c0', '87c048f9-26fb-4b3f-9d37-f03556c08edd'),
+('4c524fd6-f7ae-481c-89c8-2b16ddd1ca48', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '75cd4f05-816a-45d0-b242-e12b00499e7f'),
+('af00cf23-a10e-45b0-8c5f-2ae481764d1d', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '30932b23-9b0a-472b-b16a-a6ae1c80740d');
 
 
 

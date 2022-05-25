@@ -53,7 +53,15 @@ databaseChangeLog:
     - include:
         file: database/changes/0024.create_table_subscriptions.yaml
     - include:
-        file: database/changes/0025.create_table_pages.yaml                                                      
+        file: database/changes/0025.create_table_pages.yaml
+    - include:
+        file: database/changes/0026.create_table_messages.yaml
+    - include:
+        file: database/changes/0027.create_table_participants.yaml
+    - include:
+        file: database/changes/0028.create_table_chats.yaml
+    - include:
+        file: database/changes/0029.create_table_read_receipts.yaml                                                                                         
     - include:
         file: database/datasets/test-data.yaml
                       
