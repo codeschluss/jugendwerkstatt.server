@@ -1,4 +1,4 @@
-package app.wooportal.server.components.subscription.base;
+package app.wooportal.server.components.push.subscription;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,8 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class SubscriptionApi extends CrudApi<SubscriptionEntity, SubscriptionService> {
 
-  public SubscriptionApi(SubscriptionService SubscriptionService) {
-    super(SubscriptionService);
+  public SubscriptionApi(SubscriptionService subscriptionService) {
+    super(subscriptionService);
   }
 
   @Override

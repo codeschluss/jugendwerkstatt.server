@@ -1,4 +1,4 @@
-package app.wooportal.server.components.subscription.base;
+package app.wooportal.server.components.push.subscription;
 
 import java.util.List;
 import java.util.Optional;

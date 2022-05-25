@@ -1,4 +1,4 @@
-package app.wooportal.server.components.subscription.base;
+package app.wooportal.server.components.push.subscription;
 
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
