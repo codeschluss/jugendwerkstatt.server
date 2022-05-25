@@ -1,4 +1,4 @@
-package app.wooportal.server.components.subscription.subscriptionType;
+package app.wooportal.server.components.push.subscriptionType;
 
 import java.util.Optional;
 import org.springframework.stereotype.Service;

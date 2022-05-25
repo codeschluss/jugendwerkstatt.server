@@ -1,4 +1,4 @@
-package app.wooportal.server.components.subscription.subscriptionType;
+package app.wooportal.server.components.push.subscriptionType;
 
 import java.util.Set;
 import javax.persistence.Column;
@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import app.wooportal.server.components.subscription.base.SubscriptionEntity;
+import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
