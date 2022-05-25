@@ -189,5 +189,6 @@ INSERT INTO read_receipts(id, message_id, participant_id) VALUES
 ('4c524fd6-f7ae-481c-89c8-2b16ddd1ca48', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '75cd4f05-816a-45d0-b242-e12b00499e7f'),
 ('af00cf23-a10e-45b0-8c5f-2ae481764d1d', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '30932b23-9b0a-472b-b16a-a6ae1c80740d');
 
-
-
+INSERT INTO notifications(id, title, content, read, user_id) VALUES
+('af3c1da6-585d-47fd-ab18-d0c987be8872', 'ThisIsTheTitle', 'ThisIsTheContent', true, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('794560a6-76da-41b3-a5f3-f868f764caad', 'SecondTitle', 'SecondContent', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58');

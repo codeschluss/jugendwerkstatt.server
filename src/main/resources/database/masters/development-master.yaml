@@ -61,7 +61,9 @@ databaseChangeLog:
     - include:
         file: database/changes/0028.create_table_chats.yaml
     - include:
-        file: database/changes/0029.create_table_read_receipts.yaml                                                                                         
+        file: database/changes/0029.create_table_read_receipts.yaml
+    - include:
+        file: database/changes/0030.create_table_notifications.yaml                                                                                                 
     - include:
         file: database/datasets/test-data.yaml
                       

@@ -17,8 +17,8 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class TemplateApi extends CrudApi<TemplateEntity, TemplateService> {
 
-  public TemplateApi(TemplateService TemplateService) {
-    super(TemplateService);
+  public TemplateApi(TemplateService templateService) {
+    super(templateService);
   }
 
   @Override
