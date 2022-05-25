@@ -33,7 +33,7 @@ public class PushScheduler {
     this.jobAdService = jobAdService;
   }
 
-  @Scheduled(cron = "0 7 * * * ?")
+  @Scheduled(cron = "0 22 * * * ?")
   public void pushForEvents() {
     for (var schedule : scheduleService.withDates(List.of(
         OffsetDateTime.now(),

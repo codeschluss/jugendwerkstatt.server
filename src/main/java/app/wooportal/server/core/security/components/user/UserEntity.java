@@ -22,6 +22,7 @@ import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
+import app.wooportal.server.components.message.participant.ParticipantEntity;
 import app.wooportal.server.components.subscription.base.SubscriptionEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
@@ -71,6 +72,10 @@ public class UserEntity extends BaseEntity {
   private List<JobAdEntity> favoriteJobAds = new ArrayList<>();
 
   private String fullname;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @EqualsAndHashCode.Exclude
+  private Set<ParticipantEntity> participants;
 
   @Column(nullable = false)
   private String password;

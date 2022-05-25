@@ -59,7 +59,6 @@ public class EventEntity extends BaseEntity {
   @JoinTable(name = "event_media", joinColumns = @JoinColumn(name = "event_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"event_id", "media_id"})})
-
   private List<MediaEntity> images;
 
   @ManyToOne(fetch = FetchType.LAZY)

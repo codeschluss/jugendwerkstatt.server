@@ -5,4 +5,4 @@ INSERT INTO roles (id, name) VALUES
 ('cf5090d0-dfeb-4bf8-a242-33a2522fe765', 'verified');
 
 INSERT INTO users (id, fullname, email, password, phone) VALUES
-('28fc7d3a-afc7-49ca-8070-eea8671abab3', 'Admin', 'admin@example.com', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '5555555');
+('28fc7d3a-afc7-49ca-8070-eea8671abab3', 'Admin', 'admin@example.com', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '1111111111');
