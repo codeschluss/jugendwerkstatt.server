@@ -30,7 +30,6 @@ INSERT INTO users (id, fullname, email, profile_picture_id, password, phone) VAL
 ('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666');
 
 INSERT INTO user_roles (id, user_id, role_id) VALUES
-('747fad72-720c-4747-8884-9dd61dc67f3c', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
 ('25fa68bb-6967-441d-9017-8120a5fea00f', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
 ('0e60c6f0-9a00-4564-8e9a-39e8fbfe4ec6', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
 ('cfae19fc-ee80-4462-ac53-72631e5a52c1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'bde2722b-c45e-4256-b81a-721982d75f5b'),

@@ -153,7 +153,6 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   constraints:
-                    nullable: false
                     unique: true
                   name: phone
                   type: VARCHAR(255)

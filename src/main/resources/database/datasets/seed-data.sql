@@ -6,3 +6,6 @@ INSERT INTO roles (id, name) VALUES
 
 INSERT INTO users (id, fullname, email, password, phone) VALUES
 ('28fc7d3a-afc7-49ca-8070-eea8671abab3', 'Admin', 'admin@example.com', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '1111111111');
+
+INSERT INTO user_roles (id, user_id, role_id) VALUES
+('747fad72-720c-4747-8884-9dd61dc67f3c', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b');
