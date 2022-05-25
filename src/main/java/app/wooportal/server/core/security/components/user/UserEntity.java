@@ -23,7 +23,7 @@ import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.components.message.participant.ParticipantEntity;
-import app.wooportal.server.components.subscription.base.SubscriptionEntity;
+import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
