@@ -33,7 +33,7 @@ public class PushScheduler {
     this.jobAdService = jobAdService;
   }
 
-  @Scheduled(cron = "0 26 * * * ?")
+  @Scheduled(cron = "0 0 7 * * ?")
   public void pushForEvents() {
     for (var schedule : scheduleService.withDates(List.of(
         OffsetDateTime.now(),
@@ -50,7 +50,7 @@ public class PushScheduler {
     }
   }
 
-  @Scheduled(cron = "0 7 * * * ?")
+  @Scheduled(cron = "0 0 7 * * ?")
   public void pushForJobAds() {
     for (var jobAd : jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
         OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14))) {
