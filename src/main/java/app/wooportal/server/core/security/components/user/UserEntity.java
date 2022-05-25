@@ -49,7 +49,7 @@ public class UserEntity extends BaseEntity {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
-  private Set<AssignmentEntity> assignment;
+  private Set<AssignmentEntity> assignments;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseEntity course;
@@ -72,6 +72,10 @@ public class UserEntity extends BaseEntity {
   private List<JobAdEntity> favoriteJobAds = new ArrayList<>();
 
   private String fullname;
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @EqualsAndHashCode.Exclude
+  private Set<AssignmentEntity> notifications;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
