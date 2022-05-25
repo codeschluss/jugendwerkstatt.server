@@ -1,5 +1,6 @@
 package app.wooportal.server.core.error.errorMessage;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorMailService;
@@ -27,6 +28,11 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
 
   //TODO: Get messages from DB
   public String getLocalizedMessageByException(Exception e) {
+    
+    if (e instanceof AccessDeniedException) {
+      return "Benutzer ist nicht authentifiziert. Logge dich ein.";
+    }
+    
     if (e instanceof AlreadyVerifiedException) {
       return "Benutzer bereits verfiziert. Logge dich ein.";
     }
