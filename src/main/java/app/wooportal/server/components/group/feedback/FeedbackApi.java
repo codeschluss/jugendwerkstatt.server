@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.AdminPermission;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -21,6 +23,7 @@ public class FeedbackApi extends CrudApi<FeedbackEntity, FeedbackService> {
 
   @Override
   @GraphQLQuery(name = "getFeedbacks")
+  @ApprovedAndVerifiedPermission
   public PageableList<FeedbackEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -28,6 +31,7 @@ public class FeedbackApi extends CrudApi<FeedbackEntity, FeedbackService> {
 
   @Override
   @GraphQLQuery(name = "getFeedback")
+  @ApprovedAndVerifiedPermission
   public Optional<FeedbackEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) FeedbackEntity entity) {
     return super.readOne(entity);
@@ -35,6 +39,7 @@ public class FeedbackApi extends CrudApi<FeedbackEntity, FeedbackService> {
 
   @Override
   @GraphQLMutation(name = "saveFeedbacks")
+  @ApprovedAndVerifiedPermission
   public List<FeedbackEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<FeedbackEntity> entities) {
     return super.saveAll(entities);
@@ -42,17 +47,20 @@ public class FeedbackApi extends CrudApi<FeedbackEntity, FeedbackService> {
 
   @Override
   @GraphQLMutation(name = "saveFeedback")
+  @ApprovedAndVerifiedPermission
   public FeedbackEntity saveOne(@GraphQLArgument(name = CrudApi.entity) FeedbackEntity entity) {
     return super.saveOne(entity);
   }
 
   @Override
   @GraphQLMutation(name = "deleteFeedbacks")
+  @AdminPermission
   public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);
   }
 
   @GraphQLMutation(name = "deleteFeedback")
+  @AdminPermission
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }

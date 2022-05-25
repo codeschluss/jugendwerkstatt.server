@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import org.springframework.security.core.userdetails.User;
 import app.wooportal.server.core.security.components.role.RoleEntity;
+import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,4 +34,21 @@ public class JwtUserDetails extends User {
   public String[] getRoles() {
     return roles.stream().map(RoleEntity::getName).toArray(String[]::new);
   }
+
+  public boolean isAdmin() {
+    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.admin));
+  }
+  
+  public boolean isApproved() {
+    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.approved));
+  }
+  
+  public boolean isSuperviser() {
+    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.superviser));
+  }
+  
+  public boolean isVerified() {
+    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.verified));
+  }
+  
 }

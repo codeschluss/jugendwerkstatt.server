@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.AdminPermission;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -21,6 +23,7 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLQuery(name = "getJobTypes")
+  @ApprovedAndVerifiedPermission
   public PageableList<JobTypeEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -28,6 +31,7 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLQuery(name = "getJobType")
+  @ApprovedAndVerifiedPermission
   public Optional<JobTypeEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) JobTypeEntity entity) {
     return super.readOne(entity);
@@ -35,6 +39,7 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLMutation(name = "saveJobTypes")
+  @AdminPermission
   public List<JobTypeEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<JobTypeEntity> entities) {
     return super.saveAll(entities);
@@ -42,18 +47,21 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLMutation(name = "saveJobType")
+  @AdminPermission
   public JobTypeEntity saveOne(@GraphQLArgument(name = CrudApi.entity) JobTypeEntity entity) {
     return super.saveOne(entity);
   }
 
   @Override
   @GraphQLMutation(name = "deleteJobTypes")
+  @AdminPermission
   public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);
   }
 
   @Override
   @GraphQLMutation(name = "deleteJobType")
+  @AdminPermission
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }

@@ -1,6 +1,7 @@
 package app.wooportal.server.components.push;
 
 import org.springframework.stereotype.Component;
+import app.wooportal.server.core.security.permissions.AdminPermission;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
@@ -15,6 +16,7 @@ public class PushApi {
   }
 
   @GraphQLMutation(name = "sendGlobalPush")
+  @AdminPermission
   public Boolean sendGlobalPush(MessageDto message) {
     pushService.sendGlobalPush(message);
     return true;

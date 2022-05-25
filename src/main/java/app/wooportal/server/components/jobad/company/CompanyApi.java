@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.AdminPermission;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -23,6 +25,7 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLQuery(name = "getCompanies")
+  @ApprovedAndVerifiedPermission
   public PageableList<CompanyEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -30,6 +33,7 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLQuery(name = "getCompany")
+  @ApprovedAndVerifiedPermission
   public Optional<CompanyEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) CompanyEntity entity) {
     return super.readOne(entity);
@@ -37,6 +41,7 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLMutation(name = "saveCompanies")
+  @AdminPermission
   public List<CompanyEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<CompanyEntity> entities) {
     return super.saveAll(entities);
@@ -44,18 +49,21 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLMutation(name = "saveCompany")
+  @AdminPermission
   public CompanyEntity saveOne(@GraphQLArgument(name = CrudApi.entity) CompanyEntity entity) {
     return super.saveOne(entity);
   }
 
   @Override
   @GraphQLMutation(name = "deleteCompanies")
+  @AdminPermission
   public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);
   }
 
   @Override
   @GraphQLMutation(name = "deleteCompany")
+  @AdminPermission
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }

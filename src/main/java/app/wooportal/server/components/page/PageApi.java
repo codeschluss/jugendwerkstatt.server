@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.AdminPermission;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -21,6 +23,7 @@ public class PageApi extends CrudApi<PageEntity, PageService> {
 
   @Override
   @GraphQLQuery(name = "getPages")
+  @ApprovedAndVerifiedPermission
   public PageableList<PageEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -28,12 +31,14 @@ public class PageApi extends CrudApi<PageEntity, PageService> {
 
   @Override
   @GraphQLQuery(name = "getPage")
+  @ApprovedAndVerifiedPermission
   public Optional<PageEntity> readOne(@GraphQLArgument(name = CrudApi.entity) PageEntity entity) {
     return super.readOne(entity);
   }
 
   @Override
   @GraphQLMutation(name = "savePages")
+  @AdminPermission
   public List<PageEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<PageEntity> entities) {
     return super.saveAll(entities);
@@ -41,18 +46,21 @@ public class PageApi extends CrudApi<PageEntity, PageService> {
 
   @Override
   @GraphQLMutation(name = "savePage")
+  @AdminPermission
   public PageEntity saveOne(@GraphQLArgument(name = CrudApi.entity) PageEntity entity) {
     return super.saveOne(entity);
   }
 
   @Override
   @GraphQLMutation(name = "deletePages")
+  @AdminPermission
   public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);
   }
 
   @Override
   @GraphQLMutation(name = "deletePage")
+  @AdminPermission
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }

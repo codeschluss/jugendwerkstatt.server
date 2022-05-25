@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -22,6 +23,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLQuery(name = "getUserTemplates")
+  @ApprovedAndVerifiedPermission
   public PageableList<UserTemplateEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -29,6 +31,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLQuery(name = "getUserTemplate")
+  @ApprovedAndVerifiedPermission
   public Optional<UserTemplateEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) UserTemplateEntity entity) {
     return super.readOne(entity);
@@ -36,6 +39,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLMutation(name = "saveUserTemplates")
+  @ApprovedAndVerifiedPermission
   public List<UserTemplateEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<UserTemplateEntity> entities) {
     return super.saveAll(entities);
@@ -43,6 +47,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLMutation(name = "saveUserTemplate")
+  @ApprovedAndVerifiedPermission
   public UserTemplateEntity saveOne(
       @GraphQLArgument(name = CrudApi.entity) UserTemplateEntity entity) {
     return super.saveOne(entity);
@@ -50,6 +55,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLMutation(name = "deleteUserTemplates")
+  @ApprovedAndVerifiedPermission
   public Boolean deleteAll(
       @GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);
@@ -57,6 +63,7 @@ public class UserTemplateApi extends CrudApi<UserTemplateEntity, UserTemplateSer
   
   @Override
   @GraphQLMutation(name = "deleteUserTemplate")
+  @ApprovedAndVerifiedPermission
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }

@@ -1,29 +1,32 @@
 package app.wooportal.server.components.location;
 
-import static org.springframework.http.ResponseEntity.ok;
 import javax.naming.ServiceUnavailableException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import app.wooportal.server.components.location.bingMaps.BingMapService;
+import app.wooportal.server.components.location.bingMaps.model.route.RouteResource;
 import app.wooportal.server.components.location.dto.LocationParam;
 import app.wooportal.server.core.error.exception.BadParamsException;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
+import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
-@RestController
-public class LocationController {
+@GraphQLApi
+@Component
+public class LocationApi {
   
   private final BingMapService mapService;
   
-  public LocationController(
+  public LocationApi(
       BingMapService mapService) {
     this.mapService = mapService;
   }
   
-  @GetMapping("/locations")
-  public ResponseEntity<?> calculateRoute(
+  @GraphQLQuery(name = "calculateRoute")
+  @ApprovedAndVerifiedPermission
+  public RouteResource calculateRoute(
       LocationParam params) throws ServiceUnavailableException {
     if (isValid(params)) {
-      return ok(mapService.calculateRoute(params)); 
+      return mapService.calculateRoute(params); 
     }
     throw new BadParamsException("Start or target is empty");
   }

@@ -49,7 +49,7 @@ public class UserEntity extends BaseEntity {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignment;
-  
+
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseEntity course;
 
@@ -101,7 +101,7 @@ public class UserEntity extends BaseEntity {
 
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private VerificationEntity verification;
-  
+
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private Set<SubscriptionEntity> subscriptions;
 
