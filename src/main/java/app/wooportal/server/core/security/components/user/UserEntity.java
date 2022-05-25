@@ -77,6 +77,9 @@ public class UserEntity extends BaseEntity {
 
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private PasswordResetEntity passwordReset;
+  
+  @Column(nullable = false, unique = true)
+  private String phone;
 
   @OneToOne(fetch = FetchType.LAZY)
   private MediaEntity profilePicture;

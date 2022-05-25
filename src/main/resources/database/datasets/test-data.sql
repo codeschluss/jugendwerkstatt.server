@@ -22,11 +22,11 @@ INSERT INTO courses(id, name, group_id) VALUES
 ('ab36cc61-a884-4da8-be52-db8f19abcbd1', 'Metall 2', 'f5983943-b1a3-4265-bf88-208ecbbd09a3'),
 ('dce3746a-6109-45fd-8bfa-09bb99378d37', 'Holz1', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e');
 
-INSERT INTO users (id, fullname, email, profile_picture_id, password) VALUES
-('36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'Student', 'student@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
-('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
-('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW'),
-('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW');
+INSERT INTO users (id, fullname, email, profile_picture_id, password, phone) VALUES
+('36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'Student', 'student@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '1111111111'),
+('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '22222222'),
+('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333'),
+('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '44444444');
 
 INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('747fad72-720c-4747-8884-9dd61dc67f3c', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),

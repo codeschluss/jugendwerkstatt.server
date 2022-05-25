@@ -152,6 +152,12 @@ databaseChangeLog:
                   name: password
                   type: VARCHAR(255)
               - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
                   name: profile_picture_id
                   type: CHAR(36)
               - column:
