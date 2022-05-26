@@ -34,12 +34,12 @@ public class GraphQlContextAdapter implements ApiContextAdapter {
   
   @Override
   public JsonNode getSingleSaveContext() {
-    return getSaveContext("model");
+    return getSaveContext("entity");
   }
   
   @Override
   public JsonNode getMultiSaveContext() {
-    return getSaveContext("models");
+    return getSaveContext("entities");
   }
   
   public List<Field> getSingleReadContext() {
