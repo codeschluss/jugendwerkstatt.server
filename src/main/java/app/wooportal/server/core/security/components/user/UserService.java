@@ -13,6 +13,7 @@ import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
 import app.wooportal.server.core.error.exception.InvalidVerificationException;
 import app.wooportal.server.core.error.exception.NotFoundException;
+import app.wooportal.server.core.media.base.MediaEntity;
 import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.security.components.passwordReset.PasswordResetEntity;
@@ -26,31 +27,37 @@ import app.wooportal.server.core.utils.ReflectionUtils;
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
+  private final AuthorizationService authorizationService;
+  
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
-  private final RoleService roleService;
-  private final AuthorizationService authorizationService;
-  private final JobAdService jobAdService;
   private final EventService eventService;
+  
+  private final JobAdService jobAdService;
+  
+  private final MediaService mediaService;
+  
+  private final RoleService roleService;
   
   public UserService(
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
-      BCryptPasswordEncoder encoder,
-      MediaService mediaService,
-      RoleService roleService,
-      PasswordResetService passwordResetService,
-      VerificationService verificationService,
       AuthorizationService authorizationService,
+      BCryptPasswordEncoder bcryptPasswordEncoder,
+      EventService eventService,
       JobAdService jobAdService,
-      EventService eventService) {
+      MediaService mediaService,
+      PasswordResetService passwordResetService,
+      RoleService roleService,
+      VerificationService verificationService) {
     super(repo, predicate);
 
-    this.bcryptPasswordEncoder = encoder;
-    this.roleService = roleService;
     this.authorizationService = authorizationService;
-    this.jobAdService = jobAdService;
+    this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     this.eventService = eventService;
+    this.jobAdService = jobAdService;
+    this.mediaService = mediaService;
+    this.roleService = roleService;
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);
     addService("uploads", mediaService);
@@ -88,7 +95,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     var currentUser = authorizationService.getCurrentUser();
     if (currentUser.isPresent()) {
-      currentUser.get().getFavoriteJobAds().add(jobAdService.getById(jobAdId).get());
+      getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAdService.getById(jobAdId).get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -97,7 +104,17 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public Optional<UserEntity> addEventFavorite(String eventId) {
     var currentUser = authorizationService.getCurrentUser();
     if (currentUser.isPresent()) {
-      currentUser.get().getFavoriteEvents().add(eventService.getById(eventId).get());
+      getById(currentUser.get().getId()).get().getFavoriteEvents().add(eventService.getById(eventId).get());
+      return Optional.of(repo.save(currentUser.get()));
+    }
+    return currentUser;
+  }
+  
+  public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
+    var currentUser = authorizationService.getCurrentUser();
+    if (currentUser.isPresent()) {
+      getById(currentUser.get().getId()).get().getUploads().addAll(
+          mediaService.saveAll(uploads));
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
