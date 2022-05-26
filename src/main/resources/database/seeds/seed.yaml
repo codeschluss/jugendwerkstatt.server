@@ -154,7 +154,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: evaluateCourse
+                  name: evaluate_course
                   type: boolean                
               - column:
                   constraints:

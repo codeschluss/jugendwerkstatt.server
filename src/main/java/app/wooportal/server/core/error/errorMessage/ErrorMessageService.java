@@ -1,6 +1,7 @@
 package app.wooportal.server.core.error.errorMessage;
 
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorMailService;
@@ -47,6 +48,10 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
     
     if (e instanceof InvalidTokenException) {
       return "Sicherheitstoken ungültig. Bitte neu einloggen.";
+    }
+    
+    if (e instanceof BadCredentialsException) {
+      return "Benutzername und Passwort falsch";
     }
     
     if (e instanceof InvalidVerificationException) {
