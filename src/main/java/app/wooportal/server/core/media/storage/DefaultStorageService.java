@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.config.GeneralConfiguration;
+import app.wooportal.server.core.error.exception.NotFoundException;
 
 @Service
 public class DefaultStorageService implements StorageService {
@@ -25,7 +26,11 @@ public class DefaultStorageService implements StorageService {
   
   @Override
   public byte[] read(String id, String formatType) throws IOException {
-    return Files.readAllBytes(createFile(id, formatType).toPath());
+    var file = createFile(id, formatType);
+    if (!file.exists()) {
+      throw new NotFoundException("Media file does not exist", file.getName());
+    }
+    return Files.readAllBytes(file.toPath());
   }
 
   @Override

@@ -281,7 +281,7 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
     if (fieldValue != null && !fieldValue.isEmpty()) {
       var result = new ArrayList<E>();
       for (E element : fieldValue) {
-        result.add(service.save(element, context));
+        result.add(service.save(element, findContext(element, context)));
       }
       return result;
     }
