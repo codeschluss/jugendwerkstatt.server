@@ -57,7 +57,7 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
   }
 
   private boolean isImage(String mimeType) {
-    return imageFormats.stream().anyMatch(format -> mimeType.toLowerCase().contains(mimeType));
+    return imageFormats.stream().anyMatch(format -> mimeType.toLowerCase().contains(format));
   }
 
   public ResponseEntity<byte[]> download(String id) throws IOException {

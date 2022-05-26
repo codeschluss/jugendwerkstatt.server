@@ -51,9 +51,17 @@ public class UserSetup {
       List<VerificationEntity> verificationData) {
     mailService = new TestMailService();
 
-    var service = new UserService(new RepoService<UserEntity>(userData), new UserPredicateBuilder(),
-        encoder, createMediaService(uploadData), createRoleService(roleData),
-        createPasswordResetData(passwordResetData), createVerificationData(verificationData), null, null, null);
+    var service = new UserService(
+        new RepoService<UserEntity>(userData),
+        new UserPredicateBuilder(),
+        null,
+        encoder,
+        null,
+        null,
+        createMediaService(uploadData),
+        createPasswordResetData(passwordResetData),
+        createRoleService(roleData),
+        createVerificationData(verificationData));
 
     service.setGraph(new GraphBuilder<>(entityManager));
     service.setContext(new TestApiContextAdapter());

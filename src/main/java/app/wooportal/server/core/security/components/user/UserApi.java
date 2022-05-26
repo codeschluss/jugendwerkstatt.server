@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.media.base.MediaEntity;
 import app.wooportal.server.core.security.permissions.AdminPermission;
 import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -29,11 +30,18 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
   }
-  
+
   @Override
   @GraphQLQuery(name = "getUser")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> readOne(
+      @GraphQLArgument(name = CrudApi.entity) UserEntity entity) {
+    return super.readOne(entity);
+  }
+  
+  @GraphQLQuery(name = "me")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> readMe(
       @GraphQLArgument(name = CrudApi.entity) UserEntity entity) {
     return super.readOne(entity);
   }
@@ -67,12 +75,25 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
+  @GraphQLMutation(name = "addUploads")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
+    return service.addUploads(uploads);
+  }
+  
   @GraphQLMutation(name = "addJobAdFavorite")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     return service.addJobAdFavorite(jobAdId);
   }
   
+  
+  @GraphQLMutation(name = "addEventFavorite")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> addEventFavorite(String jobAdId) {
+    return service.addEventFavorite(jobAdId);
+  }
+
   @GraphQLMutation(name = "approveUser")
   @AdminPermission
   public Optional<UserEntity> approve(String userId) {
@@ -98,5 +119,4 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   public UserEntity verify(String key) {
     return service.verify(key);
   }
-
 }
