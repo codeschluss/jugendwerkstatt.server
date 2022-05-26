@@ -75,7 +75,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
   }
   
-  public Optional<UserEntity> addJobAddFavorite(String jobAdId) {
+  public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     // TODO Auto-generated method stub
     return null;
   }

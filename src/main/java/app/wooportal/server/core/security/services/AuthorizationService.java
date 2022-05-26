@@ -1,11 +1,21 @@
 package app.wooportal.server.core.security.services;
 
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.core.security.JwtUserDetails;
+import app.wooportal.server.core.security.components.user.UserEntity;
 
 @Service
 public class AuthorizationService {
+  
+  @Autowired
+  private HttpServletRequest request;
+  
+  public UserEntity getCurrentUser() {
+    return null;
+  }
   
   public boolean isAdmin(Authentication authentication) {
     if (authentication.getPrincipal() instanceof JwtUserDetails) {

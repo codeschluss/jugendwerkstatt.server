@@ -67,10 +67,10 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
-  @GraphQLMutation(name = "addJobFavorite")
+  @GraphQLMutation(name = "addJobAdFavorite")
   @AdminPermission
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
-    return service.addJobAddFavorite(jobAdId);
+    return service.addJobAdFavorite(jobAdId);
   }
   
   @GraphQLMutation(name = "approveUser")
