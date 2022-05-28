@@ -3,6 +3,7 @@ package app.wooportal.server.core.security.components.user;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
+import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
@@ -79,6 +80,12 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
     return service.addUploads(uploads);
+  }
+  
+  @GraphQLMutation(name = "addAssignments")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
+    return service.addAssignments(assignments);
   }
   
   @GraphQLMutation(name = "addJobAdFavorite")

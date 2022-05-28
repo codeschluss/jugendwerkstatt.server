@@ -13,7 +13,9 @@ public class MessagePredicateBuilder extends PredicateBuilder<QMessageEntity, Me
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.content.likeIgnoreCase(term).or(query.id.likeIgnoreCase(term));
+    return query.content.likeIgnoreCase(term)
+        .or(query.id.likeIgnoreCase(term))
+        .or(query.chat.id.likeIgnoreCase(term));
   }
 
   public BooleanExpression withContent(String name) {
