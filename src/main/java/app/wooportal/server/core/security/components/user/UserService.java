@@ -29,8 +29,10 @@ import app.wooportal.server.core.utils.ReflectionUtils;
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
+
   private final AssignmentService assignmentService;
   
+
   private final AuthorizationService authorizationService;
   
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -56,6 +58,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       RoleService roleService,
       VerificationService verificationService) {
     super(repo, predicate);
+
 
     this.assignmentService = assignmentService;
     this.authorizationService = authorizationService;
