@@ -61,7 +61,15 @@ INSERT INTO addresses (id, house_number, latitude, longitude, place, postal_code
 INSERT INTO events (id, name, description, category_id, organizer_id, title_image_id, address_id) VALUES
 ('440a6eec-be4d-47e8-b38d-3a819bc4624e', 'Vocational-Training-Fair','First touch with companys','555f2324-87bf-4510-ac08-893076444dbb',
 '2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
+('faf4cf31-f61f-420a-ba24-6253580f02f7', 'Educational lesson','How to apply to jobs','555f2324-87bf-4510-ac08-893076444dbb',
+'2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
+('852826f4-2a85-4e19-b818-e0b182707c00', 'Educational lesson2','How to fill in forms','555f2324-87bf-4510-ac08-893076444dbb',
+'2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
+('d582d740-ae21-42b5-bdb4-91d763ba82ef', 'Education lesson3','Does it look good?','555f2324-87bf-4510-ac08-893076444dbb',
+'2295ed87-3f46-428a-a179-e7b7093d2f05','9eaee436-86d7-467e-beb9-be884a9c291c','ff656406-89af-4835-a9bf-571fd978f78f'),
 ('3e9b15fb-02ce-4d09-bfcd-40751eaee1b7', 'Team-Bowling', 'Team-Bowling in Ulm','a464edde-2e2f-455e-a5ca-84fd28f8ad4a',
+'ead07153-6e4b-45ae-abd4-562fc126e92f','c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', '4ff89e9a-2751-4a15-845e-8283194e81fa'),
+('92367f6c-e6f0-4b3d-abde-d76f61a4d575', 'Football', 'Football in Ulm','a464edde-2e2f-455e-a5ca-84fd28f8ad4a',
 'ead07153-6e4b-45ae-abd4-562fc126e92f','c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', '4ff89e9a-2751-4a15-845e-8283194e81fa'),
 ('4d2a2a1f-1c36-471b-8483-ae18338a5fd6', 'Opening Event', 'Information and guidance', '320e2686-a4bc-4990-9b95-8d6f3ddf56ba',
 'd2f041f1-4817-47be-a49a-b6e494a4a8a6', '670d0b9d-ecfb-4dd2-8f07-ead633c7ef5b', '4b2589d5-fc11-4cfd-be8a-c2471277b73d'),
@@ -93,8 +101,15 @@ INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
 
 INSERT INTO job_ads(id, title, start_date, due_date, company_id, type_id) VALUES
 ('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('259618dc-3144-427d-9b3a-e0eb087c34a4', 'metal worker2', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('08eb6224-c681-4c59-9a62-62cae1ed2fba', 'metal worker3', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('37ca51d8-ca5d-434f-862f-934b8b4b1289', 'metal worker4', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('e5ce09af-3541-436b-b52f-d148761ca58d', 'metal worker5', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
 ('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
+('56f6d14c-13cb-4fcc-a989-9a82eb3fd0e9', 'carpetry worker2', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
 ('10bee224-3c01-40cf-8598-1cce46269206', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('3c4ff73a-d7a0-4d1c-b0b5-0a5bdd5d01a8', 'craftsman2', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('bcb51a9e-7da9-4c74-88fa-5110231d4c04', 'craftsman3', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
 ('9ff39911-533a-4420-9149-f261de7d569c', 'interior designer', '2022-09-01 10:00:00+02', '2022-05-31 10:00:00+02','f36d8f40-e387-4282-8dca-30e29d644600', 'be24e3e7-b08b-4792-be4e-df34cf8e9851'),
 ('0ae19f9c-94d6-4fdc-92f4-81595f3d6916', 'housekeeper', '2022-11-01 10:00:00+02', '2022-09-30 10:00:00+02', 'bd2c9144-1517-42e5-a35c-503793ccb51d', 'be24e3e7-b08b-4792-be4e-df34cf8e9851');
 
@@ -114,7 +129,8 @@ INSERT INTO questions(id, item, questionnaire_id) VALUES
 
 INSERT INTO assignments(id, assignment_state_id, questionnaire_id, user_id) VALUES
 ('5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
+('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('5e59bbab-2be3-4a21-95fe-f424f2914905', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '28fc7d3a-afc7-49ca-8070-eea8671abab3');
 
 INSERT INTO answers(id, rating, question_id, assignment_id) VALUES
 ('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
@@ -157,11 +173,15 @@ INSERT INTO subscriptions(id, device_token, subscription_type_id, user_id) VALUE
 
 INSERT INTO user_events(id, user_id, event_id) VALUES
 ('18c923a3-8160-4beb-bcc6-738b1fe5ad00', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),
-('ef115c0f-acc5-4700-b1e8-bb3ccfe2b194', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7');
+('ef115c0f-acc5-4700-b1e8-bb3ccfe2b194', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
+('7a8da824-9da6-4523-aa27-9571a315697d', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),
+('c5c89a43-f720-4dd6-ad9e-05e968519b5b', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7');
 
 INSERT INTO user_job_ads(id, user_id, job_ad_id) VALUES
 ('c1f7570c-96ff-4e83-95e2-b86a7691f3a2', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '39cdb5c0-aa0b-4665-a732-e51cb0986e6d'),
-('3afe8863-71e7-4488-8925-7d453eb2dc2a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e');
+('3afe8863-71e7-4488-8925-7d453eb2dc2a', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e'),
+('580f6081-0edb-431a-a864-cbf18d270fcf', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '39cdb5c0-aa0b-4665-a732-e51cb0986e6d'),
+('511b9380-ae00-4cde-8108-e010ef5fb21e', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e');
 
 INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
 ('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),

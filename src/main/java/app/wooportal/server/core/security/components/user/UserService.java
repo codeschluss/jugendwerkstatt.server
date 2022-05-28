@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
+import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
+import app.wooportal.server.components.evaluation.assignment.AssignmentService;
 import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.jobad.base.JobAdService;
 import app.wooportal.server.core.base.DataService;
@@ -27,6 +29,8 @@ import app.wooportal.server.core.utils.ReflectionUtils;
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
+  private final AssignmentService assignmentService;
+  
   private final AuthorizationService authorizationService;
   
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -40,6 +44,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   private final RoleService roleService;
   
   public UserService(
+      AssignmentService assignmentService,
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
       AuthorizationService authorizationService,
@@ -52,6 +57,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       VerificationService verificationService) {
     super(repo, predicate);
 
+    this.assignmentService = assignmentService;
     this.authorizationService = authorizationService;
     this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     this.eventService = eventService;
@@ -115,6 +121,16 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getUploads().addAll(
           mediaService.saveAll(uploads));
+      return Optional.of(repo.save(currentUser.get()));
+    }
+    return currentUser;
+  }
+  
+  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
+    var currentUser = authorizationService.getCurrentUser();
+    if (currentUser.isPresent()) {
+      getById(currentUser.get().getId()).get().getAssignments().addAll(
+          assignmentService.saveAll(assignments));
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -195,5 +211,4 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }
-
 }

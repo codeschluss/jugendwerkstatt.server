@@ -20,6 +20,10 @@ public class ParticipantPredicateBuilder
   public BooleanExpression withChat(String event) {
     return query.chat.name.equalsIgnoreCase(event);
   }
+  
+  public BooleanExpression withChatId(String chatId) {
+    return query.chat.id.equalsIgnoreCase(chatId);
+  }
 
   public BooleanExpression withUser(String event) {
     return query.user.id.equalsIgnoreCase(event);
