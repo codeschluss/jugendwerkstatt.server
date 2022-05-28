@@ -29,8 +29,10 @@ import app.wooportal.server.core.utils.ReflectionUtils;
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
+
   private final AssignmentService assignmentService;
   
+
   private final AuthorizationService authorizationService;
   
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -57,7 +59,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       VerificationService verificationService) {
     super(repo, predicate);
 
+
     this.assignmentService = assignmentService;
+
     this.authorizationService = authorizationService;
     this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     this.eventService = eventService;
@@ -121,6 +125,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getUploads().addAll(
           mediaService.saveAll(uploads));
+
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -131,6 +136,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getAssignments().addAll(
           assignmentService.saveAll(assignments));
+
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;

@@ -82,12 +82,14 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return service.addUploads(uploads);
   }
   
+
   @GraphQLMutation(name = "addAssignments")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
     return service.addAssignments(assignments);
   }
   
+
   @GraphQLMutation(name = "addJobAdFavorite")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
