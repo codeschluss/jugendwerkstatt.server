@@ -52,7 +52,7 @@ public class UserSetup {
     mailService = new TestMailService();
 
     var service = new UserService(
-        new RepoService<UserEntity>(userData),
+        null, new RepoService<UserEntity>(userData),
         new UserPredicateBuilder(),
         null,
         encoder,
