@@ -140,7 +140,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     var user = getById(userId);
     
     if (user.isPresent()) {
-      user.get().getRoles().add(roleService.getVerifiedRole());
+      user.get().getRoles().add(roleService.getApprovedRole());
       return Optional.of(repo.save(user.get()));
     }
     return user;
