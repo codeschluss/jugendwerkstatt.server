@@ -107,6 +107,14 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return currentUser;
   }
   
+  public Optional<UserEntity> me() {
+    var currentUser = authorizationService.getCurrentUser();
+    if (currentUser.isPresent()) {
+      return getById(currentUser.get().getId());
+    }
+    return currentUser;
+  }
+  
   public Optional<UserEntity> addEventFavorite(String eventId) {
     var currentUser = authorizationService.getCurrentUser();
     if (currentUser.isPresent()) {
@@ -207,7 +215,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     throw new InvalidVerificationException("Verification invalid", key);
   }
 
-  public List<UserEntity> getAllStudents(String... graph) {
+  public List<UserEntity> getAllStudentsinCourses(String... graph) {
     return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }

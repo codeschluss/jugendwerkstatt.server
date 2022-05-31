@@ -48,7 +48,7 @@ public class PushService {
     var message =
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!");
 
-    for (var student : userService.getAllStudents("subscriptions")) {
+    for (var student : userService.getAllStudentsinCourses("subscriptions")) {
       sendPush(message, student.getSubscriptions());
     }
   }

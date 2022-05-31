@@ -29,10 +29,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
   private final TokenService tokenService;
 
-  public ApplicationSecurity(
-      JwtUserDetailsService jwtUserDetailsService,
-      BCryptPasswordEncoder encoder, 
-      TokenService tokenService) {
+  public ApplicationSecurity(JwtUserDetailsService jwtUserDetailsService,
+      BCryptPasswordEncoder encoder, TokenService tokenService) {
     this.userDetailsService = jwtUserDetailsService;
     this.bcryptPasswordEncoder = encoder;
     this.tokenService = tokenService;
@@ -45,17 +43,13 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-    .cors().and()
-    .csrf().disable()
-    .headers().frameOptions().sameOrigin()
-      .and()
-    .addFilter(jwtAuthorizationFilter())
-    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.cors().and().csrf().disable().headers().frameOptions().sameOrigin().and()
+        .addFilter(jwtAuthorizationFilter()).sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 
   @Bean
-  @Profile(value = { "development", "local" })
+  @Profile(value = {"development", "local"})
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
 
@@ -70,12 +64,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
   }
 
   public JwtAuthorizationFilter jwtAuthorizationFilter() throws Exception {
-    return new JwtAuthorizationFilter(
-        authenticationManager(), 
-        userDetailsService, 
-        tokenService);
+    return new JwtAuthorizationFilter(authenticationManager(), userDetailsService, tokenService);
   }
-  
+
   @Bean
   public AuthenticationManager getAuthManager() {
     var provider = new DaoAuthenticationProvider();

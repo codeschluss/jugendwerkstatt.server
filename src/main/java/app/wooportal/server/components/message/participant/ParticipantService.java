@@ -2,9 +2,9 @@ package app.wooportal.server.components.message.participant;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import app.wooportal.server.components.message.base.MessageEntity;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.repository.DataRepository;
-import app.wooportal.server.core.security.components.user.UserEntity;
 
 @Service
 public class ParticipantService
@@ -16,9 +16,10 @@ public class ParticipantService
 
   }
 
-  public List<ParticipantEntity> getAllParticipants(String chatId) {
-    return repo.findAll(query(false).and(predicate.withChatId(chatId))).getList();
+  public List<ParticipantEntity> getAllParticipants(MessageEntity message, String... graph) {
+    var query = query();
+    query.or(predicate.withChatId(message.getChat().getId()));
+    
+    return repo.findAll(query.addGraph(graph(graph))).getList();
   }
- 
 }
-
