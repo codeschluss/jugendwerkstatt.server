@@ -42,9 +42,8 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   
   @GraphQLQuery(name = "me")
   @ApprovedAndVerifiedPermission
-  public Optional<UserEntity> readMe(
-      @GraphQLArgument(name = CrudApi.entity) UserEntity entity) {
-    return super.readOne(entity);
+  public Optional<UserEntity> me() {
+    return service.me();
   }
   
   @Override

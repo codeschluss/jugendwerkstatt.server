@@ -130,7 +130,8 @@ INSERT INTO questions(id, item, questionnaire_id) VALUES
 INSERT INTO assignments(id, assignment_state_id, questionnaire_id, user_id) VALUES
 ('5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('89cece0b-8068-49d3-ad74-e882386c5c8b', '577d7e21-f994-433f-8f7b-c7ac3887d692', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('5e59bbab-2be3-4a21-95fe-f424f2914905', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '28fc7d3a-afc7-49ca-8070-eea8671abab3');
+('5e59bbab-2be3-4a21-95fe-f424f2914905', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e0fc8f9-7271-48a1-95dd-74d1fa8bab3f', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
+('fa4c794a-27e8-48ac-a511-437802941ae1', 'aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', '0e1a2d66-5629-4988-b45f-d207a3b9d4f4', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
 INSERT INTO answers(id, rating, question_id, assignment_id) VALUES
 ('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
