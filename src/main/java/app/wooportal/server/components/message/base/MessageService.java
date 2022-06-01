@@ -2,6 +2,7 @@ package app.wooportal.server.components.message.base;
 
 import java.util.Map;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.components.message.chat.ChatService;
 import app.wooportal.server.components.message.participant.ParticipantService;
 import app.wooportal.server.components.push.FirebasePushService;
@@ -25,20 +26,21 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
     this.chatService = chatService;
   }
 
-  public void postSave(MessageEntity message) {
+  @Override
+  protected void postSave(MessageEntity saved, MessageEntity newEntity, JsonNode context) {
 
     var firebaseMessage = new MessageDto();
-    firebaseMessage.setContent(message.getContent());
-    firebaseMessage.setTitle(chatService.getById(message.getChat().getId()).get().getName());
+    firebaseMessage.setContent(saved.getContent());
+    firebaseMessage.setTitle(chatService.getById(saved.getChat().getId()).get().getName());
 
     for (var chatParticipant : participantService
-        .getAllParticipants(message, "user", "subscriptions")) {
+        .getAllParticipants(saved, "user", "subscriptions")) {
 
       for (var subscription : chatParticipant.getUser().getSubscriptions()) {
         firebasePushService.sendPush(
             subscription,
             firebaseMessage,
-            Map.of("CHAT", message.getChat().getId()));
+            Map.of("CHAT", saved.getChat().getId()));
 
       }
     }

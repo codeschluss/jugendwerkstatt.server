@@ -43,7 +43,6 @@ public class MessageApi extends CrudApi<MessageEntity, MessageService> {
   @Override
   @GraphQLMutation(name = "saveMessage")
   public MessageEntity saveOne(@GraphQLArgument(name = CrudApi.entity) MessageEntity entity) {
-    service.postSave(entity);
     return super.saveOne(entity);
   }
 

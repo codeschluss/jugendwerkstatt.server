@@ -76,6 +76,13 @@ public class PushService {
   }
   
   private void sendPush(MessageDto message, Collection<SubscriptionEntity> subscriptions) {
+    sendPush(message, subscriptions, null);
+  }
+  
+  private void sendPush(
+      MessageDto message,
+      Collection<SubscriptionEntity> subscriptions,
+      HashMap<String, String> additionalData) {
     for (var subscription : subscriptions) {
       var notification = new NotificationEntity();
       notification.setTitle(message.getTitle());
@@ -84,7 +91,7 @@ public class PushService {
       notification.setRead(false);
       notificationService.save(notification);
       
-      firebasePushService.sendPush(subscription, message, new HashMap<String, String>());
+      firebasePushService.sendPush(subscription, message, additionalData);
     }
   }
 }
