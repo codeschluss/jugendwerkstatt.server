@@ -5,8 +5,8 @@ import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.components.event.schedule.ScheduleService;
 import app.wooportal.server.components.jobad.base.JobAdService;
@@ -41,7 +41,8 @@ public class PushService {
   }
 
   public void sendGlobalPush(MessageDto message) {
-    sendPush(message, subscriptionService.getAllSubscriptions());
+    sendPush(message, subscriptionService.getAllSubscriptions(),
+        Map.of(NotificationType.global.toString(), "global"));
   }
 
   public void pushForEvaluation() {
@@ -49,7 +50,8 @@ public class PushService {
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!");
 
     for (var student : userService.getAllStudentsinCourses("subscriptions")) {
-      sendPush(message, student.getSubscriptions());
+      sendPush(message, student.getSubscriptions(),
+      Map.of(NotificationType.evaluation.toString(), "evaluation"));
     }
   }
 
@@ -60,7 +62,8 @@ public class PushService {
           MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(),
               jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))));
 
-      sendPush(message, subscriptionService.getAllSubscriptions());
+      sendPush(message, subscriptionService.getAllSubscriptions(),
+          Map.of(NotificationType.jobAd.toString(), "jobAd"));
     }
   }
 
@@ -71,18 +74,15 @@ public class PushService {
           MessageFormat.format("{0} findet am {1} statt.", schedule.getEvent().getName(),
               schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))));
      
-      sendPush(message, subscriptionService.getAllSubscriptions());
+      sendPush(message, subscriptionService.getAllSubscriptions(),
+          Map.of(NotificationType.event.toString(), "event"));
     }
   }
   
-  private void sendPush(MessageDto message, Collection<SubscriptionEntity> subscriptions) {
-    sendPush(message, subscriptions, null);
-  }
-  
-  private void sendPush(
+  public void sendPush(
       MessageDto message,
       Collection<SubscriptionEntity> subscriptions,
-      HashMap<String, String> additionalData) {
+      Map<String, String> additionalData) {
     for (var subscription : subscriptions) {
       var notification = new NotificationEntity();
       notification.setTitle(message.getTitle());

@@ -22,7 +22,7 @@ import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
-import app.wooportal.server.components.message.participant.ParticipantEntity;
+import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.push.notification.NotificationEntity;
 import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.core.base.BaseEntity;
