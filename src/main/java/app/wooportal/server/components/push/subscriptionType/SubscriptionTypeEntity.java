@@ -1,12 +1,8 @@
 package app.wooportal.server.components.push.subscriptionType;
 
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +28,4 @@ public class SubscriptionTypeEntity extends BaseEntity {
   @Column(unique = true, nullable = false)
   private String name;
 
-  @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  private Set<SubscriptionEntity> subscriptions;
 }

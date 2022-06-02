@@ -7,7 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import app.wooportal.server.components.push.subscriptionType.SubscriptionTypeEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
@@ -29,10 +28,6 @@ public class SubscriptionEntity extends BaseEntity {
 
   @Column(unique = true, nullable = false)
   private String deviceToken;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
-  private SubscriptionTypeEntity subscriptionType;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

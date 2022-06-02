@@ -168,9 +168,9 @@ INSERT INTO subscription_types(id, name, description) VALUES
 ('a3d3c3ce-6908-42e6-97f7-ddaddae8deb3', 'Events', 'Bowling'),
 ('e7e34f9d-31fb-472e-aba7-15b14dcef865', 'JobAds', 'metal worker');
 
-INSERT INTO subscriptions(id, device_token, subscription_type_id, user_id) VALUES
-('1038e9e5-a82f-4d00-83fe-6ea0910d2c8d', 'secretkey', 'a3d3c3ce-6908-42e6-97f7-ddaddae8deb3', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('92557db8-b5fd-4bee-920c-ba2fe348713e', 'secretkey2', 'e7e34f9d-31fb-472e-aba7-15b14dcef865', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
+INSERT INTO subscriptions(id, device_token, user_id) VALUES
+('1038e9e5-a82f-4d00-83fe-6ea0910d2c8d', 'secretkey', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('92557db8-b5fd-4bee-920c-ba2fe348713e', 'secretkey2', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
 INSERT INTO user_events(id, user_id, event_id) VALUES
 ('18c923a3-8160-4beb-bcc6-738b1fe5ad00', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),

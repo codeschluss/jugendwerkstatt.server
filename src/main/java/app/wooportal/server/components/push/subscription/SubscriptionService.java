@@ -18,15 +18,11 @@ public class SubscriptionService
   @Override
   public Optional<SubscriptionEntity> getExisting(SubscriptionEntity entity) {
     return entity.getDeviceToken() == null || entity.getDeviceToken().isEmpty() ? Optional.empty()
-        : getByAuth_Secret(entity.getDeviceToken());
+        : getByDeviceToken(entity.getDeviceToken());
   }
 
-  public Optional<SubscriptionEntity> getByAuth_Secret(String key) {
+  public Optional<SubscriptionEntity> getByDeviceToken(String key) {
     return repo.findOne(predicate.withDeviceToken(key));
-  }
-
-  public Optional<SubscriptionEntity> getBySubscriptionType(String name) {
-    return repo.findOne(predicate.withSubscriptionType(name));
   }
 
   public List<SubscriptionEntity> getAllSubscriptions(String... graph) {
