@@ -18,8 +18,4 @@ public class NotificationPredicateBuilder
         .or(query.content.likeIgnoreCase(term));
   }
 
-  public BooleanExpression withtitle(String name) {
-    return query.title.equalsIgnoreCase(name);
-  }
-
 }
