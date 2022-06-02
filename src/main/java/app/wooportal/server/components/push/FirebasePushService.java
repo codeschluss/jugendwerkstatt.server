@@ -42,7 +42,7 @@ public class FirebasePushService {
     }
   }
 
-  public void sendPush(SubscriptionEntity subscription, MessageDto message,
+  public void sendPush(SubscriptionEntity subscription, PushDto message,
       Map<String, String> additionalData) {
 
     try {

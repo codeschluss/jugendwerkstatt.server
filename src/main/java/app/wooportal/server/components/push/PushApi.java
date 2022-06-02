@@ -17,7 +17,7 @@ public class PushApi {
 
   @GraphQLMutation(name = "sendGlobalPush")
   @AdminPermission
-  public Boolean sendGlobalPush(MessageDto message) {
+  public Boolean sendGlobalPush(PushDto message) {
     pushService.sendGlobalPush(message);
     return true;
   }

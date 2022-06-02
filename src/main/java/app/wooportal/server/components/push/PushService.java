@@ -26,7 +26,6 @@ public class PushService {
   private final UserService userService;
   private final NotificationService notificationService;
 
-
   public PushService(SubscriptionService subscriptionService,
       FirebasePushService firebasePushService, ScheduleService scheduleService,
       JobAdService jobAdService, UserService userService, NotificationService notificationService)
@@ -37,19 +36,18 @@ public class PushService {
     this.jobAdService = jobAdService;
     this.userService = userService;
     this.notificationService = notificationService;
-
   }
 
-  public void sendGlobalPush(MessageDto message) {
+  public void sendGlobalPush(PushDto message) {
     sendPush(message, subscriptionService.getAllSubscriptions(),
         Map.of(NotificationType.global.toString(), "global"));
   }
 
   public void pushForEvaluation() {
     var message =
-        new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!");
+        new PushDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!");
 
-    for (var student : userService.getAllStudentsinCourses("subscriptions")) {
+    for (var student : userService.getAllStudentsWithCourse("subscriptions")) {
       sendPush(message, student.getSubscriptions(),
       Map.of(NotificationType.evaluation.toString(), "evaluation"));
     }
@@ -58,7 +56,7 @@ public class PushService {
   public void pushForJobAds() {
     for (var jobAd : jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
         OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14))) {
-      var message = new MessageDto("Erinnerung zum Jobangebot",
+      var message = new PushDto("Erinnerung zum Jobangebot",
           MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(),
               jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))));
 
@@ -70,7 +68,7 @@ public class PushService {
   public void pushForEvents() {
     for (var schedule : scheduleService.withDates(List.of(OffsetDateTime.now(),
         OffsetDateTime.now().minusDays(3), OffsetDateTime.now().minusDays(2)), "event")) {
-      var message = new MessageDto("Erinnerung zum Event",
+      var message = new PushDto("Erinnerung zum Event",
           MessageFormat.format("{0} findet am {1} statt.", schedule.getEvent().getName(),
               schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))));
      
@@ -80,7 +78,7 @@ public class PushService {
   }
   
   public void sendPush(
-      MessageDto message,
+      PushDto message,
       Collection<SubscriptionEntity> subscriptions,
       Map<String, String> additionalData) {
     for (var subscription : subscriptions) {
