@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
-public class MessageDto {
+public class PushDto {
 
   private String title;
   
@@ -18,7 +18,7 @@ public class MessageDto {
   
   private String route;
   
-  public MessageDto(
+  public PushDto(
       String title,
       String content) {
     setTitle(title);

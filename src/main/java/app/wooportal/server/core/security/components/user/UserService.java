@@ -102,7 +102,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
-    var currentUser = authorizationService.getCurrentUser();
+    var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAdService.getById(jobAdId).get());
       return Optional.of(repo.save(currentUser.get()));
@@ -111,7 +111,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> me() {
-    var currentUser = authorizationService.getCurrentUser();
+    var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       return getById(currentUser.get().getId());
     }
@@ -119,7 +119,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addEventFavorite(String eventId) {
-    var currentUser = authorizationService.getCurrentUser();
+    var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteEvents().add(eventService.getById(eventId).get());
       return Optional.of(repo.save(currentUser.get()));
@@ -128,7 +128,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
-    var currentUser = authorizationService.getCurrentUser();
+    var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getUploads().addAll(
           mediaService.saveAll(uploads));
@@ -138,7 +138,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
-    var currentUser = authorizationService.getCurrentUser();
+    var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getAssignments().addAll(
           assignmentService.saveAll(assignments));
@@ -218,7 +218,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     throw new InvalidVerificationException("Verification invalid", key);
   }
 
-  public List<UserEntity> getAllStudentsinCourses(String... graph) {
+  public List<UserEntity> getAllStudentsWithCourse(String... graph) {
     return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }

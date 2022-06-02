@@ -1,6 +1,5 @@
 package app.wooportal.server.core.security.components.token;
 
-import java.util.Arrays;
 import java.util.Date;
 import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
@@ -42,35 +41,26 @@ public class TokenService {
         .sign(Algorithm.HMAC512(securityConfig.getSecret()));
   }
   
-  public void verifyAccess(String token) throws InvalidTokenException {
-    if (!verifyWithScope(token, securityConfig.getScopeAccess())) {
-      throw new InvalidTokenException(
-          "Token must contain scope", securityConfig.getScopeAccess());
+  public DecodedJWT verifyAccess(String jwtToken) throws InvalidTokenException {
+    return verifyWithScope(jwtToken, securityConfig.getScopeAccess());
+  }
+
+  public DecodedJWT verifyRefresh(String token) throws InvalidTokenException {
+    return verifyWithScope(token, securityConfig.getScopeRefresh());
+  }
+
+  private DecodedJWT verifyWithScope(String token, String requiredScope) {
+    var decodedToken = verify(token);
+    if (decodedToken.getClaim(securityConfig.getClaimScopes()).asList(String.class)
+        .contains(requiredScope)) {
+      return decodedToken;
     }
+    throw new InvalidTokenException("Token must contain scope", requiredScope);
   }
-  
-  public void verifyRefresh(String token) throws InvalidTokenException {
-    if (!verifyWithScope(token, securityConfig.getScopeRefresh())) {
-      throw new InvalidTokenException(
-          "Token must contain scope", securityConfig.getScopeRefresh());
-    }
-  }
-  
-  private boolean verifyWithScope(String token, String requiredScope) {
-    String[] scopes = verify(token).getClaim(securityConfig.getClaimScopes()).asArray(String.class);
-    return Arrays.asList(scopes).stream()
-        .anyMatch(scope -> scope.equals(requiredScope));
-  }
- 
-  public String extractUsername(String token) {
-    return verify(token).getSubject();
-  }
-  
+
   public DecodedJWT verify(String token) {
-    return JWT
-      .require(Algorithm.HMAC512(securityConfig.getSecret()))
-      .build()
-      .verify(token.replace("Bearer ", ""));
+    return JWT.require(Algorithm.HMAC512(securityConfig.getSecret())).build()
+        .verify(token.replace("Bearer ", ""));
   }
 
 }
