@@ -61,6 +61,7 @@ public class UserSetup {
         createMediaService(uploadData),
         createPasswordResetData(passwordResetData),
         createRoleService(roleData),
+        null,
         createVerificationData(verificationData));
 
     service.setGraph(new GraphBuilder<>(entityManager));

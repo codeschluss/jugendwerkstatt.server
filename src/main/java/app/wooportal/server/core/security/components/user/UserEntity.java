@@ -103,6 +103,9 @@ public class UserEntity extends BaseEntity {
       uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
   @CollectionId(column = @Column(name = "id"), type = @Type(type = "uuid-char"), generator = "UUID")
   private List<RoleEntity> roles = new ArrayList<>();
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  private Set<SubscriptionEntity> subscriptions;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
@@ -117,8 +120,5 @@ public class UserEntity extends BaseEntity {
 
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private VerificationEntity verification;
-
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  private Set<SubscriptionEntity> subscriptions;
 
 }

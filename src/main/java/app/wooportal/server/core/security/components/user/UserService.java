@@ -10,6 +10,7 @@ import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.evaluation.assignment.AssignmentService;
 import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.jobad.base.JobAdService;
+import app.wooportal.server.components.push.subscription.SubscriptionService;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
@@ -54,6 +55,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       MediaService mediaService,
       PasswordResetService passwordResetService,
       RoleService roleService,
+      SubscriptionService subscriptionService,
       VerificationService verificationService) {
     super(repo, predicate);
 
@@ -66,6 +68,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     this.roleService = roleService;
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);
+    addService("subscriptions", subscriptionService);
     addService("uploads", mediaService);
     addService("verification", verificationService);
     
