@@ -63,6 +63,7 @@ public class FirebasePushService {
       FirebaseMessaging.getInstance().sendAsync(messageBuilder.build()).get();
 
     } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace(System.out);
       subscriptionService.deleteById(subscription.getId());
     }
   }
