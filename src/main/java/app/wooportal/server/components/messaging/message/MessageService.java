@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.components.messaging.chat.ChatService;
 import app.wooportal.server.components.messaging.participant.ParticipantService;
-import app.wooportal.server.components.push.PushDto;
+import app.wooportal.server.components.push.MessageDto;
 import app.wooportal.server.components.push.NotificationType;
 import app.wooportal.server.components.push.PushService;
 import app.wooportal.server.core.base.DataService;
@@ -31,16 +31,16 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
   @Override
   protected void postSave(MessageEntity saved, MessageEntity newEntity, JsonNode context) {
 
-    var firebaseMessage = new PushDto();
-    firebaseMessage.setContent(saved.getContent());
-    firebaseMessage.setTitle(chatService.getById(saved.getChat().getId()).get().getName());
+    var firebaseMessage = new MessageDto(
+        saved.getContent(),
+        chatService.getById(saved.getChat().getId()).get().getName(),
+        Map.of(NotificationType.message.toString(), saved.getChat().getId()));
     
     for (var chatParticipant : participantService
         .getAllParticipants(saved, "user", "subscriptions")) {
 
         pushService.sendPush(firebaseMessage,
-            chatParticipant.getUser().getSubscriptions(),
-                Map.of(NotificationType.message.toString(), saved.getChat().getId()));
+            chatParticipant.getUser().getSubscriptions());
       }
     }
   }

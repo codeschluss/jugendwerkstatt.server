@@ -38,49 +38,50 @@ public class PushService {
     this.notificationService = notificationService;
   }
 
-  public void sendGlobalPush(PushDto message) {
-    sendPush(message, subscriptionService.getAllSubscriptions(),
-        Map.of(NotificationType.global.toString(), "global"));
+  public void sendGlobalPush(MessageDto message) {
+    sendPush(message, subscriptionService.getAllSubscriptions());
   }
 
   public void pushForEvaluation() {
     var message =
-        new PushDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!");
+        new MessageDto(
+            "Hat dir der Kurs gefallen?",
+            "Bitte bearbeite den Bewertungsbogen!",
+            Map.of(NotificationType.evaluation.toString(), "evaluation"));
 
     for (var student : userService.getAllStudentsWithCourse("subscriptions")) {
-      sendPush(message, student.getSubscriptions(),
-      Map.of(NotificationType.evaluation.toString(), "evaluation"));
+      sendPush(message, student.getSubscriptions());
     }
   }
 
   public void pushForJobAds() {
     for (var jobAd : jobAdService.withDueDates(OffsetDateTime.now().minusDays(3),
         OffsetDateTime.now().minusDays(7), OffsetDateTime.now().minusDays(14))) {
-      var message = new PushDto("Erinnerung zum Jobangebot",
+      var message = new MessageDto("Erinnerung zum Jobangebot",
           MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(),
-              jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))));
-
-      sendPush(message, subscriptionService.getAllSubscriptions(),
+              jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))),
           Map.of(NotificationType.jobAd.toString(), "jobAd"));
+
+      sendPush(message, subscriptionService.getAllSubscriptions());
     }
   }
 
   public void pushForEvents() {
     for (var schedule : scheduleService.withDates(List.of(OffsetDateTime.now(),
         OffsetDateTime.now().minusDays(3), OffsetDateTime.now().minusDays(2)), "event")) {
-      var message = new PushDto("Erinnerung zum Event",
+      var message = new MessageDto(
+          "Erinnerung zum Event",
           MessageFormat.format("{0} findet am {1} statt.", schedule.getEvent().getName(),
-              schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))));
-     
-      sendPush(message, subscriptionService.getAllSubscriptions(),
+              schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))),
           Map.of(NotificationType.event.toString(), "event"));
+     
+      sendPush(message, subscriptionService.getAllSubscriptions());
     }
   }
   
   public void sendPush(
-      PushDto message,
-      Collection<SubscriptionEntity> subscriptions,
-      Map<String, String> additionalData) {
+      MessageDto message,
+      Collection<SubscriptionEntity> subscriptions) {
     for (var subscription : subscriptions) {
       var notification = new NotificationEntity();
       notification.setTitle(message.getTitle());
@@ -89,7 +90,7 @@ public class PushService {
       notification.setRead(false);
       notificationService.save(notification);
       
-      firebasePushService.sendPush(subscription, message, additionalData);
+      firebasePushService.sendPush(subscription, message);
     }
   }
 }

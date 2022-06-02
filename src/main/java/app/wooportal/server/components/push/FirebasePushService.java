@@ -2,7 +2,6 @@ package app.wooportal.server.components.push;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -42,22 +41,20 @@ public class FirebasePushService {
     }
   }
 
-  public void sendPush(SubscriptionEntity subscription, PushDto message,
-      Map<String, String> additionalData) {
-
+  public void sendPush(SubscriptionEntity subscription, MessageDto message) {
     try {
       var messageBuilder =
           Message.builder().setToken(subscription.getDeviceToken()).setNotification(Notification
               .builder().setTitle(message.getTitle()).setBody(message.getContent()).build());
 
-      if (additionalData != null) {
-        messageBuilder.setAndroidConfig(AndroidConfig.builder().putAllData(additionalData).build())
+      if (message.getData() != null) {
+        messageBuilder.setAndroidConfig(AndroidConfig.builder().putAllData(message.getData()).build())
             .setApnsConfig(ApnsConfig.builder()
-                .setAps(Aps.builder().putAllCustomData(new HashMap<String, Object>(additionalData))
+                .setAps(Aps.builder().putAllCustomData(new HashMap<String, Object>(message.getData()))
                     .build())
                 .build())
             .setWebpushConfig(WebpushConfig.builder()
-                .setNotification(WebpushNotification.builder().setData(additionalData).build())
+                .setNotification(WebpushNotification.builder().setData(message.getData()).build())
                 .build());
       }
       FirebaseMessaging.getInstance().sendAsync(messageBuilder.build()).get();
