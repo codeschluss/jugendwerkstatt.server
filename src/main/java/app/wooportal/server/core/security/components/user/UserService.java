@@ -222,4 +222,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
         .getList();
   }
+  public List<UserEntity> getAllUsersInChat(String chatId){
+    return repo.findAll(query(false).and(predicate.withChat(chatId))).getList();
+  }
 }

@@ -19,6 +19,7 @@ public class JwtUserDetails extends User {
   @Serial
   private static final long serialVersionUID = 1L;
 
+ 
   private UserEntity user;
   
   private List<RoleEntity> roles;

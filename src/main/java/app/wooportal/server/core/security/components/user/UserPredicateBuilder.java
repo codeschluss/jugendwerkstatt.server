@@ -38,5 +38,7 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   public BooleanExpression notVerified() {
     return query.verification.isNotNull();
   }
-
+  public BooleanExpression withChat(String chatId) {
+    return query.participants.any().chat.id.eq(chatId);
+  }
 }
