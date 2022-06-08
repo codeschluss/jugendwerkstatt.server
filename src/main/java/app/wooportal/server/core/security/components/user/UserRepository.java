@@ -4,6 +4,6 @@ import app.wooportal.server.core.repository.DataRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface UserRepository extends DataRepository<UserEntity> {
+public interface UserRepository extends DataRepository<UserEntity> {
 
 }

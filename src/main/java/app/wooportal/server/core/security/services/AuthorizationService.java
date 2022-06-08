@@ -3,6 +3,7 @@ package app.wooportal.server.core.security.services;
 import java.util.Collections;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ public class AuthorizationService {
 
   private final JwtUserDetailsService userDetailsService;
 
+  @Lazy
   public AuthorizationService(TokenService tokenService, JwtUserDetailsService userDetailsService) {
     this.tokenService = tokenService;
     this.userDetailsService = userDetailsService;
