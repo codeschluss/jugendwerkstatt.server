@@ -17,19 +17,19 @@ public class MediaController {
     this.service = service;
   }
 
-  @GetMapping(value = "/api/media/{id}")
+  @GetMapping(value = "/media/{id}")
 //  @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> getMedia(@PathVariable String id) throws IOException {
     return service.getMedia(id);
   }
   
-  @GetMapping(value = "/api/media/download/{id}")
+  @GetMapping(value = "/media/download/{id}")
 //  @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> download(@PathVariable String id) throws IOException {
     return service.download(id);
   }
   
-  @PostMapping(value = "/api/media/pdf")
+  @PostMapping(value = "/media/pdf")
 //  @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> generatePdf(@RequestBody MediaHtmlDto content) throws IOException {
     return service.generatePdf(content);

@@ -52,7 +52,7 @@ public class AuthorizationService {
         }
       } catch (Exception ignored) { }
     }
-    return null;
+    return Optional.empty();
   }
   
   private Optional<JwtUserDetails> retrieveUserDetailsFromToken(String jwtToken) {

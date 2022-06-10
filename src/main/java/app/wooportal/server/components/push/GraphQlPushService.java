@@ -15,13 +15,13 @@ public class GraphQlPushService {
 
   public Publisher<MessageDto> addListener(Optional<UserEntity> user) {
     return Flux.create(
-        subscriber -> subscribers.add(user.get().getId(),
-            subscriber.onDispose(() -> subscribers.remove(user.get().getId(), subscriber))),
+        subscriber -> subscribers.add(
+          user.get().getId(), 
+          subscriber.onDispose(() -> subscribers.remove(user.get().getId(), subscriber))), 
         FluxSink.OverflowStrategy.LATEST);
-    
   }
+
   public void sendPush(UserEntity user, MessageDto message) {
-      subscribers.get(user.getId())
-        .forEach(subscriber -> subscriber.next(message));
+    subscribers.get(user.getId()).forEach(subscriber -> subscriber.next(message));
   }
 }
