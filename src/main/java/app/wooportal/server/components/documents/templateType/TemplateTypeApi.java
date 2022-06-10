@@ -23,7 +23,7 @@ public class TemplateTypeApi extends CrudApi<TemplateTypeEntity, TemplateTypeSer
 
   @Override
   @GraphQLQuery(name = "getTemplateTypes")
-  @AdminPermission
+  @ApprovedAndVerifiedPermission
   public PageableList<TemplateTypeEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
