@@ -21,8 +21,9 @@ public class UserScheduler {
   
   @Scheduled(cron = "0 0 0 * * *")
   public void deleteNotVerifiedUsers() {
-    var notVerified = userService.getNotVerifiedBefore( 
-        OffsetDateTime.now().minusDays(14));
+    var notVerified = userService.readAll(userService.query()
+        .and(userService.getPredicate().createdBefore(OffsetDateTime.now().minusDays(14)))
+        .and(userService.getPredicate().notVerified())).getList();
     
     if (notVerified != null && !notVerified.isEmpty()) {
       userService.deleteAll(notVerified);

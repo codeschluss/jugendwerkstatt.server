@@ -67,6 +67,10 @@ public class PushScheduler {
             "Bitte bearbeite den Bewertungsbogen!",
             Map.of(NotificationType.evaluation.toString(), "evaluation"));
 
-      pushService.sendPush(userService.getAllStudentsWithCourse("subscriptions"), message);
-    }
+    var users = userService.readAll(userService.query()
+        .addGraph(userService.graph("subscriptions"))
+        .and(userService.getPredicate().withCourseNotNull())).getList();
+    
+    pushService.sendPush(users, message);
   }
+}

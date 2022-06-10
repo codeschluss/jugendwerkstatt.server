@@ -1,6 +1,5 @@
 package app.wooportal.server.core.security.components.user;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -71,7 +70,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     addService("subscriptions", subscriptionService);
     addService("uploads", mediaService);
     addService("verification", verificationService);
-    
   }
 
   @Override
@@ -82,12 +80,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
   public Optional<UserEntity> getByLoginName(String name) {
     return repo.findOne(predicate.withLoginName(name));
-  }
-
-  public List<UserEntity> getNotVerifiedBefore(OffsetDateTime date) {
-    return repo
-        .findAll(query(false).and(predicate.createdBefore(date)).and(predicate.notVerified()))
-        .getList();
   }
 
   @Override
@@ -218,11 +210,4 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     throw new InvalidVerificationException("Verification invalid", key);
   }
 
-  public List<UserEntity> getAllStudentsWithCourse(String... graph) {
-    return repo.findAll(query(false).and(predicate.withCourseNotNull()).addGraph(graph(graph)))
-        .getList();
-  }
-  public List<UserEntity> getAllUsersInChat(String chatId){
-    return repo.findAll(query(false).and(predicate.withChat(chatId))).getList();
-  }
 }

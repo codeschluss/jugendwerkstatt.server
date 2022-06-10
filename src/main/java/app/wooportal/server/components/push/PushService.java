@@ -36,20 +36,31 @@ public class PushService {
   public void sendPush(
       Collection<UserEntity> users,
       MessageDto message) {
-    
     for (var user : users) {
-      var notification = new NotificationEntity();
-      notification.setTitle(message.getTitle());
-      notification.setContent(message.getContent());
-      notification.setUser(user);
-      notification.setRead(false);
-      notificationService.save(notification);
+      saveNotification(user, message);
       graphQLPushService.sendPush(user, message);
-      
+
       for (var subscription : user.getSubscriptions()) {
-      firebasePushService.sendPush(subscription, message);
-    }
+        firebasePushService.sendPush(subscription, message);
+      }
   }
 }
+
+  private void saveNotification(UserEntity user, MessageDto message) {
+    switch(message.getType()) {
+      case evaluation:
+      case event:
+      case global:
+      case jobAd:
+        var notification = new NotificationEntity();
+        notification.setTitle(message.getTitle());
+        notification.setContent(message.getContent());
+        notification.setUser(user);
+        notification.setRead(false);
+        notificationService.save(notification);
+        break;
+      default:
+    }
+  }
 }
 
