@@ -28,14 +28,17 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
   }
   @Override
   protected void postSave(ReadReceiptEntity saved, ReadReceiptEntity newEntity, JsonNode context) {
-
     var message= new MessageDto(null, null,
         Map.of(NotificationType.readReceipt.toString(), saved.getId(),
             "ParticipantId", saved.getParticipant().getId(),
             "MessageId", saved.getMessage().getId(),
             "ChatId", saved.getMessage().getChat().getId()));
     
-    pushService.sendPush(userService.getAllUsersInChat(saved.getMessage().getChat().getId()), message);
-      }
-    }
+    var users = userService.readAll(userService.query()
+        .addGraph(userService.graph("subscriptions"))
+        .and(userService.getPredicate().withChat(saved.getMessage().getChat().getId()))).getList();
+    
+    pushService.sendPush(users, message);
+  }
+}
 

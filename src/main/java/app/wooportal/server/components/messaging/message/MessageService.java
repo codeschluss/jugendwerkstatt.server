@@ -18,26 +18,28 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
   private final PushService pushService;
   private final ChatService chatService;
 
-
-  public MessageService(DataRepository<MessageEntity> repo, MessagePredicateBuilder predicate,
-      UserService userService, PushService pushService,
+  public MessageService(
+      DataRepository<MessageEntity> repo,
+      MessagePredicateBuilder predicate,
+      UserService userService,
+      PushService pushService,
       ChatService chatService) {
     super(repo, predicate);
     this.userService = userService;
     this.pushService = pushService;
     this.chatService = chatService;
-    
   }
 
   @Override
   protected void postSave(MessageEntity saved, MessageEntity newEntity, JsonNode context) {
-
     var message = new MessageDto(
         chatService.getById(saved.getChat().getId()).get().getName(),saved.getContent(),
         Map.of(NotificationType.message.toString(), saved.getChat().getId()));
-
-     {
-        pushService.sendPush(userService.getAllUsersInChat(saved.getChat().getId()), message);
-      }
-    }
+    
+    var users = userService.readAll(userService.query()
+        .addGraph(userService.graph("subscriptions"))
+        .and(userService.getPredicate().withChat(saved.getChat().getId()))).getList();
+    
+    pushService.sendPush(users, message);
   }
+}
