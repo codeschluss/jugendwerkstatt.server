@@ -24,6 +24,7 @@ public class ExceptionResolverInterceptor implements ResolverInterceptor {
     try {
       return continuation.proceed(context);
     } catch (Exception e) {
+      e.printStackTrace();
       return createErrorObject(context, e);
     }
   }
