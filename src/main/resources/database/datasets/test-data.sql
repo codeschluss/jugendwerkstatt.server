@@ -27,7 +27,10 @@ INSERT INTO users (id, fullname, email, profile_picture_id, password, phone, eva
 ('e14e5d92-0b4a-47b3-991d-ac18dd6923b3', 'Student2', 'student2@example.com', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333', false),
 ('528250c0-e0e3-4166-aa71-0f150eb2453f', 'Superviser', 'superviser@example.com', '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '444444', false),
 ('dd939b40-be89-41ca-b031-fef2dc82a536', 'Not Veried User', 'notverified@example.com', 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '55555555', false),
-('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666', false);
+('71a857db-dd35-4d08-bb0f-20115a584ee5', 'Not Approved User', 'notapproved@example.com', 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666', false),
+('f9cfca3d-691e-490a-8969-1e016b1d5cff', 'Admin1', 'admin1@example.com', null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '12345568', false),
+('c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', 'Admin2', 'admin2@example.com', null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '2345667', false),
+('e404285e-4278-44ce-a6de-a2463088ee64', 'Admin3', 'admin3@example.com', null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '4567798', false);
 
 INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('cfae19fc-ee80-4462-ac53-72631e5a52c1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
@@ -35,7 +38,16 @@ INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('7a8d49f7-d1db-40b2-a653-3997a0439218', '528250c0-e0e3-4166-aa71-0f150eb2453f', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
 ('4f649fac-e63d-48ba-a7c8-0de62c0b0fac', '528250c0-e0e3-4166-aa71-0f150eb2453f', 'f5bfa44f-2d19-4ebd-b40b-9112c6b9a996'),
 ('a5a2a082-1472-4b00-b19d-45b0612295f6', '528250c0-e0e3-4166-aa71-0f150eb2453f', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
-('64d47bfa-f34d-49bb-8bae-9e3ff7b2e1d4', '71a857db-dd35-4d08-bb0f-20115a584ee5', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765');
+('64d47bfa-f34d-49bb-8bae-9e3ff7b2e1d4', '71a857db-dd35-4d08-bb0f-20115a584ee5', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
+('398c7226-b758-4aee-98ac-a2261227479b', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
+('43b77483-24a5-4ecb-9a46-0a23a4b08b90', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
+('9d18f5ee-906c-47bb-a7e0-c74f44cbbed5', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
+('e05b7235-f237-47d8-98f4-89a832b5ba00', 'c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
+('5ea78206-4f5f-4511-8ed6-95967676f972', 'c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
+('c8f16ed2-901c-4c2d-91e4-eec4ddf71326', 'c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
+('da5adbd3-8d27-4303-801f-9dcf9ec34853', 'e404285e-4278-44ce-a6de-a2463088ee64', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
+('d5184184-7448-436f-b77e-aeb3b650583a', 'e404285e-4278-44ce-a6de-a2463088ee64', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
+('6e961c3c-bb9c-488a-b51e-861a15e8b80e', 'e404285e-4278-44ce-a6de-a2463088ee64', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b');
 
 INSERT INTO organizers (id, name, mail, phone, website) VALUES
 ('2295ed87-3f46-428a-a179-e7b7093d2f05', 'IHK-Ulm', 'Musterfrau.Mandy@example.com', '0176-3138557', 'https://www.ihk-ausbildungsmesse.de/'),
