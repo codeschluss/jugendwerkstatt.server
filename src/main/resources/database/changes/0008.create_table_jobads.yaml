@@ -28,6 +28,11 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  name: content
+                  type: VARCHAR(1028)
+              - column:
+                  constraints:
+                    nullable: false
                   name: title
                   type: VARCHAR(255)
               - column:

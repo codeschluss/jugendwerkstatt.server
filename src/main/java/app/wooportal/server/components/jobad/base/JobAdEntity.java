@@ -32,6 +32,9 @@ public class JobAdEntity extends BaseEntity {
   @JoinColumn(nullable = false)
   private CompanyEntity company;
   
+  @Column(nullable = false)
+  private String content;
+  
   @Column(name = "due_date")
   private OffsetDateTime dueDate;
   

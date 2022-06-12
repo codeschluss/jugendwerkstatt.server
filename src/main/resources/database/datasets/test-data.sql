@@ -102,19 +102,19 @@ INSERT INTO companies (id, name, mail, phone, website, address_id) VALUES
 ('f36d8f40-e387-4282-8dca-30e29d644600', 'Ikea Deutschland', 'Fynn@example.com', '0877-252525', 'ikea.com', '4966fe7a-6770-4b32-aa73-046c64fc6b51'),
 ('bd2c9144-1517-42e5-a35c-503793ccb51d', 'Regierungspräsidium Tübingen', 'mareike@example.com', '0588-545', 'rp.baden-wuerttemberg.de', '0fbf3399-9265-40b4-8050-1cba034c2fe8');
 
-INSERT INTO job_ads(id, title, start_date, due_date, company_id, type_id) VALUES
-('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('259618dc-3144-427d-9b3a-e0eb087c34a4', 'metal worker2', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('08eb6224-c681-4c59-9a62-62cae1ed2fba', 'metal worker3', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('37ca51d8-ca5d-434f-862f-934b8b4b1289', 'metal worker4', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('e5ce09af-3541-436b-b52f-d148761ca58d', 'metal worker5', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
-('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
-('56f6d14c-13cb-4fcc-a989-9a82eb3fd0e9', 'carpetry worker2', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
-('10bee224-3c01-40cf-8598-1cce46269206', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
-('3c4ff73a-d7a0-4d1c-b0b5-0a5bdd5d01a8', 'craftsman2', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
-('bcb51a9e-7da9-4c74-88fa-5110231d4c04', 'craftsman3', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
-('9ff39911-533a-4420-9149-f261de7d569c', 'interior designer', '2022-09-01 10:00:00+02', '2022-05-31 10:00:00+02','f36d8f40-e387-4282-8dca-30e29d644600', 'be24e3e7-b08b-4792-be4e-df34cf8e9851'),
-('0ae19f9c-94d6-4fdc-92f4-81595f3d6916', 'housekeeper', '2022-11-01 10:00:00+02', '2022-09-30 10:00:00+02', 'bd2c9144-1517-42e5-a35c-503793ccb51d', 'be24e3e7-b08b-4792-be4e-df34cf8e9851');
+INSERT INTO job_ads(id, content, title, start_date, due_date, company_id, type_id) VALUES
+('39cdb5c0-aa0b-4665-a732-e51cb0986e6d', 'content', 'metal worker', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('259618dc-3144-427d-9b3a-e0eb087c34a4', 'content', 'metal worker2', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('08eb6224-c681-4c59-9a62-62cae1ed2fba', 'content', 'metal worker3', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('37ca51d8-ca5d-434f-862f-934b8b4b1289', 'content', 'metal worker4', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('e5ce09af-3541-436b-b52f-d148761ca58d', 'content', 'metal worker5', '2022-10-1 10:00:00+02', '2022-09-15 10:00:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', '430d33c4-f0f2-42b1-927f-5270d91c7f32'),
+('e7c48d91-851c-4542-ac7b-e8efb66d0f8e', 'content', 'carpetry worker', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
+('56f6d14c-13cb-4fcc-a989-9a82eb3fd0e9', 'content', 'carpetry worker2', '2022-04-01 10:00:00+02', '2022-01-31 00:00:00+02', 'f476ed5a-c5c6-429b-bcf0-85fcf8363be3', '1a773b24-de53-4ccc-9daa-e9261590f88b'),
+('10bee224-3c01-40cf-8598-1cce46269206', 'content', 'craftsman', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('3c4ff73a-d7a0-4d1c-b0b5-0a5bdd5d01a8', 'content', 'craftsman2', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('bcb51a9e-7da9-4c74-88fa-5110231d4c04', 'content', 'craftsman3', '2022-06-01 10:00:00+02', '2022-05-20 09:08:00+02', '89aaa55a-168d-4165-85fc-abde073d6732', 'b840ae1f-f9b8-4223-b50a-1643fb82a674'),
+('9ff39911-533a-4420-9149-f261de7d569c', 'content', 'interior designer', '2022-09-01 10:00:00+02', '2022-05-31 10:00:00+02','f36d8f40-e387-4282-8dca-30e29d644600', 'be24e3e7-b08b-4792-be4e-df34cf8e9851'),
+('0ae19f9c-94d6-4fdc-92f4-81595f3d6916', 'content', 'housekeeper', '2022-11-01 10:00:00+02', '2022-09-30 10:00:00+02', 'bd2c9144-1517-42e5-a35c-503793ccb51d', 'be24e3e7-b08b-4792-be4e-df34cf8e9851');
 
 INSERT INTO assignment_states (id, name) VALUES
 ('aad3dd2b-f29d-4a87-8056-f72b0aae3dc0', 'ASSIGNED'),
