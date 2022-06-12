@@ -40,7 +40,7 @@ public class TokenApi {
           tokenService.createAccessToken(jwtUserDetails),
           tokenService.createRefreshToken(jwtUserDetails));
     } catch (Exception e) {
-      throw new BadCredentialsException(password);
+      throw new BadCredentialsException(username);
     }
   }
 

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import app.wooportal.server.components.evaluation.answer.AnswerEntity;
 import app.wooportal.server.components.evaluation.questionnaire.QuestionnaireEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,10 @@ public class QuestionEntity extends BaseEntity {
 
   @Column(nullable = false)
   private String item;
+  
+  @Column(nullable = false)
+  @DefaultSort
+  private Integer sequenceOrder;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

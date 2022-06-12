@@ -28,14 +28,25 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  defaultValueBoolean: false
+                  name: active
+                  type: boolean
+              - column:
+                  constraints:
+                    nullable: false
                     unique: true
                   name: name   
-                  type: VARCHAR(255)   
+                  type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
                   name: group_id
-                  type: CHAR(36)                                
+                  type: CHAR(36)    
+              - column:
+                  constraints:
+                    nullable: false
+                  name: active_order
+                  type: integer                            
             tableName: courses
   - changeSet:
       id: 0021.create_table_courses.2
@@ -61,29 +72,5 @@ databaseChangeLog:
             onDelete: CASCADE
             referencedColumnNames: id
             referencedTableName: groups
-            validate: true
-  - changeSet:
-      id: 0021.create_table_courses.4
-      author: codeschluss
-      changes:
-        - createIndex:
-            columns:
-              - column:
-                  name: course_id
-            indexName: idx_fktog6mxo1bbf6109krmqpyw2ws
-            tableName: users
-  - changeSet:
-      id: 0021.create_table_courses.5
-      author: codeschluss
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: course_id
-            baseTableName: users
-            constraintName: fktog6mxo1bbf6109krmqpyw2ws
-            deferrable: false
-            initiallyDeferred: false
-            onUpdate: CASCADE
-            referencedColumnNames: id
-            referencedTableName: courses
-            validate: true              
+            validate: true            
           

@@ -20,8 +20,8 @@ public class RolePredicateBuilder extends PredicateBuilder<QRoleEntity, RoleEnti
     return query.users.any().id.eq(userId);
   }
 
-  public BooleanExpression withName(String name) {
-    return query.name.eq(name);
+  public BooleanExpression withKey(String name) {
+    return query.key.eq(name);
   }
 }
 

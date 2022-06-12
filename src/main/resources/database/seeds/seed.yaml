@@ -111,6 +111,15 @@ databaseChangeLog:
                   type: TIMESTAMP WITH TIME ZONE
               - column:
                   name: name
+                  constraints:
+                    nullable: false
+                    unique: true
+                  type: VARCHAR(255)
+              - column:
+                  name: key
+                  constraints:
+                    nullable: false
+                    unique: true
                   type: VARCHAR(255)
             tableName: roles
   - changeSet:
@@ -141,6 +150,12 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  defaultValueBoolean: false
+                  name: approved
+                  type: boolean
+              - column:
+                  constraints:
+                    nullable: false
                   name: email
                   type: VARCHAR(255)
               - column:
@@ -154,8 +169,9 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  defaultValueBoolean: false
                   name: evaluate_course
-                  type: boolean                
+                  type: boolean
               - column:
                   constraints:
                     unique: true
@@ -165,8 +181,11 @@ databaseChangeLog:
                   name: profile_picture_id
                   type: CHAR(36)
               - column:
-                  name: course_id
-                  type: CHAR(36)                  
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+                  name: verified
+                  type: boolean
             tableName: users
   - changeSet:
       id: seed.6

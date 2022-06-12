@@ -55,7 +55,11 @@ public class PushScheduler {
               jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))),
           Map.of(NotificationType.jobAd.toString(), jobAd.getId()));
 
-      pushService.sendPush(userService.getRepo().findAll(), message);
+      var users = userService.readAll(userService.query()
+          .addGraph(userService.graph("subscriptions"))
+          .and(userService.getPredicate().withStudentRole())).getList();
+      
+      pushService.sendPush(users, message);
     }
   }
 
@@ -69,7 +73,7 @@ public class PushScheduler {
 
     var users = userService.readAll(userService.query()
         .addGraph(userService.graph("subscriptions"))
-        .and(userService.getPredicate().withCourseNotNull())).getList();
+        .and(userService.getPredicate().withStudentRole())).getList();
     
     pushService.sendPush(users, message);
   }

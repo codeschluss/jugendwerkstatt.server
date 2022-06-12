@@ -34,6 +34,8 @@ public class AssignmentEntity extends BaseEntity {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignment")
   @EqualsAndHashCode.Exclude
   private Set<AnswerEntity> answers;
+  
+  private String comment;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)

@@ -21,7 +21,9 @@ public class TokenService {
 
   public String createAccessToken(JwtUserDetails jwtUserDetails) {
     return JWT.create().withSubject(jwtUserDetails.getUsername())
+        .withClaim(securityConfig.getClaimApproved(), jwtUserDetails.isApproved())
         .withClaim(securityConfig.getClaimUserid(), jwtUserDetails.getUser().getId())
+        .withClaim(securityConfig.getClaimVerified(), jwtUserDetails.isVerified())
         .withArrayClaim(securityConfig.getClaimRoles(), jwtUserDetails.getRoles())
         .withArrayClaim(securityConfig.getClaimScopes(), 
             new String[] {securityConfig.getScopeAccess()})

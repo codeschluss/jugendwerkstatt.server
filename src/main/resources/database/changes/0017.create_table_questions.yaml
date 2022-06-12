@@ -33,6 +33,11 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
+                  name: sequence_order
+                  type: integer
+              - column:
+                  constraints:
+                    nullable: false
                   name: questionnaire_id
                   type: CHAR(36)
             tableName: questions

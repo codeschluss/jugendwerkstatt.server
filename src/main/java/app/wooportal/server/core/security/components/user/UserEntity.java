@@ -20,7 +20,7 @@ import org.hibernate.annotations.Type;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
 import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
-import app.wooportal.server.components.group.course.CourseEntity;
+import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.push.notification.NotificationEntity;
@@ -47,15 +47,16 @@ import lombok.Setter;
 public class UserEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+  
+  private Boolean approved;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignments;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private CourseEntity course;
+  private GroupEntity group;
 
-  @Column(nullable = false)
   private Boolean evaluateCourse;
   
   @Column(unique = true, nullable = false)
@@ -120,5 +121,7 @@ public class UserEntity extends BaseEntity {
 
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private VerificationEntity verification;
+  
+  private Boolean verified;
 
 }

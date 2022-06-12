@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,7 +34,9 @@ public class GroupEntity extends BaseEntity {
   
   @Column(unique = true, nullable = false)
   private String name;
-
-
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+  @EqualsAndHashCode.Exclude
+  private List<UserEntity> users;
 
 }

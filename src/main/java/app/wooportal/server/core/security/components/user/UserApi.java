@@ -75,12 +75,6 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
-  @GraphQLMutation(name = "addUploads")
-  @ApprovedAndVerifiedPermission
-  public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
-    return service.addUploads(uploads);
-  }
-  
   @GraphQLMutation(name = "addAssignments")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
@@ -93,17 +87,22 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return service.addJobAdFavorite(jobAdId);
   }
   
-  
   @GraphQLMutation(name = "addEventFavorite")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addEventFavorite(String jobAdId) {
     return service.addEventFavorite(jobAdId);
   }
-
-  @GraphQLMutation(name = "approve")
+  
+  @GraphQLMutation(name = "addRoles")
   @AdminPermission
-  public Optional<UserEntity> approve(String userId) {
-    return service.approve(userId);
+  public Optional<UserEntity> addRoles(String userId, List<String> roleIds) {
+    return service.addRoles(userId, roleIds);
+  }
+  
+  @GraphQLMutation(name = "addUploads")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
+    return service.addUploads(uploads);
   }
   
   @GraphQLMutation(name = "sendPasswordReset")

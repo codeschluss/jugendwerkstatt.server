@@ -25,9 +25,11 @@ public class JwtConfiguration {
   private Duration expirationTimeRefresh = Duration.ofHours(12);
 
   private String secret;
+  private String claimApproved;
   private String claimRoles;
   private String claimUserid;
   private String claimScopes;
+  private String claimVerified;
   private String scopeRefresh;
   private String scopeAccess;
   private String scopeApi;

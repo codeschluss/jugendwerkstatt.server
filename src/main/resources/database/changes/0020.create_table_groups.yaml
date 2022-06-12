@@ -32,3 +32,38 @@ databaseChangeLog:
                   name: name
                   type: VARCHAR(255)            
             tableName: groups
+  - changeSet:
+      id: 0020.create_table_groups.2
+      author: codeschluss
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: group_id
+                  type: CHAR(36)
+            tableName: users
+  - changeSet:
+      id: 0020.create_table_groups.3
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: group_id
+            indexName: idx_fktog6mxo1bbf6109krmqpyw2ws
+            tableName: users
+  - changeSet:
+      id: 0020.create_table_groups.4
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: group_id
+            baseTableName: users
+            constraintName: fktog6mxo1bbf6109krmqpyw2ws
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            onDelete: SET NULL
+            referencedColumnNames: id
+            referencedTableName: groups
+            validate: true  

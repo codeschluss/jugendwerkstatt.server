@@ -31,6 +31,9 @@ databaseChangeLog:
                   name: assignment_state_id
                   type: CHAR(36)
               - column:
+                  name: comment
+                  type: VARCHAR(255)
+              - column:
                   constraints:
                     nullable: false
                   name: questionnaire_id

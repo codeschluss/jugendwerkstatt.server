@@ -81,6 +81,14 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public Optional<UserEntity> getByLoginName(String name) {
     return repo.findOne(predicate.withLoginName(name));
   }
+  
+  public Optional<UserEntity> me() {
+    var currentUser = authorizationService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      return getById(currentUser.get().getId());
+    }
+    return currentUser;
+  }
 
   @Override
   public void preSave(UserEntity entity, UserEntity newEntity, JsonNode context) {
@@ -102,10 +110,12 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return currentUser;
   }
   
-  public Optional<UserEntity> me() {
+  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
     var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
-      return getById(currentUser.get().getId());
+      getById(currentUser.get().getId()).get().getAssignments().addAll(
+          assignmentService.saveAll(assignments));
+      return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
   }
@@ -119,6 +129,20 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return currentUser;
   }
   
+  public Optional<UserEntity> addRoles(String userId, List<String> roleIds) {
+    var user = getById(userId);
+    if (user.isPresent()) {
+      for(var roleId: roleIds) {
+        var role = roleService.getById(roleId);
+        if (role.isPresent()) {
+          user.get().getRoles().add(role.get());
+        }
+      }
+      return Optional.of(repo.save(user.get()));
+    }
+    return user;
+  }
+  
   public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
     var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
@@ -127,26 +151,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
-  }
-  
-  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
-    var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getAssignments().addAll(
-          assignmentService.saveAll(assignments));
-      return Optional.of(repo.save(currentUser.get()));
-    }
-    return currentUser;
-  }
-  
-  public Optional<UserEntity> approve(String userId) {
-    var user = getById(userId);
-    
-    if (user.isPresent()) {
-      user.get().getRoles().add(roleService.getApprovedRole());
-      return Optional.of(repo.save(user.get()));
-    }
-    return user;
   }
 
   public Boolean createPasswordReset(String mailAddress) {
@@ -184,8 +188,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       throw new NotFoundException("User with mail does not exist", mailAddress);
     }
 
-    if (result.get().getRoles().stream()
-        .anyMatch(r -> r.getName().equalsIgnoreCase(RoleService.verified))) {
+    if (result.get().getVerified()) {
       throw new AlreadyVerifiedException("Already verified");
     }
 
@@ -203,7 +206,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     var verification = getService(VerificationService.class).getByKey(key);
     if (verification.isPresent()) {
       var user = verification.get().getUser();
-      user.getRoles().add(roleService.getVerifiedRole());
+      user.setVerified(true);
       getService(VerificationService.class).deleteById(verification.get().getId());
       return repo.save(user);
     }

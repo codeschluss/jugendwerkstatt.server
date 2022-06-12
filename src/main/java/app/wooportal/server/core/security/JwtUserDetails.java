@@ -41,7 +41,7 @@ public class JwtUserDetails extends User {
   }
   
   public boolean isApproved() {
-    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.approved));
+    return user.getApproved();
   }
   
   public boolean isSuperviser() {
@@ -49,7 +49,7 @@ public class JwtUserDetails extends User {
   }
   
   public boolean isVerified() {
-    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.verified));
+    return user.getVerified();
   }
   
 }

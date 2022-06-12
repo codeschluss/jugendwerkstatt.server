@@ -30,8 +30,11 @@ public class RoleEntity extends BaseEntity {
   
   private static final long serialVersionUID = 1L;
   
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String name;
+  
+  @Column(unique = true, nullable = false)
+  private String key;
   
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
