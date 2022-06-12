@@ -13,6 +13,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.BooleanPath;
 import com.querydsl.core.types.dsl.CollectionPathBase;
 import com.querydsl.core.types.dsl.ComparableExpression;
 import com.querydsl.core.types.dsl.EntityPathBase;
@@ -145,6 +146,10 @@ public abstract class PredicateBuilder<T extends EntityPathBase<?>, E extends Ba
       default:
         if (queryPath instanceof StringExpression) {
           return ((StringExpression) queryPath).equalsIgnoreCase(((String) value));
+        }
+        
+        if (queryPath instanceof BooleanPath) {
+          return ((BooleanPath) queryPath).eq(Boolean.parseBoolean((String) value));
         }
 
         return ((SimpleExpression<Object>) queryPath).eq(value);

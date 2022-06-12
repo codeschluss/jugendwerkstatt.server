@@ -37,13 +37,7 @@ public class PageEntity extends BaseEntity {
   @JoinTable(name = "page_image_media", joinColumns = @JoinColumn(name = "page_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"page_id", "media_id"})})
-  private List<MediaEntity> image_media;
-  
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "page_image_media", joinColumns = @JoinColumn(name = "page_id"),
-      inverseJoinColumns = @JoinColumn(name = "media_id"),
-      uniqueConstraints = {@UniqueConstraint(columnNames = {"page_id", "media_id"})})
-  private List<MediaEntity> video_media;
+  private List<MediaEntity> images;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
