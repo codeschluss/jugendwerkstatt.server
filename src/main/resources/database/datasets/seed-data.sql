@@ -11,3 +11,6 @@ INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('25fa68bb-6967-441d-9017-8120a5fea00f', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
 ('0e60c6f0-9a00-4564-8e9a-39e8fbfe4ec6', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'cf5090d0-dfeb-4bf8-a242-33a2522fe765'),
 ('747fad72-720c-4747-8884-9dd61dc67f3c', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b');
+
+INSERT INTO settings (id, chat_active) VALUES
+('1705572c-ce00-4486-b06c-55ce9f479934', true);

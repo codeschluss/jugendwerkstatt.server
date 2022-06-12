@@ -290,6 +290,38 @@ databaseChangeLog:
       id: seed.9
       author: codeschluss
       changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: settings_primary_key
+                  name: id
+                  type: CHAR(36)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: created
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  name: modified
+                  type: TIMESTAMP WITH TIME ZONE                                 
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: true
+                  name: chat_active
+                  type: boolean
+            tableName: settings  
+  - changeSet:
+      id: seed.10
+      author: codeschluss
+      changes:
         - createIndex:
             columns:
               - column:
@@ -297,7 +329,7 @@ databaseChangeLog:
             indexName: idx_fkh8ciramu9cc9q3qcqiv4ue8a6
             tableName: user_roles
   - changeSet:
-      id: seed.10
+      id: seed.11
       author: codeschluss
       changes:
         - createIndex:
@@ -307,7 +339,7 @@ databaseChangeLog:
             indexName: idx_fkhfh9dx7w3ubf1co1vdev94g3f
             tableName: user_roles
   - changeSet:
-      id: seed.11
+      id: seed.12
       author: codeschluss
       changes:
         - createIndex:
@@ -321,7 +353,7 @@ databaseChangeLog:
             unique: true
 
   - changeSet:
-      id: seed.12
+      id: seed.13
       author: codeschluss
       changes:
         - createIndex:
@@ -331,7 +363,7 @@ databaseChangeLog:
             indexName: idx_fkumlb3c89di3iu9tz6n28m64dg
             tableName: user_media
   - changeSet:
-      id: seed.13
+      id: seed.14
       author: codeschluss
       changes:
         - createIndex:
@@ -341,7 +373,7 @@ databaseChangeLog:
             indexName: idx_fkbbo8cgtgin9ne04nbz9v02j50
             tableName: user_media
   - changeSet:
-      id: seed.14
+      id: seed.15
       author: codeschluss
       changes:
         - createIndex:
@@ -354,7 +386,7 @@ databaseChangeLog:
             tableName: user_roles
             unique: true
   - changeSet:
-      id: seed.15
+      id: seed.16
       author: codeschluss
       changes:
         - createIndex:
@@ -364,7 +396,7 @@ databaseChangeLog:
             indexName: idx_fkbjxowy0jbb7pg9tdqolsn8209
             tableName: verifications
   - changeSet:
-      id: seed.16
+      id: seed.17
       author: codeschluss
       changes:
         - createIndex:
@@ -374,7 +406,7 @@ databaseChangeLog:
             indexName: idx_fkrsu528p3gi7l3ulnmnheoe94u
             tableName: users
   - changeSet:
-      id: seed.17
+      id: seed.18
       author: codeschluss
       changes:
         - createIndex:
@@ -384,7 +416,7 @@ databaseChangeLog:
             indexName: idx_fknmk3g0k09vpinfvqknl76kfmt
             tableName: error_messages
   - changeSet:
-      id: seed.18
+      id: seed.19
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -399,7 +431,7 @@ databaseChangeLog:
             referencedTableName: roles
             validate: true
   - changeSet:
-      id: seed.19
+      id: seed.20
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -414,7 +446,7 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.20
+      id: seed.21
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -429,7 +461,7 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.21
+      id: seed.22
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -444,7 +476,7 @@ databaseChangeLog:
             referencedTableName: media
             validate: true
   - changeSet:
-      id: seed.22
+      id: seed.23
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -459,7 +491,7 @@ databaseChangeLog:
             referencedTableName: users
             validate: true
   - changeSet:
-      id: seed.23
+      id: seed.24
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -474,7 +506,7 @@ databaseChangeLog:
             referencedTableName: media
             validate: true
   - changeSet:
-      id: seed.24
+      id: seed.25
       author: codeschluss
       changes:
         - addForeignKeyConstraint:
@@ -489,7 +521,7 @@ databaseChangeLog:
             referencedTableName: languages
             validate: true
   - changeSet:
-      id: seed.25
+      id: seed.26
       author: codeschluss
       changes:
         - createTable:
@@ -513,7 +545,7 @@ databaseChangeLog:
                   type: CHAR(36)
             tableName: user_events
   - changeSet:
-      id: seed.26
+      id: seed.27
       author: codeschluss
       changes:
         - createTable:

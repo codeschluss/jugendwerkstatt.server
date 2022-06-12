@@ -63,4 +63,4 @@ databaseChangeLog:
     - include:
         file: database/changes/0029.create_table_read_receipts.yaml
     - include:
-        file: database/changes/0030.create_table_notifications.yaml                              
+        file: database/changes/0030.create_table_notifications.yaml
