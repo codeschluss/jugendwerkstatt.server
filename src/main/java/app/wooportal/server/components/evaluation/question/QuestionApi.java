@@ -2,13 +2,16 @@ package app.wooportal.server.components.evaluation.question;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Component;
+import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.security.permissions.AdminPermission;
 import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -65,7 +68,14 @@ public class QuestionApi extends CrudApi<QuestionEntity, QuestionService> {
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }
-
+  
+  @GraphQLQuery(name = "averageRating")
+  @AdminPermission
+  public CompletableFuture<Double> calculateAverageRating(@GraphQLContext QuestionEntity question, Integer year) {
+    return CompletableFuture.supplyAsync(() -> {
+      return service.calculateAverageRating(question, year);
+    });
+  }
 }
 
 

@@ -38,5 +38,6 @@ public class GroupEntity extends BaseEntity {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
   @EqualsAndHashCode.Exclude
   private List<UserEntity> users;
-
+  
+  
 }
