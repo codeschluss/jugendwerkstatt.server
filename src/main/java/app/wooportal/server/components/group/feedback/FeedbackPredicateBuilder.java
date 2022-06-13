@@ -19,4 +19,12 @@ public class FeedbackPredicateBuilder extends PredicateBuilder<QFeedbackEntity, 
   public BooleanExpression withFullName(String name) {
     return query.user.fullname.equalsIgnoreCase(name);
   }
+  
+  public BooleanExpression withYear(Integer year) {
+    return query.created.year().eq(year);
+}
+  
+  public BooleanExpression withCourseId(String courseId) {
+    return query.course.id.likeIgnoreCase(courseId);
+  }
 }

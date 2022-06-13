@@ -140,7 +140,8 @@ INSERT INTO answers(id, rating, question_id, assignment_id) VALUES
 ('892d91b3-e73b-4bd1-9874-99f810d30d56', '5', '7c6d47ab-f4fe-46c6-869c-0538c1d2c2c4', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
 ('7c8e86c7-4049-42ad-89b6-6c3da2bd8a38', '3', '4100e7c3-e648-4b68-b937-89d9fec60880', '5eb2d309-b5f7-45d5-9ed9-aa731cc6c4fd'),
 ('9963bfd5-877c-4e50-8cca-3d3f3a094857', '2', '90f4880d-dae8-4290-922c-216c48ce249d', '89cece0b-8068-49d3-ad74-e882386c5c8b'),
-('ad0f00a3-ef45-4b14-9ecf-5b5d78930a81', '2', '90a8772d-f551-4111-9601-069e453ef770', '89cece0b-8068-49d3-ad74-e882386c5c8b');
+('ad0f00a3-ef45-4b14-9ecf-5b5d78930a81', '2', '90a8772d-f551-4111-9601-069e453ef770', '89cece0b-8068-49d3-ad74-e882386c5c8b'),
+('a1c26925-4a9a-4ed8-8176-9608d9e3a4da', '1', '4100e7c3-e648-4b68-b937-89d9fec60880', '5e59bbab-2be3-4a21-95fe-f424f2914905');
 
 INSERT INTO link_categories(id, name) VALUES
 ('ff6340c7-e973-45c2-b1a0-1ff9cd70a861', 'Was will ich? Was kann ich?'),
@@ -165,7 +166,8 @@ INSERT INTO user_templates(id, name, content, template_type_id, user_id) VALUES
 
 INSERT INTO feedbacks(id, rating, course_id, user_id) VALUES
 ('566458a2-fe16-4850-8e68-44c1cd5fd8cd', '3', '2163ee48-8605-46eb-bbd0-c62497007b18', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('50bb5dd5-e180-4cf4-9f30-f16bea9acfa8', '5', 'ab36cc61-a884-4da8-be52-db8f19abcbd1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
+('50bb5dd5-e180-4cf4-9f30-f16bea9acfa8', '5', 'ab36cc61-a884-4da8-be52-db8f19abcbd1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('71fb7dde-53f7-4df1-b285-6c4d3e68c4f6', '2', 'ab36cc61-a884-4da8-be52-db8f19abcbd1', 'e14e5d92-0b4a-47b3-991d-ac18dd6923b3');
 
 INSERT INTO subscription_types(id, name, description) VALUES
 ('a3d3c3ce-6908-42e6-97f7-ddaddae8deb3', 'Events', 'Bowling'),
