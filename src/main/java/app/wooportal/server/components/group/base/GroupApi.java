@@ -70,9 +70,10 @@ public class GroupApi extends CrudApi<GroupEntity, GroupService> {
   public boolean addMember(String groupId, String userId) {
     return service.addMember(groupId, userId);
   }
+  
   @GraphQLMutation(name = "deleteMember")
   @AdminPermission
-  public GroupEntity deleteMember(String groupId, String userId) {
+  public boolean deleteMember(String groupId, String userId) {
     return service.deleteMember(groupId, userId);
   }
 }

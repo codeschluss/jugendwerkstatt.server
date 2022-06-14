@@ -12,7 +12,6 @@ import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.BadParamsException;
 import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.security.components.user.UserService;
-import liquibase.pro.packaged.ex;
 
 @Service
 public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder> {
@@ -76,12 +75,13 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     if (group.isEmpty() | user.isEmpty()) {
       throw new BadParamsException("group or user does not exist", groupId);
     }
-    user.get().setGroup(group.get());
-    userService.save(user.get());
         
     participantService.deleteAll(participantService.readAll(participantService.query()
         .and(participantService.getPredicate().withUser(user.get().getId())
         .and(participantService.getPredicate().witGroup(user.get().getGroup().getId())))).getList());
+
+    user.get().setGroup(group.get());
+    userService.save(user.get());    
     
     var participant = new ParticipantEntity();
     participant.setChat(group.get().getChat());
@@ -91,8 +91,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     return true;
   }
 
-  public GroupEntity deleteMember(String groupId, String userId) {
-
+  public boolean deleteMember(String groupId, String userId) {
     var group = getById(groupId);
     var user = userService.getById(userId);
 
@@ -109,8 +108,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
             .and(participantService.getPredicate().withChat(group.get().getChat().getId())))
         .getList();
     participantService.deleteAll(participant);
-
-    group.get().getUsers().add(user.get());
-    return repo.save(group.get());
+    
+    return true;
   }
 }
