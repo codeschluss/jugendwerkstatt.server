@@ -28,8 +28,11 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   private final StorageService storageService;
 
-  public MediaService(DataRepository<MediaEntity> repo, MediaPredicateBuilder predicate,
-      ImageService imageService, StorageService storageService) {
+  public MediaService(
+      DataRepository<MediaEntity> repo,
+      MediaPredicateBuilder predicate,
+      ImageService imageService,
+      StorageService storageService) {
     super(repo, predicate);
 
     this.imageService = imageService;

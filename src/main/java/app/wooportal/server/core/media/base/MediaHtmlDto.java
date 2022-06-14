@@ -18,11 +18,25 @@ public class MediaHtmlDto {
   
   public String getHtml() {
     if (!html.contains("<body>")) {
-      html = String.format("<body>%s</body>", html);
+      html = String.format("<body style=\"font-family: Arial, Helvetica, sans-serif;\">%s</body>", html);
     }
     
     if (!html.contains("<html>")) {
-      html = String.format("<html>%s</html>", html);
+      html = String.format("""  
+        <html>
+          <head>
+            <style>
+              @font-face {
+                font-family: Arial;
+                src: url(Arial.ttf);
+                font-weight: normal;
+                font-style: normal;
+              }
+            </style>
+          </head>
+          %s
+        </html>
+      """, html);
     }
     
     return html;

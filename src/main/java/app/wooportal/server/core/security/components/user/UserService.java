@@ -98,6 +98,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
     if (entity.getId() == null || entity.getId().isBlank()) {
       newEntity.setVerification(new VerificationEntity());
+      newEntity.setApproved(false);
+      newEntity.setVerified(false);
+      newEntity.setEvaluateCourse(false);
     }
   }
   
