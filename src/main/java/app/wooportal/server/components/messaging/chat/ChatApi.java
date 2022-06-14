@@ -56,6 +56,7 @@ public class ChatApi extends CrudApi<ChatEntity, ChatService> {
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }
+  
 
 }
 

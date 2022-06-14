@@ -27,6 +27,10 @@ databaseChangeLog:
                   type: TIMESTAMP WITH TIME ZONE
               - column:
                   constraints:
+                  name: chat_id
+                  type: CHAR(36)                  
+              - column:
+                  constraints:
                     nullable: false
                     unique: true
                   name: name
@@ -66,4 +70,5 @@ databaseChangeLog:
             onDelete: SET NULL
             referencedColumnNames: id
             referencedTableName: groups
-            validate: true  
+            validate: true
+            

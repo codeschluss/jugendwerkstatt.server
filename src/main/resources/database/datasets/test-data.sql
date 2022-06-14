@@ -13,9 +13,14 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('76460bc7-ed5c-4f70-a377-46e2cf49e86f', 'image/jpg', 'title image'),
 ('ceb59217-29f6-4a58-a8f1-776b698a9c5a', 'video/mp4', 'GetRolled');
 
-INSERT INTO groups(id, name) VALUES
-('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall'),
-('1f8c55b2-4210-4eea-bc14-6a6d55cc538e', 'Holz');
+INSERT INTO chats(id, name, admin) VALUES
+('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false),
+('b2cb2479-1c75-4bf6-9543-38c53a55a70f', 'Student', true),
+('4e26f3a2-3877-438f-bf8a-cd2d4ac720f5', 'MetallGroupchat', false);
+
+INSERT INTO groups(id, name, chat_id) VALUES
+('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall', '4e26f3a2-3877-438f-bf8a-cd2d4ac720f5'),
+('1f8c55b2-4210-4eea-bc14-6a6d55cc538e', 'Holz', '41bf7460-1a1a-41cb-8b2f-a89688671b33');
 
 INSERT INTO courses(id, name, group_id, active, active_order) VALUES
 ('2163ee48-8605-46eb-bbd0-c62497007b18', 'Metall 1', 'f5983943-b1a3-4265-bf88-208ecbbd09a3', true, 1),
@@ -193,9 +198,6 @@ INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
 ('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
 ('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
 
-INSERT INTO chats(id, name, admin) VALUES
-('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false),
-('b2cb2479-1c75-4bf6-9543-38c53a55a70f', 'Student', true);
 
 INSERT INTO participants(id, chat_id, user_id) VALUES
 ('87c048f9-26fb-4b3f-9d37-f03556c08edd', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),

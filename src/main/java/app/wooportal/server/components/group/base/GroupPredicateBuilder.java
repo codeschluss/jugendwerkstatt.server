@@ -17,5 +17,5 @@ public class GroupPredicateBuilder extends PredicateBuilder<QGroupEntity, GroupE
   }
   public BooleanExpression withName(String name) {
     return query.name.equalsIgnoreCase(name);
-  }
+  }  
 }

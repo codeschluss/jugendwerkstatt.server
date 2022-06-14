@@ -2,6 +2,7 @@ package app.wooportal.server.core.base;
 
 import java.util.Collection;
 import java.util.Optional;
+import org.hibernate.Hibernate;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.query.QueryExpression;
 import app.wooportal.server.core.base.dto.query.QueryOperator;
@@ -44,8 +45,9 @@ public abstract class PredicateBuilder<T extends EntityPathBase<?>, E extends Ba
   public void matchEntity(E entity, T currentQuery, BooleanBuilder builder) {
     for (var entityField : ReflectionUtils.getFields(entity.getClass())) {
       if (PersistenceUtils.isValidField(entityField)) {
-        ReflectionUtils.get(entityField.getName(), entity).ifPresent(fieldValue ->
+        ReflectionUtils.get(entityField.getName(), entity).ifPresent(value ->
             ReflectionUtils.get(entityField.getName(), currentQuery).ifPresent(path -> {
+              var fieldValue = Hibernate.unproxy(value);
               if (PersistenceUtils.isValidEntity(fieldValue)) {
                 matchEntity((E) fieldValue,(T) path, builder);
               } else if (PersistenceUtils.isValidCollection(fieldValue)) {
@@ -149,10 +151,11 @@ public abstract class PredicateBuilder<T extends EntityPathBase<?>, E extends Ba
         }
         
         if (queryPath instanceof BooleanPath) {
-          return ((BooleanPath) queryPath).eq(Boolean.parseBoolean((String) value));
+          return ((BooleanPath) queryPath).eq(value instanceof Boolean 
+              ? (Boolean) value
+              : Boolean.parseBoolean((String) value));
         }
-
-        return ((SimpleExpression<Object>) queryPath).eq(value);
+        return null;
     }
   }
   

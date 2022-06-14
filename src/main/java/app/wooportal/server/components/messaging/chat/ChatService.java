@@ -11,5 +11,6 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
     super(repo, predicate);
   }
 
+  
 }
 
