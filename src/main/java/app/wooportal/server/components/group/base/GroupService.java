@@ -12,6 +12,7 @@ import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.exception.BadParamsException;
 import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.security.components.user.UserService;
+import liquibase.pro.packaged.ex;
 
 @Service
 public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder> {
@@ -68,8 +69,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     }
   }
 
-  public GroupEntity addMember(String groupId, String userId) {
-
+  public boolean addMember(String groupId, String userId) {
     var group = getById(groupId);
     var user = userService.getById(userId);
 
@@ -78,18 +78,17 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     }
     user.get().setGroup(group.get());
     userService.save(user.get());
-
-
-
+        
+    participantService.deleteAll(participantService.readAll(participantService.query()
+        .and(participantService.getPredicate().withUser(user.get().getId())
+        .and(participantService.getPredicate().witGroup(user.get().getGroup().getId())))).getList());
+    
     var participant = new ParticipantEntity();
     participant.setChat(group.get().getChat());
     participant.setUser(userService.getById(userId).get());
-
-    if (participantService.getByExample(participant).isEmpty()) {
-      participantService.save(participant);
-    }
-    group.get().getUsers().add(user.get());
-    return repo.save(group.get());
+    participantService.save(participant);
+    
+    return true;
   }
 
   public GroupEntity deleteMember(String groupId, String userId) {

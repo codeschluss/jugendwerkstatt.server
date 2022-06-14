@@ -9,7 +9,6 @@ import app.wooportal.server.core.repository.DataRepository;
 @Service
 public class CourseService extends DataService<CourseEntity, CoursePredicateBuilder> {
 
-  
   private final FeedbackService feedbackService;
   public CourseService(DataRepository<CourseEntity> repo,
       CoursePredicateBuilder predicate,
@@ -30,20 +29,20 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
   }
   
   public double calculateAverageRating(CourseEntity course, Integer year){
-   
     var feedbacks = feedbackService.readAll(feedbackService.query()
         .and(feedbackService.getPredicate().withYear(year))
         .and(feedbackService.getPredicate().withCourseId(course.getId()))).getList();
       
     var sum = 0.0;
     for (var feedback : feedbacks) {
-      if(feedback != null) {
+      if (feedback != null) {
       sum += feedback.getRating().doubleValue();
       }
       else {
         feedbacks.remove(feedback);
       }
     }
+    
     return feedbacks != null && feedbacks.size() > 0
         ? sum / feedbacks.size()
         : sum;

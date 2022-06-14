@@ -24,8 +24,12 @@ public class QuestionService extends DataService<QuestionEntity, QuestionPredica
         .and(answerService.getPredicate().withQuestionId(question.getId()))).getList();
       
     var sum = 0.0;
-    for (var answer : answers) {
-      sum += answer.getRating().doubleValue();
+    for (var answer : answers) {  
+      if (answer.getRating() != null) {
+        sum += answer.getRating().doubleValue();
+      } else {
+        answers.remove(answer);
+      }
     }
     return answers != null && answers.size() > 0
         ? sum / answers.size()

@@ -71,9 +71,7 @@ public class QuestionApi extends CrudApi<QuestionEntity, QuestionService> {
   @GraphQLQuery(name = "averageRating")
   @AdminPermission
   public CompletableFuture<Double> calculateAverageRating(@GraphQLContext QuestionEntity question, Integer year) {
-    return CompletableFuture.supplyAsync(() -> {
-      return service.calculateAverageRating(question, year);
-    });
+    return CompletableFuture.supplyAsync(() -> service.calculateAverageRating(question, year));
   }
 }
 
