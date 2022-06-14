@@ -2,15 +2,20 @@ package app.wooportal.server.components.group.base;
 
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import app.wooportal.server.components.group.course.CourseService;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.repository.DataRepository;
 
 @Service
 public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder> {
 
-  public GroupService(DataRepository<GroupEntity> repo, GroupPredicateBuilder predicate) {
+  public GroupService(
+      DataRepository<GroupEntity> repo,
+      GroupPredicateBuilder predicate,
+      CourseService courseService) {
     super(repo, predicate);
 
+    addService("courses", courseService);
   }
 
   @Override
