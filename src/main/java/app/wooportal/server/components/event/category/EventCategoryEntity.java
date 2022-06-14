@@ -29,9 +29,6 @@ public class EventCategoryEntity extends BaseEntity {
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   private Set<EventEntity> events;
-  
-  @Column(nullable = false)
-  private String icon;
 
   @Column(unique = true, nullable = false, name = "name")
   private String name;

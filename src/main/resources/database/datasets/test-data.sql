@@ -45,12 +45,12 @@ INSERT INTO organizers (id, name, mail, phone, website) VALUES
 ('ead07153-6e4b-45ae-abd4-562fc126e92f', 'Bowling-Center-Ulm', 'Mustermann.Max@example.com', '0173-7717645', 'https://wp.neu-ulm-inside.de/new-bowling-center/'),
 ('d2f041f1-4817-47be-a49a-b6e494a4a8a6', 'Jugendwerkstatt alpha e.V.', 'Susanne@example.com', '0176-5646541', 'https://www.alphaev.de');
 
-INSERT INTO event_categories (id, name, icon) VALUES
-('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training', 'Education and Training'),
-('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sports', 'Sports'),
-('320e2686-a4bc-4990-9b95-8d6f3ddf56ba', 'Information', 'Information'),
-('00db3dbf-b23d-4fb1-a1ff-5e7b321d8301', 'Social', 'Social'),
-('c777f9a8-2061-4fc4-9cae-63130641e4d5', 'Other', 'Other');
+INSERT INTO event_categories (id, name) VALUES
+('555f2324-87bf-4510-ac08-893076444dbb', 'Education and Training'),
+('a464edde-2e2f-455e-a5ca-84fd28f8ad4a', 'Sports'),
+('320e2686-a4bc-4990-9b95-8d6f3ddf56ba', 'Information'),
+('00db3dbf-b23d-4fb1-a1ff-5e7b321d8301', 'Social'),
+('c777f9a8-2061-4fc4-9cae-63130641e4d5', 'Other');
 
 INSERT INTO addresses (id, house_number, latitude, longitude, place, postal_code, street) VALUES
 ('ff656406-89af-4835-a9bf-571fd978f78f', '27', '48.397340', '9.992980', 'Ulm', '89073', 'ihk-street'),
