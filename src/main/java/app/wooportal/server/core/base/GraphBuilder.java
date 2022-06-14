@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Transient;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -51,16 +52,26 @@ public class GraphBuilder<E extends BaseEntity> {
       Class<?> entityClass,
       List<Field> context,
       Graph<E> graph) {
+    
+    // This flag prevents MultipleBagFetchException when multiple sub collections are added.
+    // Strategy now is fetch join one collection and load rest lazy. In future another strategy
+    // needs to be found. something like:
+    // https://stackoverflow.com/questions/4334970/hibernate-throws-multiplebagfetchexception-cannot-simultaneously-fetch-multipl/51055523?stw=2#51055523 
+    var collectionAlreadyAdded = false;
+    
     for (var field : context) {
-      Optional<Class<?>> fieldType = getEntityType(entityClass, field.getName());
+      var fieldType = getEntityType(entityClass, field.getName());
       if (fieldType.isPresent() 
-          && isValidField(entityClass, field.getName())) {
-        if (hasSubgraphs(field)) {
-          create(
-              fieldType.get(), 
-              field.getSelectionSet().getSelectionsOfType(Field.class), 
-              graph.addSubGraph(field.getName()));
-        }
+          && isValidField(entityClass, field.getName())
+          && hasSubgraphs(field)
+          && !collectionAlreadyAdded) {
+        create(
+            fieldType.get(), 
+            field.getSelectionSet().getSelectionsOfType(Field.class), 
+            graph.addSubGraph(field.getName()));
+
+        collectionAlreadyAdded = ReflectionUtils.getAnnotation(
+            ReflectionUtils.getField(entityClass, field.getName()).get(), OneToMany.class).isPresent(); 
       }
     }
     return graph;
@@ -82,8 +93,8 @@ public class GraphBuilder<E extends BaseEntity> {
   @SuppressWarnings("unchecked")
   public EntityGraph<E> create(Class<E> entityClass, String... paths) {
     if (hasSubgraphs(entityClass, paths)) {
-      Graph<E> graph = (Graph<E>) entityManager.createEntityGraph(entityClass);
-      for (String path : paths) {
+      var graph = (Graph<E>) entityManager.createEntityGraph(entityClass);
+      for (var path : paths) {
         create(entityClass, graph, path);
       }    
       return (EntityGraph<E>) graph;
@@ -92,7 +103,7 @@ public class GraphBuilder<E extends BaseEntity> {
   }
 
   private boolean hasSubgraphs(Class<E> entityClass, String[] paths) {
-    for (String path : paths) {
+    for (var path : paths) {
       var split = path.split("\\.");
       if (split.length > 1 
           || (split.length == 1 && getEntityType(entityClass, split[0]).isPresent())) {
@@ -104,7 +115,7 @@ public class GraphBuilder<E extends BaseEntity> {
 
   @SuppressWarnings("unchecked")
   private void create(Class<E> entityClass, Graph<E> graph, String path) {
-    String[] part = path.split("\\.", 2);
+    var part = path.split("\\.", 2);
     
     if (part.length > 0 && getEntityType(entityClass, part[0]).isPresent()) {
       Graph<E> subgraph = graph.addSubGraph(part[0]);
