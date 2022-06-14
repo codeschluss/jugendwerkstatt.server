@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import app.wooportal.server.components.group.course.CourseEntity;
+import app.wooportal.server.components.messaging.chat.ChatEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
@@ -39,5 +41,8 @@ public class GroupEntity extends BaseEntity {
   @EqualsAndHashCode.Exclude
   private List<UserEntity> users;
   
+  @OneToOne(fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
+  private ChatEntity chat;
   
 }

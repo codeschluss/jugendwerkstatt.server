@@ -6,9 +6,11 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.security.permissions.AdminPermission;
 import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -64,7 +66,17 @@ public class GroupApi extends CrudApi<GroupEntity, GroupService> {
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }
-
+  
+  @GraphQLMutation(name = "addMember")
+  @AdminPermission
+  public GroupEntity addMember(String groupId, String userId) {
+    return service.addMember(groupId, userId);
+  }
+  @GraphQLMutation(name = "deleteMember")
+  @AdminPermission
+  public GroupEntity deleteMember(String groupId, String userId) {
+    return service.deleteMember(groupId, userId);
+  }
 }
 
 

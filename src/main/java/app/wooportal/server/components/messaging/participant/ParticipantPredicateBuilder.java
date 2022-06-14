@@ -17,15 +17,11 @@ public class ParticipantPredicateBuilder
     return query.id.likeIgnoreCase(term);
   }
 
-  public BooleanExpression withChat(String event) {
-    return query.chat.name.equalsIgnoreCase(event);
-  }
-
-  public BooleanExpression withChatId(String chatId) {
+  public BooleanExpression withChat(String chatId) {
     return query.chat.id.equalsIgnoreCase(chatId);
   }
 
-  public BooleanExpression withUser(String event) {
-    return query.user.id.equalsIgnoreCase(event);
+  public BooleanExpression withUser(String userId) {
+    return query.user.id.equalsIgnoreCase(userId);
   }
 }

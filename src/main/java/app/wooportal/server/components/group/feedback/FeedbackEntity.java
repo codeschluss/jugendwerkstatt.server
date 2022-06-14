@@ -1,7 +1,6 @@
 package app.wooportal.server.components.group.feedback;
 
 import java.io.Serial;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -31,7 +30,6 @@ public class FeedbackEntity extends BaseEntity {
   @JoinColumn(nullable = false)
   private CourseEntity course;
 
-  @Column(nullable = false)
   private Integer rating;
 
   @ManyToOne(fetch = FetchType.LAZY)

@@ -37,7 +37,12 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
       
     var sum = 0.0;
     for (var feedback : feedbacks) {
+      if(feedback != null) {
       sum += feedback.getRating().doubleValue();
+      }
+      else {
+        feedbacks.remove(feedback);
+      }
     }
     return feedbacks != null && feedbacks.size() > 0
         ? sum / feedbacks.size()

@@ -74,7 +74,6 @@ public class CourseApi extends CrudApi<CourseEntity, CourseService> {
       return service.calculateAverageRating(course, year);
     });
   }
-
 }
 
 
