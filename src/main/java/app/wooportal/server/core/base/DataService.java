@@ -28,6 +28,8 @@ import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.config.SetNullOnRemoval;
 import app.wooportal.server.core.context.ApiContextAdapter;
+import app.wooportal.server.core.error.exception.DuplicateException;
+import app.wooportal.server.core.error.exception.NotNullableException;
 import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.utils.PersistenceUtils;
 import app.wooportal.server.core.utils.ReflectionUtils;
@@ -199,12 +201,11 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
     return null;
   }
 
-  @SuppressWarnings("unchecked")
   public E persist(E entity, E newEntity, JsonNode context) {
-    entity = (E) Hibernate.unproxy(entity);
-    newEntity = (E) Hibernate.unproxy(newEntity);
-    
     preSave(entity, newEntity, context);
+    entity = prepare(entity);
+    newEntity = prepare(newEntity);
+    validate(entity, newEntity);
     List<String> postFieldNames = saveFields(entity, newEntity, context);
     E persisted = repo.save(entity);
     savePostSaveFields(persisted, newEntity, postFieldNames, context);
@@ -212,18 +213,60 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
     return persisted;
   }
   
-  protected void preSave(E entity, E newEntity, JsonNode context) { }
-  
-  protected void postSave(E saved, E newEntity, JsonNode context) { }
-
-  protected List<String> saveFields(E entity, E newEntity, JsonNode context) {
+  @SuppressWarnings("unchecked")
+  protected E prepare(E entity) {
+    entity = (E) Hibernate.unproxy(entity);
     var id = ReflectionUtils.get("id", entity);
     if (id.isEmpty() || ((String) id.get()).isBlank()) {
       var uid = UUID.randomUUID().toString();
       ReflectionUtils.set("id", entity, uid);
-      ReflectionUtils.set("id", newEntity, uid);
     }
-    
+    return entity;
+  }
+
+  public void validate(E entity, E newEntity) {
+    var duplicateFields = new HashMap<String, Object>();
+    for (var field: ReflectionUtils.getFields(entity.getClass())) {
+      if (!PersistenceUtils.isIgnoredField(field)) {
+        checkNullable(entity, newEntity, field);
+        
+        var value = ReflectionUtils.get(field.getName(), newEntity);
+        if (PersistenceUtils.isUniqueConstraint(field)
+            && value.isPresent()) {
+          duplicateFields.put(field.getName(), value.get());
+        }
+      }
+    }
+    checkDuplicates(duplicateFields, entity);
+  }
+
+  private void checkNullable(E entity, E newEntity, Field field) {
+    if (!PersistenceUtils.isNullable(entity, field)
+        && ReflectionUtils.get(field.getName(), entity).isEmpty()
+        && ReflectionUtils.get(field.getName(), newEntity).isEmpty()) {
+      throw new NotNullableException("Field not nullable is null", field.getName());
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  //TODO: Check duplicates also for class constraints
+  private void checkDuplicates(Map<String, Object> duplicateFields, E entity) {
+    if (duplicateFields != null && !duplicateFields.isEmpty()) {
+      duplicateFields.forEach((fieldName, fieldValue) -> {
+        var result = getByExample((E) ReflectionUtils.newInstance(getEntityClass())
+            .set(fieldName, fieldValue));
+        if (result.isPresent() && !result.get().getId().equals(entity.getId())) {
+          throw new DuplicateException("Entity already exists", fieldName);
+        }
+      });
+    }
+  }
+
+  protected void preSave(E entity, E newEntity, JsonNode context) { }
+  
+  protected void postSave(E saved, E newEntity, JsonNode context) { }
+
+  protected List<String> saveFields(E entity, E newEntity, JsonNode context) {    
     return context != null && !context.isNull()
       ? saveFieldsWithContext(entity, newEntity, context)
       : saveFieldsWithoutContext(entity, newEntity);

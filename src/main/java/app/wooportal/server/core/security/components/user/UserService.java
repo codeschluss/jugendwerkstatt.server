@@ -72,12 +72,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     addService("verification", verificationService);
   }
 
-  @Override
-  public Optional<UserEntity> getExisting(UserEntity entity) {
-    return entity.getEmail() == null || entity.getEmail().isEmpty() ? Optional.empty()
-        : getByLoginName(entity.getEmail());
-  }
-
   public Optional<UserEntity> getByLoginName(String name) {
     return repo.findOne(predicate.withLoginName(name));
   }
@@ -98,9 +92,16 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
     if (entity.getId() == null || entity.getId().isBlank()) {
       newEntity.setVerification(new VerificationEntity());
+      setContext("verification", context);
+      
       newEntity.setApproved(false);
+      setContext("approved", context);
+      
       newEntity.setVerified(false);
+      setContext("verified", context);
+      
       newEntity.setEvaluateCourse(false);
+      setContext("evaluateCourse", context);
     }
   }
   

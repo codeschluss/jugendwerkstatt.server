@@ -7,10 +7,12 @@ import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorMailService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.BadParamsException;
+import app.wooportal.server.core.error.exception.DuplicateException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
 import app.wooportal.server.core.error.exception.InvalidTokenException;
 import app.wooportal.server.core.error.exception.InvalidVerificationException;
 import app.wooportal.server.core.error.exception.NotFoundException;
+import app.wooportal.server.core.error.exception.NotNullableException;
 import app.wooportal.server.core.repository.DataRepository;
 
 @Service
@@ -42,6 +44,10 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
       return "Eingaben fehlerhaft. Probiere es mit anderen Eingaben.";
     }
     
+    if (e instanceof DuplicateException) {
+      return "Ein Datensatz mit den Eingaben existiert bereits. Probiere es mit anderen Eingaben.";
+    }
+    
     if (e instanceof InvalidPasswordResetException) {
       return "Passwort zurücksetzen hat nicht geklappt. Bitte erneut prüfen.";
     }
@@ -60,6 +66,10 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
     
     if (e instanceof NotFoundException) {
       return "Inhalt(e) konnte(n) nicht gefunden werden. Probiere es mit anderen Eingaben.";
+    }
+    
+    if (e instanceof NotNullableException) {
+      return "Felder sind leer, die nicht leer sein dürfen.";
     }
     
     this.errorMailService.sendErrorMail(e);
