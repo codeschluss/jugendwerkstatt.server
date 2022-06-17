@@ -73,14 +73,21 @@ public class PushScheduler {
     }
   }
 <<<<<<< Upstream, based on main
+<<<<<<< Upstream, based on main
   
   @Scheduled(cron = "0 0 10 25 * ?")
 =======
 
   //  @Scheduled(cron = "0 0 10 25 * ?")
+=======
+>>>>>>> 60c3f50 245,248,257
   
+<<<<<<< Upstream, based on main
   @Scheduled(cron = "* * * * * ?")
 >>>>>>> c09ab6a #257, 246, 248
+=======
+  @Scheduled(cron = "0 0 10 25 * ?")
+>>>>>>> 60c3f50 245,248,257
   public void pushForEvaluation() {
     var message =
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",
