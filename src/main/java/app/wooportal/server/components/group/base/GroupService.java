@@ -44,19 +44,18 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
 
   @Override
   protected void postSave(GroupEntity saved, GroupEntity newEntity, JsonNode context) {
-
     if (saved.getChat() == null) {
-
       var chat = new ChatEntity();
       chat.setName(saved.getName());
       chat.setAdmin(false);
       chatService.save(chat);
+      
       newEntity.setChat(chat);
       repo.save(newEntity);
 
       if (saved.getUsers() != null) {
-        for (var user : saved.getUsers()) {
 
+        for (var user : saved.getUsers()) {
           var participant = new ParticipantEntity();
           participant.setChat(chat);
           participant.setUser(user);
@@ -113,22 +112,21 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
   }
 
   public void updateActiveOrder() {
-
     var courseService = getService(CourseService.class);
     for (var group : repo.findAll(query().addGraph(graph("courses"))).getList()) {
 
-      var courses = group.getCourses();
-      courses.sort((o1, o2) -> o1.getActiveOrder().compareTo(o2.getActiveOrder()));
+      var courses = group.getCourses().stream()
+          .sorted((o1, o2) -> o1.getActiveOrder().compareTo(o2.getActiveOrder()))
+          .toList();
 
       for (int i = 0; i < courses.size(); i++) {
-
-        if (courses.get(i).getActive() == true && i == courses.size() - 1) {
+        if (courses.get(i).getActive() && i == courses.size() - 1) {
           courses.get(i).setActive(false);
           courses.get(0).setActive(true);
           courseService.save(courses.get(i));
           courseService.save(courses.get(0));
           break;
-        } else if (courses.get(i).getActive() == true) {
+        } else if (courses.get(i).getActive()) {
           courses.get(i).setActive(false);
           courses.get(i + 1).setActive(true);
           courseService.save(courses.get(i));
