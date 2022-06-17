@@ -54,7 +54,7 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
       try {
         storageService.store(entity.getId(), formatType, data);
       } catch (IOException e) {
-        // TODO: handle errors
+        
       }
     }
   }

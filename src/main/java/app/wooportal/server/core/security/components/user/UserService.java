@@ -98,10 +98,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       setContext("approved", context);
       
       newEntity.setVerified(false);
-      setContext("verified", context);
-      
-      newEntity.setEvaluateCourse(false);
-      setContext("evaluateCourse", context);
     }
   }
   
@@ -109,6 +105,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAdService.getById(jobAdId).get());
+      return Optional.of(repo.save(currentUser.get()));
+    }
+    return currentUser;
+  }
+  
+  public Optional<UserEntity> deleteJobAdFavorite(String jobAdId) {
+    var currentUser = authorizationService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteJobAds().remove(jobAdService.getById(jobAdId).get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -133,6 +138,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return currentUser;
   }
   
+  public Optional<UserEntity> deleteEventFavorite(String eventId) {
+    var currentUser = authorizationService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteEvents().remove(eventService.getById(eventId).get());
+      return Optional.of(repo.save(currentUser.get()));
+    }
+    return currentUser;
+  }
+  
   public Optional<UserEntity> addRoles(String userId, List<String> roleIds) {
     var user = getById(userId);
     if (user.isPresent()) {
@@ -152,6 +166,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getUploads().addAll(
           mediaService.saveAll(uploads));
+      return Optional.of(repo.save(currentUser.get()));
+    }
+    return currentUser;
+  }
+  
+  public Optional<UserEntity> deleteUpload(MediaEntity upload) {
+    var currentUser = authorizationService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      getById(currentUser.get().getId()).get().getUploads().remove(upload);
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -216,5 +239,4 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
     throw new InvalidVerificationException("Verification invalid", key);
   }
-
 }

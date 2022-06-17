@@ -29,11 +29,10 @@ public class FeedbackEntity extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private CourseEntity course;
-
+  
   private Integer rating;
-
+  
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private UserEntity user;
-
 }

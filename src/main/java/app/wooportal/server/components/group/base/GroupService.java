@@ -19,21 +19,18 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
   private final ChatService chatService;
   private final ParticipantService participantService;
   private final UserService userService;
+  private final CourseService courseService;
 
-  public GroupService(DataRepository<GroupEntity> repo,
-      GroupPredicateBuilder predicate,
-      ChatService chatService,
-      CourseService courseService,
-      ParticipantService participantService,
-      UserService userService) {
+  public GroupService(DataRepository<GroupEntity> repo, GroupPredicateBuilder predicate,
+      ChatService chatService, ParticipantService participantService, UserService userService,
+      CourseService courseService) {
     super(repo, predicate);
     this.chatService = chatService;
     this.participantService = participantService;
     this.userService = userService;
+    this.courseService = courseService;
 
-    addService("courses", courseService);
   }
-
   @Override
   public Optional<GroupEntity> getExisting(GroupEntity entity) {
     return entity.getName() == null || entity.getName().isEmpty() ? Optional.empty()
@@ -75,19 +72,22 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     if (group.isEmpty() | user.isEmpty()) {
       throw new BadParamsException("group or user does not exist", groupId);
     }
-        
-    participantService.deleteAll(participantService.readAll(participantService.query()
-        .and(participantService.getPredicate().withUser(user.get().getId())
-        .and(participantService.getPredicate().witGroup(user.get().getGroup().getId())))).getList());
+
+    participantService
+        .deleteAll(participantService
+            .readAll(participantService.query()
+                .and(participantService.getPredicate().withUser(user.get().getId()).and(
+                    participantService.getPredicate().witGroup(user.get().getGroup().getId()))))
+            .getList());
 
     user.get().setGroup(group.get());
-    userService.save(user.get());    
-    
+    userService.save(user.get());
+
     var participant = new ParticipantEntity();
     participant.setChat(group.get().getChat());
     participant.setUser(userService.getById(userId).get());
     participantService.save(participant);
-    
+
     return true;
   }
 
@@ -102,13 +102,44 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     userService.save(user.get());
 
     var participant = participantService
-        .readAll(participantService.query()
-            .addGraph(participantService.graph("users", "chats"))
+        .readAll(participantService.query().addGraph(participantService.graph("users", "chats"))
             .and(participantService.getPredicate().withUser(userId))
             .and(participantService.getPredicate().withChat(group.get().getChat().getId())))
         .getList();
     participantService.deleteAll(participant);
-    
+
     return true;
   }
+
+  public void updateActiveOrder() {
+
+    for (var group : repo.findAll()) {
+
+      var courses = courseService
+          .readAll(courseService.query().and(courseService.getPredicate().withGroupId(group.getId())))
+          .getList();
+
+      courses.sort((o1, o2) -> o1.getActiveOrder().compareTo(o2.getActiveOrder()));
+
+      var setNextCourseActive = false;
+      
+      for (int i = 0; i < courses.size(); i++) {
+
+        if (courses.get(i).getActive() == true && i == courses.size() - 1) {
+          courses.get(i).setActive(false);
+          courses.get(0).setActive(true);
+        }
+        else if(courses.get(i).getActive() == true) {
+          courses.get(i).setActive(false);
+          setNextCourseActive = true;
+        }
+        else if(courses.get(i).getActive()== false && setNextCourseActive == true) {
+          courses.get(i).setActive(true);
+        }
+      }
+      courseService.saveAll(courses);
+        
+    }
+  }
 }
+
