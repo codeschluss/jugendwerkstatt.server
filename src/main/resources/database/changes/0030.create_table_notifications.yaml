@@ -43,7 +43,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  defaultValueBoolean: true
+                  defaultValueBoolean: false
                   name: read
                   type: boolean
             tableName: notifications
