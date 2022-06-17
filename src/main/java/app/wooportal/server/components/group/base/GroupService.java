@@ -37,6 +37,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
 
 >>>>>>> c09ab6a #257, 246, 248
   }
+
   @Override
   public Optional<GroupEntity> getExisting(GroupEntity entity) {
     return entity.getName() == null || entity.getName().isEmpty() ? Optional.empty()
