@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import app.wooportal.server.components.jobad.company.CompanyEntity;
 import app.wooportal.server.components.jobad.jobtype.JobTypeEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +43,7 @@ public class JobAdEntity extends BaseEntity {
   private OffsetDateTime startDate;
   
   @Column(nullable = false)
+  @DefaultSort
   private String title;
 
   @ManyToOne(fetch = FetchType.LAZY)

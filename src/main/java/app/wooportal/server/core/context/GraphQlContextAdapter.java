@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import graphql.language.Definition;
-import graphql.language.Document;
 import graphql.language.Field;
 import graphql.language.OperationDefinition;
 import graphql.language.OperationDefinition.Operation;
@@ -61,12 +59,15 @@ public class GraphQlContextAdapter implements ApiContextAdapter {
   
   public List<Field> getReadContext() {
     try {
-      Parser parser = new Parser();
-      Document test = parser.parseDocument(getContext("query").asText());
-      for (Definition<?> def : test.getDefinitions()) {
-        if (def instanceof OperationDefinition
-            && ((OperationDefinition) def).getOperation().equals(Operation.QUERY)) {
-          return ((OperationDefinition) def).getSelectionSet().getSelectionsOfType(Field.class);
+      var context = getContext("query");
+      if (context != null) {
+        var parser = new Parser();
+        var test = parser.parseDocument(context.asText());
+        for (var def : test.getDefinitions()) {
+          if (def instanceof OperationDefinition
+              && ((OperationDefinition) def).getOperation().equals(Operation.QUERY)) {
+            return ((OperationDefinition) def).getSelectionSet().getSelectionsOfType(Field.class);
+          }
         }
       }
     } catch (IOException e) {
@@ -87,7 +88,9 @@ public class GraphQlContextAdapter implements ApiContextAdapter {
   }
 
   private String payload() throws IOException {
-    return request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+    return request != null
+        ? request.getReader().lines().collect(Collectors.joining(System.lineSeparator()))
+        : "";
   }
 
 }

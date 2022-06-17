@@ -13,6 +13,8 @@ import lombok.Setter;
 public abstract class BaseException extends RuntimeException {
   
   private static final long serialVersionUID = 1L;
+  
+  protected Object[] params;
 
   public BaseException(String message, Object... params) {
     super(String.format("%1$s, params: %2$s", 
@@ -20,5 +22,6 @@ public abstract class BaseException extends RuntimeException {
         params != null
           ? Stream.of(params).map(p -> p != null ? p.toString() : "").collect(Collectors.joining(", "))
           : ""));
+    this.params = params;
   }
 }

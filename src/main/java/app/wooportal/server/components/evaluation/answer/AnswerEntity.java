@@ -26,7 +26,6 @@ public class AnswerEntity extends BaseEntity {
   @Serial
   private static final long serialVersionUID = 1L;
 
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
   private AssignmentEntity assignment;

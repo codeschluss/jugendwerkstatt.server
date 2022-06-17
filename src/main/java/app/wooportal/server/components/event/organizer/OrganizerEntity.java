@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,6 +34,7 @@ public class OrganizerEntity extends BaseEntity {
   private String mail;
   
   @Column(unique = true, nullable = false)
+  @DefaultSort
   private String name;
   
   private String phone;

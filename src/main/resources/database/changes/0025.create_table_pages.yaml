@@ -37,6 +37,12 @@ databaseChangeLog:
                   name: content
                   type: VARCHAR(255)
               - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: name
+                  type: VARCHAR(255)
+              - column:
                   name: title_image_id
                   type: CHAR(36)
               - column:

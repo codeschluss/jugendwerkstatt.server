@@ -1,6 +1,7 @@
 package app.wooportal.server.core.base;
 
 import com.sun.istack.NotNull;
+import app.wooportal.server.core.utils.ReflectionUtils;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -39,16 +40,12 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
   protected String id;  
 
   @LastModifiedDate
-  @Column(
-      nullable = false, 
-      columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+  @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
   @Basic(fetch = FetchType.LAZY)
   protected OffsetDateTime modified;
 
   @CreatedDate
-  @Column(
-      nullable = false, 
-      columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", 
+  @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", 
       updatable = false)
   @Basic(fetch = FetchType.LAZY)
   protected OffsetDateTime created;
@@ -76,6 +73,11 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
     return getId() != null
         ? getId().compareTo(o.getId())
         : 0;
+  }
+  
+  public BaseEntity set(String fieldName, Object value) {
+    ReflectionUtils.set(fieldName, this, value);
+    return this;
   }
 
 }

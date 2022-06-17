@@ -24,6 +24,10 @@ public class PersistenceUtils {
         && !isIgnoredField(field.getName())
         && ReflectionUtils.getAnnotation(field, Transient.class).isEmpty();
   }
+  
+  public static boolean isIgnoredField(Field field) {
+    return isIgnoredField(field.getName());
+  }
 
   public static boolean isIgnoredField(String fieldName) {
     return fieldName.equals("serialVersionUID");
@@ -38,15 +42,17 @@ public class PersistenceUtils {
   }
 
   public static boolean isNullable(Object obj, String fieldName) {
-    if (obj != null) {
-      var field = ReflectionUtils.getField(obj.getClass(), fieldName);
-      if (field.isPresent()) {
-        return isColumnNullable(field.get())
-            && isJoinColumnNullable(field.get())
-            && !fieldName.equals("id");
-      }
-    }
-    return true;
+    var field = ReflectionUtils.getField(obj.getClass(), fieldName);
+    return field.isEmpty()
+        || isNullable(obj, field.get());
+  }
+  
+  public static boolean isNullable(Object obj, Field field) {
+    return obj == null
+        || field == null
+        || (isColumnNullable(field)
+            && isJoinColumnNullable(field)
+            && !field.getName().equals("id"));
   }
 
   private static boolean isColumnNullable(Field field) {
@@ -92,8 +98,7 @@ public class PersistenceUtils {
       throw new IllegalArgumentException("params must not be null");
     }
 
-    var columnAnnotation = field.getDeclaredAnnotation(Column.class);
-    if (columnAnnotation != null && columnAnnotation.unique()) {
+    if(isUniqueConstraint(field)) {
       var fieldValueEntity = ReflectionUtils.get(field.getName(), target);
       var fieldValueNode = ReflectionUtils.get(field.getName(), source);
       return fieldValueEntity.isPresent()
@@ -101,6 +106,13 @@ public class PersistenceUtils {
           && fieldValueEntity.equals(fieldValueNode);
     }
     return false;
+  }
+  
+  public static boolean isUniqueConstraint(Field field) {
+    var columnAnnotation = field.getDeclaredAnnotation(Column.class);
+    var joinColumnAnnotation = field.getDeclaredAnnotation(JoinColumn.class);
+    return columnAnnotation != null && columnAnnotation.unique()
+        || joinColumnAnnotation != null && joinColumnAnnotation.unique();
   }
 
   public static boolean uniqueClassConstraintEqual(

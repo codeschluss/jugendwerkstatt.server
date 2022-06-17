@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.evaluation.question.QuestionEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,7 @@ public class QuestionnaireEntity extends BaseEntity {
   private Set<AssignmentEntity> assignments;
 
   @Column(unique = true, nullable = false)
+  @DefaultSort
   private String name;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionnaire")

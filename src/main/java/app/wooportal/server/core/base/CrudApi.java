@@ -3,11 +3,13 @@ package app.wooportal.server.core.base;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.error.exception.BadParamsException;
+import app.wooportal.server.core.error.exception.NotDeletableException;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @Getter
 @Setter
@@ -58,15 +60,20 @@ public abstract class CrudApi<E extends BaseEntity, S extends DataService<E, ?>>
   }
   
   public Boolean deleteOne(String id) {
-    if (id != null && !id.isEmpty()) {
-      service.deleteById(id); 
-    }
-    return true;
+    return delete(id);
   }
   
   public Boolean deleteAll(List<String> ids) {
-    if (ids != null && !ids.isEmpty()) {
-      service.deleteById(ids.toArray(String[]::new));
+    return delete(ids.toArray(String[]::new));
+  }
+  
+  protected Boolean delete(String... id) {
+    if (id != null && id.length > 0) {
+      try {
+        service.deleteById(id);
+      } catch(DataIntegrityViolationException e) {
+        throw new NotDeletableException(e.getMessage());
+      } 
     }
     return true;
   }
