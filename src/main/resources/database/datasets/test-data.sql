@@ -204,9 +204,9 @@ INSERT INTO user_job_ads(id, user_id, job_ad_id) VALUES
 ('580f6081-0edb-431a-a864-cbf18d270fcf', '28fc7d3a-afc7-49ca-8070-eea8671abab3', '39cdb5c0-aa0b-4665-a732-e51cb0986e6d'),
 ('511b9380-ae00-4cde-8108-e010ef5fb21e', '28fc7d3a-afc7-49ca-8070-eea8671abab3', 'e7c48d91-851c-4542-ac7b-e8efb66d0f8e');
 
-INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
-('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
-('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
+INSERT INTO pages(id, slug, content, name, title_image_id, video_id) VALUES
+('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
+('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
 
 
 INSERT INTO participants(id, chat_id, user_id) VALUES

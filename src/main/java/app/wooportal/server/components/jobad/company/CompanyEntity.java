@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.components.location.address.AddressEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -41,6 +42,7 @@ public class CompanyEntity extends BaseEntity {
   private String mail;
 
   @Column(unique = true, nullable = false)
+  @DefaultSort
   private String name;
 
   private String phone;

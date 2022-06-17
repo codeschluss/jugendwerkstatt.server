@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class JobTypeEntity extends BaseEntity {
   private Set<JobAdEntity> jobAds;
 
   @Column(nullable = false, unique = true)
+  @DefaultSort
   private String name;
 
 }

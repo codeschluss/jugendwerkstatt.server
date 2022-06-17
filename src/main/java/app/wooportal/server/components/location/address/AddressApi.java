@@ -25,7 +25,7 @@ public class AddressApi extends CrudApi<AddressEntity, AddressService> {
   }
   
   @Override
-  @GraphQLQuery(name = "getAddresss")
+  @GraphQLQuery(name = "getAddresses")
   @ApprovedAndVerifiedPermission
   public PageableList<AddressEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
@@ -41,7 +41,7 @@ public class AddressApi extends CrudApi<AddressEntity, AddressService> {
   }
   
   @Override
-  @GraphQLMutation(name = "saveAddresss")
+  @GraphQLMutation(name = "saveAddresses")
   @AdminPermission
   public List<AddressEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<AddressEntity> entities) {
@@ -57,7 +57,7 @@ public class AddressApi extends CrudApi<AddressEntity, AddressService> {
   }
   
   @Override
-  @GraphQLMutation(name = "deleteAddresss")
+  @GraphQLMutation(name = "deleteAddresses")
   @AdminPermission
   public Boolean deleteAll(@GraphQLArgument(name = CrudApi.ids) List<String> ids) {
     return super.deleteAll(ids);

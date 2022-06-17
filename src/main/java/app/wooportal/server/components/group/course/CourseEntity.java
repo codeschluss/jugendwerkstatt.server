@@ -42,6 +42,7 @@ public class CourseEntity extends BaseEntity {
   private GroupEntity group;
   
   @Column(unique = true, nullable = false)
+  @DefaultSort
   private String name;
   
   @Column(nullable = false)

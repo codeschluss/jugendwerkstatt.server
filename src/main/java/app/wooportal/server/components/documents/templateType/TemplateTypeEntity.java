@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import app.wooportal.server.components.documents.template.TemplateEntity;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class TemplateTypeEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(nullable = false, unique = true)
+  @DefaultSort
   private String name;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateType")

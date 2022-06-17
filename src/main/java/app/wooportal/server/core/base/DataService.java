@@ -457,7 +457,7 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
   }
   
   protected void setParentToContext(
-      JsonNode context, 
+      JsonNode context,
       String fieldName, 
       E value) {
     if (context != null && fieldName != null && !fieldName.isBlank()) {

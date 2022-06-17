@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import app.wooportal.server.components.documents.templateType.TemplateTypeEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class UserTemplateEntity extends BaseEntity {
   private String content;
 
   @Column(nullable = false, unique = true)
+  @DefaultSort
   private String name;
 
   @ManyToOne(fetch = FetchType.LAZY)

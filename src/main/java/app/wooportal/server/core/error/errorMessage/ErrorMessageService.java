@@ -11,6 +11,7 @@ import app.wooportal.server.core.error.exception.DuplicateException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
 import app.wooportal.server.core.error.exception.InvalidTokenException;
 import app.wooportal.server.core.error.exception.InvalidVerificationException;
+import app.wooportal.server.core.error.exception.NotDeletableException;
 import app.wooportal.server.core.error.exception.NotFoundException;
 import app.wooportal.server.core.error.exception.NotNullableException;
 import app.wooportal.server.core.repository.DataRepository;
@@ -62,6 +63,10 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
     
     if (e instanceof InvalidVerificationException) {
       return "Verifizierung ungültig. Bitte erneute Verifizierungsmail erzeugen.";
+    }
+    
+    if (e instanceof NotDeletableException) {
+      return "Inhalt konnte nicht gelöscht werden, da Referenz auf andere Inhalte existiert. Lösche bitte zunächst die Referenz und probiere es erneut.";
     }
     
     if (e instanceof NotFoundException) {

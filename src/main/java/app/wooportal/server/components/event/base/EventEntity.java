@@ -18,6 +18,7 @@ import app.wooportal.server.components.event.organizer.OrganizerEntity;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.components.location.address.AddressEntity;
 import app.wooportal.server.core.base.BaseEntity;
+import app.wooportal.server.core.config.DefaultSort;
 import app.wooportal.server.core.media.base.MediaEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class EventEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(unique = true, nullable = false)
+  @DefaultSort
   private String name;
 
   @Column(nullable = false)
