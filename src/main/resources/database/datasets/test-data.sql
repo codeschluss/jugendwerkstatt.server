@@ -11,7 +11,11 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('af5c4d43-54f1-40d1-ba26-5895b91bb287', 'image/jpg', 'title image'),
 ('c96198d3-2bd6-48bf-9af4-d79fbf66a1a8', 'image/jpg', 'title image'),
 ('76460bc7-ed5c-4f70-a377-46e2cf49e86f', 'image/jpg', 'title image'),
-('ceb59217-29f6-4a58-a8f1-776b698a9c5a', 'video/mp4', 'GetRolled');
+('ceb59217-29f6-4a58-a8f1-776b698a9c5a', 'video/mp4', 'GetRolled'),
+('9b63a393-6a72-4d7a-b396-714964467d82', 'image/jpg', 'event image'),
+('c3b9e5a2-3064-4157-a6db-9624656c70f1', 'image/jpg', 'event image'),
+('3e19758d-0abc-4435-84ea-30eb8dddf352', 'image/jpg', 'event image'),
+('710cb609-3892-445f-a54d-3cc55de27fa4', 'image/jpg', 'event image');
 
 INSERT INTO chats(id, name, admin) VALUES
 ('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false),
@@ -85,6 +89,12 @@ INSERT INTO events (id, name, description, category_id, organizer_id, title_imag
 'd2f041f1-4817-47be-a49a-b6e494a4a8a6', 'af5c4d43-54f1-40d1-ba26-5895b91bb287', '4b2589d5-fc11-4cfd-be8a-c2471277b73d'),
 ('fa30c3b2-a14d-4627-a11b-d2704ee496eb', 'Christmas-Party', 'Celebration of the year 2022', 'c777f9a8-2061-4fc4-9cae-63130641e4d5',
 'd2f041f1-4817-47be-a49a-b6e494a4a8a6', '6359d990-bcfc-400a-b685-fe3d7ff9d1c0', '4b2589d5-fc11-4cfd-be8a-c2471277b73d');
+
+INSERT INTO event_media (id, event_id, media_id) VALUES
+('78d50278-a724-4d52-bc35-73916062b104', '440a6eec-be4d-47e8-b38d-3a819bc4624e', '9b63a393-6a72-4d7a-b396-714964467d82'),
+('2eb441af-7f17-4292-82a2-3bd3acfa8f5a', '440a6eec-be4d-47e8-b38d-3a819bc4624e', 'c3b9e5a2-3064-4157-a6db-9624656c70f1'),
+('82d2ac45-8a25-4e4f-9c96-a75f3d8fbc74', '440a6eec-be4d-47e8-b38d-3a819bc4624e', '3e19758d-0abc-4435-84ea-30eb8dddf352'),
+('ab6cbbbd-52f0-4f70-a619-f8bb8f5dfdcc', '440a6eec-be4d-47e8-b38d-3a819bc4624e', '710cb609-3892-445f-a54d-3cc55de27fa4');
 
 INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 ('2f2f8064-43e3-4e11-a157-d88d4f357e4c', '2022-10-19 10:00:00+02', '2022-10-19 16:00:00+02', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),

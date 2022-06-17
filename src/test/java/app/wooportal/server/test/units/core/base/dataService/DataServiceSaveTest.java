@@ -5,6 +5,7 @@ import static app.wooportal.server.test.units.services.ObjectFactory.newTestChil
 import static app.wooportal.server.test.units.services.ObjectFactory.newTestEntity;
 import static app.wooportal.server.test.units.services.ObjectFactory.newTestListChildEntity;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import app.wooportal.server.core.base.GraphBuilder;
 import app.wooportal.server.core.context.GraphQlContextAdapter;
 import app.wooportal.server.test.units.core.entities.base.TestEntity;
 import app.wooportal.server.test.units.core.entities.base.TestPredicateBuilder;
@@ -40,6 +42,7 @@ public class DataServiceSaveTest {
   
   private ObjectMapper mapper = new ObjectMapper();
   
+  @SuppressWarnings("unchecked")
   @BeforeEach
   public void init() throws Exception {
     
@@ -68,18 +71,26 @@ public class DataServiceSaveTest {
     
     contextAdapter = new GraphQlContextAdapter(mapper);
     
+    GraphBuilder<TestChildEntity> childGraph = mock(GraphBuilder.class);
+    when(childGraph.create(any(Class.class), any(List.class))).thenReturn(null);
     childService = new TestChildService(
         new RepoService<TestChildEntity>(List.of(child1)), 
         new TestChildPredicateBuilder());
     childService.setContext(contextAdapter);
     childService.setObjectMapper(mapper);
+    childService.setGraph(childGraph);
     
+    GraphBuilder<TestListChildEntity> listChildGraph = mock(GraphBuilder.class);
+    when(listChildGraph.create(any(Class.class), any(List.class))).thenReturn(null);
     listChildService = new TestListChildService(
         new RepoService<TestListChildEntity>(List.of(listChild1, listChild2, listChild3)), 
         new TestListChildPredicateBuilder());
     listChildService.setContext(contextAdapter);
     listChildService.setObjectMapper(mapper);
+    listChildService.setGraph(listChildGraph);
     
+    GraphBuilder<TestEntity> graph = mock(GraphBuilder.class);
+    when(graph.create(any(Class.class), any(List.class))).thenReturn(null);
     service = new TestService(
         new RepoService<TestEntity>(List.of(entity1, entity2)), 
         new TestPredicateBuilder(), 
@@ -87,6 +98,7 @@ public class DataServiceSaveTest {
         listChildService);
     service.setContext(contextAdapter);
     service.setObjectMapper(mapper);
+    service.setGraph(graph);
   }
   
   @Test
