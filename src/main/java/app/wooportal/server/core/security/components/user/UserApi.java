@@ -119,8 +119,8 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   
   @GraphQLMutation(name = "deleteUploads")
   @ApprovedAndVerifiedPermission
-  public Optional<UserEntity> deleteUpload(MediaEntity upload) {
-    return service.deleteUpload(upload);
+  public Optional<UserEntity> deleteUpload(List<String> uploadIds) {
+    return service.deleteUpload(uploadIds);
   }
   
   @GraphQLMutation(name = "sendPasswordReset")

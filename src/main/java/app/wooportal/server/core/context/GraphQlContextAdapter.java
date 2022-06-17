@@ -92,5 +92,4 @@ public class GraphQlContextAdapter implements ApiContextAdapter {
         ? request.getReader().lines().collect(Collectors.joining(System.lineSeparator()))
         : "";
   }
-
 }
