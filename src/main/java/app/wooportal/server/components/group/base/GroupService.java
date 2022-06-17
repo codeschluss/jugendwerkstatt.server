@@ -31,6 +31,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
     this.courseService = courseService;
 
   }
+
   @Override
   public Optional<GroupEntity> getExisting(GroupEntity entity) {
     return entity.getName() == null || entity.getName().isEmpty() ? Optional.empty()
@@ -113,32 +114,27 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
 
   public void updateActiveOrder() {
 
-    for (var group : repo.findAll()) {
+    for (var group : repo.findAll(query().addGraph(graph("courses"))).getList()) {
 
-      var courses = courseService
-          .readAll(courseService.query().and(courseService.getPredicate().withGroupId(group.getId())))
-          .getList();
-
+      var courses = group.getCourses();
       courses.sort((o1, o2) -> o1.getActiveOrder().compareTo(o2.getActiveOrder()));
 
-      var setNextCourseActive = false;
-      
       for (int i = 0; i < courses.size(); i++) {
 
         if (courses.get(i).getActive() == true && i == courses.size() - 1) {
           courses.get(i).setActive(false);
           courses.get(0).setActive(true);
-        }
-        else if(courses.get(i).getActive() == true) {
+          courseService.save(courses.get(i));
+          courseService.save(courses.get(0));
+          break;
+        } else if (courses.get(i).getActive() == true) {
           courses.get(i).setActive(false);
-          setNextCourseActive = true;
-        }
-        else if(courses.get(i).getActive()== false && setNextCourseActive == true) {
-          courses.get(i).setActive(true);
+          courses.get(i + 1).setActive(true);
+          courseService.save(courses.get(i));
+          courseService.save(courses.get(i + 1));
+          break;
         }
       }
-      courseService.saveAll(courses);
-        
     }
   }
 }
