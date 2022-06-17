@@ -177,10 +177,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   name: profile_picture_id
-                  type: CHAR(36)
-              - column:
-                  name: feedback_id
-                  type: CHAR(36)                  
+                  type: CHAR(36)               
               - column:
                   constraints:
                     nullable: false

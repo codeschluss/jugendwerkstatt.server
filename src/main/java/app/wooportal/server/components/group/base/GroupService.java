@@ -19,17 +19,17 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
   private final ChatService chatService;
   private final ParticipantService participantService;
   private final UserService userService;
-  private final CourseService courseService;
 
   public GroupService(DataRepository<GroupEntity> repo, GroupPredicateBuilder predicate,
       ChatService chatService, ParticipantService participantService, UserService userService,
       CourseService courseService) {
     super(repo, predicate);
+    
+    addService("courses", courseService);
+    
     this.chatService = chatService;
     this.participantService = participantService;
     this.userService = userService;
-    this.courseService = courseService;
-
   }
 
   @Override
@@ -114,6 +114,7 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
 
   public void updateActiveOrder() {
 
+    var courseService = getService(CourseService.class);
     for (var group : repo.findAll(query().addGraph(graph("courses"))).getList()) {
 
       var courses = group.getCourses();

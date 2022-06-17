@@ -3,7 +3,6 @@ package app.wooportal.server.components.group.feedback;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
-import app.wooportal.server.components.push.MessageDto;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
@@ -18,8 +17,8 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class FeedbackApi extends CrudApi<FeedbackEntity, FeedbackService> {
 
-  public FeedbackApi(FeedbackService FeedbackService) {
-    super(FeedbackService);
+  public FeedbackApi(FeedbackService feedbackService) {
+    super(feedbackService);
   }
 
   @Override

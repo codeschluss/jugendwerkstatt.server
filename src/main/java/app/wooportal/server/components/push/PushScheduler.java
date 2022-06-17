@@ -89,7 +89,6 @@ public class PushScheduler {
   
   public void createFeedbacks(List<UserEntity> users) {
     for (var user : users) {
-
       var courses =
           courseService
               .readAll(courseService.query().addGraph(courseService.graph("groups", "users"))
@@ -98,10 +97,10 @@ public class PushScheduler {
               .getList();
 
       if (!courses.isEmpty()) {
-      var feedback = new FeedbackEntity();
-      feedback.setUser(user);
-      feedback.setRating(null);
-      feedback.setCourse(courses.get(0)); 
+        var feedback = new FeedbackEntity();
+        feedback.setUser(user);
+        feedback.setRating(null);
+        feedback.setCourse(courses.get(0)); 
       }
     }
   }
