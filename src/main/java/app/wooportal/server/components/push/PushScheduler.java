@@ -70,10 +70,8 @@ public class PushScheduler {
       pushService.sendPush(users, message);
     }
   }
-
-  //  @Scheduled(cron = "0 0 10 25 * ?")
   
-  @Scheduled(cron = "* * * * * ?")
+  @Scheduled(cron = "0 0 10 25 * ?")
   public void pushForEvaluation() {
     var message =
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",

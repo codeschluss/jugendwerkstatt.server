@@ -171,10 +171,10 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     return currentUser;
   }
   
-  public Optional<UserEntity> deleteUpload(MediaEntity upload) {
+  public Optional<UserEntity> deleteUpload(List<String> uploads) {
     var currentUser = authorizationService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getUploads().remove(upload);
+      mediaService.deleteById(uploads.toArray(new String[uploads.size()]));
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
