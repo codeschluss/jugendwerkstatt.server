@@ -21,6 +21,7 @@ import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity
 import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.base.GroupEntity;
+import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.push.notification.NotificationEntity;
@@ -56,11 +57,13 @@ public class UserEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private GroupEntity group;
-
-  private Boolean evaluateCourse;
   
   @Column(unique = true, nullable = false)
   private String email;
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @EqualsAndHashCode.Exclude
+  private Set<FeedbackEntity> feedbacks;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_events", joinColumns = @JoinColumn(name = "user_id"),

@@ -88,12 +88,13 @@ INSERT INTO events (id, name, description, category_id, organizer_id, title_imag
 
 INSERT INTO schedules (id, start_date, end_date, event_id) VALUES
 ('2f2f8064-43e3-4e11-a157-d88d4f357e4c', '2022-10-19 10:00:00+02', '2022-10-19 16:00:00+02', '440a6eec-be4d-47e8-b38d-3a819bc4624e'),
-('4d43606f-1338-4e61-baec-e080d9e55400', '2022-05-05 18:00:00+02', '2022-05-05 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
-('58fa6c11-de2d-4c54-b85c-dab0d546473a', '2022-05-12 18:00:00+02', '2022-05-12 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
-('fc7965c6-ce88-4ecc-a455-045237370b9a', '2022-05-19 18:00:00+02', '2022-05-19 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
+('4d43606f-1338-4e61-baec-e080d9e55400', '2022-06-19 18:00:00+02', '2022-05-05 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
+('58fa6c11-de2d-4c54-b85c-dab0d546473a', '2022-06-18 18:00:00+02', '2022-05-12 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
+('fc7965c6-ce88-4ecc-a455-045237370b9a', '2022-06-20 18:00:00+02', '2022-05-19 20:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7'),
 ('fdfbfd8e-a940-433e-bdd9-fe91194131a7', '2022-09-15 10:00:00+02', '2022-09-15 14:00:00+02', '4d2a2a1f-1c36-471b-8483-ae18338a5fd6'),
 ('6cd32c9d-ac17-4e87-8a13-f8634bf8c069', '2022-07-10 19:00:00+02', '2022-07-10 22:00:00+02', '8b66b8d7-dd54-460b-b1f1-4204cc660872'),
-('f4db1b24-8f48-464f-9565-8d2057bf5bc2', '2022-05-23 19:00:00+02', '2022-05-23 22:00:00+02', 'fa30c3b2-a14d-4627-a11b-d2704ee496eb');
+('f4db1b24-8f48-464f-9565-8d2057bf5bc2', '2022-05-23 19:00:00+02', '2022-05-23 22:00:00+02', 'fa30c3b2-a14d-4627-a11b-d2704ee496eb'),
+('672889bc-4496-41b2-ac3e-6cf9f0679431', '2022-06-16 19:00:00+02', '2022-06-16 22:00:00+02', '3e9b15fb-02ce-4d09-bfcd-40751eaee1b7');
 
 INSERT INTO job_types (id, name, color) VALUES
 ('430d33c4-f0f2-42b1-927f-5270d91c7f32', 'metal trade', '#0000FF'),
@@ -198,7 +199,6 @@ INSERT INTO pages(id, slug, content, title_image_id, video_id) VALUES
 ('8e65e9a7-f980-4be2-b412-9ea0c085df04', 'https://jugendwerkstatt/titleimage/slug', 'image', '76460bc7-ed5c-4f70-a377-46e2cf49e86f', null),
 ('3c918357-244d-4a6c-8b87-223da7364cdf', 'https://jugendwerkstatt/openingvideo/slug', 'video', null, 'ceb59217-29f6-4a58-a8f1-776b698a9c5a');
 
-
 INSERT INTO participants(id, chat_id, user_id) VALUES
 ('87c048f9-26fb-4b3f-9d37-f03556c08edd', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('75cd4f05-816a-45d0-b242-e12b00499e7f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
@@ -219,4 +219,7 @@ INSERT INTO read_receipts(id, message_id, participant_id) VALUES
 
 INSERT INTO notifications(id, title, content, read, user_id) VALUES
 ('af3c1da6-585d-47fd-ab18-d0c987be8872', 'ThisIsTheTitle', 'ThisIsTheContent', true, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('794560a6-76da-41b3-a5f3-f868f764caad', 'SecondTitle', 'SecondContent', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
+('794560a6-76da-41b3-a5f3-f868f764caad', 'SecondTitle', 'SecondContent', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('c80f0c5e-50ef-49df-9dba-9fab914c0de5', 'Notification', 'ThisIsANotification', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
+('750a6cc3-ba6c-429c-9753-2c43b744d614', 'AnotherNotification', 'ThisIsAnotherNotification', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
+

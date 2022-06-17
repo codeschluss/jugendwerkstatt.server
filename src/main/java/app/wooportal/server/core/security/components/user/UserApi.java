@@ -87,10 +87,22 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return service.addJobAdFavorite(jobAdId);
   }
   
+  @GraphQLMutation(name = "deleteJobAdFavorite")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> deleteJobAdFavorite(String jobAdId) {
+    return service.deleteJobAdFavorite(jobAdId);
+  }
+  
   @GraphQLMutation(name = "addEventFavorite")
   @ApprovedAndVerifiedPermission
-  public Optional<UserEntity> addEventFavorite(String jobAdId) {
-    return service.addEventFavorite(jobAdId);
+  public Optional<UserEntity> addEventFavorite(String eventId) {
+    return service.addEventFavorite(eventId);
+  }
+  
+  @GraphQLMutation(name = "deleteEventFavorite")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> deleteEventFavorite(String eventId) {
+    return service.deleteEventFavorite(eventId);
   }
   
   @GraphQLMutation(name = "addRoles")
@@ -105,10 +117,17 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return service.addUploads(uploads);
   }
   
+  @GraphQLMutation(name = "deleteUploads")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> deleteUpload(MediaEntity upload) {
+    return service.deleteUpload(upload);
+  }
+  
   @GraphQLMutation(name = "sendPasswordReset")
   public Boolean forgetPassword(String mailAddress) {
     return service.createPasswordReset(mailAddress);
   }
+  
   
   @GraphQLMutation(name = "resetPassword")
   public Boolean resetPassword(String key, String password) {
