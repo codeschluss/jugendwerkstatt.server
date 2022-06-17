@@ -7,7 +7,6 @@ import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
-import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.security.permissions.AdminPermission;
 import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -20,8 +19,8 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class EventApi extends CrudApi<EventEntity, EventService> {
 
-  public EventApi(EventService EventService) {
-    super(EventService);
+  public EventApi(EventService eventService) {
+    super(eventService);
   }
 
   @Override
@@ -70,7 +69,7 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
   
   @GraphQLQuery(name = "nextSchedule")
   @ApprovedAndVerifiedPermission
-  public ScheduleEntity getNextSchedule(@GraphQLContext EventEntity event) {
+  public Optional<ScheduleEntity> getNextSchedule(@GraphQLContext EventEntity event) {
     return service.getNextSchedule(event);
   }
 }

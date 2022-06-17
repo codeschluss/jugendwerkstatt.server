@@ -5,8 +5,6 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
-import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
-import app.wooportal.server.components.evaluation.assignment.AssignmentService;
 import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.jobad.base.JobAdService;
 import app.wooportal.server.components.push.subscription.SubscriptionService;
@@ -28,8 +26,6 @@ import app.wooportal.server.core.utils.ReflectionUtils;
 
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
-
-  private final AssignmentService assignmentService;
   
   private final AuthorizationService authorizationService;
   
@@ -41,10 +37,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   private final MediaService mediaService;
   
-  private final RoleService roleService;
-  
   public UserService(
-      AssignmentService assignmentService,
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
       AuthorizationService authorizationService,
@@ -58,15 +51,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       VerificationService verificationService) {
     super(repo, predicate);
 
-    this.assignmentService = assignmentService;
     this.authorizationService = authorizationService;
     this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     this.eventService = eventService;
     this.jobAdService = jobAdService;
     this.mediaService = mediaService;
-    this.roleService = roleService;
+    
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);
+    addService("roles", roleService);
     addService("subscriptions", subscriptionService);
     addService("uploads", mediaService);
     addService("verification", verificationService);
@@ -98,13 +91,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       setContext("approved", context);
       
       newEntity.setVerified(false);
+      setContext("verified", context);
     }
   }
   
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAdService.getById(jobAdId).get());
+    var jobAd = jobAdService.getById(jobAdId);
+    if (currentUser.isPresent() && jobAd.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAd.get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -112,18 +107,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   public Optional<UserEntity> deleteJobAdFavorite(String jobAdId) {
     var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getFavoriteJobAds().remove(jobAdService.getById(jobAdId).get());
-      return Optional.of(repo.save(currentUser.get()));
-    }
-    return currentUser;
-  }
-  
-  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
-    var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getAssignments().addAll(
-          assignmentService.saveAll(assignments));
+    var jobAd = jobAdService.getById(jobAdId);
+    if (currentUser.isPresent() && jobAd.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteJobAds().remove(jobAd.get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -131,8 +117,9 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   public Optional<UserEntity> addEventFavorite(String eventId) {
     var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getFavoriteEvents().add(eventService.getById(eventId).get());
+    var event = eventService.getById(eventId);
+    if (currentUser.isPresent() && event.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteEvents().add(event.get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
@@ -140,25 +127,12 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   public Optional<UserEntity> deleteEventFavorite(String eventId) {
     var currentUser = authorizationService.getAuthenticatedUser();
-    if (currentUser.isPresent()) {
-      getById(currentUser.get().getId()).get().getFavoriteEvents().remove(eventService.getById(eventId).get());
+    var event = eventService.getById(eventId);
+    if (currentUser.isPresent() && event.isPresent()) {
+      getById(currentUser.get().getId()).get().getFavoriteEvents().remove(event.get());
       return Optional.of(repo.save(currentUser.get()));
     }
     return currentUser;
-  }
-  
-  public Optional<UserEntity> addRoles(String userId, List<String> roleIds) {
-    var user = getById(userId);
-    if (user.isPresent()) {
-      for(var roleId: roleIds) {
-        var role = roleService.getById(roleId);
-        if (role.isPresent()) {
-          user.get().getRoles().add(role.get());
-        }
-      }
-      return Optional.of(repo.save(user.get()));
-    }
-    return user;
   }
   
   public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {

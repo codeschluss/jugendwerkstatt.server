@@ -25,11 +25,11 @@ public class SchedulePredicateBuilder extends PredicateBuilder<QScheduleEntity, 
     return query.event.eq(event);
   }
   
-  public BooleanExpression withNotPastDates(OffsetDateTime date) {
+  public BooleanExpression withStartDateAfter(OffsetDateTime date) {
     return query.startDate.after(date);
   }
   
-  public BooleanExpression withDate(OffsetDateTime date) {
+  public BooleanExpression withStartDate(OffsetDateTime date) {
     return query.startDate.after(date.withMinute(0).withHour(0))
       .and(query.startDate.before(date.withMinute(59).withHour(23)));
   }

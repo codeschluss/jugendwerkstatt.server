@@ -3,7 +3,6 @@ package app.wooportal.server.core.security.components.user;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
-import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
@@ -75,12 +74,6 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
-  @GraphQLMutation(name = "addAssignments")
-  @ApprovedAndVerifiedPermission
-  public Optional<UserEntity> addAssignments(List<AssignmentEntity> assignments) {
-    return service.addAssignments(assignments);
-  }
-  
   @GraphQLMutation(name = "addJobAdFavorite")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
@@ -103,12 +96,6 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> deleteEventFavorite(String eventId) {
     return service.deleteEventFavorite(eventId);
-  }
-  
-  @GraphQLMutation(name = "addRoles")
-  @AdminPermission
-  public Optional<UserEntity> addRoles(String userId, List<String> roleIds) {
-    return service.addRoles(userId, roleIds);
   }
   
   @GraphQLMutation(name = "addUploads")

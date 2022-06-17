@@ -8,6 +8,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 
 @Getter
@@ -50,12 +51,20 @@ public class Query<E extends BaseEntity> {
     return instance;
   }
 
-  private Query<E> setEntityClass(Class<E> entityClass) {
+  protected Query<E> setEntityClass(Class<E> entityClass) {
     this.entityClass = entityClass;
     return this;
   }
+  
+  public Query<E> sort(String... properties) {
+    return sort(Direction.ASC, properties);
+  }
+  
+  public Query<E> sort(Direction dir, String... properties) {
+    return setSort(SortPageUtils.createSort(dir, properties));
+  }
 
-  public Query<E> setSort(Sort sort) {
+  protected Query<E> setSort(Sort sort) {
     this.sort = sort;
 
     if (this.page != null) {
