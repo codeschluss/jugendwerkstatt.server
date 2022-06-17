@@ -179,6 +179,9 @@ databaseChangeLog:
                   name: profile_picture_id
                   type: CHAR(36)               
               - column:
+                  name: feedback_id
+                  type: CHAR(36)                  
+              - column:
                   constraints:
                     nullable: false
                   name: verified

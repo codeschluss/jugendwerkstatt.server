@@ -152,6 +152,7 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return service.createPasswordReset(mailAddress);
   }
   
+  
   @GraphQLMutation(name = "resetPassword")
   public Boolean resetPassword(String key, String password) {
     return service.resetPassword(key, password);

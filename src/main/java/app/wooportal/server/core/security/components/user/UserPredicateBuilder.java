@@ -46,5 +46,4 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   public BooleanExpression withGroupNotNull() {
     return query.group.isNotNull();
   }
-
 }

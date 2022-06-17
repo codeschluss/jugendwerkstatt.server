@@ -46,6 +46,36 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
 
     return feedbacks != null && feedbacks.size() > 0 ? sum / feedbacks.size() : sum;
   }
+
+  // public void updateActiveOrder() {
+  //
+  // var highestOrder = 0;
+  // var currentActiveOrder = 0;
+  //
+  // for (var course : repo.findAll()) {
+  //
+  // for (var courseHighestOrder : course.getGroup().getCourses()) {
+  //
+  // if (courseHighestOrder.getActiveOrder() > highestOrder) {
+  // highestOrder = courseHighestOrder.getActiveOrder();
+  // }
+  // }
+  // for (var courseActiveOrder : course.getGroup().getCourses()) {
+  //
+  // if (courseActiveOrder.getActive() == true && currentActiveOrder != highestOrder) {
+  // currentActiveOrder = course.getActiveOrder() + 1;
+  // } else if (courseActiveOrder.getActive() == true){
+  // currentActiveOrder = 1;
+  // }
+  // }
+  //
+  // if (course.getActive() == false && course.getActiveOrder() == currentActiveOrder) {
+  // course.setActive(true);
+  // } else {
+  // course.setActive(false);
+  // }
+  // }
+  // }
 }
 
 
