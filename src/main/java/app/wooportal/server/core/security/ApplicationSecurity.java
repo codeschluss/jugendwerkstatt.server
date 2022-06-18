@@ -16,21 +16,21 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import app.wooportal.server.core.security.filter.JwtAuthorizationFilter;
-import app.wooportal.server.core.security.services.AuthorizationService;
+import app.wooportal.server.core.security.services.AuthenticationService;
 import app.wooportal.server.core.security.services.JwtUserDetailsService;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
-  private final AuthorizationService authService;
+  private final AuthenticationService authService;
 
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
   
   private final JwtUserDetailsService userDetailsService;
 
   public ApplicationSecurity(
-      AuthorizationService authService,
+      AuthenticationService authService,
       BCryptPasswordEncoder encoder,
       JwtUserDetailsService userDetailsService) {
     this.authService = authService;
@@ -70,9 +70,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
   }
 
   public JwtAuthorizationFilter jwtAuthorizationFilter() throws Exception {
-    return new JwtAuthorizationFilter(
-        authenticationManager(), 
-        authService);
+    return new JwtAuthorizationFilter(authService);
   }
   
   @Bean

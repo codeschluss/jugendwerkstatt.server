@@ -1,11 +1,8 @@
 package app.wooportal.server.core.security.components.token;
 
-import java.util.Collections;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
-import app.wooportal.server.core.security.JwtUserDetails;
+import app.wooportal.server.core.security.services.AuthenticationService;
 import app.wooportal.server.core.security.services.JwtUserDetailsService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -13,17 +10,17 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 @GraphQLApi
 public class TokenApi {
-
-  private final AuthenticationManager authManager;
+  
+  private final AuthenticationService authService;
 
   private final TokenService tokenService;
 
   private final JwtUserDetailsService userDetailService;
 
-  public TokenApi(AuthenticationManager authManager, TokenService tokenService,
+  public TokenApi(AuthenticationService authService, TokenService tokenService,
       JwtUserDetailsService userDetailService) {
 
-    this.authManager = authManager;
+    this.authService = authService;
     this.tokenService = tokenService;
     this.userDetailService = userDetailService;
   }
@@ -31,17 +28,15 @@ public class TokenApi {
   @GraphQLMutation(name = "createToken")
   public TokenDto createToken(String username, String password) {
     try {
-      var jwtUserDetails = (JwtUserDetails) authManager
-          .authenticate(
-              new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList()))
-          .getPrincipal();
+      var jwtUserDetails = authService.authenticate(username, password);
 
-      return new TokenDto(
-          tokenService.createAccessToken(jwtUserDetails),
-          tokenService.createRefreshToken(jwtUserDetails));
-    } catch (Exception e) {
-      throw new BadCredentialsException(username);
-    }
+      if (jwtUserDetails.isPresent()) {
+        return new TokenDto(
+            tokenService.createAccessToken(jwtUserDetails.get()),
+            tokenService.createRefreshToken(jwtUserDetails.get()));
+      }
+    } catch (Exception ignored) { }
+    throw new BadCredentialsException(username);
   }
 
   @GraphQLMutation(name = "refreshToken")

@@ -81,6 +81,13 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
+  
+  @GraphQLMutation(name = "deleteMe")
+  @ApprovedAndVerifiedPermission
+  public Boolean deleteMe(String password) {
+    return service.deleteMe(password);
+  }
+  
   @GraphQLMutation(name = "addJobAdFavorite")
   @ApprovedAndVerifiedPermission
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {

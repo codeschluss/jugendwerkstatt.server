@@ -21,13 +21,13 @@ import app.wooportal.server.core.security.components.passwordReset.PasswordReset
 import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import app.wooportal.server.core.security.components.verification.VerificationService;
-import app.wooportal.server.core.security.services.AuthorizationService;
+import app.wooportal.server.core.security.services.AuthenticationService;
 import app.wooportal.server.core.utils.ReflectionUtils;
 
 @Service
 public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
-  private final AuthorizationService authorizationService;
+  private final AuthenticationService authService;
   
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -40,7 +40,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public UserService(
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
-      AuthorizationService authorizationService,
+      AuthenticationService authService,
       BCryptPasswordEncoder bcryptPasswordEncoder,
       EventService eventService,
       JobAdService jobAdService,
@@ -51,7 +51,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       VerificationService verificationService) {
     super(repo, predicate);
 
-    this.authorizationService = authorizationService;
+    this.authService = authService;
     this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     this.eventService = eventService;
     this.jobAdService = jobAdService;
@@ -70,7 +70,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> me() {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       return getById(currentUser.get().getId());
     }
@@ -96,7 +96,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> saveMe(UserEntity entity) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       entity.setId(currentUser.get().getId());
       return Optional.of(saveWithContext(entity));
@@ -105,7 +105,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     var jobAd = jobAdService.getById(jobAdId);
     if (currentUser.isPresent() && jobAd.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAd.get());
@@ -115,7 +115,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> deleteJobAdFavorite(String jobAdId) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     var jobAd = jobAdService.getById(jobAdId);
     if (currentUser.isPresent() && jobAd.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteJobAds().remove(jobAd.get());
@@ -125,7 +125,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addEventFavorite(String eventId) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     var event = eventService.getById(eventId);
     if (currentUser.isPresent() && event.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteEvents().add(event.get());
@@ -135,7 +135,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> deleteEventFavorite(String eventId) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     var event = eventService.getById(eventId);
     if (currentUser.isPresent() && event.isPresent()) {
       getById(currentUser.get().getId()).get().getFavoriteEvents().remove(event.get());
@@ -145,7 +145,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> addUploads(List<MediaEntity> uploads) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       getById(currentUser.get().getId()).get().getUploads().addAll(
           mediaService.saveAll(uploads));
@@ -155,7 +155,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> deleteUpload(List<String> uploads) {
-    var currentUser = authorizationService.getAuthenticatedUser();
+    var currentUser = authService.getAuthenticatedUser();
     if (currentUser.isPresent()) {
       mediaService.deleteById(uploads.toArray(new String[uploads.size()]));
       return Optional.of(repo.save(currentUser.get()));
@@ -221,5 +221,14 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       return repo.save(user);
     }
     throw new InvalidVerificationException("Verification invalid", key);
+  }
+
+  public Boolean deleteMe(String password) {
+    var currentUser = authService.authenticateCurrentUser(password);
+    if (currentUser.isPresent()) {
+      deleteById(currentUser.get().getUser().getId());
+      return true;
+    }
+    return false;
   }
 }

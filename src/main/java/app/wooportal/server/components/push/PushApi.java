@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.error.exception.InvalidTokenException;
 import app.wooportal.server.core.security.components.user.UserService;
 import app.wooportal.server.core.security.permissions.AdminPermission;
-import app.wooportal.server.core.security.services.AuthorizationService;
+import app.wooportal.server.core.security.services.AuthenticationService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLSubscription;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -14,13 +14,13 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class PushApi {
 
-  private final AuthorizationService authService;
+  private final AuthenticationService authService;
   private final PushService pushService;
   private final GraphQlPushService graphQlPushService;
   private final UserService userService;
 
   public PushApi(
-      AuthorizationService authService,
+      AuthenticationService authService,
       PushService pushService,
       GraphQlPushService graphQlPushService,
       UserService userService) {
