@@ -60,6 +60,13 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.saveOne(entity);
   }
   
+  @GraphQLMutation(name = "saveMe")
+  @ApprovedAndVerifiedPermission
+  public Optional<UserEntity> saveMe(
+      @GraphQLArgument(name = CrudApi.entity) UserEntity entity) {
+    return service.saveMe(entity);
+  }
+  
   @Override
   @GraphQLMutation(name = "deleteUsers")
   @AdminPermission
@@ -114,7 +121,6 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   public Boolean forgetPassword(String mailAddress) {
     return service.createPasswordReset(mailAddress);
   }
-  
   
   @GraphQLMutation(name = "resetPassword")
   public Boolean resetPassword(String key, String password) {

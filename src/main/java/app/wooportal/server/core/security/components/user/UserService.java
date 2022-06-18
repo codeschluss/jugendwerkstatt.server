@@ -95,6 +95,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
   }
   
+  public Optional<UserEntity> saveMe(UserEntity entity) {
+    var currentUser = authorizationService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      entity.setId(currentUser.get().getId());
+      return Optional.of(saveWithContext(entity));
+    }
+    return currentUser;
+  }
+  
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     var currentUser = authorizationService.getAuthenticatedUser();
     var jobAd = jobAdService.getById(jobAdId);

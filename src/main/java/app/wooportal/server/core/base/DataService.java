@@ -129,13 +129,24 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
         ? Optional.empty()
         : predicate.withId(id).flatMap(withId -> repo.findOne(withId));
   }
+  
+  public Optional<E> getByExampleWithContext(E entity) {
+    return getByExample(entity, context.getSingleReadContext());
+  }
 
   public Optional<E> getByExample(E entity) {
+    return getByExample(entity, null);
+  }
+  
+  public Optional<E> getByExample(E entity, List<graphql.language.Field> context) {
     if (entity != null) {
-      var result = repo.findAll(
-          query()
-            .and(predicate.withExample(entity))
-            .addGraph(graph.create(getEntityClass(), context.getSingleReadContext())));
+      var query = query().and(predicate.withExample(entity));
+      
+      if (context != null && !context.isEmpty()) {
+        query.addGraph(graph.create(getEntityClass(), context));
+      }
+      
+      var result = repo.findAll(query);
       return Optional.ofNullable(result != null && !result.isEmpty() ? result.get(0) : null);
     }
     return Optional.empty();
@@ -216,10 +227,10 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
   @SuppressWarnings("unchecked")
   protected E prepare(E entity) {
     entity = (E) Hibernate.unproxy(entity);
-    var id = ReflectionUtils.get("id", entity);
-    if (id.isEmpty() || ((String) id.get()).isBlank()) {
+    var id = entity.getId();
+    if (id == null || id.isEmpty() || id.isBlank()) {
       var uid = UUID.randomUUID().toString();
-      ReflectionUtils.set("id", entity, uid);
+      entity.setId(uid);
     }
     return entity;
   }
@@ -307,7 +318,8 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
         }
         fieldValue = saveManyToMany((Collection<E>) fieldValue, getService(fieldName), context);
       }
-      if (fieldValue != null || PersistenceUtils.isNullable(entity, fieldName)) {        
+      if (!fieldName.equals("id")
+          && (fieldValue != null || PersistenceUtils.isNullable(entity, fieldName))) {        
         Object value = getService(fieldName) == null || fieldValue == null || Collection.class.isAssignableFrom(fieldValue.getClass())
             ? fieldValue instanceof String ? ((String) fieldValue).strip() : fieldValue
             : getService(fieldName).save((E) fieldValue, context);

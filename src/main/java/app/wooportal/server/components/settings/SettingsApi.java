@@ -19,12 +19,13 @@ public class SettingsApi extends CrudApi<SettingsEntity, SettingsService> {
     super(SettingService);
   }
   
-  @Override
   @GraphQLQuery(name = "getSettings")
   @ApprovedAndVerifiedPermission
-  public Optional<SettingsEntity> readOne(
-      @GraphQLArgument(name = CrudApi.entity) SettingsEntity entity) {
-    return super.readOne(entity);
+  public Optional<SettingsEntity> readOne() {
+    var settings = service.readAll(service.query());
+    return settings != null && !settings.isEmpty()
+        ? Optional.of(settings.get(0))
+        : Optional.empty();
   }
   
   @Override
@@ -32,7 +33,10 @@ public class SettingsApi extends CrudApi<SettingsEntity, SettingsService> {
   @AdminPermission
   public SettingsEntity saveOne(
       @GraphQLArgument(name = CrudApi.entity) SettingsEntity entity) {
-    return super.saveOne(entity);
+    var settings = readOne();
+    return settings.isPresent()
+        ? service.persist(settings.get(), entity, null)
+        : null;
   }
   
 }
