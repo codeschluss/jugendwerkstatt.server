@@ -3,10 +3,14 @@ package app.wooportal.server.core.security.components.user;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
+import app.wooportal.server.components.push.MessageDto;
+import app.wooportal.server.components.push.NotificationType;
+import app.wooportal.server.components.push.PushService;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
 import app.wooportal.server.core.media.base.MediaEntity;
+import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.permissions.AdminPermission;
 import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -18,9 +22,14 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @Component
 public class UserApi extends CrudApi<UserEntity, UserService> {
   
+  private final PushService pushService;
+  
   public UserApi(
-      UserService userService) {
+      UserService userService,
+      PushService pushService) {
     super(userService);
+    
+    this.pushService = pushService;
   }
   
   @Override
@@ -81,11 +90,25 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     return super.deleteOne(id);
   }
   
-  
   @GraphQLMutation(name = "deleteMe")
   @ApprovedAndVerifiedPermission
   public Boolean deleteMe(String password) {
-    return service.deleteMe(password);
+    var deletedUser = service.deleteMe(password);
+
+    if (deletedUser.isPresent()) {
+      var message = new MessageDto();
+      message.setTitle("Benutzer gelöscht");
+      message.setContent("Benutzer mit dem Namen: " + deletedUser.get().getFullname()
+          + " hat soeben das Benutzerkonto gelöscht");
+      message.setType(NotificationType.deletedUser);
+      
+      pushService.sendPush(
+          service.readAll(service.query().and(service.getPredicate().withRole(RoleService.admin)))
+              .getList(),
+          message);
+      return true;
+    }
+    return false;
   }
   
   @GraphQLMutation(name = "addJobAdFavorite")

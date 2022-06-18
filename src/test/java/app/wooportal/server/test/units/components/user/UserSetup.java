@@ -66,7 +66,7 @@ public class UserSetup {
 
     service.setGraph(new GraphBuilder<>(entityManager));
     service.setContext(new TestApiContextAdapter());
-    api = new UserApi(service);
+    api = new UserApi(service, null);
   }
 
   private MediaService createMediaService(List<MediaEntity> uploadData) {

@@ -50,6 +50,7 @@ public class PushService {
     switch(message.getType()) {
       case evaluation:
       case event:
+      case deletedUser:
       case global:
       case jobAd:
         var notification = new NotificationEntity();

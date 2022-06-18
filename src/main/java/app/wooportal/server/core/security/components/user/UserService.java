@@ -223,12 +223,12 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     throw new InvalidVerificationException("Verification invalid", key);
   }
 
-  public Boolean deleteMe(String password) {
+  public Optional<UserEntity> deleteMe(String password) {
     var currentUser = authService.authenticateCurrentUser(password);
     if (currentUser.isPresent()) {
       deleteById(currentUser.get().getUser().getId());
-      return true;
+      return Optional.of(currentUser.get().getUser());
     }
-    return false;
+    return Optional.empty();
   }
 }

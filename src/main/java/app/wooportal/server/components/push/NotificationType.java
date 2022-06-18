@@ -1,3 +1,11 @@
 package app.wooportal.server.components.push;
 
-public enum NotificationType {message, evaluation, jobAd, event, global, readReceipt};
+public enum NotificationType {
+  evaluation,
+  event,
+  deletedUser,
+  global,
+  jobAd,
+  message,
+  readReceipt
+};
