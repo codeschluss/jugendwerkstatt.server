@@ -50,6 +50,7 @@ public class MessageEntity extends BaseEntity {
   private Set<ReadReceiptEntity> readReceipts;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
   private UserEntity user;
 
 }

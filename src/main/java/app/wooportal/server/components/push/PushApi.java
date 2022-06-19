@@ -47,6 +47,16 @@ public class PushApi {
     }
     return graphQlPushService.addListener(user);
   }
+  
+  @GraphQLSubscription
+  public Publisher<MessageDto> addChatListener(String token) {
+    var user =  authService.getUserFromToken(token);
+    
+    if (user.isEmpty()) {
+      throw new InvalidTokenException("Invalid token, either user doesn't exist or token invalid", token);
+    }
+    return graphQlPushService.addChatListener(user);
+  }
 }
 
 

@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.messaging.message.MessageEntity;
+import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,6 @@ public class ChatEntity extends BaseEntity {
   @EqualsAndHashCode.Exclude
   private Set<MessageEntity> messages;
 
-  @Column(unique = true, nullable = false)
   private String name;
   
   @OneToOne(mappedBy = "chat", fetch = FetchType.LAZY)
@@ -44,7 +44,7 @@ public class ChatEntity extends BaseEntity {
   
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
-  private Set<MessageEntity> participants;
+  private Set<ParticipantEntity> participants;
   
 }
 

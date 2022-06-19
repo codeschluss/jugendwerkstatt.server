@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import app.wooportal.server.components.messaging.chat.ChatEntity;
 import app.wooportal.server.components.messaging.readReceipt.ReadReceiptEntity;
 import app.wooportal.server.core.base.BaseEntity;
@@ -22,7 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
-@Table(name = "participants")
+@Table(name = "participants", uniqueConstraints =
+  @UniqueConstraint(columnNames = { "chat_id", "user_id" }))
 public class ParticipantEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;

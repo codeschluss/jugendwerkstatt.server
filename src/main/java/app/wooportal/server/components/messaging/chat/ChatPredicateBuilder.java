@@ -1,5 +1,6 @@
 package app.wooportal.server.components.messaging.chat;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
@@ -19,5 +20,10 @@ public class ChatPredicateBuilder extends PredicateBuilder<QChatEntity, ChatEnti
 
   public BooleanExpression withName(String name) {
     return query.name.equalsIgnoreCase(name);
+  }
+
+  public BooleanExpression withUsers(List<String> list) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

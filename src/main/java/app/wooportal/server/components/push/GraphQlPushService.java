@@ -12,6 +12,8 @@ import reactor.core.publisher.FluxSink;
 public class GraphQlPushService {
 
   private final ConcurrentMultiMap<String, FluxSink<MessageDto>> subscribers = new ConcurrentMultiMap<>();
+  
+  private final ConcurrentMultiMap<String, FluxSink<MessageDto>> chatSubscribers = new ConcurrentMultiMap<>();
 
   public Publisher<MessageDto> addListener(Optional<UserEntity> user) {
     return Flux.create(
@@ -21,7 +23,27 @@ public class GraphQlPushService {
         FluxSink.OverflowStrategy.LATEST);
   }
 
+  public Publisher<MessageDto> addChatListener(Optional<UserEntity> user) {
+    return Flux.create(
+        subscriber -> chatSubscribers.add(
+          user.get().getId(), 
+          subscriber.onDispose(() -> chatSubscribers.remove(user.get().getId(), subscriber))), 
+        FluxSink.OverflowStrategy.LATEST);
+  }
+  
   public void sendPush(UserEntity user, MessageDto message) {
-    subscribers.get(user.getId()).forEach(subscriber -> subscriber.next(message));
+    switch(message.getType()) {
+      case chat:
+        chatSubscribers.get(user.getId()).forEach(subscriber -> subscriber.next(message));
+        break;
+      case deletedUser:
+      case evaluation:
+      case event:
+      case global:
+      case jobAd:
+      case readReceipt:
+      default:
+        subscribers.get(user.getId()).forEach(subscriber -> subscriber.next(message));
+    }
   }
 }

@@ -42,7 +42,10 @@ public class ChatApi extends CrudApi<ChatEntity, ChatService> {
   @Override
   @GraphQLMutation(name = "saveChat")
   public ChatEntity saveOne(@GraphQLArgument(name = CrudApi.entity) ChatEntity entity) {
-    return super.saveOne(entity);
+    var existing = service.getByParticipantUsersAndCurrentUser(entity.getParticipants());
+    return existing.isPresent()
+        ? existing.get()
+        : super.saveOne(entity);
   }
 
   @Override

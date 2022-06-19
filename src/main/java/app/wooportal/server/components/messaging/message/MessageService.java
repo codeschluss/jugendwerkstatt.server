@@ -3,7 +3,6 @@ package app.wooportal.server.components.messaging.message;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
-import app.wooportal.server.components.messaging.chat.ChatService;
 import app.wooportal.server.components.push.MessageDto;
 import app.wooportal.server.components.push.NotificationType;
 import app.wooportal.server.components.push.PushService;
@@ -18,20 +17,17 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
   private final AuthenticationService authService;
   private final UserService userService;
   private final PushService pushService;
-  private final ChatService chatService;
 
   public MessageService(
       DataRepository<MessageEntity> repo,
       MessagePredicateBuilder predicate,
       AuthenticationService authService,
       UserService userService,
-      PushService pushService,
-      ChatService chatService) {
+      PushService pushService) {
     super(repo, predicate);
     this.authService = authService;
     this.userService = userService;
     this.pushService = pushService;
-    this.chatService = chatService;
   }
   
   @Override
@@ -47,14 +43,19 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
   @Override
   protected void postSave(MessageEntity saved, MessageEntity newEntity, JsonNode context) {
     var message = new MessageDto(
-        chatService.getById(saved.getChat().getId()).get().getName(),saved.getContent(),
-        Map.of(NotificationType.chat.toString(), saved.getChat().getId()),
+        saved.getChat().getName(),
+        saved.getContent(),
+        Map.of(
+            NotificationType.chat.toString(),
+            saved.getChat().getId()),
         NotificationType.chat);
     
     var users = userService.readAll(userService.query()
-        .addGraph(userService.graph("subscriptions"))
-        .and(userService.getPredicate().withChat(saved.getChat().getId()))).getList();
+          .addGraph(userService.graph("subscriptions"))
+          .and(userService.getPredicate().withChat(saved.getChat().getId())))
+        .getList();
     
+    users.removeIf(user -> user.getId().equals(saved.getUser().getId()));
     pushService.sendPush(users, message);
   }
 }
