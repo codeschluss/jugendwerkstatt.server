@@ -46,6 +46,5 @@ public class ChatEntity extends BaseEntity {
   @EqualsAndHashCode.Exclude
   private Set<MessageEntity> participants;
   
-
 }
 

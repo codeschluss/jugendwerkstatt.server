@@ -32,7 +32,8 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
         Map.of(NotificationType.readReceipt.toString(), saved.getId(),
             "ParticipantId", saved.getParticipant().getId(),
             "MessageId", saved.getMessage().getId(),
-            "ChatId", saved.getMessage().getChat().getId()));
+            "ChatId", saved.getMessage().getChat().getId()),
+        NotificationType.readReceipt);
     
     var users = userService.readAll(userService.query()
         .addGraph(userService.graph("subscriptions"))

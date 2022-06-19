@@ -47,7 +47,8 @@ public class PushScheduler {
       var message = new MessageDto("Erinnerung zum Event",
           MessageFormat.format("{0} findet am {1} statt.", schedule.getEvent().getName(),
               schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))),
-          Map.of(NotificationType.event.toString(), schedule.getEvent().getId()));
+          Map.of(NotificationType.event.toString(), schedule.getEvent().getId()),
+          NotificationType.event);
 
       pushService.sendPush(userService.getRepo().findAll(), message);
     }
@@ -60,7 +61,8 @@ public class PushScheduler {
       var message = new MessageDto("Erinnerung zum Jobangebot",
           MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(),
               jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))),
-          Map.of(NotificationType.jobAd.toString(), jobAd.getId()));
+          Map.of(NotificationType.jobAd.toString(), jobAd.getId()),
+          NotificationType.jobAd);
 
       var users =
           userService.readAll(userService.query()
@@ -75,7 +77,8 @@ public class PushScheduler {
   public void pushForEvaluation() {
     var message =
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",
-            Map.of(NotificationType.evaluation.toString(), "evaluation"));
+            Map.of(NotificationType.evaluation.toString(), "evaluation"),
+            NotificationType.evaluation);
 
     var users = userService
         .readAll(userService.query().addGraph(userService.graph("subscriptions", "groups"))         

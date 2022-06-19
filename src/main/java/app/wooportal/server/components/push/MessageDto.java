@@ -25,10 +25,12 @@ public class MessageDto {
   public MessageDto(
       String title,
       String content,
-      Map<String, String> data) {
+      Map<String, String> data,
+      NotificationType type) {
     setTitle(title);
     setContent(content);
     setData(data);
+    setType(type);
   }
   
 }

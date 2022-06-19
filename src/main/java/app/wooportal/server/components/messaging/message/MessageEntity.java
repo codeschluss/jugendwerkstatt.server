@@ -51,6 +51,5 @@ public class MessageEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private UserEntity user;
-  
 
 }
