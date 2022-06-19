@@ -2,6 +2,8 @@ package app.wooportal.server.components.messaging.chat;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
 
@@ -22,8 +24,13 @@ public class ChatPredicateBuilder extends PredicateBuilder<QChatEntity, ChatEnti
     return query.name.equalsIgnoreCase(name);
   }
 
-  public BooleanExpression withUsers(List<String> list) {
-    // TODO Auto-generated method stub
-    return null;
+  public Predicate withUsers(List<String> userIds) {
+    var builder = new BooleanBuilder();
+    
+    for (var userId : userIds) {
+      builder.and(query.participants.any().user.id.eq(userId));
+    }
+    
+    return builder.getValue();
   }
 }
