@@ -12,6 +12,7 @@ import app.wooportal.server.components.group.base.GroupService;
 import app.wooportal.server.components.group.course.CourseService;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.jobad.base.JobAdService;
+import app.wooportal.server.components.push.notification.NotificationService;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.security.components.user.UserService;
 
@@ -24,13 +25,15 @@ public class PushScheduler {
   private final UserService userService;
   private final CourseService courseService;
   private final GroupService groupService;
+  private final NotificationService notificationService;
 
   public PushScheduler(PushService pushService,
       ScheduleService scheduleService,
       JobAdService jobAdService, 
       UserService userService,
       CourseService courseService,
-      GroupService groupService) {
+      GroupService groupService,
+      NotificationService notificationService) {
 
     this.pushService = pushService;
     this.scheduleService = scheduleService;
@@ -38,6 +41,8 @@ public class PushScheduler {
     this.userService = userService;
     this.courseService = courseService;
     this.groupService = groupService;
+    this.notificationService = notificationService;
+    
   }
 
   @Scheduled(cron = "0 0 7 * * ?")
@@ -74,6 +79,11 @@ public class PushScheduler {
   }
 <<<<<<< Upstream, based on main
 <<<<<<< Upstream, based on main
+  
+  @Scheduled(cron = "0 0 6 * * ?")
+  public void deleteOldReadNotifications() {
+     notificationService.deleteAll(notificationService.olderThan14days());
+    }
   
   @Scheduled(cron = "0 0 10 25 * ?")
 =======

@@ -16,16 +16,16 @@ public class JobAdPredicateBuilder extends PredicateBuilder<QJobAdEntity, JobAdE
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.title.likeIgnoreCase(term)
-        .or(query.company.name.likeIgnoreCase(term))
+    return query.title.likeIgnoreCase(term).or(query.company.name.likeIgnoreCase(term))
         .or(query.type.name.likeIgnoreCase(term));
   }
 
   public BooleanExpression withTitle(String title) {
     return query.title.equalsIgnoreCase(title);
   }
+
   public BooleanExpression withDate(OffsetDateTime date) {
     return query.dueDate.after(date.withMinute(0).withHour(0))
-      .and(query.dueDate.before(date.withMinute(59).withHour(23)));
-}
+        .and(query.dueDate.before(date.withMinute(59).withHour(23)));
+  }
 }

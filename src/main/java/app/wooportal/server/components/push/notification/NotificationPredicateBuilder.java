@@ -1,5 +1,6 @@
 package app.wooportal.server.components.push.notification;
 
+import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
@@ -18,4 +19,7 @@ public class NotificationPredicateBuilder
         .or(query.content.likeIgnoreCase(term));
   }
 
+  public BooleanExpression olderThan14Days() {
+    return query.created.before(OffsetDateTime.now().minusDays(14));
+  }
 }
