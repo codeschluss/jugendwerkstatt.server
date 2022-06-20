@@ -69,7 +69,7 @@ public class SearchService {
         searchResult.setContent(template.getContent());
         searchResult.setType(SearchResultType.jobAd);
         list.add(searchResult);
-        
+
       }
     }
     return list;

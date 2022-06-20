@@ -7,13 +7,11 @@ import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermiss
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
-
 @GraphQLApi
 @Component
 public class SearchApi {
 
   private final SearchService searchService;
-
 
   public SearchApi(SearchService searchService) {
 
@@ -24,8 +22,5 @@ public class SearchApi {
   @ApprovedAndVerifiedPermission
   public List<SearchDto> search(FilterSortPaginate params) {
     return searchService.search(params);
-
   }
 }
-
-
