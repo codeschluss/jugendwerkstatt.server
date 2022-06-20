@@ -34,7 +34,7 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   
   @Override
   @GraphQLQuery(name = "getUsers")
-  @AdminPermission
+  @ApprovedAndVerifiedPermission
   public PageableList<UserEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
