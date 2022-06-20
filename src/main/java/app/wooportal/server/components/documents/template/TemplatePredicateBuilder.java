@@ -21,5 +21,4 @@ public class TemplatePredicateBuilder extends PredicateBuilder<QTemplateEntity, 
   public BooleanExpression withTitle(String name) {
     return query.name.equalsIgnoreCase(name);
   }
-
 }

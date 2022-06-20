@@ -19,23 +19,17 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
   private final ChatService chatService;
   private final ParticipantService participantService;
   private final UserService userService;
-  private final CourseService courseService;
+
 
   public GroupService(DataRepository<GroupEntity> repo, GroupPredicateBuilder predicate,
-      ChatService chatService, ParticipantService participantService, UserService userService,
-      CourseService courseService) {
+      ChatService chatService, ParticipantService participantService, UserService userService) {
     super(repo, predicate);
-    
-    addService("courses", courseService);
     
     this.chatService = chatService;
     this.participantService = participantService;
     this.userService = userService;
-<<<<<<< Upstream, based on main
-=======
-    this.courseService = courseService;
 
->>>>>>> c09ab6a #257, 246, 248
+
   }
 
   @Override

@@ -77,36 +77,21 @@ public class PushScheduler {
       pushService.sendPush(users, message);
     }
   }
-<<<<<<< Upstream, based on main
-<<<<<<< Upstream, based on main
+
   
   @Scheduled(cron = "0 0 6 * * ?")
   public void deleteOldReadNotifications() {
      notificationService.deleteAll(notificationService.olderThan14days());
     }
-  
-  @Scheduled(cron = "0 0 10 25 * ?")
-=======
 
-  //  @Scheduled(cron = "0 0 10 25 * ?")
-=======
->>>>>>> 60c3f50 245,248,257
-  
-<<<<<<< Upstream, based on main
-  @Scheduled(cron = "* * * * * ?")
->>>>>>> c09ab6a #257, 246, 248
-=======
   @Scheduled(cron = "0 0 10 25 * ?")
->>>>>>> 60c3f50 245,248,257
   public void pushForEvaluation() {
     var message =
         new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",
-<<<<<<< Upstream, based on main
+
             Map.of(NotificationType.evaluation.toString(), "evaluation"),
             NotificationType.evaluation);
-=======
-            Map.of(NotificationType.evaluation.toString(), "evaluation"));
->>>>>>> c09ab6a #257, 246, 248
+
 
     var users = userService
         .readAll(userService.query().addGraph(userService.graph("subscriptions", "groups"))         
@@ -120,7 +105,6 @@ public class PushScheduler {
   
   public void createFeedbacks(List<UserEntity> users) {
     for (var user : users) {
-<<<<<<< Upstream, based on main
       var courses =
           courseService
               .readAll(courseService.query().addGraph(courseService.graph("groups", "users"))
@@ -133,21 +117,6 @@ public class PushScheduler {
         feedback.setUser(user);
         feedback.setRating(null);
         feedback.setCourse(courses.get(0)); 
-=======
-
-      var courses =
-          courseService
-              .readAll(courseService.query().addGraph(courseService.graph("groups", "users"))
-                  .and(courseService.getPredicate().isActive()
-                  .and(courseService.getPredicate().withGroupId(user.getGroup().getId()))))
-              .getList();
-
-      if (!courses.isEmpty()) {
-      var feedback = new FeedbackEntity();
-      feedback.setUser(user);
-      feedback.setRating(null);
-      feedback.setCourse(courses.get(0)); 
->>>>>>> c09ab6a #257, 246, 248
       }
     }
   }
