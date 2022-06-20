@@ -155,11 +155,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   }
   
   public Optional<UserEntity> deleteUpload(List<String> uploads) {
-<<<<<<< Upstream, based on main
     var currentUser = authService.getAuthenticatedUser();
-=======
-    var currentUser = authorizationService.getAuthenticatedUser();
->>>>>>> 60c3f50 245,248,257
     if (currentUser.isPresent()) {
       mediaService.deleteById(uploads.toArray(new String[uploads.size()]));
       return Optional.of(repo.save(currentUser.get()));
