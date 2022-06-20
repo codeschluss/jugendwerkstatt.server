@@ -79,7 +79,9 @@ public class PushScheduler {
   
   @Scheduled(cron = "0 0 6 * * ?")
   public void deleteOldReadNotifications() {
-     notificationService.deleteAll(notificationService.olderThan14days());
+     notificationService.deleteAll(notificationService.readAll(notificationService.query()
+         .and(notificationService.getPredicate().olderThan(14))
+         .and(notificationService.getPredicate().read())).getList());
     }
   
   @Scheduled(cron = "0 0 10 25 * ?")
