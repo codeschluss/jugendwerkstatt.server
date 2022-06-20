@@ -19,7 +19,11 @@ public class NotificationPredicateBuilder
         .or(query.content.likeIgnoreCase(term));
   }
 
-  public BooleanExpression olderThan14Days() {
-    return query.created.before(OffsetDateTime.now().minusDays(14));
+  public BooleanExpression olderThan(Integer days) {
+    return query.created.before(OffsetDateTime.now().minusDays(days));
+  }
+
+  public BooleanExpression read() {
+    return query.read.isTrue();
   }
 }
