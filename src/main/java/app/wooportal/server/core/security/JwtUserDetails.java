@@ -33,11 +33,11 @@ public class JwtUserDetails extends User {
   }
   
   public String[] getRoles() {
-    return roles.stream().map(RoleEntity::getName).toArray(String[]::new);
+    return roles.stream().map(RoleEntity::getKey).toArray(String[]::new);
   }
 
   public boolean isAdmin() {
-    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.admin));
+    return roles.stream().anyMatch(role -> role.getKey().equalsIgnoreCase(RoleService.admin));
   }
   
   public boolean isApproved() {
@@ -45,7 +45,7 @@ public class JwtUserDetails extends User {
   }
   
   public boolean isSuperviser() {
-    return roles.stream().anyMatch(role -> role.getName().equalsIgnoreCase(RoleService.superviser));
+    return roles.stream().anyMatch(role -> role.getKey().equalsIgnoreCase(RoleService.superviser));
   }
   
   public boolean isVerified() {
