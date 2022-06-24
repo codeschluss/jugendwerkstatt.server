@@ -16,6 +16,8 @@ public class MediaHtmlDto {
   
   private String html;
   
+  private ExportType type;
+  
   public String getHtml() {
     if (!html.contains("<body>")) {
       html = String.format("<body style=\"font-family: Arial, Helvetica, sans-serif;\">%s</body>", html);
@@ -39,6 +41,6 @@ public class MediaHtmlDto {
       """, html);
     }
     
-    return html;
+    return html.strip();
   }
 }
