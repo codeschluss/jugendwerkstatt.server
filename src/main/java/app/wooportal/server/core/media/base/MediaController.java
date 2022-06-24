@@ -18,20 +18,20 @@ public class MediaController {
   }
 
   @GetMapping(value = "/media/{id}")
-//  @ApprovedAndVerifiedPermission
+  // @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> getMedia(@PathVariable String id) throws IOException {
     return service.getMedia(id);
   }
-  
-  @GetMapping(value = "/media/  /{id}")
-//  @ApprovedAndVerifiedPermission
+
+  @GetMapping(value = "/media/download/{id}")
+  // @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> download(@PathVariable String id) throws IOException {
     return service.download(id);
   }
-  
-  @PostMapping(value = "/media/pdf")
-//  @ApprovedAndVerifiedPermission
-  public ResponseEntity<byte[]> generatePdf(@RequestBody MediaHtmlDto content) throws IOException {
-    return service.generatePdf(content);
+
+  @PostMapping(value = "/media/export")
+  // @ApprovedAndVerifiedPermission
+  public ResponseEntity<byte[]> export(@RequestBody MediaHtmlDto content) throws Exception {
+    return service.export(content);
   }
 }
