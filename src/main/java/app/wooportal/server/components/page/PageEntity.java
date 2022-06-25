@@ -47,10 +47,8 @@ public class PageEntity extends BaseEntity {
   private String slug;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private MediaEntity titleImage;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private MediaEntity video;
 }
