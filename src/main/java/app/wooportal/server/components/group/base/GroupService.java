@@ -1,5 +1,6 @@
 package app.wooportal.server.components.group.base;
 
+import java.util.HashSet;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,18 +17,22 @@ import app.wooportal.server.core.security.components.user.UserService;
 @Service
 public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder> {
 
-  private final ChatService chatService;
   private final ParticipantService participantService;
+  
   private final UserService userService;
 
-  public GroupService(DataRepository<GroupEntity> repo, GroupPredicateBuilder predicate,
-      ChatService chatService, ParticipantService participantService, UserService userService,
+  public GroupService(
+      DataRepository<GroupEntity> repo,
+      GroupPredicateBuilder predicate,
+      ChatService chatService,
+      ParticipantService participantService,
+      UserService userService,
       CourseService courseService) {
     super(repo, predicate);
     
     addService("courses", courseService);
+    addService("chat", chatService);
     
-    this.chatService = chatService;
     this.participantService = participantService;
     this.userService = userService;
   }
@@ -43,25 +48,23 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
   }
 
   @Override
-  protected void postSave(GroupEntity saved, GroupEntity newEntity, JsonNode context) {
-    if (saved.getChat() == null) {
+  protected void preSave(GroupEntity entity, GroupEntity newEntity, JsonNode context) {
+    if (entity.getChat() == null) {
       var chat = new ChatEntity();
-      chat.setName(saved.getName());
+      chat.setName(newEntity.getName());
       chat.setAdmin(false);
-      chatService.save(chat);
-      
-      newEntity.setChat(chat);
-      repo.save(newEntity);
 
-      if (saved.getUsers() != null) {
-
-        for (var user : saved.getUsers()) {
+      if (newEntity.getUsers() != null) {
+        var participants = new HashSet<ParticipantEntity>();
+        for (var user : newEntity.getUsers()) {
           var participant = new ParticipantEntity();
           participant.setChat(chat);
           participant.setUser(user);
-          participantService.save(participant);
+          participants.add(participant);
         }
       }
+      newEntity.setChat(chat);
+      setContext("chat", context);
     }
   }
 
