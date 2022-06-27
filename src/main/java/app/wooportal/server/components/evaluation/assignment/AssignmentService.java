@@ -25,7 +25,10 @@ public class AssignmentService extends DataService<AssignmentEntity, AssignmentP
   protected void preSave(AssignmentEntity entity, AssignmentEntity newEntity, JsonNode context) {
     if (newEntity.getAnswers() != null) {
       newEntity.setAssignmentState(getService(AssignmentStateService.class).getDoneState());
-      setContext("assignmentState", context); 
+      setContext("assignmentState", context);
+    } else {
+      newEntity.setAssignmentState(getService(AssignmentStateService.class).getAssignedState());
+      setContext("assignmentState", context);
     }
   }
 }

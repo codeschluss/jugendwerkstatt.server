@@ -14,10 +14,8 @@ public class LinkPredicateBuilder extends PredicateBuilder<QLinkEntity, LinkEnti
   @Override
   public BooleanExpression freeSearch(String term) {
     return query.title.likeIgnoreCase(term).or(query.url.likeIgnoreCase(term))
-        .or(query.category.name.likeIgnoreCase(term));
-  }
-
-  public BooleanExpression withTitle(String name) {
-    return query.title.equalsIgnoreCase(name);
+        .or(query.category.name.likeIgnoreCase(term)
+        .or(query.id.likeIgnoreCase(term))
+        .or(query.url.likeIgnoreCase(term)));
   }
 }

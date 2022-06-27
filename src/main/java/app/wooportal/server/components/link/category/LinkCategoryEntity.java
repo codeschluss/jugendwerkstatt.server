@@ -28,7 +28,7 @@ public class LinkCategoryEntity extends BaseEntity {
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
-  private Set<LinkEntity> link;
+  private Set<LinkEntity> links;
 
   @Column(unique = true, nullable = false)
   private String name;

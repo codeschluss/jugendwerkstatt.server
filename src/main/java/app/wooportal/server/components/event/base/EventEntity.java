@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import app.wooportal.server.components.event.category.EventCategoryEntity;
 import app.wooportal.server.components.event.organizer.OrganizerEntity;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
@@ -33,6 +36,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "events")
+@GenericGenerator(
+    name = "UUID",
+    strategy = "org.hibernate.id.UUIDGenerator"
+)
 public class EventEntity extends BaseEntity {
 
   @Serial
@@ -61,6 +68,11 @@ public class EventEntity extends BaseEntity {
   @JoinTable(name = "event_media", joinColumns = @JoinColumn(name = "event_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"event_id", "media_id"})})
+  @CollectionId(
+      column = @Column(name = "id"),
+      type = @Type(type = "uuid-char"),
+      generator = "UUID"
+  )
   private List<MediaEntity> images;
 
   @ManyToOne(fetch = FetchType.LAZY)

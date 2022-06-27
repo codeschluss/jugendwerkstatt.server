@@ -7,10 +7,7 @@ import app.wooportal.server.core.repository.DataRepository;
 @Service
 public class LinkService extends DataService<LinkEntity, LinkPredicateBuilder> {
 
-  public LinkService(
-      DataRepository<LinkEntity> repo, 
-      LinkPredicateBuilder predicate) {
+  public LinkService(DataRepository<LinkEntity> repo, LinkPredicateBuilder predicate) {
     super(repo, predicate);
   }
-  
 }
