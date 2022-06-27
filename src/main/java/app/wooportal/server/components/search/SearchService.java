@@ -67,7 +67,7 @@ public class SearchService {
         searchResult.setId(template.getId());
         searchResult.setTitle(template.getName());
         searchResult.setContent(template.getContent());
-        searchResult.setType(SearchResultType.jobAd);
+        searchResult.setType(SearchResultType.template);
         list.add(searchResult);
 
       }
