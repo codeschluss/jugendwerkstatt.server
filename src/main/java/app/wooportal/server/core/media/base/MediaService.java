@@ -1,15 +1,11 @@
 package app.wooportal.server.core.media.base;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
@@ -109,7 +105,7 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
     var document = Jsoup.parse(content.getHtml(), "UTF-8");
     document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
     try (var os = new ByteArrayOutputStream()) {
-      PdfRendererBuilder builder = new PdfRendererBuilder();
+      var builder = new PdfRendererBuilder();
       builder.toStream(os);
       builder.withW3cDocument(new W3CDom().fromJsoup(document), "/");
       builder.run();
@@ -123,18 +119,16 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public ResponseEntity<byte[]> exportDocx(MediaHtmlDto content) throws Exception {
 
-    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.createPackage();
-    MainDocumentPart mainDocumentPart = wordMLPackage.getMainDocumentPart();
-    XHTMLImporterImpl XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
-    mainDocumentPart.getContent().addAll(XHTMLImporter.convert(content.getHtml(), null));
+    var wordMLPackage = WordprocessingMLPackage.createPackage();
+    var XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
+    wordMLPackage.getMainDocumentPart().getContent()
+        .addAll(XHTMLImporter.convert(content.getHtml(), null));
 
-    try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+    try (var os = new ByteArrayOutputStream()) {
       wordMLPackage.save(os);
 
       return ResponseEntity.ok().headers(createHeader(content.getName(), "docx"))
           .body(os.toByteArray());
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
