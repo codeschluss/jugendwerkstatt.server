@@ -31,15 +31,15 @@ INSERT INTO courses(id, name, group_id, active, active_order) VALUES
 ('ab36cc61-a884-4da8-be52-db8f19abcbd1', 'Metall 2', 'f5983943-b1a3-4265-bf88-208ecbbd09a3', false, 2),
 ('dce3746a-6109-45fd-8bfa-09bb99378d37', 'Holz1', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e', true, 1);
 
-INSERT INTO users (id, approved, fullname, email, group_id, profile_picture_id, password, phone, evaluate_course, verified) VALUES
-('36808f63-4b6b-40e7-b2ee-a91f657e4e58', true, 'Student', 'student@example.com', 'f5983943-b1a3-4265-bf88-208ecbbd09a3', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '22222222', false, true),
-('e14e5d92-0b4a-47b3-991d-ac18dd6923b3', true, 'Student2', 'student2@example.com', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333', false, true),
-('528250c0-e0e3-4166-aa71-0f150eb2453f', true, 'Superviser', 'superviser@example.com', null, '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '444444', false, true),
-('dd939b40-be89-41ca-b031-fef2dc82a536', true, 'Not Veried User', 'notverified@example.com', null, 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '55555555', false, false),
-('71a857db-dd35-4d08-bb0f-20115a584ee5', false, 'Not Approved User', 'notapproved@example.com', null, 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666', false, true),
-('f9cfca3d-691e-490a-8969-1e016b1d5cff', true, 'Admin1', 'admin1@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '12345568', false, true),
-('c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', true, 'Admin2', 'admin2@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '2345667', false, true),
-('e404285e-4278-44ce-a6de-a2463088ee64', true, 'Admin3', 'admin3@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '4567798', false, true);
+INSERT INTO users (id, approved, fullname, email, group_id, profile_picture_id, password, phone, verified) VALUES
+('36808f63-4b6b-40e7-b2ee-a91f657e4e58', true, 'Student', 'student@example.com', 'f5983943-b1a3-4265-bf88-208ecbbd09a3', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '22222222', true),
+('e14e5d92-0b4a-47b3-991d-ac18dd6923b3', true, 'Student2', 'student2@example.com', '1f8c55b2-4210-4eea-bc14-6a6d55cc538e', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333', true),
+('528250c0-e0e3-4166-aa71-0f150eb2453f', true, 'Superviser', 'superviser@example.com', null, '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '444444', true),
+('dd939b40-be89-41ca-b031-fef2dc82a536', true, 'Not Veried User', 'notverified@example.com', null, 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '55555555', false),
+('71a857db-dd35-4d08-bb0f-20115a584ee5', false, 'Not Approved User', 'notapproved@example.com', null, 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666', true),
+('f9cfca3d-691e-490a-8969-1e016b1d5cff', true, 'Admin1', 'admin1@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '12345568', true),
+('c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', true, 'Admin2', 'admin2@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '2345667', true),
+('e404285e-4278-44ce-a6de-a2463088ee64', true, 'Admin3', 'admin3@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '4567798', true);
 
 INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('cfae19fc-ee80-4462-ac53-72631e5a52c1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'bde2722b-c45e-4256-b81a-721982d75f5b'),

@@ -167,11 +167,6 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   constraints:
-                    nullable: false
-                  name: evaluate_course
-                  type: boolean
-              - column:
-                  constraints:
                     unique: true
                   name: phone
                   type: VARCHAR(255)
