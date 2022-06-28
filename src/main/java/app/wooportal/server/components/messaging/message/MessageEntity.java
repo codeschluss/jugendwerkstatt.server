@@ -36,7 +36,6 @@ public class MessageEntity extends BaseEntity {
   @JoinColumn(nullable = false)
   private ChatEntity chat;
 
-  @Column(nullable = false)
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)
