@@ -1,5 +1,6 @@
 package app.wooportal.server.components.messaging.message;
 
+import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
@@ -19,5 +20,11 @@ public class MessagePredicateBuilder extends PredicateBuilder<QMessageEntity, Me
 
   public BooleanExpression withContent(String name) {
     return query.content.equalsIgnoreCase(name);
+  }
+  public BooleanExpression withChat(String chatId) {
+    return query.chat.id.equalsIgnoreCase(chatId);
+  }
+  public BooleanExpression withStartDateAfter(OffsetDateTime date) {
+    return query.created.after(date);
   }
 }

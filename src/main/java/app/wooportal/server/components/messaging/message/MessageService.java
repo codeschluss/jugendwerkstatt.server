@@ -7,6 +7,7 @@ import app.wooportal.server.components.push.MessageDto;
 import app.wooportal.server.components.push.NotificationType;
 import app.wooportal.server.components.push.PushService;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.repository.DataRepository;
 import app.wooportal.server.core.security.components.user.UserService;
 import app.wooportal.server.core.security.services.AuthenticationService;
@@ -23,11 +24,14 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
       MessagePredicateBuilder predicate,
       AuthenticationService authService,
       UserService userService,
-      PushService pushService) {
+      PushService pushService,
+      MediaService mediaService) {
     super(repo, predicate);
     this.authService = authService;
     this.userService = userService;
     this.pushService = pushService;
+    
+    addService("media", mediaService);
   }
   
   @Override
