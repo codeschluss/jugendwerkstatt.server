@@ -32,12 +32,18 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
     if (participants != null && !participants.isEmpty()) {
       var userIds = new ArrayList<String>();
       userIds.addAll(participants.stream().map(p -> p.getUser().getId()).toList());
+      userIds.add(authService.getAuthenticatedUser().get().getId());
       var result = repo.findAll(query()
-            .and(predicate.withUsers(userIds.stream().distinct().toList())))
+            .and(predicate.withUsers(userIds.stream().distinct().toList()))
+            .addGraph(graph("participants")))
           .getList();
       
       if (result != null && !result.isEmpty()) {
-        return Optional.of(result.get(0));
+        for (var chat: result) {
+          if (chat.getParticipants().size() == userIds.size()) {
+            return Optional.of(chat);
+          } 
+        }
       }
     }
     return Optional.empty();
