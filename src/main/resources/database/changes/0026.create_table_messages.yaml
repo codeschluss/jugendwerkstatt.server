@@ -27,7 +27,6 @@ databaseChangeLog:
                   type: TIMESTAMP WITH TIME ZONE
               - column:
                   constraints:
-                    nullable: false
                   name: content
                   type: VARCHAR(265)
               - column:
