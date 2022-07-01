@@ -32,9 +32,9 @@ public class FirebasePushService {
   }
 
   private void initializePushService(PushConfig config) throws IOException {
-    ClassPathResource firebaseConfigFile = new ClassPathResource(config.getCredentials());
-
-    if (firebaseConfigFile.exists() && FirebaseApp.getApps().isEmpty()) {
+    var firebaseConfigFile = new ClassPathResource(config.getCredentials());
+    
+    if (FirebaseApp.getApps().isEmpty()) {
       FirebaseApp.initializeApp(FirebaseOptions.builder()
           .setCredentials(GoogleCredentials.fromStream(firebaseConfigFile.getInputStream()))
           .build());
