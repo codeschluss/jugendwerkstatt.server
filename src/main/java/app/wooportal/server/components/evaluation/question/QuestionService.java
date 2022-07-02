@@ -18,7 +18,6 @@ public class QuestionService extends DataService<QuestionEntity, QuestionPredica
 
   }
   public double calculateAverageRating(QuestionEntity question, Integer year){
-    
     var answers = answerService.readAll(answerService.query()
         .and(answerService.getPredicate().withYear(year))
         .and(answerService.getPredicate().withQuestionId(question.getId()))).getList();

@@ -16,7 +16,9 @@ public class AnswerPredicateBuilder extends PredicateBuilder<QAnswerEntity, Answ
     return (query.question.item.likeIgnoreCase(term));
   }
   public BooleanExpression withYear(Integer year) {
-    return query.created.year().eq(year);
+    return year != null
+        ? query.created.year().eq(year)
+        : null;
 }
   
   public BooleanExpression withQuestionId(String courseId) {
