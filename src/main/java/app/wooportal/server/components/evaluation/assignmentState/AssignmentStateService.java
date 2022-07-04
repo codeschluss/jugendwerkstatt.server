@@ -16,8 +16,8 @@ public class AssignmentStateService extends DataService<AssignmentStateEntity, A
       DataRepository<AssignmentStateEntity> repo, 
       AssignmentStatePredicateBuilder predicate) {
     super(repo, predicate);
-
   }
+  
   @Override
   public Optional<AssignmentStateEntity> getExisting(AssignmentStateEntity entity) {
     return entity.getName() == null || entity.getName().isEmpty()

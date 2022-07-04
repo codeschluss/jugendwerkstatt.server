@@ -56,7 +56,7 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
     
     var users = userService.readAll(userService.query()
           .addGraph(userService.graph("subscriptions"))
-          .and(userService.getPredicate().withChat(saved.getChat().getId())))
+          .and(userService.getPredicate().withMessage(saved.getId())))
         .getList();
     
     users.removeIf(user -> user.getId().equals(saved.getUser().getId()));

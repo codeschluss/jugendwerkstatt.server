@@ -24,4 +24,8 @@ public class ReadReceiptPredicateBuilder
   public BooleanExpression withUser(String event) {
     return query.participant.id.equalsIgnoreCase(event);
   }
+
+  public BooleanExpression withParticipantAndMessage(String participantId, String messageId) {
+    return query.participant.id.eq(participantId).and(query.message.id.eq(messageId));
+  }
 }
