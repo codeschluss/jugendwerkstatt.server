@@ -1,6 +1,7 @@
 package app.wooportal.server.components.messaging.readReceipt;
 
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.components.push.MessageDto;
@@ -23,21 +24,34 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
     super(repo, predicate);
 
     this.pushService = pushService;
-    this.userService = userService;
-    
+    this.userService = userService;  
   }
+  
+  @Override
+  public Optional<ReadReceiptEntity> getExisting(ReadReceiptEntity entity) {
+    return entity.getParticipant() == null || entity.getMessage() == null
+        ? Optional.empty()
+        : getByParticipantAndMessage(
+            entity.getParticipant().getId(),
+            entity.getMessage().getId());
+  }
+  
+  private Optional<ReadReceiptEntity> getByParticipantAndMessage(String participantId, String messageId) {
+    return repo.findOne(
+        predicate.withParticipantAndMessage(participantId, messageId));
+  }
+
   @Override
   protected void postSave(ReadReceiptEntity saved, ReadReceiptEntity newEntity, JsonNode context) {
-    var message= new MessageDto(null, null,
-        Map.of(NotificationType.readReceipt.toString(), saved.getId(),
+    var message = new MessageDto(null, null,
+        Map.of(NotificationType.chat.toString(), saved.getId(),
             "ParticipantId", saved.getParticipant().getId(),
-            "MessageId", saved.getMessage().getId(),
-            "ChatId", saved.getMessage().getChat().getId()),
-        NotificationType.readReceipt);
+            "MessageId", saved.getMessage().getId()),
+        NotificationType.chat);
     
     var users = userService.readAll(userService.query()
         .addGraph(userService.graph("subscriptions"))
-        .and(userService.getPredicate().withChat(saved.getMessage().getChat().getId()))).getList();
+        .and(userService.getPredicate().withMessage(saved.getMessage().getId()))).getList();
     
     pushService.sendPush(users, message);
   }

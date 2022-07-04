@@ -41,7 +41,6 @@ public class GraphQlPushService {
       case event:
       case global:
       case jobAd:
-      case readReceipt:
       default:
         subscribers.get(user.getId()).forEach(subscriber -> subscriber.next(message));
     }

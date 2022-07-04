@@ -6,6 +6,5 @@ public enum NotificationType {
   event,
   deletedUser,
   global,
-  jobAd,
-  readReceipt
+  jobAd
 };
