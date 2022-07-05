@@ -1,4 +1,4 @@
-package app.wooportal.server.components.call.base;
+package app.wooportal.server.components.messaging.call;
 
 import app.wooportal.server.core.repository.DataRepository;
 import org.springframework.stereotype.Repository;

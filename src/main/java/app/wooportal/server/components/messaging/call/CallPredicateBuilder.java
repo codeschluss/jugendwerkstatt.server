@@ -1,4 +1,4 @@
-package app.wooportal.server.components.call.base;
+package app.wooportal.server.components.messaging.call;
 
 import org.springframework.stereotype.Service;
 import com.querydsl.core.types.dsl.BooleanExpression;
