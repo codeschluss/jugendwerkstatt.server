@@ -43,7 +43,10 @@ public class ReadReceiptApi extends CrudApi<ReadReceiptEntity, ReadReceiptServic
   @Override
   @GraphQLMutation(name = "saveReadReceipt")
   public ReadReceiptEntity saveOne(@GraphQLArgument(name = CrudApi.entity) ReadReceiptEntity entity) {
-    return super.saveOne(entity);
+    var existing = service.getByUserAndMessage(entity.getMessage().getId());
+    return existing.isPresent()
+        ? existing.get()
+        : super.saveOne(entity);
   }
 
   @Override
