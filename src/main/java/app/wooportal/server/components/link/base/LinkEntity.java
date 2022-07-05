@@ -33,7 +33,7 @@ public class LinkEntity extends BaseEntity {
   @Column(unique = true, nullable = false)
   private String title;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String url;
 
 
