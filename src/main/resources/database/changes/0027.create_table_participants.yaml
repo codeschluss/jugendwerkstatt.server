@@ -60,4 +60,29 @@ databaseChangeLog:
             onDelete: SET NULL
             referencedColumnNames: id
             referencedTableName: users
-            validate: true                      
+            validate: true      
+  - changeSet:
+      id: 0027.create_table_participants.6
+      author: codeschluss
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: participant_id
+            indexName: idx_fkw6vpgnyskyluec6t4u3k31zwt
+            tableName: messages
+  - changeSet:
+      id: 0027.create_table_participants.7
+      author: codeschluss
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: participant_id
+            baseTableName: messages
+            constraintName: fkw6vpgnyskyluec6t4u3k31zwt
+            deferrable: false
+            initiallyDeferred: false
+            onUpdate: CASCADE
+            onDelete: SET NULL
+            referencedColumnNames: id
+            referencedTableName: participants
+            validate: true                               

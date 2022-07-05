@@ -23,7 +23,6 @@ import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
-import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.push.notification.NotificationEntity;
 import app.wooportal.server.components.push.subscription.SubscriptionEntity;
@@ -81,10 +80,6 @@ public class UserEntity extends BaseEntity {
   private List<JobAdEntity> favoriteJobAds = new ArrayList<>();
 
   private String fullname;
-  
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
-  private Set<MessageEntity> messages;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   @EqualsAndHashCode.Exclude
