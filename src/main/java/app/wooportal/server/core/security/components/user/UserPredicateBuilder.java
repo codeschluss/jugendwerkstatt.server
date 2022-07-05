@@ -44,11 +44,15 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
     return query.group.isNotNull();
   }
   
-  public BooleanExpression withChat(String iD) {
-    return iD != null && !iD.isBlank() ? query.participants.any().chat.id.equalsIgnoreCase(iD) : null;
+  public BooleanExpression withChat(String chatId) {
+    return chatId != null && !chatId.isBlank() 
+        ? query.participants.any().chat.id.equalsIgnoreCase(chatId)
+        : null;
   }
 
-    public BooleanExpression withMessage(String iD) {
-      return iD != null && !iD.isBlank() ? query.participants.any().messages.any().id.equalsIgnoreCase(iD) : null;
+    public BooleanExpression withMessage(String messagerId) {
+      return messagerId != null && !messagerId.isBlank()
+          ? query.participants.any().messages.any().id.equalsIgnoreCase(messagerId)
+          : null;
     }
 }

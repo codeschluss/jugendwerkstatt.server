@@ -46,7 +46,8 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
   }
   
   private Optional<ReadReceiptEntity> getByParticipantAndMessage(String participantId,String messageId) {
-    return repo.findOne(predicate.withParticipantAndMessage(participantId, messageId));
+    return repo.findOne(predicate.withParticipant(participantId)
+        .and(predicate.withMessage(messageId)));
   }
 
   public Optional<ReadReceiptEntity> getByUserAndMessage(String messageId) {
@@ -66,20 +67,26 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
   @Override
   protected void preSave(ReadReceiptEntity entity, ReadReceiptEntity newEntity, JsonNode context) {
     var currentUser = this.authService.getAuthenticatedUser();
-    
-    if (currentUser.isPresent() && newEntity.getMessage() != null) {
-    
-      var participant = participantService.readAll(participantService.query()
-          .and(participantService.getPredicate().withUser(currentUser.get().getId())
-              .and(participantService.getPredicate().withChatMessage(newEntity.getMessage().getId())))
-          .setLimit(1)).getList().get(0);
-      newEntity.setParticipant(participant);   
-      }
-      else {throw new BadParamsException("chat or user does not exist");
-      
-      }
-      setContext("user", context);
+
+    if (currentUser.isEmpty() || newEntity.getMessage() == null) {
+      throw new BadParamsException("chat or user does not exist");
     }
+
+    var result = participantService
+            .readAll(participantService.query()
+                .and(participantService.getPredicate().withUser(currentUser.get().getId())
+                .and(participantService.getPredicate().withChatMessage(newEntity.getMessage().getId())))
+                .setLimit(1))
+            .getList();
+    
+    if (result.isEmpty()) {
+      throw new BadParamsException(
+          "No participant exists for user and message", currentUser.get(), newEntity.getMessage());
+    }
+    
+    newEntity.setParticipant(result.get(0));
+    setContext("user", context);
+  }
 
   @Override
   protected void postSave(ReadReceiptEntity saved, ReadReceiptEntity newEntity, JsonNode context) {
@@ -90,6 +97,7 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
         NotificationType.chat);
     
     var users = userService.readAll(userService.query()
+        .addGraph(userService.graph("subscriptions"))
         .and(userService.getPredicate().withChat(saved.getParticipant().getChat().getId())))
       .getList();
     

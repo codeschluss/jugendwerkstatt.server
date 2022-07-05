@@ -28,9 +28,11 @@ public class ParticipantPredicateBuilder
   public BooleanExpression witGroup(String groupId) {
     return query.chat.group.id.eq(groupId);
   }
+  
   public BooleanExpression withChatMessage(String messageId) {
     return query.chat.messages.any().id.equalsIgnoreCase(messageId);
   }
+  
   public BooleanExpression withMessage(String messageId) {
     return query.messages.any().id.equalsIgnoreCase(messageId);
   }

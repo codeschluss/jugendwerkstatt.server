@@ -16,14 +16,15 @@ public class ReadReceiptPredicateBuilder
   public BooleanExpression freeSearch(String term) {
     return query.id.likeIgnoreCase(term);
   }
+  
+  public BooleanExpression withParticipant(String participantId) {
+    return query.participant.id.eq(participantId);
+  }
 
   public BooleanExpression withMessage(String chatId) {
     return query.message.id.equalsIgnoreCase(chatId);
   }
-
-  public BooleanExpression withParticipantAndMessage(String participantId, String messageId) {
-    return query.participant.id.eq(participantId).and(query.message.id.eq(messageId));
-  }
+  
   public BooleanExpression withUser(String userId) {
     return query.participant.user.id.equalsIgnoreCase(userId);
   }
