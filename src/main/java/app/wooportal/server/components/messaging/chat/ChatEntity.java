@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import app.wooportal.server.components.call.base.CallEntity;
 import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
@@ -36,6 +37,10 @@ public class ChatEntity extends BaseEntity {
   
   @ManyToOne(fetch = FetchType.LAZY)
   private MediaEntity avatar;
+  
+  @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
+  private Set<CallEntity> calls;
 
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
@@ -50,6 +55,5 @@ public class ChatEntity extends BaseEntity {
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   private Set<ParticipantEntity> participants;
-  
 }
 

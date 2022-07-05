@@ -3,6 +3,7 @@ package app.wooportal.server.components.messaging.chat;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
+import app.wooportal.server.components.call.base.CallEntity;
 import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
@@ -67,6 +68,12 @@ public class ChatApi extends CrudApi<ChatEntity, ChatService> {
   @ApprovedAndVerifiedPermission
   public Optional<MessageEntity> getLastMessage(@GraphQLContext ChatEntity chat) {
     return service.getLastMessage(chat);
+  }
+  
+  @GraphQLQuery(name = "lastCall")
+  @ApprovedAndVerifiedPermission
+  public Optional<CallEntity> getLastCall(@GraphQLContext ChatEntity chat) {
+    return service.getLastCall(chat);
   }
 }
 

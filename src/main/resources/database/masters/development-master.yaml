@@ -65,5 +65,7 @@ databaseChangeLog:
     - include:
         file: database/changes/0030.create_table_notifications.yaml
     - include:
+        file: database/changes/0031.create_table_calls.yaml 
+    - include:
         file: database/datasets/test-data.yaml
                       
