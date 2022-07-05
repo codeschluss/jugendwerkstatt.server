@@ -17,6 +17,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import app.wooportal.server.components.call.base.CallEntity;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
 import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
@@ -55,6 +56,10 @@ public class UserEntity extends BaseEntity {
   @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignments;
 
+  @OneToMany(mappedBy = "initiator", fetch = FetchType.LAZY)
+  @EqualsAndHashCode.Exclude
+  private Set<CallEntity> calls;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private GroupEntity group;
   

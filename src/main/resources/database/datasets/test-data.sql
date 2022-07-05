@@ -233,3 +233,8 @@ INSERT INTO notifications(id, title, content, read, user_id) VALUES
 ('c80f0c5e-50ef-49df-9dba-9fab914c0de5', 'Notification', 'ThisIsANotification', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('750a6cc3-ba6c-429c-9753-2c43b744d614', 'AnotherNotification', 'ThisIsAnotherNotification', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
+INSERT INTO calls(id, initiator_id, chat_id) VALUES
+('b705bc58-75ca-4c3f-9d17-652bf4a05897', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '41bf7460-1a1a-41cb-8b2f-a89688671b33'),
+('dfda9df0-ff65-4672-b308-a0d8b9ba0b71', '528250c0-e0e3-4166-aa71-0f150eb2453f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f'),
+('5e3cfb2c-1fb3-4bb1-a9a8-3ad25a45103a', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f');
+

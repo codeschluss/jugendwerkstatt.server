@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
+import app.wooportal.server.components.call.base.CallEntity;
+import app.wooportal.server.components.call.base.CallService;
 import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.message.MessageService;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
@@ -19,17 +21,20 @@ import app.wooportal.server.core.security.services.AuthenticationService;
 public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
   
   private final AuthenticationService authService;
+  private final CallService callService;
 
   public ChatService(
       DataRepository<ChatEntity> repo,
       ChatPredicateBuilder predicate,
-      ParticipantService participantService,
       AuthenticationService authService,
+      CallService callService,
       MessageService messageService,
-      MediaService mediaService) {
+      MediaService mediaService,
+      ParticipantService participantService) {
     super(repo, predicate);
     
     this.authService = authService;
+    this.callService = callService;
     addService("participants", participantService);
     addService("messages", messageService);
     addService("avatar", mediaService);
@@ -84,6 +89,17 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
         
     return !message.isEmpty()
         ? Optional.of(message.get(0))
+        : Optional.empty();
+  }
+  
+  public Optional<CallEntity> getLastCall(ChatEntity chat) {
+    var call = callService.readAll(callService.query()
+        .and(callService.getPredicate().withChat(chat.getId()))
+        .sort(Direction.DESC, "created")
+        .setLimit(1)).getList();
+        
+    return !call.isEmpty()
+        ? Optional.of(call.get(0))
         : Optional.empty();
   }
 }
