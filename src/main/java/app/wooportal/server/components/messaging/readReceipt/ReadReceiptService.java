@@ -50,8 +50,8 @@ public class ReadReceiptService extends DataService<ReadReceiptEntity, ReadRecei
         NotificationType.chat);
     
     var users = userService.readAll(userService.query()
-        .addGraph(userService.graph("subscriptions"))
-        .and(userService.getPredicate().withMessage(saved.getMessage().getId()))).getList();
+        .and(userService.getPredicate().withChat(saved.getParticipant().getChat().getId())))
+      .getList();
     
     pushService.sendPush(users, message);
   }

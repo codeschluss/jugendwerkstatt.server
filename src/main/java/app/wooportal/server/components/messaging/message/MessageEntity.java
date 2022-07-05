@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import app.wooportal.server.components.messaging.chat.ChatEntity;
+import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.messaging.readReceipt.ReadReceiptEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
-import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -49,6 +49,6 @@ public class MessageEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(nullable = false)
-  private UserEntity user;
+  private ParticipantEntity participant;
 
 }

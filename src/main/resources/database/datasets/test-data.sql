@@ -216,11 +216,11 @@ INSERT INTO participants(id, chat_id, user_id) VALUES
 ('36ea3a0f-31e7-4db0-b2f5-d9b42b5139c3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '528250c0-e0e3-4166-aa71-0f150eb2453f'),
 ('30932b23-9b0a-472b-b16a-a6ae1c80740d', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '528250c0-e0e3-4166-aa71-0f150eb2453f');
 
-INSERT INTO messages(id, content, chat_id, user_id, media_id, parent_id) VALUES
-('456588b4-f512-4d78-953c-53dee35b18c0', 'Hello fellow woodworkers!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '528250c0-e0e3-4166-aa71-0f150eb2453f', null, null),
-('125b98f8-0310-4455-ba31-7a43a6cdc7b0', 'Hello all!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', null, null),
-('c25cca5d-3f2c-4297-bf41-50a9f98a59fa', 'Hello Supervisor, here is my form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'ceb59217-29f6-4a58-a8f1-776b698a9c5a', null),
-('569f2578-177e-4e08-a206-9f2626b8c258', 'This is not a form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '528250c0-e0e3-4166-aa71-0f150eb2453f', null, 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa');
+INSERT INTO messages(id, content, chat_id, participant_id, media_id, parent_id) VALUES
+('456588b4-f512-4d78-953c-53dee35b18c0', 'Hello fellow woodworkers!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '87c048f9-26fb-4b3f-9d37-f03556c08edd', null, null),
+('125b98f8-0310-4455-ba31-7a43a6cdc7b0', 'Hello all!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '75cd4f05-816a-45d0-b242-e12b00499e7f', null, null),
+('c25cca5d-3f2c-4297-bf41-50a9f98a59fa', 'Hello Supervisor, here is my form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', 'ceb59217-29f6-4a58-a8f1-776b698a9c5a', null),
+('569f2578-177e-4e08-a206-9f2626b8c258', 'This is not a form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', null, 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa');
 
 INSERT INTO read_receipts(id, message_id, participant_id) VALUES
 ('2ce49f62-f74f-480a-b43e-f27232b8dc29', '456588b4-f512-4d78-953c-53dee35b18c0', '87c048f9-26fb-4b3f-9d37-f03556c08edd'),

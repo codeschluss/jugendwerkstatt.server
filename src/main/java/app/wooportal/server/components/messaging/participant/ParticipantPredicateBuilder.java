@@ -28,4 +28,5 @@ public class ParticipantPredicateBuilder
   public BooleanExpression witGroup(String groupId) {
     return query.chat.group.id.eq(groupId);
   }
+  
 }

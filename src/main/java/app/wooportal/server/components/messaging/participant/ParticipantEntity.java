@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import app.wooportal.server.components.messaging.chat.ChatEntity;
+import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.readReceipt.ReadReceiptEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;
@@ -32,6 +33,10 @@ public class ParticipantEntity extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   private ChatEntity chat;
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")
+  @EqualsAndHashCode.Exclude
+  private Set<MessageEntity> messages;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private UserEntity user;
   

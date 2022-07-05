@@ -41,7 +41,7 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                  name: user_id
+                  name: participant_id
                   type: CHAR(36)
               - column:
                   constraints:
@@ -71,32 +71,7 @@ databaseChangeLog:
             onUpdate: CASCADE
             referencedColumnNames: id
             referencedTableName: media
-            validate: true
-  - changeSet:
-      id: 0026.create_table_messages.4
-      author: codeschluss
-      changes:
-        - createIndex:
-            columns:
-              - column:
-                  name: user_id
-            indexName: idx_fkw6vpgnyskyluec6t4u3k31zwt
-            tableName: messages
-  - changeSet:
-      id: 0026.create_table_messages.5
-      author: codeschluss
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: user_id
-            baseTableName: messages
-            constraintName: fkw6vpgnyskyluec6t4u3k31zwt
-            deferrable: false
-            initiallyDeferred: false
-            onUpdate: CASCADE
-            onDelete: SET NULL
-            referencedColumnNames: id
-            referencedTableName: users
-            validate: true            
+            validate: true         
   - changeSet:
       id: 0026.create_table_messages.6
       author: codeschluss
