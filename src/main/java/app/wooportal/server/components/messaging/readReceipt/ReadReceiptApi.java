@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.security.permissions.ApprovedAndVerifiedPermission;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -21,6 +22,7 @@ public class ReadReceiptApi extends CrudApi<ReadReceiptEntity, ReadReceiptServic
 
   @Override
   @GraphQLQuery(name = "getReadReceipts")
+  @ApprovedAndVerifiedPermission
   public PageableList<ReadReceiptEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -28,6 +30,7 @@ public class ReadReceiptApi extends CrudApi<ReadReceiptEntity, ReadReceiptServic
 
   @Override
   @GraphQLQuery(name = "getReadReceipt")
+  @ApprovedAndVerifiedPermission
   public Optional<ReadReceiptEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) ReadReceiptEntity entity) {
     return super.readOne(entity);
@@ -35,6 +38,7 @@ public class ReadReceiptApi extends CrudApi<ReadReceiptEntity, ReadReceiptServic
 
   @Override
   @GraphQLMutation(name = "saveReadReceipts")
+  @ApprovedAndVerifiedPermission
   public List<ReadReceiptEntity> saveAll(
       @GraphQLArgument(name = CrudApi.entities) List<ReadReceiptEntity> entities) {
     return super.saveAll(entities);
@@ -42,6 +46,7 @@ public class ReadReceiptApi extends CrudApi<ReadReceiptEntity, ReadReceiptServic
 
   @Override
   @GraphQLMutation(name = "saveReadReceipt")
+  @ApprovedAndVerifiedPermission
   public ReadReceiptEntity saveOne(@GraphQLArgument(name = CrudApi.entity) ReadReceiptEntity entity) {
     var existing = service.getByUserAndMessage(entity.getMessage().getId());
     return existing.isPresent()

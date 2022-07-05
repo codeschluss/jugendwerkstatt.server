@@ -1,4 +1,4 @@
-package app.wooportal.server.components.call.base;
+package app.wooportal.server.components.messaging.call;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
