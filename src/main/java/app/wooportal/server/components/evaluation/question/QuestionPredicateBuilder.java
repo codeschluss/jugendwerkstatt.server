@@ -1,6 +1,7 @@
 package app.wooportal.server.components.evaluation.question;
 
 import org.springframework.stereotype.Service;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
 
@@ -19,5 +20,9 @@ public class QuestionPredicateBuilder extends PredicateBuilder<QQuestionEntity, 
 
   public BooleanExpression withItem(String name) {
     return query.item.equalsIgnoreCase(name);
+  }
+
+  public Predicate withQuestionnaire(String questionnaireId) {
+    return query.questionnaire.id.eq(questionnaireId);
   }
 }

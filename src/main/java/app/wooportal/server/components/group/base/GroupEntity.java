@@ -15,7 +15,6 @@ import app.wooportal.server.core.config.DefaultSort;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +31,6 @@ public class GroupEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-  @EqualsAndHashCode.Exclude
   private List<CourseEntity> courses;
   
   @Column(unique = true, nullable = false)
@@ -40,11 +38,9 @@ public class GroupEntity extends BaseEntity {
   private String name;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-  @EqualsAndHashCode.Exclude
   private List<UserEntity> users;
   
   @OneToOne(fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private ChatEntity chat;
   
 }

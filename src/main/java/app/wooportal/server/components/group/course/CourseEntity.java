@@ -15,7 +15,6 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,7 +33,6 @@ public class CourseEntity extends BaseEntity {
   private Boolean active;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-  @EqualsAndHashCode.Exclude
   private List<FeedbackEntity> feedbacks;
 
   @ManyToOne(fetch = FetchType.LAZY)

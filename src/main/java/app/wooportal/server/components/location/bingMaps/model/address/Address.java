@@ -1,8 +1,14 @@
 package app.wooportal.server.components.location.bingMaps.model.address;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
   private String addressLine;

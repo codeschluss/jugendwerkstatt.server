@@ -64,7 +64,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
     }
     
     return getId() != null
-        ? id.equals(((BaseEntity) other).id)
+        ? id.equals(((BaseEntity) other).id) || id == ((BaseEntity) other).id
         : super.equals(other);
   }
   

@@ -25,7 +25,6 @@ import app.wooportal.server.core.config.DefaultSort;
 import app.wooportal.server.core.media.base.MediaEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,7 +56,6 @@ public class EventEntity extends BaseEntity {
   private EventCategoryEntity category;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
-  @EqualsAndHashCode.Exclude
   private Set<ScheduleEntity> schedules;
 
   @ManyToOne(fetch = FetchType.LAZY)

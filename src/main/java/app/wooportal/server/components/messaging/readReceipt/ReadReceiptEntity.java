@@ -7,17 +7,15 @@ import javax.persistence.Table;
 import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.core.base.BaseEntity;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "read_receipts")
 public class ReadReceiptEntity extends BaseEntity {
