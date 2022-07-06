@@ -11,12 +11,12 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
@@ -29,7 +29,6 @@ public class JobTypeEntity extends BaseEntity {
   private String color;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
-  @EqualsAndHashCode.Exclude
   private Set<JobAdEntity> jobAds;
 
   @Column(nullable = false, unique = true)

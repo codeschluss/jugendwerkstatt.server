@@ -34,7 +34,6 @@ import app.wooportal.server.core.security.components.role.RoleEntity;
 import app.wooportal.server.core.security.components.verification.VerificationEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -53,11 +52,9 @@ public class UserEntity extends BaseEntity {
   private Boolean approved;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
   private Set<AssignmentEntity> assignments;
 
   @OneToMany(mappedBy = "initiator", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private Set<CallEntity> calls;
   
   @ManyToOne(fetch = FetchType.LAZY)
@@ -67,7 +64,6 @@ public class UserEntity extends BaseEntity {
   private String email;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
   private Set<FeedbackEntity> feedbacks;
 
   @ManyToMany(fetch = FetchType.LAZY)
@@ -87,11 +83,9 @@ public class UserEntity extends BaseEntity {
   private String fullname;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
   private Set<NotificationEntity> notifications;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
   private Set<ParticipantEntity> participants;
 
   @Column(nullable = false)
@@ -117,7 +111,6 @@ public class UserEntity extends BaseEntity {
   private Set<SubscriptionEntity> subscriptions;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  @EqualsAndHashCode.Exclude
   private Set<UserTemplateEntity> userTemplates;
 
   @ManyToMany(fetch = FetchType.LAZY)

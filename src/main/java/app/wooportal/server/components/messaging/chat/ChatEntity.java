@@ -16,14 +16,12 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
@@ -39,21 +37,18 @@ public class ChatEntity extends BaseEntity {
   private MediaEntity avatar;
   
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private Set<CallEntity> calls;
 
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private Set<MessageEntity> messages;
 
   private String name;
   
   @OneToOne(mappedBy = "chat", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private GroupEntity group;
   
   @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private Set<ParticipantEntity> participants;
+  
 }
 

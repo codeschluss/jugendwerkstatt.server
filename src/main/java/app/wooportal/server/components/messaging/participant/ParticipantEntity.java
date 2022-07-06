@@ -12,17 +12,15 @@ import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.readReceipt.ReadReceiptEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.security.components.user.UserEntity;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "participants", uniqueConstraints =
   @UniqueConstraint(columnNames = { "chat_id", "user_id" }))
@@ -34,13 +32,11 @@ public class ParticipantEntity extends BaseEntity {
   private ChatEntity chat;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")
-  @EqualsAndHashCode.Exclude
   private Set<MessageEntity> messages;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private UserEntity user;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")
-  @EqualsAndHashCode.Exclude
   private Set<ReadReceiptEntity> readReceipts;
 }

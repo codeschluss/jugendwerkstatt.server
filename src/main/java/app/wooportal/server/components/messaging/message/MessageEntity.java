@@ -15,7 +15,6 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.media.base.MediaEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,7 +43,6 @@ public class MessageEntity extends BaseEntity {
   private MessageEntity parent;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "message")
-  @EqualsAndHashCode.Exclude
   private Set<ReadReceiptEntity> readReceipts;
 
   @ManyToOne(fetch = FetchType.LAZY)

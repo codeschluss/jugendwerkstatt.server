@@ -127,8 +127,9 @@ public class PersistenceUtils {
       var entityValue =
           (Optional<?>) Hibernate.unproxy(ReflectionUtils.get(field.getName(), target));
       var nodeValue = (Optional<?>) Hibernate.unproxy(ReflectionUtils.get(field.getName(), source));
-      return (entityValue.isPresent() && nodeValue.isPresent() && entityValue.equals(nodeValue))
-          || (entityValue.isEmpty() && nodeValue.isEmpty());
+      return ( entityValue.isPresent() && nodeValue.isPresent() 
+              && (entityValue.get().equals(nodeValue.get()) || entityValue.get() == nodeValue.get())
+            ) || (entityValue.isEmpty() && nodeValue.isEmpty());
     }
     return false;
   }

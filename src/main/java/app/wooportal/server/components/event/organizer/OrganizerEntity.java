@@ -11,14 +11,12 @@ import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Entity
@@ -28,7 +26,6 @@ public class OrganizerEntity extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   @OneToMany(mappedBy = "organizer", fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
   private Set<EventEntity> event;
 
   private String mail;

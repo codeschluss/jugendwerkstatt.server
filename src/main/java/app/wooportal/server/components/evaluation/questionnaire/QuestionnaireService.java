@@ -13,6 +13,7 @@ public class QuestionnaireService
   public QuestionnaireService(DataRepository<QuestionnaireEntity> repo,
       QuestionnairePredicateBuilder predicate, QuestionService questionService) {
     super(repo, predicate);
+    
     addService("questions", questionService);
   }
 
