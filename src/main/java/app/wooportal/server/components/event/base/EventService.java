@@ -3,10 +3,12 @@ package app.wooportal.server.components.event.base;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.components.event.organizer.OrganizerService;
 import app.wooportal.server.components.event.schedule.ScheduleEntity;
 import app.wooportal.server.components.event.schedule.ScheduleService;
 import app.wooportal.server.components.location.address.AddressService;
+import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.repository.DataRepository;
@@ -47,5 +49,13 @@ public class EventService extends DataService<EventEntity, EventPredicateBuilder
     return !schedules.isEmpty()
         ? Optional.of(schedules.get(0))
         : Optional.empty();
+  }
+  @Override
+  protected void preSave(EventEntity entity, EventEntity newEntity, JsonNode context) {
+    
+   if (newEntity.getTitleImage() == null) {
+     newEntity.setTitleImage(newEntity.getImages().get(0));
+     setContext("titleImage", context);
+   }
   }
 }
