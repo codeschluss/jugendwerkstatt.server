@@ -37,7 +37,6 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
     this.participantService = participantService;
     
     addService("media", mediaService);
-    addService("parent", this);
   }
   
   @Override
