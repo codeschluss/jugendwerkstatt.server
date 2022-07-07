@@ -48,9 +48,14 @@ public abstract class CrudApi<E extends BaseEntity, S extends DataService<E, ?>>
       throw new BadParamsException("entities is missing", entities);
     }
     
-    return entities.parallelStream().map(this::saveOne)
-        .distinct()
-        .collect(Collectors.toList());
+    // TODO: parallel streaming not possible due to null security context 
+//    return entities.parallelStream().map(this::saveOne)
+//        .distinct()
+//        .collect(Collectors.toList());
+    
+    return entities.stream().map(this::saveOne)
+      .distinct()
+      .collect(Collectors.toList());
   }
   
   public E saveOne(E entity) {

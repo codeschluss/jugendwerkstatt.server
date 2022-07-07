@@ -38,7 +38,9 @@ public class ExceptionResolverInterceptor implements ResolverInterceptor {
             .message(errorMessageService.getLocalizedMessageByException(e))
             .extensions(Map.of(
                 "exception", e.getClass().getSimpleName(),
-                "originalMessage", e.getMessage()))
+                "originalMessage", e.getMessage() != null 
+                  ? e.getMessage()
+                  : ""))
             .build())
         .build();
   }

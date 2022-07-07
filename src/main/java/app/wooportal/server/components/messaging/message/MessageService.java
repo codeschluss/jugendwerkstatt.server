@@ -41,25 +41,27 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
   
   @Override
   protected void preSave(MessageEntity entity, MessageEntity newEntity, JsonNode context) {
-    var currentUser = this.authService.getAuthenticatedUser();
+    if (entity.getId() == null) {
+      var currentUser = this.authService.getAuthenticatedUser();
 
-    if (currentUser.isEmpty() || newEntity.getChat() == null) {
-      throw new BadParamsException("chat or user does not exist", newEntity);
-    }
+      if (currentUser.isEmpty() || newEntity.getChat() == null) {
+        throw new BadParamsException("chat or user does not exist", newEntity);
+      }
 
-    var result = participantService.readAll(participantService.query()
-          .and(participantService.getPredicate().withUser(currentUser.get().getId())
-          .and(participantService.getPredicate().withChat(newEntity.getChat().getId())))
-          .setLimit(1))
-        .getList();
-    
-    if (result.isEmpty()) {
-      throw new BadParamsException(
-          "No participant exists for user and chat", currentUser.get(), newEntity.getChat());
+      var result = participantService.readAll(participantService.query()
+            .and(participantService.getPredicate().withUser(currentUser.get().getId())
+            .and(participantService.getPredicate().withChat(newEntity.getChat().getId())))
+            .setLimit(1))
+          .getList();
+      
+      if (result.isEmpty()) {
+        throw new BadParamsException(
+            "No participant exists for user and chat", currentUser.get(), newEntity.getChat());
+      }
+      
+      newEntity.setParticipant(result.get(0));
+      setContext("participant", context);
     }
-    
-    newEntity.setParticipant(result.get(0));
-    setContext("participant", context);
   }
 
   @Override
