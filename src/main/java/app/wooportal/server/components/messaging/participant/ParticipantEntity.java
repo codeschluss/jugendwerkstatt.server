@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import app.wooportal.server.components.messaging.call.CallEntity;
 import app.wooportal.server.components.messaging.chat.ChatEntity;
 import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.messaging.readReceipt.ReadReceiptEntity;
@@ -28,6 +29,9 @@ public class ParticipantEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  @OneToMany(mappedBy = "initiator", fetch = FetchType.LAZY)
+  private Set<CallEntity> calls;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private ChatEntity chat;
 

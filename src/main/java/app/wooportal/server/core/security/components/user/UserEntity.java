@@ -23,7 +23,6 @@ import app.wooportal.server.components.event.base.EventEntity;
 import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
-import app.wooportal.server.components.messaging.call.CallEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.push.notification.NotificationEntity;
 import app.wooportal.server.components.push.subscription.SubscriptionEntity;
@@ -53,9 +52,6 @@ public class UserEntity extends BaseEntity {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   private Set<AssignmentEntity> assignments;
-
-  @OneToMany(mappedBy = "initiator", fetch = FetchType.LAZY)
-  private Set<CallEntity> calls;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private GroupEntity group;

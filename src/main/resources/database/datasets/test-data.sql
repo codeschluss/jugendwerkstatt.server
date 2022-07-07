@@ -17,10 +17,10 @@ INSERT INTO media (id, mime_type, name) VALUES
 ('3e19758d-0abc-4435-84ea-30eb8dddf352', 'image/jpg', 'event image'),
 ('710cb609-3892-445f-a54d-3cc55de27fa4', 'image/jpg', 'event image');
 
-INSERT INTO chats(id, name, admin) VALUES
-('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false),
-('b2cb2479-1c75-4bf6-9543-38c53a55a70f', 'Student', true),
-('4e26f3a2-3877-438f-bf8a-cd2d4ac720f5', 'MetallGroupchat', false);
+INSERT INTO chats(id, name, admin, avatar_id) VALUES
+('41bf7460-1a1a-41cb-8b2f-a89688671b33', 'Holz1Groupchat', false, '76460bc7-ed5c-4f70-a377-46e2cf49e86f'),
+('b2cb2479-1c75-4bf6-9543-38c53a55a70f', 'Student', true, 'af5c4d43-54f1-40d1-ba26-5895b91bb287'),
+('4e26f3a2-3877-438f-bf8a-cd2d4ac720f5', 'MetallGroupchat', false, null);
 
 INSERT INTO groups(id, name, chat_id) VALUES
 ('f5983943-b1a3-4265-bf88-208ecbbd09a3', 'Metall', '4e26f3a2-3877-438f-bf8a-cd2d4ac720f5'),
@@ -234,7 +234,7 @@ INSERT INTO notifications(id, title, content, read, user_id) VALUES
 ('750a6cc3-ba6c-429c-9753-2c43b744d614', 'AnotherNotification', 'ThisIsAnotherNotification', false, '36808f63-4b6b-40e7-b2ee-a91f657e4e58');
 
 INSERT INTO calls(id, initiator_id, chat_id) VALUES
-('b705bc58-75ca-4c3f-9d17-652bf4a05897', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', '41bf7460-1a1a-41cb-8b2f-a89688671b33'),
-('dfda9df0-ff65-4672-b308-a0d8b9ba0b71', '528250c0-e0e3-4166-aa71-0f150eb2453f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f'),
-('5e3cfb2c-1fb3-4bb1-a9a8-3ad25a45103a', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f');
+('b705bc58-75ca-4c3f-9d17-652bf4a05897', '87c048f9-26fb-4b3f-9d37-f03556c08edd', '41bf7460-1a1a-41cb-8b2f-a89688671b33'),
+('dfda9df0-ff65-4672-b308-a0d8b9ba0b71', '75cd4f05-816a-45d0-b242-e12b00499e7f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f'),
+('5e3cfb2c-1fb3-4bb1-a9a8-3ad25a45103a', '824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f');
 

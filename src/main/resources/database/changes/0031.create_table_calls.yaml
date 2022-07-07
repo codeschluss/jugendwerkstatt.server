@@ -59,7 +59,7 @@ databaseChangeLog:
             onUpdate: CASCADE
             onDelete: CASCADE
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: participants
             validate: true 
   - changeSet:
       id: 0031.create_table_calls.4
