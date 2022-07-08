@@ -54,7 +54,7 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
 
     var sum = 0.0;
     for (var feedback : feedbacks) {
-      if (feedback != null) {
+      if (feedback != null && feedback.getRating() != null) {
         sum += feedback.getRating().doubleValue();
       } else {
         feedbacks.remove(feedback);
@@ -69,26 +69,31 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
     var user = userService.getById(userId);
 
     if (course.isEmpty() | user.isEmpty()) {
-      throw new BadParamsException("group or user does not exist", courseId);
+      throw new BadParamsException("course or user does not exist", courseId);
     }
-    createFeedback(user, user.get().getCourse());
-
-    participantService
-        .deleteAll(participantService
-            .readAll(participantService.query()
-                .and(participantService.getPredicate().withUser(user.get().getId()).and(
-                    participantService.getPredicate().withCourse(courseId))))
-            .getList());
-
+    createFeedback(user.get());
+    createParticipant(user.get(), course.get());
+    
     user.get().setCourse(course.get());
     userService.save(user.get());
-
-    var participant = new ParticipantEntity();
-    participant.setChat(course.get().getGroup().getChat());
-    participant.setUser(userService.getById(userId).get());
-    participantService.save(participant);
-
     return true;
+  }
+
+  private void createParticipant(UserEntity user, CourseEntity course) {
+    if (user.getCourse().getGroup().getId() != course.getGroup().getId()) {
+      participantService.deleteAll(participantService
+        .readAll(participantService.query()
+            .and(participantService.getPredicate().withUser(user.getId()).and(
+                participantService.getPredicate().withCourse(course.getId()))))
+        .getList());
+    
+      if (course.getGroup().getChat() != null) {
+        var participant = new ParticipantEntity();
+        participant.setChat(course.getGroup().getChat());
+        participant.setUser(user);
+        participantService.save(participant);
+      }
+    }
   }
 
   public boolean deleteMember(String courseId, String userId) {
@@ -98,35 +103,32 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
     if (course.isEmpty() | user.isEmpty()) {
       throw new BadParamsException("group or user does not exist", courseId);
     }
+    createFeedback(user.get());
     user.get().setCourse(null);
     userService.save(user.get());
 
-    var participants =
-        participantService
-            .readAll(
-                participantService.query()
-                    .addGraph(participantService.graph("users", "chats", "groups"))
-                    .and(participantService.getPredicate().withUser(userId)).and(participantService
-                        .getPredicate().withChat(course.get().getGroup().getChat().getId())))
-            .getList();
-    participantService.deleteAll(participants);
+    participantService.deleteAll(participantService
+        .readAll(participantService.query()
+            .and(participantService.getPredicate().withUser(user.get().getId()).and(
+                participantService.getPredicate().withCourse(course.get().getId()))))
+        .getList());
 
     return true;
   }
 
-  public void createFeedback(Optional<UserEntity> user, CourseEntity oldCourse) {
+  public void createFeedback(UserEntity user) {
 
-    if (oldCourse != null) {
+    if (user.getCourse() != null ) {
       var message =
           new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",
               Map.of(NotificationType.evaluation.toString(), "evaluation"),
               NotificationType.evaluation);
-      pushService.sendPush(user.get(), message);
+      pushService.sendPush(user, message);
 
       var feedback = new FeedbackEntity();
-      feedback.setUser(user.get());
+      feedback.setUser(user);
       feedback.setRating(null);
-      feedback.setCourse(oldCourse);
+      feedback.setCourse(user.getCourse());
       feedbackService.save(feedback);
     }
   }
