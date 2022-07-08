@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("@authorizationService.isAdmin(authentication)")
+@PreAuthorize("@authorizationService.isAdmin(authentication) || @authorizationService.isSupervisor(authentication)")
 public @interface AdminPermission {
 
 }

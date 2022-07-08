@@ -23,10 +23,10 @@ public class AuthorizationService {
     return false;
   }
 
-  public boolean isSuperviser(Authentication authentication) {
+  public boolean isSupervisor(Authentication authentication) {
     if (authentication.getPrincipal() instanceof JwtUserDetails) {
       var jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();
-      return jwtUserDetails.isSuperviser();
+      return jwtUserDetails.isSupervisor();
     }
     return false;
   }

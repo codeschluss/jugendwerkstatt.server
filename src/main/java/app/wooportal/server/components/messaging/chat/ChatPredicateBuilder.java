@@ -26,11 +26,11 @@ public class ChatPredicateBuilder extends PredicateBuilder<QChatEntity, ChatEnti
 
   public Predicate withUsers(List<String> userIds) {
     var builder = new BooleanBuilder();
-    
+
     for (var userId : userIds) {
       builder.and(query.participants.any().user.id.eq(userId));
     }
-    
+
     return builder.getValue();
   }
 }
