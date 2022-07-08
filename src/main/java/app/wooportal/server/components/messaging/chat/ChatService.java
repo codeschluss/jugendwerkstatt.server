@@ -117,12 +117,6 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
     if (chat.isEmpty() | user.isEmpty()) {
       throw new BadParamsException("chat or user does not exist", chatId);
     }
-
-    participantService.deleteAll(participantService
-        .readAll(participantService.query().and(participantService.getPredicate()
-            .withUser(user.get().getId()).and(participantService.getPredicate().withChat(user.get().getCourse().getGroup().getChat().getId()))))
-        .getList());
-
     var participant = new ParticipantEntity();
     participant.setChat(chat.get());
     participant.setUser(user.get());
@@ -134,15 +128,13 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
   public boolean deleteMember(String userId, String chatId) {
     var chat = getById(chatId);
     var user = userService.getById(userId);
-
+    
     if (chat.isEmpty() | user.isEmpty()) {
       throw new BadParamsException("chat or user does not exist", chatId);
     }
-
     var participants = participantService
-        .readAll(participantService.query()
-            .and(participantService.getPredicate().withUser(userId))
-            .and(participantService.getPredicate().withChat(user.get().getCourse().getGroup().getChat().getId())))
+        .readAll(participantService.query().and(participantService.getPredicate().withUser(userId))
+            .and(participantService.getPredicate().withChat(chatId)))
         .getList();
 
     participantService.deleteAll(participants);

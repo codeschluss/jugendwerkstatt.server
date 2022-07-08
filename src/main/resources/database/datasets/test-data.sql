@@ -218,14 +218,10 @@ INSERT INTO participants(id, chat_id, user_id) VALUES
 
 INSERT INTO messages(id, content, chat_id, participant_id, media_id, parent_id) VALUES
 ('456588b4-f512-4d78-953c-53dee35b18c0', 'Hello fellow woodworkers!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '87c048f9-26fb-4b3f-9d37-f03556c08edd', null, null),
-('125b98f8-0310-4455-ba31-7a43a6cdc7b0', 'Hello all!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '75cd4f05-816a-45d0-b242-e12b00499e7f', null, null),
-('c25cca5d-3f2c-4297-bf41-50a9f98a59fa', 'Hello Supervisor, here is my form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', 'ceb59217-29f6-4a58-a8f1-776b698a9c5a', null),
-('569f2578-177e-4e08-a206-9f2626b8c258', 'This is not a form!', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', null, 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa');
+('125b98f8-0310-4455-ba31-7a43a6cdc7b0', 'Hello all!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '75cd4f05-816a-45d0-b242-e12b00499e7f', null, null);
 
 INSERT INTO read_receipts(id, message_id, participant_id) VALUES
-('2ce49f62-f74f-480a-b43e-f27232b8dc29', '456588b4-f512-4d78-953c-53dee35b18c0', '87c048f9-26fb-4b3f-9d37-f03556c08edd'),
-('4c524fd6-f7ae-481c-89c8-2b16ddd1ca48', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '75cd4f05-816a-45d0-b242-e12b00499e7f'),
-('af00cf23-a10e-45b0-8c5f-2ae481764d1d', 'c25cca5d-3f2c-4297-bf41-50a9f98a59fa', '30932b23-9b0a-472b-b16a-a6ae1c80740d');
+('2ce49f62-f74f-480a-b43e-f27232b8dc29', '456588b4-f512-4d78-953c-53dee35b18c0', '87c048f9-26fb-4b3f-9d37-f03556c08edd');
 
 INSERT INTO notifications(id, title, content, read, user_id) VALUES
 ('af3c1da6-585d-47fd-ab18-d0c987be8872', 'ThisIsTheTitle', 'ThisIsTheContent', true, '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),

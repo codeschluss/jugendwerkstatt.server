@@ -72,27 +72,37 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
       throw new BadParamsException("course or user does not exist", courseId);
     }
     createFeedback(user.get());
+    deleteOldParticipant(user.get(), course.get());
     createParticipant(user.get(), course.get());
-    
+        
     user.get().setCourse(course.get());
     userService.save(user.get());
     return true;
   }
 
   private void createParticipant(UserEntity user, CourseEntity course) {
-    if (user.getCourse().getGroup().getId() != course.getGroup().getId()) {
-      participantService.deleteAll(participantService
-        .readAll(participantService.query()
-            .and(participantService.getPredicate().withUser(user.getId()).and(
-                participantService.getPredicate().withCourse(course.getId()))))
-        .getList());
-    
-      if (course.getGroup().getChat() != null) {
-        var participant = new ParticipantEntity();
-        participant.setChat(course.getGroup().getChat());
-        participant.setUser(user);
-        participantService.save(participant);
-      }
+
+    if (course.getGroup().getChat() != null && user.getCourse() != null
+        && user.getCourse().getGroup().getId() != course.getGroup().getId()
+        || course.getGroup().getChat() != null && user.getCourse() == null) {
+      var participant = new ParticipantEntity();
+      participant.setChat(course.getGroup().getChat());
+      participant.setUser(user);
+      participantService.save(participant);
+    }
+  }
+
+  private void deleteOldParticipant(UserEntity user, CourseEntity course) {
+
+    if (user.getCourse() != null
+        && user.getCourse().getGroup().getId() != course.getGroup().getId()) {
+      participantService
+          .deleteAll(
+              participantService
+                  .readAll(participantService.query()
+                    .and(participantService.getPredicate().withUser(user.getId())
+                    .and(participantService.getPredicate().withCourse(user.getCourse().getId()))))
+                  .getList());
     }
   }
 
