@@ -43,8 +43,8 @@ public class JwtUserDetails extends User {
     return user.getApproved();
   }
   
-  public boolean isSuperviser() {
-    return roles.stream().anyMatch(role -> role.getKey().equalsIgnoreCase(RoleService.superviser));
+  public boolean isSupervisor() {
+    return roles.stream().anyMatch(role -> role.getKey().equalsIgnoreCase(RoleService.supervisor));
   }
   
   public boolean isVerified() {

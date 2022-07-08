@@ -15,7 +15,7 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
   
   public static String student = "student";
   
-  public static String superviser = "superviser";
+  public static String supervisor = "supervisor";
   
   public RoleService(
       DataRepository<RoleEntity> repo,
@@ -32,15 +32,15 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
     return repo.findOne(predicate.withKey(admin)).get();
   }
   
-  public RoleEntity getSuperviserRole() {
-    return repo.findOne(predicate.withKey(superviser)).get();
+  public RoleEntity getSupervisorRole() {
+    return repo.findOne(predicate.withKey(supervisor)).get();
   }
   
   @PostConstruct
   public void checkRoles() {
     if (!repo.exists(predicate.withKey(admin))
         || !repo.exists(predicate.withKey(student))
-        || !repo.exists(predicate.withKey(superviser))) {
+        || !repo.exists(predicate.withKey(supervisor))) {
       throw new NotFoundException("Not all roles exists!");
     }
   }

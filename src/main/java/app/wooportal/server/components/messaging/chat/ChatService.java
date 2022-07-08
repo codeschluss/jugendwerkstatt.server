@@ -13,8 +13,10 @@ import app.wooportal.server.components.messaging.message.MessageService;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantService;
 import app.wooportal.server.core.base.DataService;
+import app.wooportal.server.core.error.exception.BadParamsException;
 import app.wooportal.server.core.media.base.MediaService;
 import app.wooportal.server.core.repository.DataRepository;
+import app.wooportal.server.core.security.components.user.UserService;
 import app.wooportal.server.core.security.services.AuthenticationService;
 
 @Service
@@ -22,6 +24,8 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
   
   private final AuthenticationService authService;
   private final CallService callService;
+  private final UserService userService;
+  private final ParticipantService participantService;
 
   public ChatService(
       DataRepository<ChatEntity> repo,
@@ -30,11 +34,14 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
       CallService callService,
       MessageService messageService,
       MediaService mediaService,
-      ParticipantService participantService) {
+      ParticipantService participantService,
+      UserService userService) {
     super(repo, predicate);
     
     this.authService = authService;
     this.callService = callService;
+    this.userService = userService;
+    this.participantService = participantService;
     addService("participants", participantService);
     addService("messages", messageService);
     addService("avatar", mediaService);
@@ -101,6 +108,46 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
     return !call.isEmpty()
         ? Optional.of(call.get(0))
         : Optional.empty();
+  }
+  
+  public boolean addMember(String userId, String chatId) {
+    var chat = getById(chatId);
+    var user = userService.getById(userId);
+
+    if (chat.isEmpty() | user.isEmpty()) {
+      throw new BadParamsException("chat or user does not exist", chatId);
+    }
+
+    participantService.deleteAll(participantService
+        .readAll(participantService.query().and(participantService.getPredicate()
+            .withUser(user.get().getId()).and(participantService.getPredicate().withChat(chatId))))
+        .getList());
+
+    var participant = new ParticipantEntity();
+    participant.setChat(chat.get().getGroup().getChat());
+    participant.setUser(userService.getById(userId).get());
+    participantService.save(participant);
+
+    return true;
+  }
+  
+  public boolean deleteMember(String userId, String chatId) {
+    var chat = getById(chatId);
+    var user = userService.getById(userId);
+
+    if (chat.isEmpty() | user.isEmpty()) {
+      throw new BadParamsException("group or user does not exist", chatId);
+    }
+
+    var participants = participantService
+        .readAll(participantService.query().addGraph(participantService.graph("users", "chats"))
+            .and(participantService.getPredicate().withUser(userId))
+            .and(participantService.getPredicate().withChat(chatId)))
+        .getList();
+
+    participantService.deleteAll(participants);
+
+    return true;
   }
 }
 

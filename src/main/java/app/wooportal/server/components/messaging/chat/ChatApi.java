@@ -19,7 +19,7 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @GraphQLApi
 @Component
 public class ChatApi extends CrudApi<ChatEntity, ChatService> {
-
+  
   public ChatApi(ChatService eventChatService) {
     super(eventChatService);
   }
@@ -81,6 +81,18 @@ public class ChatApi extends CrudApi<ChatEntity, ChatService> {
   @ApprovedAndVerifiedPermission
   public Optional<CallEntity> getLastCall(@GraphQLContext ChatEntity chat) {
     return service.getLastCall(chat);
+  }
+  
+  @GraphQLMutation(name = "addChatMember")
+  @AdminPermission
+  public boolean addMember(String userId, String chatId) {
+    return service.addMember(userId, chatId);
+  }
+
+  @GraphQLMutation(name = "deleteChatMember")
+  @AdminPermission
+  public boolean deleteMember(String userId, String chatId) {
+    return service.deleteMember(userId, chatId);
   }
 }
 
