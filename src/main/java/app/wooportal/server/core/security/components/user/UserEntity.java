@@ -20,7 +20,7 @@ import org.hibernate.annotations.Type;
 import app.wooportal.server.components.documents.usertemplate.UserTemplateEntity;
 import app.wooportal.server.components.evaluation.assignment.AssignmentEntity;
 import app.wooportal.server.components.event.base.EventEntity;
-import app.wooportal.server.components.group.base.GroupEntity;
+import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.jobad.base.JobAdEntity;
 import app.wooportal.server.components.messaging.participant.ParticipantEntity;
@@ -54,7 +54,7 @@ public class UserEntity extends BaseEntity {
   private Set<AssignmentEntity> assignments;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  private GroupEntity group;
+  private CourseEntity course;
   
   @Column(unique = true, nullable = false)
   private String email;

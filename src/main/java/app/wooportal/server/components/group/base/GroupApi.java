@@ -64,16 +64,4 @@ public class GroupApi extends CrudApi<GroupEntity, GroupService> {
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }
-  
-  @GraphQLMutation(name = "addMember")
-  @AdminPermission
-  public boolean addMember(String groupId, String userId) {
-    return service.addMember(groupId, userId);
-  }
-  
-  @GraphQLMutation(name = "deleteMember")
-  @AdminPermission
-  public boolean deleteMember(String groupId, String userId) {
-    return service.deleteMember(groupId, userId);
-  }
 }
