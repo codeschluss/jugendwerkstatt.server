@@ -12,7 +12,6 @@ import app.wooportal.server.components.group.course.CourseEntity;
 import app.wooportal.server.components.messaging.chat.ChatEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
-import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,12 +32,11 @@ public class GroupEntity extends BaseEntity {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
   private List<CourseEntity> courses;
   
+  private String description;
+  
   @Column(unique = true, nullable = false)
   @DefaultSort
   private String name;
-  
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-  private List<UserEntity> users;
   
   @OneToOne(fetch = FetchType.LAZY)
   private ChatEntity chat;

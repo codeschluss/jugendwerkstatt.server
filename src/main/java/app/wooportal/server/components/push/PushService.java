@@ -33,18 +33,20 @@ public class PushService {
     sendPush(userService.getRepo().findAll(), message);
   }
 
-  public void sendPush(
-      Collection<UserEntity> users,
-      MessageDto message) {
+  public void sendPush(Collection<UserEntity> users, MessageDto message) {
     for (var user : users) {
-      saveNotification(user, message);
-      graphQLPushService.sendPush(user, message);
-
-      for (var subscription : user.getSubscriptions()) {
-        firebasePushService.sendPush(subscription, message);
-      }
+      sendPush(user, message);
+    }
   }
-}
+
+  public void sendPush(UserEntity user, MessageDto message) {
+    saveNotification(user, message);
+    graphQLPushService.sendPush(user, message);
+  
+    for (var subscription : user.getSubscriptions()) {
+      firebasePushService.sendPush(subscription, message);
+    }
+  }
 
   private void saveNotification(UserEntity user, MessageDto message) {
     switch(message.getType()) {

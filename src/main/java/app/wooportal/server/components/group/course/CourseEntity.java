@@ -13,6 +13,7 @@ import app.wooportal.server.components.group.base.GroupEntity;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
+import app.wooportal.server.core.security.components.user.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class CourseEntity extends BaseEntity {
   @Serial
   private static final long serialVersionUID = 1L;
   
-  private Boolean active;
+  private String description;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
   private List<FeedbackEntity> feedbacks;
@@ -43,7 +44,6 @@ public class CourseEntity extends BaseEntity {
   @DefaultSort
   private String name;
   
-  @Column(nullable = false)
-  @DefaultSort
-  private Integer activeOrder;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+  private List<UserEntity> users;
 }

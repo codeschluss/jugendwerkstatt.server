@@ -20,10 +20,6 @@ public class CoursePredicateBuilder extends PredicateBuilder<QCourseEntity, Cour
     return query.name.equalsIgnoreCase(name);
   }
   
-  public BooleanExpression isActive() {
-    return query.active.isTrue();
-  }
-  
   public BooleanExpression withGroupId(String groupId) {
     return query.group.id.equalsIgnoreCase(groupId);
   }

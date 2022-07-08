@@ -2,6 +2,7 @@ package app.wooportal.server.core.security.components.user;
 
 import java.time.OffsetDateTime;
 import org.springframework.stereotype.Service;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import app.wooportal.server.core.base.PredicateBuilder;
 import app.wooportal.server.core.security.components.role.RoleService;
@@ -40,10 +41,6 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
     return query.verified.isFalse();
   }
   
-  public BooleanExpression withGroupNotNull() {
-    return query.group.isNotNull();
-  }
-  
   public BooleanExpression withChat(String chatId) {
     return chatId != null && !chatId.isBlank() 
         ? query.participants.any().chat.id.equalsIgnoreCase(chatId)
@@ -55,4 +52,13 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
           ? query.participants.any().messages.any().id.equalsIgnoreCase(messagerId)
           : null;
     }
+
+    public Predicate withGroupId(String groupId) {
+      return query.course.group.id.equalsIgnoreCase(groupId);
+    }
+    public Predicate withCourseNotNull() {
+      return query.course.isNotNull();
+    }
+
+   
 }

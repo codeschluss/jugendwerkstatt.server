@@ -72,5 +72,17 @@ public class CourseApi extends CrudApi<CourseEntity, CourseService> {
   public CompletableFuture<Double> calculateAverageRating(@GraphQLContext CourseEntity course, Integer year) {
     return CompletableFuture.supplyAsync(() -> service.calculateAverageRating(course, year));
   }
+  
+  @GraphQLMutation(name = "addCourseMember")
+  @AdminPermission
+  public boolean addMember(String courseId, String userId) {
+    return service.addMember(courseId, userId);
+  }
+  
+  @GraphQLMutation(name = "deleteCourseMember")
+  @AdminPermission
+  public boolean deleteMember(String courseId, String userId) {
+    return service.deleteMember(courseId, userId);
+  }
 }
 

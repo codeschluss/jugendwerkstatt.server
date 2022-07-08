@@ -15,7 +15,8 @@ public class GroupPredicateBuilder extends PredicateBuilder<QGroupEntity, GroupE
   public BooleanExpression freeSearch(String term) {
     return query.name.likeIgnoreCase(term);
   }
+
   public BooleanExpression withName(String name) {
     return query.name.equalsIgnoreCase(name);
-  }  
+  }
 }
