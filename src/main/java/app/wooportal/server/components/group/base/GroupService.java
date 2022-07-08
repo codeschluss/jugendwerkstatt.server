@@ -48,93 +48,19 @@ public class GroupService extends DataService<GroupEntity, GroupPredicateBuilder
       if (newEntity.getCourses() != null) {
         var participants = new HashSet<ParticipantEntity>();
         for (var user : userService
-            .readAll(userService.query().addGraph(userService.graph("groups"))
-                .and(userService.getPredicate().withGroupId(newEntity.getId())))
+            .readAll(userService.query()
+                .and(userService.getPredicate().withGroup(newEntity.getId())))
             .getList()) {
+          
           var participant = new ParticipantEntity();
           participant.setChat(chat);
           participant.setUser(user);
           participants.add(participant);
         }
+        chat.setParticipants(participants);
       }
       newEntity.setChat(chat);
       setContext("chat", context);
     }
   }
 }
-
-
-
-// public boolean addMember(String groupId, String userId) {
-// var group = getById(groupId);
-// var user = userService.getById(userId);
-//
-// if (group.isEmpty() | user.isEmpty()) {
-// throw new BadParamsException("group or user does not exist", groupId);
-// }
-//
-// participantService
-// .deleteAll(participantService
-// .readAll(participantService.query()
-// .and(participantService.getPredicate().withUser(user.get().getId()).and(
-// participantService.getPredicate().witGroup(user.get().getGroup().getId()))))
-// .getList());
-//
-// user.get().setGroup(group.get());
-// userService.save(user.get());
-//
-// var participant = new ParticipantEntity();
-// participant.setChat(group.get().getChat());
-// participant.setUser(userService.getById(userId).get());
-// participantService.save(participant);
-//
-// return true;
-// }
-//
-// public boolean deleteMember(String groupId, String userId) {
-// var group = getById(groupId);
-// var user = userService.getById(userId);
-//
-// if (group.isEmpty() | user.isEmpty()) {
-// throw new BadParamsException("group or user does not exist", groupId);
-// }
-// user.get().setGroup(null);
-// userService.save(user.get());
-//
-// var participant = participantService
-// .readAll(participantService.query().addGraph(participantService.graph("users", "chats"))
-// .and(participantService.getPredicate().withUser(userId))
-// .and(participantService.getPredicate().withChat(group.get().getChat().getId())))
-// .getList();
-// participantService.deleteAll(participant);
-//
-// return true;
-// }
-
-// public void updateActiveOrder() {
-// var courseService = getService(CourseService.class);
-// for (var group : repo.findAll(query().addGraph(graph("courses"))).getList()) {
-//
-// var courses = group.getCourses().stream()
-// .sorted((o1, o2) -> o1.getActiveOrder().compareTo(o2.getActiveOrder()))
-// .toList();
-//
-// for (int i = 0; i < courses.size(); i++) {
-// if (courses.get(i).getActive() && i == courses.size() - 1) {
-// courses.get(i).setActive(false);
-// courses.get(0).setActive(true);
-// courseService.save(courses.get(i));
-// courseService.save(courses.get(0));
-// break;
-// } else if (courses.get(i).getActive()) {
-// courses.get(i).setActive(false);
-// courses.get(i + 1).setActive(true);
-// courseService.save(courses.get(i));
-// courseService.save(courses.get(i + 1));
-// break;
-// }
-// }
-// }
-// }
-
-

@@ -50,7 +50,9 @@ public class EventService extends DataService<EventEntity, EventPredicateBuilder
   @Override
   protected void preSave(EventEntity entity, EventEntity newEntity, JsonNode context) {
 
-    if (newEntity.getTitleImage() == null) {
+    if (newEntity.getTitleImage() == null 
+        && !newEntity.getImages().isEmpty()
+        && newEntity.getImages() != null) {
       newEntity.setTitleImage(newEntity.getImages().get(0));
       setContext("titleImage", context);
     }

@@ -16,8 +16,7 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
 
   @Override
   public BooleanExpression freeSearch(String term) {
-    return query.email.likeIgnoreCase(term)
-        .or(query.roles.any().name.likeIgnoreCase(term));
+    return query.email.likeIgnoreCase(term).or(query.roles.any().name.likeIgnoreCase(term));
   }
 
   public BooleanExpression withLoginName(String loginName) {
@@ -40,25 +39,21 @@ public class UserPredicateBuilder extends PredicateBuilder<QUserEntity, UserEnti
   public BooleanExpression notVerified() {
     return query.verified.isFalse();
   }
-  
+
   public BooleanExpression withChat(String chatId) {
-    return chatId != null && !chatId.isBlank() 
+    return chatId != null && !chatId.isBlank()
         ? query.participants.any().chat.id.equalsIgnoreCase(chatId)
         : null;
   }
 
-    public BooleanExpression withMessage(String messagerId) {
-      return messagerId != null && !messagerId.isBlank()
-          ? query.participants.any().messages.any().id.equalsIgnoreCase(messagerId)
-          : null;
-    }
+  public BooleanExpression withMessage(String messagerId) {
+    return messagerId != null && !messagerId.isBlank()
+        ? query.participants.any().messages.any().id.equalsIgnoreCase(messagerId)
+        : null;
+  }
 
-    public Predicate withGroupId(String groupId) {
-      return query.course.group.id.equalsIgnoreCase(groupId);
-    }
-    public Predicate withCourseNotNull() {
-      return query.course.isNotNull();
-    }
+  public Predicate withGroup(String groupId) {
+    return query.course.group.id.equalsIgnoreCase(groupId);
+  }
 
-   
 }
