@@ -45,5 +45,5 @@ public class CourseEntity extends BaseEntity {
   private String name;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-  private List<UserEntity> users;
+  private List<UserEntity> members;
 }

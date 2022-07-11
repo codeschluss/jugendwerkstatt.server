@@ -83,17 +83,15 @@ public class ChatApi extends CrudApi<ChatEntity, ChatService> {
     return service.getLastCall(chat);
   }
   
-  @GraphQLMutation(name = "addChatMember")
+  @GraphQLMutation(name = "addParticipant")
   @AdminPermission
-  public boolean addMember(String userId, String chatId) {
-    return service.addMember(userId, chatId);
+  public boolean addParticipant(String userId, String chatId) {
+    return service.addParticipant(userId, chatId);
   }
 
-  @GraphQLMutation(name = "deleteChatMember")
+  @GraphQLMutation(name = "removeParticipant")
   @AdminPermission
-  public boolean deleteMember(String userId, String chatId) {
-    return service.deleteMember(userId, chatId);
+  public boolean removeParticipant(String userId, String chatId) {
+    return service.removeParticipant(userId, chatId);
   }
 }
-
-

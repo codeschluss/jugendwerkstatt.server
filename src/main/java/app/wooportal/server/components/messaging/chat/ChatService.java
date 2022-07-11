@@ -110,7 +110,7 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
         : Optional.empty();
   }
   
-  public boolean addMember(String userId, String chatId) {
+  public boolean addParticipant(String userId, String chatId) {
     var chat = getById(chatId);
     var user = userService.getById(userId);
 
@@ -125,7 +125,7 @@ public class ChatService extends DataService<ChatEntity, ChatPredicateBuilder> {
     return true;
   }
   
-  public boolean deleteMember(String userId, String chatId) {
+  public boolean removeParticipant(String userId, String chatId) {
     var chat = getById(chatId);
     var user = userService.getById(userId);
     
