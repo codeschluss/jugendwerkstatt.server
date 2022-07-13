@@ -23,7 +23,6 @@ public class PageApi extends CrudApi<PageEntity, PageService> {
 
   @Override
   @GraphQLQuery(name = "getPages")
-  @ApprovedAndVerifiedPermission
   public PageableList<PageEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -31,7 +30,6 @@ public class PageApi extends CrudApi<PageEntity, PageService> {
 
   @Override
   @GraphQLQuery(name = "getPage")
-  @ApprovedAndVerifiedPermission
   public Optional<PageEntity> readOne(@GraphQLArgument(name = CrudApi.entity) PageEntity entity) {
     return super.readOne(entity);
   }
