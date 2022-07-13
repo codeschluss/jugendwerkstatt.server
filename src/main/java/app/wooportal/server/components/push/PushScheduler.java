@@ -39,8 +39,10 @@ public class PushScheduler {
     for (var schedule : scheduleService.withDates(List.of(OffsetDateTime.now(),
         OffsetDateTime.now().minusDays(3), OffsetDateTime.now().minusDays(2)), "event")) {
       var message = new MessageDto("Erinnerung zum Event",
-          MessageFormat.format("{0} findet am {1} statt.", schedule.getEvent().getName(),
-              schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm Uhr"))),
+          MessageFormat.format("{0} findet am {1} {2} statt.",
+              schedule.getEvent().getName(),
+              schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm")),
+              "Uhr"),
           Map.of(NotificationType.event.toString(), schedule.getEvent().getId()),
           NotificationType.event);
 
