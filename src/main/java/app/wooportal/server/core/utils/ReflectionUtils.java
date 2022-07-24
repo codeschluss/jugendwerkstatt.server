@@ -1,7 +1,5 @@
 package app.wooportal.server.core.utils;
 
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -191,7 +189,7 @@ public class ReflectionUtils {
   private static Object get(String fieldName, Class<?> sourceClass, Object obj)
       throws NoSuchFieldException, SecurityException, IllegalArgumentException,
           IllegalAccessException {
-    Field field = sourceClass.getDeclaredField(fieldName);
+    var field = sourceClass.getDeclaredField(fieldName);
     field.setAccessible(true);
     return field.get(obj);
   }
@@ -202,12 +200,13 @@ public class ReflectionUtils {
     }
 
     try {
-      new PropertyDescriptor(fieldName, obj.getClass()).getWriteMethod().invoke(obj, value);
-    } catch (IllegalAccessException
-        | IllegalArgumentException
-        | InvocationTargetException
-        | IntrospectionException
-        | SecurityException e) {
+      var field = getField(obj.getClass(), fieldName);
+      if (field.isEmpty()) {
+        throw new NoSuchFieldException(fieldName);
+      }
+      field.get().setAccessible(true);
+      field.get().set(obj, value);
+    } catch (IllegalAccessException | NoSuchFieldException | SecurityException e) {
       e.printStackTrace();
       // TODO: Log errors
     }
