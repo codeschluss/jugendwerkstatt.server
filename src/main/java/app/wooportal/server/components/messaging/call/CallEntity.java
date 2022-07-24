@@ -28,5 +28,7 @@ public class CallEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private ChatEntity chat;
+
+
 }
 
