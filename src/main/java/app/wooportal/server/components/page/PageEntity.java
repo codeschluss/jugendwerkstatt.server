@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
 import app.wooportal.server.core.base.BaseEntity;
 import app.wooportal.server.core.config.DefaultSort;
 import app.wooportal.server.core.media.base.MediaEntity;
@@ -37,6 +39,11 @@ public class PageEntity extends BaseEntity {
   @JoinTable(name = "page_image_media", joinColumns = @JoinColumn(name = "page_id"),
       inverseJoinColumns = @JoinColumn(name = "media_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"page_id", "media_id"})})
+  @CollectionId(
+      column = @Column(name = "id"),
+      type = @Type(type = "uuid-char"),
+      generator = "UUID"
+  )
   private List<MediaEntity> images;
   
   @Column(nullable = false, unique = true)
