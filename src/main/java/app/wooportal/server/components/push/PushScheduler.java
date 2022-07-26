@@ -43,7 +43,7 @@ public class PushScheduler {
               schedule.getEvent().getName(),
               schedule.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM um HH:mm")),
               "Uhr"),
-          Map.of(NotificationType.event.toString(), schedule.getEvent().getId()),
+          Map.of("id", schedule.getEvent().getId()),
           NotificationType.event);
 
       pushService.sendPush(userService.getRepo().findAll(), message);
