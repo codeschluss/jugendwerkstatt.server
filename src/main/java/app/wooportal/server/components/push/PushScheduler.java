@@ -57,7 +57,8 @@ public class PushScheduler {
       var message = new MessageDto("Erinnerung zum Jobangebot",
           MessageFormat.format("Die Bewerbungsfrist für {0} endet am {1}.", jobAd.getTitle(),
               jobAd.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyy"))),
-          Map.of(NotificationType.jobAd.toString(), jobAd.getId()), NotificationType.jobAd);
+          Map.of("id", jobAd.getId()),
+          NotificationType.jobAd);
 
       var users =
           userService.readAll(userService.query().addGraph(userService.graph("subscriptions"))

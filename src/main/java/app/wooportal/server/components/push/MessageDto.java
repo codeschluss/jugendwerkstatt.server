@@ -25,12 +25,25 @@ public class MessageDto {
   public MessageDto(
       String title,
       String content,
+      NotificationType type) {
+    setTitle(title);
+    setContent(content);
+    setType(type);
+    
+    this.data.put("type", type.toString());
+  }
+  
+  public MessageDto(
+      String title,
+      String content,
       Map<String, String> data,
       NotificationType type) {
     setTitle(title);
     setContent(content);
-    setData(data);
     setType(type);
+    
+    this.data.put("type", type.toString());
+    this.data.putAll(data);
   }
   
 }

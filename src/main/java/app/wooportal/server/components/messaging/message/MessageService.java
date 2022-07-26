@@ -69,9 +69,7 @@ public class MessageService extends DataService<MessageEntity, MessagePredicateB
     var message = new MessageDto(
         saved.getChat().getName(),
         saved.getContent(),
-        Map.of(
-            NotificationType.chat.toString(),
-            saved.getChat().getId()),
+        Map.of("id", saved.getChat().getId()),
         NotificationType.chat);
     
     var users = userService.readAll(userService.query()

@@ -130,8 +130,9 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
 
     if (user.getCourse() != null ) {
       var message =
-          new MessageDto("Hat dir der Kurs gefallen?", "Bitte bearbeite den Bewertungsbogen!",
-              Map.of(NotificationType.evaluation.toString(), "evaluation"),
+          new MessageDto(
+              "Hat dir der Kurs gefallen?",
+              "Bitte bearbeite den Bewertungsbogen!",
               NotificationType.evaluation);
       pushService.sendPush(user, message);
 

@@ -91,11 +91,10 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
     var deletedUser = service.deleteMe(password);
 
     if (deletedUser.isPresent()) {
-      var message = new MessageDto();
-      message.setTitle("Benutzer gelöscht");
-      message.setContent("Benutzer mit dem Namen: " + deletedUser.get().getFullname()
-          + " hat soeben das Benutzerkonto gelöscht");
-      message.setType(NotificationType.deletedUser);
+      var message = new MessageDto(
+          "Benutzer gelöscht",
+          "Benutzer mit dem Namen: " + deletedUser.get().getFullname() + " hat soeben das Benutzerkonto gelöscht",
+          NotificationType.deletedUser);
 
       pushService.sendPush(
           service.readAll(service.query().and(service.getPredicate().withRole(RoleService.admin)))
