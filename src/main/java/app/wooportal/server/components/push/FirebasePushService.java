@@ -18,6 +18,7 @@ import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
 import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.components.push.subscription.SubscriptionService;
+import app.wooportal.server.core.security.components.user.UserEntity;
 
 
 @Service
@@ -41,27 +42,32 @@ public class FirebasePushService {
     }
   }
 
-  public void sendPush(SubscriptionEntity subscription, MessageDto message) {
-    try {
-      var messageBuilder =
-          Message.builder().setToken(subscription.getDeviceToken()).setNotification(Notification
-              .builder().setTitle(message.getTitle()).setBody(message.getContent()).build());
+  public void sendPush(UserEntity user, MessageDto message) {
+    for (var iterator = user.getSubscriptions().iterator(); iterator.hasNext();) {
+      var subscription = iterator.next();
+      try {
+        var messageBuilder =
+            Message.builder().setToken(subscription.getDeviceToken()).setNotification(Notification
+                .builder().setTitle(message.getTitle()).setBody(message.getContent()).build());
 
-      if (message.getData() != null) {
-        messageBuilder.setAndroidConfig(AndroidConfig.builder().putAllData(message.getData()).build())
-            .setApnsConfig(ApnsConfig.builder()
-                .setAps(Aps.builder().putAllCustomData(new HashMap<String, Object>(message.getData()))
-                    .build())
-                .build())
-            .setWebpushConfig(WebpushConfig.builder()
-                .setNotification(WebpushNotification.builder().setData(message.getData()).build())
-                .build());
+        if (message.getData() != null) {
+          messageBuilder.setAndroidConfig(AndroidConfig.builder().putAllData(message.getData()).build())
+              .setApnsConfig(ApnsConfig.builder()
+                  .setAps(Aps.builder().putAllCustomData(new HashMap<String, Object>(message.getData()))
+                      .build())
+                  .build())
+              .setWebpushConfig(WebpushConfig.builder()
+                  .setNotification(WebpushNotification.builder().setData(message.getData()).build())
+                  .build());
+        }
+        FirebaseMessaging.getInstance().sendAsync(messageBuilder.build()).get();
+
+      } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace(System.out);
+        iterator.remove();
+        subscriptionService.deleteById(subscription.getId());
       }
-      FirebaseMessaging.getInstance().sendAsync(messageBuilder.build()).get();
-
-    } catch (InterruptedException | ExecutionException e) {
-      e.printStackTrace(System.out);
-      subscriptionService.deleteById(subscription.getId());
     }
+
   }
 }

@@ -43,9 +43,7 @@ public class PushService {
     saveNotification(user, message);
     graphQLPushService.sendPush(user, message);
   
-    for (var subscription : user.getSubscriptions()) {
-      firebasePushService.sendPush(subscription, message);
-    }
+    firebasePushService.sendPush(user, message);
   }
 
   private void saveNotification(UserEntity user, MessageDto message) {
