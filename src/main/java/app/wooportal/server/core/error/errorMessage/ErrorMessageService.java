@@ -77,8 +77,7 @@ public class ErrorMessageService extends DataService<ErrorMessageEntity, ErrorMe
       return "Felder sind leer, die nicht leer sein dürfen.";
     }
     
-    //TODO: add again once everything works...
-//    this.errorMailService.sendErrorMail(e);
+    this.errorMailService.sendErrorMail(e);
     return "Unbekannter Fehler. Wende dich bitte an den Support.";
   }
   
