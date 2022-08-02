@@ -128,7 +128,7 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
 
   public void createFeedback(UserEntity user) {
 
-    if (user.getCourse() != null ) {
+    if (user.getCourse() != null) {
       var message =
           new MessageDto(
               "Hat dir der Kurs gefallen?",
