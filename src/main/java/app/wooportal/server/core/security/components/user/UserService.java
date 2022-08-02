@@ -13,6 +13,7 @@ import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.error.ErrorMailService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
+import app.wooportal.server.core.error.exception.InvalidTokenException;
 import app.wooportal.server.core.error.exception.InvalidVerificationException;
 import app.wooportal.server.core.error.exception.NotFoundException;
 import app.wooportal.server.core.media.base.MediaEntity;
@@ -84,8 +85,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
 
   @Override
   public void preSave(UserEntity entity, UserEntity newEntity, JsonNode context) {
-    if (newEntity.getPassword() != null) {
-      errorMailService.sendErrorMail(Arrays.toString(Thread.currentThread().getStackTrace()));
+    if (newEntity.getPassword() != null && newEntity.getId() == null) {
       newEntity.setPassword(bcryptPasswordEncoder.encode(newEntity.getPassword()));
     }
 
@@ -236,5 +236,15 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       return Optional.of(currentUser.get().getUser());
     }
     return Optional.empty();
+  }
+
+  public boolean changePassword(String newPassword) {
+    var currentUser = authService.getAuthenticatedUser();
+    if (currentUser.isPresent()) {
+      currentUser.get().setPassword(bcryptPasswordEncoder.encode(newPassword));
+      repo.save(currentUser.get());
+      return true;
+    }
+    throw new InvalidTokenException("Token is invalid");
   }
 }
