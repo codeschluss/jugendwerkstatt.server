@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import app.wooportal.server.core.base.BaseEntity;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "media")
+@Service
 public class MediaEntity extends BaseEntity {
 
   @Serial
@@ -35,4 +37,5 @@ public class MediaEntity extends BaseEntity {
 
   @Column(nullable = false)
   private String name;
+
 }
