@@ -160,4 +160,10 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
   public UserEntity verify(String key) {
     return service.verify(key);
   }
+  
+  @GraphQLMutation(name = "changePassword")
+  @ApprovedAndVerifiedPermission
+  public Boolean changePassword(String newPassword) {
+    return service.changePassword(newPassword);
+  }
 }
