@@ -84,8 +84,12 @@ public class DateUtils {
   }
   
   public static Object parseToDateType(Object value, Class<?> type) {
-    if (value == null || type == null) {
-      throw new IllegalArgumentException("value or type must not be null");
+    if (type == null) {
+      throw new IllegalArgumentException("type must not be null");
+    }
+    
+    if (value == null) {
+      return value;
     }
     
     if (type.isAssignableFrom(OffsetDateTime.class)) {

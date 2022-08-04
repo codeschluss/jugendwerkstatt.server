@@ -143,9 +143,15 @@ public abstract class PredicateBuilder<T extends EntityPathBase<?>, E extends Ba
 
         return ((NumberExpression<?>) queryPath).like((String) value);
       case NOT_EQUAL:
-        return ((SimpleExpression<Object>) queryPath).ne(value);
+        return value == null
+         ? ((SimpleExpression<Object>) queryPath).isNotNull()
+         : ((SimpleExpression<Object>) queryPath).ne(value);
       case EQUAL:
       default:
+        if (value == null) {
+          return ((SimpleExpression<Object>) queryPath).isNull();
+        }
+        
         if (queryPath instanceof StringExpression) {
           return ((StringExpression) queryPath).equalsIgnoreCase(((String) value));
         }
