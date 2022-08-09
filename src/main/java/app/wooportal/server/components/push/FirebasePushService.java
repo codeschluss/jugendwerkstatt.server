@@ -16,7 +16,6 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import app.wooportal.server.components.push.subscription.SubscriptionEntity;
 import app.wooportal.server.components.push.subscription.SubscriptionService;
 import app.wooportal.server.core.security.components.user.UserEntity;
 

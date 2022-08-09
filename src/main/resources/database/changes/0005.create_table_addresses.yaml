@@ -80,3 +80,14 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: addresses
             validate: true
+  - changeSet:  
+      id: 0005.create_table_address.4
+      author: codeschluss  
+      changes: 
+      -  addUniqueConstraint:
+          columnNames: house_number, place, street, postal_code
+          constraintName:  uc_addresses_full_address  
+          deferrable: false
+          initiallyDeferred: false
+          tableName: addresses
+          validate: true

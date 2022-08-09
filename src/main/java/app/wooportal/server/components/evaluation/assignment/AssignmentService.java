@@ -1,24 +1,20 @@
 package app.wooportal.server.components.evaluation.assignment;
 
-import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import app.wooportal.server.components.evaluation.answer.AnswerService;
 import app.wooportal.server.components.evaluation.assignmentState.AssignmentStateService;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
 import app.wooportal.server.components.group.feedback.FeedbackService;
-import app.wooportal.server.components.messaging.message.MessageEntity;
 import app.wooportal.server.components.push.MessageDto;
 import app.wooportal.server.components.push.NotificationType;
 import app.wooportal.server.components.push.PushService;
 import app.wooportal.server.core.base.DataService;
 import app.wooportal.server.core.repository.DataRepository;
-import app.wooportal.server.core.security.components.user.UserService;
 
 @Service
 public class AssignmentService extends DataService<AssignmentEntity, AssignmentPredicateBuilder> {
 
-  private final UserService userService;
   private final PushService pushService;
   private final FeedbackService feedbackService;
   
@@ -27,14 +23,12 @@ public class AssignmentService extends DataService<AssignmentEntity, AssignmentP
       AssignmentPredicateBuilder predicate,
       AnswerService answerService,
       AssignmentStateService assignmentStateService,
-      UserService userService,
       PushService pushService,
       FeedbackService feedbackService) {
     super(repo, predicate);
 
     addService("answers", answerService);
     addService("assignmentState", assignmentStateService);
-    this.userService = userService;
     this.pushService = pushService;
     this.feedbackService = feedbackService;
   }

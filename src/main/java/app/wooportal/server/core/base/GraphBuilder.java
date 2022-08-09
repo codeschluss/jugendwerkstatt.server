@@ -35,7 +35,7 @@ public class GraphBuilder<E extends BaseEntity> {
   @SuppressWarnings("unchecked")
   public RootGraph<E> create(Class<E> entityClass, List<Field> context) {
     return entityClass != null && context != null && hasSubgraphs(context)
-        ? (RootGraph<E>) create(entityClass, context, (Graph<E>) entityManager.createEntityGraph(entityClass))
+        ? (RootGraph<E>) create(entityClass, context, (Graph<E>) entityManager.createEntityGraph(entityClass), false)
         : null;
   }
 
@@ -48,16 +48,22 @@ public class GraphBuilder<E extends BaseEntity> {
     return false;
   }
 
+  /**
+   * 
+   * @param entityClass
+   * @param context
+   * @param graph
+   * @param collectionAlreadyAdded This flag prevents MultipleBagFetchException when multiple sub
+   *        collections are added. Strategy now is fetch join one collection and load rest lazy. In
+   *        future another strategy needs to be found. something like:
+   *        https://stackoverflow.com/questions/4334970/hibernate-throws-multiplebagfetchexception-cannot-simultaneously-fetch-multipl/51055523?stw=2#51055523
+   * @return
+   */
   public Graph<E> create(
       Class<?> entityClass,
       List<Field> context,
-      Graph<E> graph) {
-    
-    // This flag prevents MultipleBagFetchException when multiple sub collections are added.
-    // Strategy now is fetch join one collection and load rest lazy. In future another strategy
-    // needs to be found. something like:
-    // https://stackoverflow.com/questions/4334970/hibernate-throws-multiplebagfetchexception-cannot-simultaneously-fetch-multipl/51055523?stw=2#51055523 
-    var collectionAlreadyAdded = false;
+      Graph<E> graph,
+      boolean collectionAlreadyAdded) {
     
     for (var field : context) {
       var fieldType = getEntityType(entityClass, field.getName());
@@ -65,13 +71,14 @@ public class GraphBuilder<E extends BaseEntity> {
           && isValidField(entityClass, field.getName())
           && hasSubgraphs(field)
           && !collectionAlreadyAdded) {
+        collectionAlreadyAdded = ReflectionUtils.getAnnotation(
+            ReflectionUtils.getField(entityClass, field.getName()).get(), OneToMany.class).isPresent();
+        
         create(
             fieldType.get(), 
             field.getSelectionSet().getSelectionsOfType(Field.class), 
-            graph.addSubGraph(field.getName()));
-
-        collectionAlreadyAdded = ReflectionUtils.getAnnotation(
-            ReflectionUtils.getField(entityClass, field.getName()).get(), OneToMany.class).isPresent(); 
+            graph.addSubGraph(field.getName()),
+            collectionAlreadyAdded);
       }
     }
     return graph;

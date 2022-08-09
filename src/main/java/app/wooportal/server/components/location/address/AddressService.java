@@ -34,6 +34,10 @@ public class AddressService extends DataService<AddressEntity, AddressPredicateB
       if (newEntity.getId() == null) {
         var externalAddress = bingMapService.retrieveExternalAddress(newEntity);
         
+        var result = getExisting(externalAddress);
+        if (result.isPresent()) {
+          newEntity.setId(result.get().getId());
+        }
         newEntity.setPostalCode(externalAddress.getPostalCode());
         newEntity.setPlace(externalAddress.getPlace());
         newEntity.setHouseNumber(externalAddress.getHouseNumber());

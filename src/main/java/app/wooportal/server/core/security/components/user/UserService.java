@@ -1,6 +1,5 @@
 package app.wooportal.server.core.security.components.user;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,7 +9,6 @@ import app.wooportal.server.components.event.base.EventService;
 import app.wooportal.server.components.jobad.base.JobAdService;
 import app.wooportal.server.components.push.subscription.SubscriptionService;
 import app.wooportal.server.core.base.DataService;
-import app.wooportal.server.core.error.ErrorMailService;
 import app.wooportal.server.core.error.exception.AlreadyVerifiedException;
 import app.wooportal.server.core.error.exception.InvalidPasswordResetException;
 import app.wooportal.server.core.error.exception.InvalidTokenException;
@@ -40,8 +38,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   private final MediaService mediaService;
   
-  private final ErrorMailService errorMailService;
-  
   public UserService(
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
@@ -53,8 +49,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       PasswordResetService passwordResetService,
       RoleService roleService,
       SubscriptionService subscriptionService,
-      VerificationService verificationService,
-      ErrorMailService errorMailService) {
+      VerificationService verificationService) {
     super(repo, predicate);
 
     this.authService = authService;
@@ -62,7 +57,6 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     this.eventService = eventService;
     this.jobAdService = jobAdService;
     this.mediaService = mediaService;
-    this.errorMailService = errorMailService;
     
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);

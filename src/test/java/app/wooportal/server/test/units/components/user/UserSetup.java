@@ -62,8 +62,7 @@ public class UserSetup {
         createPasswordResetData(passwordResetData),
         createRoleService(roleData),
         null,
-        createVerificationData(verificationData),
-        null);
+        createVerificationData(verificationData));
 
     service.setGraph(new GraphBuilder<>(entityManager));
     service.setContext(new TestApiContextAdapter());

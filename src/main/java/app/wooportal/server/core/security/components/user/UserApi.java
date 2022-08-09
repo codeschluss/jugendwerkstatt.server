@@ -9,6 +9,7 @@ import app.wooportal.server.components.push.PushService;
 import app.wooportal.server.core.base.CrudApi;
 import app.wooportal.server.core.base.dto.listing.FilterSortPaginate;
 import app.wooportal.server.core.base.dto.listing.PageableList;
+import app.wooportal.server.core.error.exception.BadParamsException;
 import app.wooportal.server.core.media.base.MediaEntity;
 import app.wooportal.server.core.security.components.role.RoleService;
 import app.wooportal.server.core.security.permissions.AdminPermission;
@@ -143,27 +144,42 @@ public class UserApi extends CrudApi<UserEntity, UserService> {
 
   @GraphQLMutation(name = "sendPasswordReset")
   public Boolean forgetPassword(String mailAddress) {
+    if (mailAddress == null || mailAddress.isBlank()) {
+      throw new BadParamsException("Mail address is null or empty");
+    }
     return service.createPasswordReset(mailAddress);
   }
 
   @GraphQLMutation(name = "resetPassword")
   public Boolean resetPassword(String key, String password) {
+    if (key == null || key.isBlank() || password == null || password.isBlank()) {
+      throw new BadParamsException("key or password are null or empty");
+    }
     return service.resetPassword(key, password);
   }
 
   @GraphQLMutation(name = "sendVerification")
   public Boolean sendVerification(String mailAddress) {
+    if (mailAddress == null || mailAddress.isBlank()) {
+      throw new BadParamsException("Mail address is null or empty");
+    }
     return service.createVerification(mailAddress);
   }
 
   @GraphQLMutation(name = "verify")
   public UserEntity verify(String key) {
+    if (key == null || key.isBlank()) {
+      throw new BadParamsException("key is null or empty");
+    }
     return service.verify(key);
   }
   
   @GraphQLMutation(name = "changePassword")
   @ApprovedAndVerifiedPermission
   public Boolean changePassword(String newPassword) {
+    if (newPassword == null || newPassword.isBlank()) {
+      throw new BadParamsException("New password is null or empty");
+    }
     return service.changePassword(newPassword);
   }
 }
