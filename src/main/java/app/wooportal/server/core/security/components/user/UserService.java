@@ -107,7 +107,8 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public Optional<UserEntity> addJobAdFavorite(String jobAdId) {
     var currentUser = authService.getAuthenticatedUser();
     var jobAd = jobAdService.getById(jobAdId);
-    if (currentUser.isPresent() && jobAd.isPresent()) {
+    if (currentUser.isPresent() && jobAd.isPresent()
+        && !getById(currentUser.get().getId()).get().getFavoriteJobAds().contains(jobAd.get())) {
       getById(currentUser.get().getId()).get().getFavoriteJobAds().add(jobAd.get());
       return Optional.of(repo.save(currentUser.get()));
     }
@@ -127,7 +128,8 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public Optional<UserEntity> addEventFavorite(String eventId) {
     var currentUser = authService.getAuthenticatedUser();
     var event = eventService.getById(eventId);
-    if (currentUser.isPresent() && event.isPresent()) {
+    if (currentUser.isPresent() && event.isPresent() 
+        && !getById(currentUser.get().getId()).get().getFavoriteEvents().contains(event.get())) {
       getById(currentUser.get().getId()).get().getFavoriteEvents().add(event.get());
       return Optional.of(repo.save(currentUser.get()));
     }
