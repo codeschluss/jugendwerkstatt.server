@@ -72,7 +72,9 @@ public class SearchService {
 
       }
     }
-    return list;
+    return params.getSize() != null && list.size() > params.getSize()
+        ? list.subList(0, params.getSize())
+        : list;
   }
 }
 
