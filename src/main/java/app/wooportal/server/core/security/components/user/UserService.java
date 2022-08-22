@@ -38,6 +38,8 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   
   private final MediaService mediaService;
   
+  private final RoleService roleService;
+  
   public UserService(
       DataRepository<UserEntity> repo,
       UserPredicateBuilder predicate,
@@ -57,6 +59,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     this.eventService = eventService;
     this.jobAdService = jobAdService;
     this.mediaService = mediaService;
+    this.roleService = roleService;
     
     addService("passwordReset", passwordResetService);
     addService("profilePicture", mediaService);
@@ -81,6 +84,11 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
   public void preSave(UserEntity entity, UserEntity newEntity, JsonNode context) {
     if (newEntity.getPassword() != null && newEntity.getId() == null) {
       newEntity.setPassword(bcryptPasswordEncoder.encode(newEntity.getPassword()));
+    }
+    
+    if (entity.getId() != null && newEntity.getApproved() != null && newEntity.getApproved()) {
+      newEntity.getRoles().add(roleService.getSupervisorRole());
+      setContext("roles", context);
     }
 
     if (entity.getId() == null || entity.getId().isBlank()) {

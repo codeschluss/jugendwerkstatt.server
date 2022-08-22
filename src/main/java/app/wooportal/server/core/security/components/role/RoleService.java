@@ -32,6 +32,10 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
     return repo.findOne(predicate.withKey(admin)).get();
   }
   
+  public RoleEntity getStudentRole() {
+    return repo.findOne(predicate.withKey(student)).get();
+  }
+  
   public RoleEntity getSupervisorRole() {
     return repo.findOne(predicate.withKey(supervisor)).get();
   }
