@@ -39,7 +39,9 @@ public class AssignmentService extends DataService<AssignmentEntity, AssignmentP
   @Override
   protected void postSave(AssignmentEntity saved, AssignmentEntity newEntity, JsonNode context) {
     var user = saved.getUser();
-    if (user != null) {
+    if (user != null
+          && saved.getAssignmentState() != null
+          && !saved.getAssignmentState().equals(getService(AssignmentStateService.class).getDoneState())) {
       var message = new MessageDto("Hat dir der Kurs gefallen?",
           "Bitte bearbeite den Bewertungsbogen!", NotificationType.evaluation);
       pushService.sendPush(user, message);
