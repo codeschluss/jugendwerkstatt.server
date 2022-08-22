@@ -87,8 +87,8 @@ public class UserEntity extends BaseEntity {
   @Column(nullable = false)
   private String password;
 
-  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-  private PasswordResetEntity passwordReset;
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private Set<PasswordResetEntity> passwordResets;
   
   @Column(unique = true)
   private String phone;
@@ -116,8 +116,8 @@ public class UserEntity extends BaseEntity {
   @CollectionId(column = @Column(name = "id"), type = @Type(type = "uuid-char"), generator = "UUID")
   private List<MediaEntity> uploads = new ArrayList<>();
 
-  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-  private VerificationEntity verification;
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private Set<VerificationEntity> verifications;
   
   private Boolean verified;
 

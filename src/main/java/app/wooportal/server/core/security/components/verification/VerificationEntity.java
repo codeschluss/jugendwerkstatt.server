@@ -30,9 +30,7 @@ public class VerificationEntity extends BaseEntity {
   private String key;
   
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(
-      nullable = false,
-      unique = true)
+  @JoinColumn(nullable = false)
   private UserEntity user;
   
 }

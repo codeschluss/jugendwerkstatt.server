@@ -29,4 +29,10 @@ public class PasswordResetBuilder extends PredicateBuilder<QPasswordResetEntity,
         : null;
   }
 
+  public BooleanExpression withUser(String userId) {
+    return userId != null
+        ? query.key.eq(userId)
+        : null;
+  }
+
 }

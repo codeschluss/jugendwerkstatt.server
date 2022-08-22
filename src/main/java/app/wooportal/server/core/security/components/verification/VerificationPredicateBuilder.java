@@ -22,4 +22,10 @@ public class VerificationPredicateBuilder extends PredicateBuilder<QVerification
         : null;
   }
 
+  public BooleanExpression withUser(String userId) {
+    return userId != null
+        ? query.key.eq(userId)
+        : null;
+  }
+
 }

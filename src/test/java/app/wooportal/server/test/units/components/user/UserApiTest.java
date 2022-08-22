@@ -88,7 +88,7 @@ public class UserApiTest {
     
     assertThat(result).matches(e -> e.getFullname().equals(test.getFullname())
         && e.getEmail().equals(test.getEmail())
-        && e.getVerification() != null
+        && e.getVerifications() != null
     );
   }
 

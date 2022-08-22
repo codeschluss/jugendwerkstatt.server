@@ -51,13 +51,6 @@ public class DataServiceDeleteAllTest {
   }
   
   @Test
-  public void deleteAllNullList() throws Exception {   
-    service.deleteAll(null);
-    
-    assertThat(testRepo.findAll()).containsAll(data);
-  }
-  
-  @Test
   public void deleteAllNullEntities() throws Exception {
     var test = new ArrayList<TestEntity>();
     test.add(null);

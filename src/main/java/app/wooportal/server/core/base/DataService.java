@@ -485,6 +485,12 @@ public abstract class DataService<E extends BaseEntity, P extends PredicateBuild
       }
     }
   }
+  
+  // TODO: Instead of querying objects and pass result to delete method (which in turn calls another
+  // query), delete by query 
+  public void deleteAll(Query<E> query) {
+    deleteAll(repo.findAll(query).getList());
+  }
 
   public void deleteAll(Collection<E> entities) {
     if (entities != null && !entities.isEmpty()) {

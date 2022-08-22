@@ -213,7 +213,6 @@ databaseChangeLog:
               - column:
                   constraints:
                     nullable: false
-                    unique: true
                   name: user_id
                   type: CHAR(36)
             tableName: verifications

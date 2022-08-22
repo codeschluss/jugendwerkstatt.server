@@ -1,5 +1,6 @@
 package app.wooportal.server.core.security.components.user;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,11 +62,11 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     this.mediaService = mediaService;
     this.roleService = roleService;
     
-    addService("passwordReset", passwordResetService);
+    addService("passwordResets", passwordResetService);
     addService("profilePicture", mediaService);
     addService("subscriptions", subscriptionService);
     addService("uploads", mediaService);
-    addService("verification", verificationService);
+    addService("verifications", verificationService);
   }
 
   public Optional<UserEntity> getByLoginName(String name) {
@@ -86,13 +87,16 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       newEntity.setPassword(bcryptPasswordEncoder.encode(newEntity.getPassword()));
     }
     
-    if (entity.getId() != null && newEntity.getApproved() != null && newEntity.getApproved()) {
-      newEntity.getRoles().add(roleService.getStudentRole());
+    if (entity.getId() != null
+        && (entity.getRoles() == null || entity.getRoles().isEmpty()) 
+        && newEntity.getApproved() != null && newEntity.getApproved()) {
+      newEntity.getRoles().add(roleService.getSupervisorRole());
+
       setContext("roles", context);
     }
 
     if (entity.getId() == null || entity.getId().isBlank()) {
-      newEntity.setVerification(new VerificationEntity());
+      newEntity.setVerifications(new HashSet<>(List.of(new VerificationEntity())));
       setContext("verification", context);
       
       newEntity.setApproved(false);
@@ -180,13 +184,13 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       throw new NotFoundException("User with mail does not exist", mailAddress);
     }
 
-    if (result.get().getPasswordReset() != null) {
-      getService(PasswordResetService.class).deleteById(result.get().getPasswordReset().getId());
-    }
-
     var copy = ReflectionUtils.copy(result.get());
-    copy.setPasswordReset(new PasswordResetEntity());
-    persist(result.get(), copy, createContext("passwordReset"));
+    if (copy.getPasswordResets() != null) {
+      copy.getPasswordResets().add(new PasswordResetEntity());
+    } else {
+      copy.setPasswordResets(new HashSet<>(List.of(new PasswordResetEntity())));
+    }
+    persist(result.get(), copy, createContext("passwordResets"));
     return true;
   }
 
@@ -197,6 +201,8 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     }
     var user = passwordReset.get().getUser();
     user.setPassword(bcryptPasswordEncoder.encode(password));
+    var service = getService(PasswordResetService.class);
+    service.deleteAll(service.query().and(service.getPredicate().withUser(user.getId())));
     repo.save(user);
     return true;
   }
@@ -212,13 +218,13 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
       throw new AlreadyVerifiedException("Already verified");
     }
 
-    if (result.get().getVerification() != null) {
-      getService(VerificationService.class).deleteById(result.get().getVerification().getId());
-    }
-
     var copy = ReflectionUtils.copy(result.get());
-    copy.setVerification(new VerificationEntity());
-    persist(result.get(), copy, createContext("verification"));
+    if (copy.getVerifications() != null) {
+      copy.getVerifications().add(new VerificationEntity());
+    } else {
+      copy.setVerifications(new HashSet<>(List.of(new VerificationEntity())));
+    }
+    persist(result.get(), copy, createContext("verifications"));
     return true;
   }
 
@@ -227,7 +233,8 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (verification.isPresent()) {
       var user = verification.get().getUser();
       user.setVerified(true);
-      getService(VerificationService.class).deleteById(verification.get().getId());
+      var service = getService(VerificationService.class);
+      service.deleteAll(service.query().and(service.getPredicate().withUser(user.getId())));
       return repo.save(user);
     }
     throw new InvalidVerificationException("Verification invalid", key);
