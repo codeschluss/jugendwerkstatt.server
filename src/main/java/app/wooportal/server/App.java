@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.wooportal.server.core.error.ExceptionResolverInterceptor;
 import app.wooportal.server.core.error.errorMessage.ErrorMessageService;
@@ -71,6 +72,14 @@ public class App {
   @Bean
   public TomcatConnectorCustomizer asyncTimeoutCustomize() {
     return connector -> connector.setAsyncTimeout(180000);
+  }
+  
+  @Bean
+  public ServletServerContainerFactoryBean createServletServerContainerFactoryBean() {
+    var container = new ServletServerContainerFactoryBean();
+    container.setMaxTextMessageBufferSize(32768);
+    container.setMaxBinaryMessageBufferSize(32768);
+    return container;
   }
 
   @Bean
