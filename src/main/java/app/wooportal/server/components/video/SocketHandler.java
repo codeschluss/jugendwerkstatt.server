@@ -96,12 +96,13 @@ public class SocketHandler extends TextWebSocketHandler {
     }
   }
 
-  public void init(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      WebSocketSession session) throws IOException {
+  public void init(UserEntity currentUser, CallPayloadDto payload, WebSocketSession session)
+      throws IOException {
     sessions.put(currentUser, session);
     if (pendingOffers.containsKey(currentUser)) {
+      var payloadPendingOffer =
+          objectMapper.readValue(pendingOffers.get(currentUser).getPayload(), CallPayloadDto.class);
+           payload.setChatId(payloadPendingOffer.getChatId());  
       sendMessage(sessions.get(currentUser), pendingOffers.get(currentUser), payload);
       pendingOffers.remove(currentUser);
     }
