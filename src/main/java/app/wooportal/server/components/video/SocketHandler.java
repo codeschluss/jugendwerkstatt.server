@@ -21,7 +21,6 @@ import app.wooportal.server.core.error.exception.InvalidTokenException;
 import app.wooportal.server.core.security.components.user.UserEntity;
 import app.wooportal.server.core.security.components.user.UserService;
 import app.wooportal.server.core.security.services.AuthenticationService;
-import app.wooportal.server.core.utils.ReflectionUtils;
 
 @Service
 public class SocketHandler extends TextWebSocketHandler {
@@ -37,7 +36,7 @@ public class SocketHandler extends TextWebSocketHandler {
 
   private ConcurrentHashMap<UserEntity, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
-  private ConcurrentHashMap<UserEntity, TextMessage> pendingOffers = new ConcurrentHashMap<>();
+  private ConcurrentHashMap<UserEntity, CallPayloadDto> pendingOffers = new ConcurrentHashMap<>();
 
   public SocketHandler(AuthenticationService authService, ObjectMapper objectMapper,
       ChatService chatService, CallService callService, NotificationService notificationService,
@@ -71,60 +70,50 @@ public class SocketHandler extends TextWebSocketHandler {
     var currentUser = authService.getUserFromToken(payload.getToken());
     checkAuthorization(currentUser, session);
     checkValidMessage(payload, currentUser.get());
-    
+
     switch (payload.getType()) {
-      case init -> init(currentUser.get(), payload, session);
-      case offer -> offer(currentUser.get(), payload, message);
-      case answer -> answer(currentUser.get(), payload, message);
-      case abort -> abort(currentUser.get(), payload, message);
+      case init -> init(currentUser.get(), session);
+      case offer -> offer(currentUser.get(), payload);
+      case answer -> answer(currentUser.get(), payload);
+      case abort -> abort(currentUser.get(), payload);
     }
   }
 
-  public void checkAuthorization(
-      Optional<UserEntity> currentUser,
-      WebSocketSession session) throws IOException {
+  public void checkAuthorization(Optional<UserEntity> currentUser, WebSocketSession session)
+      throws IOException {
     if (!currentUser.isPresent() || currentUser.get().getApproved() == false) {
       sessions.remove(currentUser.get());
       session.close();
       throw new InvalidTokenException("Token expired or user is not approved");
     }
   }
-  
+
   private void checkValidMessage(CallPayloadDto payload, UserEntity currentUser) {
     if (payload.getType() != CallMessageType.init && !sessions.containsKey(currentUser)) {
       throw new BadParamsException("Send websocket with init type first!", payload);
     }
   }
 
-  public void init(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      WebSocketSession session) throws IOException {
+  public void init(UserEntity currentUser, WebSocketSession session) throws IOException {
     sessions.put(currentUser, session);
     if (pendingOffers.containsKey(currentUser)) {
-      sendMessage(sessions.get(currentUser), pendingOffers.get(currentUser), payload);
+      sendMessage(sessions.get(currentUser), pendingOffers.get(currentUser));
       pendingOffers.remove(currentUser);
     }
   }
 
-  public void offer(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      TextMessage message) throws IOException {
+  public void offer(UserEntity currentUser, CallPayloadDto payload) throws IOException {
     createCall(currentUser, payload);
-    sendOffer(currentUser, payload, message);
+    sendOffer(currentUser, payload);
   }
-  
-  private void createCall(
-      UserEntity currentUser,
-      CallPayloadDto payload) {
-    var result =
-        participantService
-            .readAll(participantService.query()
-                .and(participantService.getPredicate().withUser(currentUser.getId())
-                    .and(participantService.getPredicate().withChat(payload.getChatId())))
-                .setLimit(1))
-            .getList();
+
+  private void createCall(UserEntity currentUser, CallPayloadDto payload) {
+    var result = participantService
+        .readAll(participantService.query()
+            .and(participantService.getPredicate().withUser(currentUser.getId())
+                .and(participantService.getPredicate().withChat(payload.getChatId())))
+            .setLimit(1))
+        .getList();
 
     var chat = chatService.getById(payload.getChatId());
 
@@ -138,19 +127,17 @@ public class SocketHandler extends TextWebSocketHandler {
     callService.save(call);
   }
 
-  private void sendOffer(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      TextMessage message) throws IOException {
+  private void sendOffer(UserEntity currentUser, CallPayloadDto payload) throws IOException {
     var users = userService
-        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId()))).getList();
+        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId())))
+        .getList();
     users.remove(currentUser);
 
     for (var receivingUser : users) {
       if (sessions.containsKey(receivingUser)) {
-        sendMessage(sessions.get(receivingUser), message, payload);
+        sendMessage(sessions.get(receivingUser), payload);
       } else {
-        pendingOffers.put(receivingUser, message);
+        pendingOffers.put(receivingUser, payload);
         var notification = new NotificationEntity();
         notification.setTitle("Eingehender Anruf");
         notification.setContent(currentUser.getFullname());
@@ -161,10 +148,7 @@ public class SocketHandler extends TextWebSocketHandler {
     }
   }
 
-  public void answer(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      TextMessage message) throws IOException {
+  public void answer(UserEntity currentUser, CallPayloadDto payload) throws IOException {
     /**
      * TODO: The following logic does not work properly if a chat contains more than two
      * participants. The problem is that we send answers to all chat users, including those which
@@ -172,44 +156,39 @@ public class SocketHandler extends TextWebSocketHandler {
      * reworked once group calls are necessary (e.g. have an in-memory map for already connected
      * users of a chat, etc.)
      */
-    
-    var users = userService
-        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId()))).getList();
-    users.remove(currentUser); 
-
-    for (var receivingUser : users) {
-      if (sessions.containsKey(receivingUser)) {
-        sendMessage(sessions.get(receivingUser), message, payload);
-      } else {
-        payload.setType(CallMessageType.abort);
-        sendMessage(sessions.get(receivingUser), message, payload);
-      }
-    }
-  }
-
-  public void abort(
-      UserEntity currentUser,
-      CallPayloadDto payload,
-      TextMessage message) throws IOException {
 
     var users = userService
-        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId()))).getList();
+        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId())))
+        .getList();
     users.remove(currentUser);
 
     for (var receivingUser : users) {
       if (sessions.containsKey(receivingUser)) {
-        sendMessage(sessions.get(receivingUser), message, payload);
+        sendMessage(sessions.get(receivingUser), payload);
+      } else {
+        payload.setType(CallMessageType.abort);
+        sendMessage(sessions.get(receivingUser), payload);
       }
     }
   }
 
-  public void sendMessage(
-      WebSocketSession session,
-      TextMessage message,
-      CallPayloadDto payload) throws IOException {
+  public void abort(UserEntity currentUser, CallPayloadDto payload) throws IOException {
+
+    var users = userService
+        .readAll(userService.query().and(userService.getPredicate().withChat(payload.getChatId())))
+        .getList();
+    users.remove(currentUser);
+
+    for (var receivingUser : users) {
+      if (sessions.containsKey(receivingUser)) {
+        sendMessage(sessions.get(receivingUser), payload);
+      }
+    }
+  }
+
+  public void sendMessage(WebSocketSession session, CallPayloadDto payload) throws IOException {
     payload.setToken(null);
-    ReflectionUtils.set("payload", message, objectMapper.writeValueAsString(payload));
-    session.sendMessage(message);
+    session.sendMessage(new TextMessage(objectMapper.writeValueAsString(payload)));
   }
 }
 
