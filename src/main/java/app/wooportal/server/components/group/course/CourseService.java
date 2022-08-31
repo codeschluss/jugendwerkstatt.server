@@ -1,5 +1,6 @@
 package app.wooportal.server.components.group.course;
 
+import java.util.Iterator;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import app.wooportal.server.components.group.feedback.FeedbackEntity;
@@ -52,14 +53,14 @@ public class CourseService extends DataService<CourseEntity, CoursePredicateBuil
         .getList();
 
     var sum = 0.0;
-    for (var feedback : feedbacks) {
-      if (feedback != null && feedback.getRating() != null) {
+    for (Iterator<FeedbackEntity> iterator = feedbacks.iterator(); iterator.hasNext();) {
+      var feedback = iterator.next();
+      if (iterator != null && feedback.getRating() != null) {
         sum += feedback.getRating().doubleValue();
       } else {
-        feedbacks.remove(feedback);
+        iterator.remove();
       }
     }
-
     return feedbacks != null && feedbacks.size() > 0 ? sum / feedbacks.size() : sum;
   }
 
