@@ -33,6 +33,5 @@ public class FeedbackEntity extends BaseEntity {
   private Integer rating;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private UserEntity user;
 }

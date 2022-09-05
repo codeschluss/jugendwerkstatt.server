@@ -35,8 +35,6 @@ databaseChangeLog:
                   name: course_id
                   type: CHAR(36)
               - column:
-                  constraints:
-                    nullable: false
                   name: user_id
                   type: CHAR(36)                                          
             tableName: feedbacks

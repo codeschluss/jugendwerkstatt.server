@@ -44,6 +44,5 @@ public class AssignmentEntity extends BaseEntity {
   private QuestionnaireEntity questionnaire;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(nullable = false)
   private UserEntity user;
 }
