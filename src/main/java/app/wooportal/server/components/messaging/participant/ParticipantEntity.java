@@ -4,6 +4,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,13 +35,14 @@ public class ParticipantEntity extends BaseEntity {
   private Set<CallEntity> calls;
   
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(nullable = false)
   private ChatEntity chat;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")
   private Set<MessageEntity> messages;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @Column(nullable = false)
+  @JoinColumn(nullable = false)
   private UserEntity user;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")
