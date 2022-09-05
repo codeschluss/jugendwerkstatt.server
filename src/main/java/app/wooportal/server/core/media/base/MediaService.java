@@ -138,6 +138,9 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
   public HttpHeaders createHeader(String name, String formatType) {
     HttpHeaders header = new HttpHeaders();
     switch (formatType) {
+      case "vnd.oasis.opendocument.text":
+        formatType = "odt";
+        break;
       case "vnd.oasis.opendocument.text-template":
         formatType = "ott";
         break;
@@ -180,8 +183,6 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
       case "vnd.openofficeorg.extension":
         formatType = "oxt";
         break;
-      default:
-        formatType = "odt";
     }
     header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + name + "." + formatType);
     header.add("Cache-Control", "no-cache, no-store, must-revalidate");
