@@ -119,10 +119,12 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public ResponseEntity<byte[]> exportDocx(MediaHtmlDto content) throws Exception {
 
+    var document = Jsoup.parse(content.getHtml(), "UTF-8");
+    document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
     var wordMLPackage = WordprocessingMLPackage.createPackage();
     var XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
     wordMLPackage.getMainDocumentPart().getContent()
-        .addAll(XHTMLImporter.convert(content.getHtml(), null));
+        .addAll(XHTMLImporter.convert(document.html(), null));
 
     try (var os = new ByteArrayOutputStream()) {
       wordMLPackage.save(os);
