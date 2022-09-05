@@ -9,6 +9,7 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Entities.EscapeMode;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -102,12 +103,10 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public ResponseEntity<byte[]> exportPdf(MediaHtmlDto content) {
 
-    var document = Jsoup.parse(content.getHtml(), "UTF-8");
-    document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
     try (var os = new ByteArrayOutputStream()) {
       var builder = new PdfRendererBuilder();
       builder.toStream(os);
-      builder.withW3cDocument(new W3CDom().fromJsoup(document), "/");
+      builder.withW3cDocument(new W3CDom().fromJsoup(getHtmlDocument(content)), "/");
       builder.run();
       return ResponseEntity.ok().headers(createHeader(content.getName(), "pdf"))
           .contentType(MediaType.APPLICATION_PDF).body(os.toByteArray());
@@ -119,22 +118,28 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public ResponseEntity<byte[]> exportDocx(MediaHtmlDto content) throws Exception {
 
-    var document = Jsoup.parse(content.getHtml(), "UTF-8");
-    document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
     var wordMLPackage = WordprocessingMLPackage.createPackage();
     var XHTMLImporter = new XHTMLImporterImpl(wordMLPackage);
     wordMLPackage.getMainDocumentPart().getContent()
-        .addAll(XHTMLImporter.convert(document.html(), null));
-
+        .addAll(XHTMLImporter.convert(getHtmlDocument(content).html(), null));
+    
     try (var os = new ByteArrayOutputStream()) {
       wordMLPackage.save(os);
-
+      
       return ResponseEntity.ok().headers(createHeader(content.getName(), "docx"))
           .body(os.toByteArray());
     } catch (IOException e) {
       e.printStackTrace();
     }
     return null;
+  }
+  
+  private Document getHtmlDocument(MediaHtmlDto content) {
+    var document = Jsoup.parse(content.getHtml(), "UTF-8");
+    document.outputSettings()
+      .syntax(Document.OutputSettings.Syntax.xml)
+      .escapeMode(EscapeMode.xhtml);
+    return document;
   }
 
   public HttpHeaders createHeader(String name, String formatType) {
