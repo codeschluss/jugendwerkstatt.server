@@ -1,6 +1,7 @@
 package app.wooportal.server.components.messaging.participant;
 
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -39,6 +40,7 @@ public class ParticipantEntity extends BaseEntity {
   private Set<MessageEntity> messages;
   
   @ManyToOne(fetch = FetchType.LAZY)
+  @Column(nullable = false)
   private UserEntity user;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "participant")

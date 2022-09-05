@@ -90,7 +90,7 @@ public class UserService extends DataService<UserEntity, UserPredicateBuilder> {
     if (entity.getId() != null
         && (entity.getRoles() == null || entity.getRoles().isEmpty()) 
         && newEntity.getApproved() != null && newEntity.getApproved()) {
-      newEntity.getRoles().add(roleService.getSupervisorRole());
+      newEntity.getRoles().add(roleService.getStudentRole());
 
       setContext("roles", context);
     }

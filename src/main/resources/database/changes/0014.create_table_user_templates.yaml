@@ -42,7 +42,7 @@ databaseChangeLog:
                   type: CHAR(36)
               - column:
                   constraints:
-                    nullable: false
+                    nullable: false            
                   name: user_id
                   type: CHAR(36)                  
             tableName: user_templates

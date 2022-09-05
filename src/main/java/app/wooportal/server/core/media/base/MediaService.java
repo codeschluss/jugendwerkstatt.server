@@ -137,6 +137,52 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public HttpHeaders createHeader(String name, String formatType) {
     HttpHeaders header = new HttpHeaders();
+    switch (formatType) {
+      case "vnd.oasis.opendocument.text-template":
+        formatType = "ott";
+        break;
+      case "vnd.oasis.opendocument.text-web":
+        formatType = "oth";
+        break;
+      case "vnd.oasis.opendocument.text-master":
+        formatType = "odm";
+        break;
+      case "vnd.oasis.opendocument.graphics":
+        formatType = "odg";
+        break;
+      case "vnd.oasis.opendocument.graphics-template":
+        formatType = "otg";
+        break;
+      case "vnd.oasis.opendocument.presentation":
+        formatType = "odp";
+        break;
+      case "vnd.oasis.opendocument.presentation-template":
+        formatType = "otp";
+        break;
+      case "vnd.oasis.opendocument.spreadsheet":
+        formatType = "ods";
+        break;
+      case "vnd.oasis.opendocument.spreadsheet-template":
+        formatType = "ots";
+        break;
+      case "vnd.oasis.opendocument.chart":
+        formatType = "odc";
+        break;
+      case "vnd.oasis.opendocument.formula":
+        formatType = "otg";
+        break;
+      case "vnd.oasis.opendocument.database":
+        formatType = "odb";
+        break;
+      case "vnd.oasis.opendocument.image":
+        formatType = "odi";
+        break;
+      case "vnd.openofficeorg.extension":
+        formatType = "oxt";
+        break;
+      default:
+        formatType = "odt";
+    }
     header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + name + "." + formatType);
     header.add("Cache-Control", "no-cache, no-store, must-revalidate");
     header.add("Pragma", "no-cache");
