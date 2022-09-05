@@ -137,58 +137,32 @@ public class MediaService extends DataService<MediaEntity, MediaPredicateBuilder
 
   public HttpHeaders createHeader(String name, String formatType) {
     HttpHeaders header = new HttpHeaders();
-    switch (formatType) {
-      case "vnd.oasis.opendocument.text":
-        formatType = "odt";
-        break;
-      case "vnd.oasis.opendocument.text-template":
-        formatType = "ott";
-        break;
-      case "vnd.oasis.opendocument.text-web":
-        formatType = "oth";
-        break;
-      case "vnd.oasis.opendocument.text-master":
-        formatType = "odm";
-        break;
-      case "vnd.oasis.opendocument.graphics":
-        formatType = "odg";
-        break;
-      case "vnd.oasis.opendocument.graphics-template":
-        formatType = "otg";
-        break;
-      case "vnd.oasis.opendocument.presentation":
-        formatType = "odp";
-        break;
-      case "vnd.oasis.opendocument.presentation-template":
-        formatType = "otp";
-        break;
-      case "vnd.oasis.opendocument.spreadsheet":
-        formatType = "ods";
-        break;
-      case "vnd.oasis.opendocument.spreadsheet-template":
-        formatType = "ots";
-        break;
-      case "vnd.oasis.opendocument.chart":
-        formatType = "odc";
-        break;
-      case "vnd.oasis.opendocument.formula":
-        formatType = "otg";
-        break;
-      case "vnd.oasis.opendocument.database":
-        formatType = "odb";
-        break;
-      case "vnd.oasis.opendocument.image":
-        formatType = "odi";
-        break;
-      case "vnd.openofficeorg.extension":
-        formatType = "oxt";
-        break;
-    }
-    header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + name + "." + formatType);
+    header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + name + "." + getFormatType(formatType));
     header.add("Cache-Control", "no-cache, no-store, must-revalidate");
     header.add("Pragma", "no-cache");
     header.add("Expires", "0");
     return header;
+  }
+
+  private String getFormatType(String formatType) {
+    return switch (formatType) {
+      case "vnd.oasis.opendocument.text" -> "odt";
+      case "vnd.oasis.opendocument.text-template" -> "ott";
+      case "vnd.oasis.opendocument.text-web" -> "oth";
+      case "vnd.oasis.opendocument.text-master" -> "odm";
+      case "vnd.oasis.opendocument.graphics" -> "odg";
+      case "vnd.oasis.opendocument.graphics-template" -> "otg";
+      case "vnd.oasis.opendocument.presentation" -> "odp";
+      case "vnd.oasis.opendocument.presentation-template" -> "otp";
+      case "vnd.oasis.opendocument.spreadsheet" -> "ods";
+      case "vnd.oasis.opendocument.spreadsheet-template" -> "ots";
+      case "vnd.oasis.opendocument.chart" -> "odc";
+      case "vnd.oasis.opendocument.formula" -> "odf";
+      case "vnd.oasis.opendocument.database" -> "odb";
+      case "vnd.oasis.opendocument.image" -> "odi";
+      case "vnd.openofficeorg.extension" -> "oxt";
+      default -> formatType;
+    };
   }
 }
 
