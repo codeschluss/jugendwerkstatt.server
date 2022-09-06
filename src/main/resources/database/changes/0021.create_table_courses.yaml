@@ -30,7 +30,7 @@ databaseChangeLog:
                     nullable: false
                     unique: true
                   name: name   
-                  type: VARCHAR(255)
+                  type: VARCHAR
               - column:
                   constraints:
                   name: description   

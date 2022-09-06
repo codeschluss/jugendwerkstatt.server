@@ -35,7 +35,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: description
-                  type: VARCHAR(255)                             
+                  type: VARCHAR                             
             tableName: subscription_types
             
             
