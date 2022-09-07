@@ -34,7 +34,6 @@ INSERT INTO courses(id, name, group_id, description) VALUES
 INSERT INTO users (id, approved, fullname, email, course_id, profile_picture_id, password, phone, verified) VALUES
 ('36808f63-4b6b-40e7-b2ee-a91f657e4e58', true, 'Student', 'student@example.com', '2163ee48-8605-46eb-bbd0-c62497007b18', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '22222222', true),
 ('e14e5d92-0b4a-47b3-991d-ac18dd6923b3', true, 'Student2', 'student2@example.com', 'dce3746a-6109-45fd-8bfa-09bb99378d37', '34af774d-2774-427b-a005-a5f406b0f72b', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '33333333', true),
-('528250c0-e0e3-4166-aa71-0f150eb2453f', true, 'Superviser', 'superviser@example.com', null, '89c7c32f-f53d-4730-bb48-ac5b02b2abd5', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '444444', true),
 ('dd939b40-be89-41ca-b031-fef2dc82a536', true, 'Not Veried User', 'notverified@example.com', null, 'ab6a0bdc-c5bf-442a-a7ca-5f4b768d6513', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '55555555', false),
 ('71a857db-dd35-4d08-bb0f-20115a584ee5', false, 'Not Approved User', 'notapproved@example.com', null, 'ced2157e-5e4f-44bb-b9a7-a17cd3cdad98', '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '66666666', true),
 ('f9cfca3d-691e-490a-8969-1e016b1d5cff', true, 'Admin1', 'admin1@example.com', null, null, '$2a$10$FpJxzuxpXKUIDQMuLNARGOb5Ocz2YoiW4WwgWOoM4uaB7P6iNM.SW', '12345568', true),
@@ -44,7 +43,6 @@ INSERT INTO users (id, approved, fullname, email, course_id, profile_picture_id,
 INSERT INTO user_roles (id, user_id, role_id) VALUES
 ('cfae19fc-ee80-4462-ac53-72631e5a52c1', '36808f63-4b6b-40e7-b2ee-a91f657e4e58', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
 ('f5bfa44f-2d19-4ebd-b40b-9112c6b9a996', 'e14e5d92-0b4a-47b3-991d-ac18dd6923b3', 'bde2722b-c45e-4256-b81a-721982d75f5b'),
-('7a8d49f7-d1db-40b2-a653-3997a0439218', '528250c0-e0e3-4166-aa71-0f150eb2453f', '4b88a5c6-cedb-4f73-809d-e042be5b0779'),
 ('9d18f5ee-906c-47bb-a7e0-c74f44cbbed5', 'f9cfca3d-691e-490a-8969-1e016b1d5cff', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
 ('c8f16ed2-901c-4c2d-91e4-eec4ddf71326', 'c8e8b553-bef6-4aea-9ec0-f7e8145b26cd', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b'),
 ('6e961c3c-bb9c-488a-b51e-861a15e8b80e', 'e404285e-4278-44ce-a6de-a2463088ee64', '34737491-a5ae-41dc-a0fb-c1ac20d31b8b');
@@ -219,9 +217,7 @@ INSERT INTO pages(id, slug, content, name, title_image_id, video_id) VALUES
 INSERT INTO participants(id, chat_id, user_id) VALUES
 ('87c048f9-26fb-4b3f-9d37-f03556c08edd', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
 ('75cd4f05-816a-45d0-b242-e12b00499e7f', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '36808f63-4b6b-40e7-b2ee-a91f657e4e58'),
-('824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '28fc7d3a-afc7-49ca-8070-eea8671abab3'),
-('36ea3a0f-31e7-4db0-b2f5-d9b42b5139c3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '528250c0-e0e3-4166-aa71-0f150eb2453f'),
-('30932b23-9b0a-472b-b16a-a6ae1c80740d', 'b2cb2479-1c75-4bf6-9543-38c53a55a70f', '528250c0-e0e3-4166-aa71-0f150eb2453f');
+('824d97ce-a60c-477d-9dc8-d48e8a5ba2d3', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '28fc7d3a-afc7-49ca-8070-eea8671abab3');
 
 INSERT INTO messages(id, content, chat_id, participant_id, media_id, parent_id) VALUES
 ('456588b4-f512-4d78-953c-53dee35b18c0', 'Hello fellow woodworkers!', '41bf7460-1a1a-41cb-8b2f-a89688671b33', '87c048f9-26fb-4b3f-9d37-f03556c08edd', null, null),

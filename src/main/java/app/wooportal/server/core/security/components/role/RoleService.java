@@ -36,15 +36,10 @@ public class RoleService extends DataService<RoleEntity, RolePredicateBuilder> {
     return repo.findOne(predicate.withKey(student)).get();
   }
   
-  public RoleEntity getSupervisorRole() {
-    return repo.findOne(predicate.withKey(supervisor)).get();
-  }
-  
   @PostConstruct
   public void checkRoles() {
     if (!repo.exists(predicate.withKey(admin))
-        || !repo.exists(predicate.withKey(student))
-        || !repo.exists(predicate.withKey(supervisor))) {
+        || !repo.exists(predicate.withKey(student))) {
       throw new NotFoundException("Not all roles exists!");
     }
   }
