@@ -25,7 +25,6 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
 
   @Override
   @GraphQLQuery(name = "getEvents")
-  @ApprovedAndVerifiedPermission
   public PageableList<EventEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -33,7 +32,6 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
 
   @Override
   @GraphQLQuery(name = "getEvent")
-  @ApprovedAndVerifiedPermission
   public Optional<EventEntity> readOne(@GraphQLArgument(name = CrudApi.entity) EventEntity entity) {
     return super.readOne(entity);
   }
@@ -66,7 +64,7 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
   public Boolean deleteOne(@GraphQLArgument(name = CrudApi.id) String id) {
     return super.deleteOne(id);
   }
-  
+
   @GraphQLQuery(name = "nextSchedule")
   @ApprovedAndVerifiedPermission
   public Optional<ScheduleEntity> getNextSchedule(@GraphQLContext EventEntity event) {
