@@ -19,7 +19,6 @@ public class MediaController {
   }
 
   @GetMapping(value = "/media/{id}")
-  @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> getMedia(@PathVariable String id) throws IOException {
     return service.getMedia(id);
   }
