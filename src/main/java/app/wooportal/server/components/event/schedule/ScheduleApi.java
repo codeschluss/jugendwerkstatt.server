@@ -24,7 +24,6 @@ public class ScheduleApi extends CrudApi<ScheduleEntity, ScheduleService> {
   
   @Override
   @GraphQLQuery(name = "getSchedules")
-  @ApprovedAndVerifiedPermission
   public PageableList<ScheduleEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -32,7 +31,6 @@ public class ScheduleApi extends CrudApi<ScheduleEntity, ScheduleService> {
   
   @Override
   @GraphQLQuery(name = "getSchedule")
-  @ApprovedAndVerifiedPermission
   public Optional<ScheduleEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) ScheduleEntity entity) {
     return super.readOne(entity);

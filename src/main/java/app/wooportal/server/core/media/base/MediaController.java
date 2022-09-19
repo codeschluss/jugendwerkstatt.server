@@ -24,7 +24,6 @@ public class MediaController {
   }
 
   @GetMapping(value = "/media/download/{id}")
-   @ApprovedAndVerifiedPermission
   public ResponseEntity<byte[]> download(@PathVariable String id) throws IOException {
     return service.download(id);
   }

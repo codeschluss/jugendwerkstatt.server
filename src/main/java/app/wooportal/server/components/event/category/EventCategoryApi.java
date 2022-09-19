@@ -24,7 +24,6 @@ public class EventCategoryApi extends CrudApi<EventCategoryEntity, EventCategory
   
   @Override
   @GraphQLQuery(name = "getEventCategories")
-  @ApprovedAndVerifiedPermission
   public PageableList<EventCategoryEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -32,7 +31,6 @@ public class EventCategoryApi extends CrudApi<EventCategoryEntity, EventCategory
   
   @Override
   @GraphQLQuery(name = "getEventCategory")
-  @ApprovedAndVerifiedPermission
   public Optional<EventCategoryEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) EventCategoryEntity entity) {
     return super.readOne(entity);

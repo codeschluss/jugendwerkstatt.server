@@ -23,7 +23,6 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLQuery(name = "getJobTypes")
-  @ApprovedAndVerifiedPermission
   public PageableList<JobTypeEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -31,7 +30,6 @@ public class JobTypeApi extends CrudApi<JobTypeEntity, JobTypeService> {
 
   @Override
   @GraphQLQuery(name = "getJobType")
-  @ApprovedAndVerifiedPermission
   public Optional<JobTypeEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) JobTypeEntity entity) {
     return super.readOne(entity);

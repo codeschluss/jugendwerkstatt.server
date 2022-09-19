@@ -25,7 +25,6 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLQuery(name = "getCompanies")
-  @ApprovedAndVerifiedPermission
   public PageableList<CompanyEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -33,7 +32,6 @@ public class CompanyApi extends CrudApi<CompanyEntity, CompanyService> {
 
   @Override
   @GraphQLQuery(name = "getCompany")
-  @ApprovedAndVerifiedPermission
   public Optional<CompanyEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) CompanyEntity entity) {
     return super.readOne(entity);

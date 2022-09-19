@@ -23,7 +23,6 @@ public class LinkCategoryApi extends CrudApi<LinkCategoryEntity, LinkCategorySer
 
   @Override
   @GraphQLQuery(name = "getLinkCategories")
-  @ApprovedAndVerifiedPermission
   public PageableList<LinkCategoryEntity> readAll(
       @GraphQLArgument(name = CrudApi.params) FilterSortPaginate params) {
     return super.readAll(params);
@@ -31,7 +30,6 @@ public class LinkCategoryApi extends CrudApi<LinkCategoryEntity, LinkCategorySer
 
   @Override
   @GraphQLQuery(name = "getLinkCategory")
-  @ApprovedAndVerifiedPermission
   public Optional<LinkCategoryEntity> readOne(
       @GraphQLArgument(name = CrudApi.entity) LinkCategoryEntity entity) {
     return super.readOne(entity);
