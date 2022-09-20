@@ -66,7 +66,6 @@ public class EventApi extends CrudApi<EventEntity, EventService> {
   }
 
   @GraphQLQuery(name = "nextSchedule")
-  @ApprovedAndVerifiedPermission
   public Optional<ScheduleEntity> getNextSchedule(@GraphQLContext EventEntity event) {
     return service.getNextSchedule(event);
   }
